@@ -221,7 +221,7 @@ function App() {
                   size="lg"
                   className="h-12 px-7"
                 >
-                  <a href="/about">Login</a>
+                  <a href="/login">Login</a>
                 </Button>
               </div>
 
@@ -486,7 +486,7 @@ function App() {
                   variant="outline"
                   className="h-12 px-7"
                 >
-                  <a href="/about">Login</a>
+                  <a href="/login">Login</a>
                 </Button>
               </div>
             </div>

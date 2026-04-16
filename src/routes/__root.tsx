@@ -10,6 +10,7 @@ import {TanStackDevtools} from '@tanstack/react-devtools'
 
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 
+import {EntityBootstrap} from '#/components/EntityBootstrap.tsx'
 import {getLocale} from '#/paraglide/runtime'
 
 import appCss from '../styles.css?url'
@@ -64,6 +65,7 @@ function RootDocument({children}: { children: React.ReactNode }) {
         </head>
         <body className="font-sans antialiased wrap-anywhere">
         <TooltipProvider>
+            <EntityBootstrap/>
             {children}
         </TooltipProvider>
         <TanStackDevtools

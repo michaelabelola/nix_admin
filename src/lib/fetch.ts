@@ -1,4 +1,5 @@
 import type {ErrorHandlerType, FetchError} from "#/lib/request.types.tsx";
+import {QueryStringUtil} from "#/lib/QueryStringUtil.ts";
 
 const DEFAULT_AUTH_TOKEN_KEY = 'accessToken'
 
@@ -25,6 +26,7 @@ interface RequestPromise<T, E = Error> extends Promise<T> {
 
     catch<TResult = never>(onrejected?: ((reason: E) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
 }
+
 
 export namespace BACKEND {
 
@@ -60,19 +62,21 @@ export namespace BACKEND {
         }
     }
 
-    export type Req<T> = {
+    export type Req<B,Q = Record<string, string | number | boolean | undefined>> = {
         errHandler?: ErrorHandlerType
-        body?: T,
-        params?: Record<string, string | number | boolean | undefined>
+        body?: B,
+        query?: Q
     }
 
     export function apiFetch<T>(
         input: RequestInfo | URL,
-        init?: AuthFetchInit & {
-            errHandler?: ErrorHandlerType
+        init?: Omit<RequestInit, 'body'> & {
+            errHandler?: ErrorHandlerType,
+            body?: any,
+            query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0],
         }): RequestPromise<T> {
-
-        if (!(input instanceof URL)) input = new URL(input.toString(), apiUrl)
+        var queryString = QueryStringUtil.paramsToQueryString(init?.query)
+        if (!(input instanceof URL)) input = new URL(input.toString() + queryString, apiUrl)
 
         return new Promise<T>((resolve, reject) => {
             fetch(input, init)
