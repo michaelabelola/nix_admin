@@ -16,7 +16,11 @@ import {
 } from 'lucide-react'
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '#/components/ui/accordion'
+import { Avatar, AvatarFallback } from '#/components/ui/avatar'
+import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '#/components/ui/card'
+import { Separator } from '#/components/ui/separator'
 import { cn } from '#/lib/utils'
 
 export const Route = createFileRoute('/_landing/welcome')({ component: App })
@@ -176,15 +180,18 @@ function App() {
 
       <main id="top">
         <section className="page-wrap rise-in grid gap-10 py-8 sm:py-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-20">
-          <div className="relative overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[linear-gradient(135deg,rgba(255,255,255,0.95),rgba(243,250,245,0.86))] px-6 py-8 shadow-[0_30px_80px_rgba(23,58,64,0.08)] sm:px-10 sm:py-12">
+          <Card className="relative overflow-hidden rounded-[2rem] border-[var(--line)] bg-[linear-gradient(135deg,rgba(255,255,255,0.95),rgba(243,250,245,0.86))] px-6 py-8 shadow-[0_30px_80px_rgba(23,58,64,0.08)] sm:px-10 sm:py-12">
             <div className="absolute -top-16 right-0 size-40 rounded-full bg-[rgba(79,184,178,0.22)] blur-3xl" />
             <div className="absolute bottom-0 left-0 size-32 rounded-full bg-[rgba(47,106,74,0.16)] blur-3xl" />
 
             <div className="relative">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[color:var(--chip-bg)] px-4 py-2 text-xs font-semibold tracking-[0.24em] uppercase text-[var(--kicker)]">
+              <Badge
+                variant="outline"
+                className="mb-6 rounded-full border-[var(--chip-line)] bg-[color:var(--chip-bg)] px-4 py-2 text-xs font-semibold tracking-[0.24em] uppercase text-[var(--kicker)]"
+              >
                 <Sparkles className="size-4" />
                 Start and run your property business
-              </div>
+              </Badge>
 
               <h1 className="max-w-3xl font-['Fraunces',serif] text-4xl leading-tight font-bold tracking-tight sm:text-5xl lg:text-6xl">
                 Launch your real estate business and manage every property from one platform.
@@ -216,7 +223,8 @@ function App() {
                 </Button>
               </div>
 
-              <div className="mt-10 grid gap-4 border-t border-[var(--line)] pt-6 sm:grid-cols-3">
+              <Separator className="mt-10 bg-[var(--line)]" />
+              <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {stats.map((stat) => (
                   <div key={stat.label}>
                     <div className="text-2xl font-extrabold text-[var(--sea-ink)]">{stat.value}</div>
@@ -225,30 +233,34 @@ function App() {
                 ))}
               </div>
             </div>
-          </div>
+          </Card>
 
           <div className="grid gap-5">
-            <div className="rounded-[2rem] border border-[var(--line)] bg-[rgba(255,255,255,0.78)] p-6 shadow-[0_20px_50px_rgba(23,58,64,0.06)] backdrop-blur">
-              <div className="mb-4 flex items-center justify-between">
+            <Card className="rounded-[2rem] border-[var(--line)] bg-[rgba(255,255,255,0.78)] p-0 shadow-[0_20px_50px_rgba(23,58,64,0.06)] backdrop-blur">
+              <CardHeader className="mb-0 flex flex-row items-center justify-between gap-4 px-6 pt-6">
                 <div>
                   <p className="text-sm font-semibold text-[var(--kicker)]">Operations Snapshot</p>
                   <h2 className="mt-1 text-2xl font-bold">Built for daily property work</h2>
                 </div>
                 <BadgeCheck className="size-10 text-[var(--lagoon-deep)]" />
-              </div>
-              <div className="space-y-4">
+              </CardHeader>
+              <CardContent className="space-y-4 px-6 pb-6">
                 {[
                   ['New business setup', 'Create your brand profile, invite your team, and publish your first listings.'],
                   ['Property management', 'Track vacant units, active leases, open offers, and recent tenant or buyer activity.'],
                   ['Revenue visibility', 'Monitor rent collection, deal flow, and portfolio performance with one clear view.'],
                 ].map(([title, text]) => (
-                  <div key={title} className="rounded-[1.4rem] border border-[var(--line)] bg-[rgba(243,250,245,0.78)] p-4">
-                    <p className="text-sm font-semibold text-[var(--sea-ink)]">{title}</p>
-                    <p className="mt-1 text-sm leading-7 text-[var(--sea-ink-soft)]">{text}</p>
-                  </div>
+                  <Card key={title} className="gap-2 rounded-[1.4rem] border-[var(--line)] bg-[rgba(243,250,245,0.78)] py-4 shadow-none">
+                    <CardHeader className="gap-1 px-4 pb-0">
+                      <CardTitle className="text-sm font-semibold text-[var(--sea-ink)]">{title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="px-4 pt-0">
+                      <CardDescription className="mt-0 text-sm leading-7 text-[var(--sea-ink-soft)]">{text}</CardDescription>
+                    </CardContent>
+                  </Card>
                 ))}
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             <div className="grid gap-5 sm:grid-cols-2">
               <FeatureCard
@@ -268,25 +280,29 @@ function App() {
         <section id="how-it-works" className="page-wrap py-8 sm:py-12 lg:py-16">
           <SectionHeading
             eyebrow="How it works"
-            title="A simple operating system for new and growing real estate teams."
-            description="From first registration to active listings and signed deals, Suiteonix keeps the core flow straightforward."
+              title="A simple operating system for new and growing real estate teams."
+              description="From first registration to active listings and signed deals, Suiteonix keeps the core flow straightforward."
           />
 
           <div className="mt-8 grid gap-5 lg:grid-cols-3">
             {steps.map((step, index) => (
-              <div
+              <Card
                 key={step.title}
-                className="rounded-[1.8rem] border border-[var(--line)] bg-[rgba(255,255,255,0.8)] p-6 shadow-[0_20px_40px_rgba(23,58,64,0.05)]"
+                className="rounded-[1.8rem] border-[var(--line)] bg-[rgba(255,255,255,0.8)] p-0 shadow-[0_20px_40px_rgba(23,58,64,0.05)]"
               >
-                <div className="flex items-center justify-between">
+                <CardHeader className="flex flex-row items-center justify-between px-6 pt-6">
                   <span className="flex size-12 items-center justify-center rounded-2xl bg-[rgba(79,184,178,0.16)] text-[var(--lagoon-deep)]">
                     <step.icon className="size-5" />
                   </span>
-                  <span className="text-sm font-semibold text-[var(--sea-ink-soft)]">0{index + 1}</span>
-                </div>
-                <h3 className="mt-6 text-xl font-bold">{step.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--sea-ink-soft)]">{step.description}</p>
-              </div>
+                  <Badge variant="outline" className="border-[var(--chip-line)] bg-white/70 text-[var(--sea-ink-soft)]">
+                    0{index + 1}
+                  </Badge>
+                </CardHeader>
+                <CardContent className="px-6 pb-6 pt-0">
+                  <CardTitle className="mt-2 text-xl font-bold">{step.title}</CardTitle>
+                  <CardDescription className="mt-3 text-sm leading-7 text-[var(--sea-ink-soft)]">{step.description}</CardDescription>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </section>
@@ -301,55 +317,59 @@ function App() {
 
             <div className="mt-8 grid gap-5 lg:grid-cols-3">
               {pricingPlans.map((plan) => (
-                <div
+                <Card
                   key={plan.name}
                   className={cn(
-                    'rounded-[1.75rem] border p-6 shadow-[0_20px_40px_rgba(23,58,64,0.05)]',
+                    'rounded-[1.75rem] p-0 shadow-[0_20px_40px_rgba(23,58,64,0.05)]',
                     plan.featured
                       ? 'border-[rgba(50,143,151,0.35)] bg-[linear-gradient(180deg,rgba(79,184,178,0.16),rgba(255,255,255,0.95))]'
                       : 'border-[var(--line)] bg-white/80',
                   )}
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <CardHeader className="flex flex-row items-start justify-between gap-4 px-6 pt-6">
                     <div>
-                      <h3 className="text-xl font-bold">{plan.name}</h3>
-                      <p className="mt-2 text-sm leading-7 text-[var(--sea-ink-soft)]">{plan.description}</p>
+                      <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
+                      <CardDescription className="mt-2 text-sm leading-7 text-[var(--sea-ink-soft)]">{plan.description}</CardDescription>
                     </div>
                     {plan.featured ? (
-                      <span className="rounded-full bg-[var(--sea-ink)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white">
+                      <Badge className="rounded-full bg-[var(--sea-ink)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white">
                         Popular
-                      </span>
+                      </Badge>
                     ) : null}
-                  </div>
+                  </CardHeader>
 
-                  <div className="mt-6 flex items-end gap-2">
+                  <CardContent className="px-6">
+                    <div className="mt-0 flex items-end gap-2">
                     <span className="text-4xl font-black">{plan.price}</span>
                     <span className="pb-1 text-sm text-[var(--sea-ink-soft)]">{plan.note}</span>
-                  </div>
+                    </div>
 
-                  <ul className="mt-6 space-y-3">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-3 text-sm text-[var(--sea-ink-soft)]">
-                        <Check className="mt-0.5 size-4 text-[var(--palm)]" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="mt-6 space-y-3">
+                      {plan.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3 text-sm text-[var(--sea-ink-soft)]">
+                          <Check className="mt-0.5 size-4 text-[var(--palm)]" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
 
-                  <Button
-                    asChild
-                    size="lg"
-                    variant={plan.featured ? 'default' : 'outline'}
-                    className={cn(
-                      'mt-8 h-11 w-full rounded-full',
-                      plan.featured
-                        ? 'bg-[linear-gradient(135deg,var(--lagoon),var(--palm))] text-white hover:opacity-95'
-                        : 'border-[var(--chip-line)] bg-white/70 text-[var(--sea-ink)] hover:bg-white',
-                    )}
-                  >
-                    <a href="#top">Get Started</a>
-                  </Button>
-                </div>
+                  <CardFooter className="px-6 pb-6 pt-2">
+                    <Button
+                      asChild
+                      size="lg"
+                      variant={plan.featured ? 'default' : 'outline'}
+                      className={cn(
+                        'h-11 w-full rounded-full',
+                        plan.featured
+                          ? 'bg-[linear-gradient(135deg,var(--lagoon),var(--palm))] text-white hover:opacity-95'
+                          : 'border-[var(--chip-line)] bg-white/70 text-[var(--sea-ink)] hover:bg-white',
+                      )}
+                    >
+                      <a href="#top">Get Started</a>
+                    </Button>
+                  </CardFooter>
+                </Card>
               ))}
             </div>
           </div>
@@ -364,17 +384,22 @@ function App() {
 
           <div className="mt-8 grid gap-5 lg:grid-cols-3">
             {testimonials.map((testimonial) => (
-              <div
+              <Card
                 key={testimonial.name}
-                className="rounded-[1.8rem] border border-[var(--line)] bg-[rgba(255,255,255,0.82)] p-6 shadow-[0_20px_40px_rgba(23,58,64,0.05)]"
+                className="rounded-[1.8rem] border-[var(--line)] bg-[rgba(255,255,255,0.82)] p-0 shadow-[0_20px_40px_rgba(23,58,64,0.05)]"
               >
-                <MessageSquareQuote className="size-8 text-[var(--lagoon-deep)]" />
-                <p className="mt-5 text-base leading-8 text-[var(--sea-ink)]">“{testimonial.quote}”</p>
-                <div className="mt-6 border-t border-[var(--line)] pt-4">
+                <CardHeader className="px-6 pt-6">
+                  <MessageSquareQuote className="size-8 text-[var(--lagoon-deep)]" />
+                </CardHeader>
+                <CardContent className="px-6 pt-0">
+                  <p className="text-base leading-8 text-[var(--sea-ink)]">“{testimonial.quote}”</p>
+                </CardContent>
+                <CardFooter className="flex-col items-start px-6 pb-6">
+                  <Separator className="mb-4 bg-[var(--line)]" />
                   <p className="font-semibold">{testimonial.name}</p>
                   <p className="text-sm text-[var(--sea-ink-soft)]">{testimonial.role}</p>
-                </div>
-              </div>
+                </CardFooter>
+              </Card>
             ))}
           </div>
         </section>
@@ -391,24 +416,28 @@ function App() {
 
             <div className="grid gap-5 sm:grid-cols-2">
               {teamMembers.map((member) => (
-                <div
+                <Card
                   key={member.name}
-                  className="rounded-[1.8rem] border border-[var(--line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(243,250,245,0.9))] p-6 shadow-[0_20px_40px_rgba(23,58,64,0.05)]"
+                  className="rounded-[1.8rem] border-[var(--line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(243,250,245,0.9))] p-0 shadow-[0_20px_40px_rgba(23,58,64,0.05)]"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="flex size-14 items-center justify-center rounded-full bg-[linear-gradient(135deg,var(--lagoon),var(--palm))] text-lg font-bold text-white">
-                      {member.name
-                        .split(' ')
-                        .map((part) => part[0])
-                        .join('')}
-                    </div>
+                  <CardHeader className="flex flex-row items-center gap-4 px-6 pt-6">
+                    <Avatar className="size-14 bg-[linear-gradient(135deg,var(--lagoon),var(--palm))] text-lg font-bold text-white">
+                      <AvatarFallback className="bg-transparent text-lg font-bold text-white">
+                        {member.name
+                          .split(' ')
+                          .map((part) => part[0])
+                          .join('')}
+                      </AvatarFallback>
+                    </Avatar>
                     <div>
-                      <h3 className="text-lg font-bold">{member.name}</h3>
-                      <p className="text-sm font-medium text-[var(--kicker)]">{member.role}</p>
+                      <CardTitle className="text-lg font-bold">{member.name}</CardTitle>
+                      <CardDescription className="text-sm font-medium text-[var(--kicker)]">{member.role}</CardDescription>
                     </div>
-                  </div>
-                  <p className="mt-4 text-sm leading-7 text-[var(--sea-ink-soft)]">{member.summary}</p>
-                </div>
+                  </CardHeader>
+                  <CardContent className="px-6 pb-6 pt-0">
+                    <p className="text-sm leading-7 text-[var(--sea-ink-soft)]">{member.summary}</p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -440,7 +469,7 @@ function App() {
         </section>
 
         <section className="page-wrap pb-14 pt-8 sm:pb-20">
-          <div className="rounded-[2.25rem] border border-[rgba(50,143,151,0.22)] bg-[linear-gradient(135deg,rgba(23,58,64,0.95),rgba(47,106,74,0.92))] px-6 py-10 text-white shadow-[0_30px_80px_rgba(23,58,64,0.16)] sm:px-10">
+          <Card className="rounded-[2.25rem] border-[rgba(50,143,151,0.22)] bg-[linear-gradient(135deg,rgba(23,58,64,0.95),rgba(47,106,74,0.92))] px-6 py-10 text-white shadow-[0_30px_80px_rgba(23,58,64,0.16)] sm:px-10">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="max-w-2xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-white/70">Ready to launch</p>
@@ -466,7 +495,7 @@ function App() {
                 </Button>
               </div>
             </div>
-          </div>
+          </Card>
         </section>
       </main>
 
@@ -517,12 +546,16 @@ function FeatureCard({
   text: string
 }) {
   return (
-    <div className="rounded-[1.8rem] border border-[var(--line)] bg-[rgba(255,255,255,0.78)] p-5 shadow-[0_20px_40px_rgba(23,58,64,0.05)]">
-      <div className="flex size-11 items-center justify-center rounded-2xl bg-[rgba(79,184,178,0.16)] text-[var(--lagoon-deep)]">
-        <Icon className="size-5" />
-      </div>
-      <h3 className="mt-4 text-lg font-bold">{title}</h3>
-      <p className="mt-2 text-sm leading-7 text-[var(--sea-ink-soft)]">{text}</p>
-    </div>
+    <Card className="rounded-[1.8rem] border-[var(--line)] bg-[rgba(255,255,255,0.78)] p-0 shadow-[0_20px_40px_rgba(23,58,64,0.05)]">
+      <CardHeader className="px-5 pt-5">
+        <div className="flex size-11 items-center justify-center rounded-2xl bg-[rgba(79,184,178,0.16)] text-[var(--lagoon-deep)]">
+          <Icon className="size-5" />
+        </div>
+        <CardTitle className="mt-1 text-lg font-bold">{title}</CardTitle>
+      </CardHeader>
+      <CardContent className="px-5 pb-5 pt-0">
+        <CardDescription className="text-sm leading-7 text-[var(--sea-ink-soft)]">{text}</CardDescription>
+      </CardContent>
+    </Card>
   )
 }
