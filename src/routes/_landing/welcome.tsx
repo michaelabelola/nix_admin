@@ -8,7 +8,6 @@ import {
   Handshake,
   House,
   KeyRound,
-  Layers3,
   MessageSquareQuote,
   ShieldCheck,
   Sparkles,
@@ -152,14 +151,13 @@ function App() {
       <header className="sticky top-0 z-30 border-b  backdrop-blur-xl check-bg">
         <div className="page-wrap flex items-center justify-between py-4">
           <a href="#top" className="flex items-center gap-3 text-sm font-semibold tracking-[0.24em] uppercase">
-            <span className="flex size-10 items-center justify-center rounded-md border bg-primary text-primary-foreground">
+            <span className="flex size-10 items-center justify-center rounded-md border text-primary-foreground">
               <Avatar className="size-8">
                 <AvatarImage src={logo} alt="Suiteonix" />
                 <AvatarFallback className="bg-transparent text-lg font-bold text-foreground">
                   NIX
                 </AvatarFallback>
               </Avatar>
-              <Layers3 className="size-5" />
             </span>
             Suiteonix
           </a>
