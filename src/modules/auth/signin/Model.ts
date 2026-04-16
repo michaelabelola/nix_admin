@@ -6,10 +6,11 @@ export namespace LoginModels {
     }
     export type EmailAndPassword = {
         email: string
+        orgID?: number
     } & WithPassword
     export type PhoneAndPassword = {
         phone: string
-        // orgID: number
+        orgID?: number
     } & WithPassword
 
     export type LoginResponse = {
