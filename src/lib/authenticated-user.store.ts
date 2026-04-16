@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import type { NixID } from '#/models/Models'
 import type { LoginModel } from '#/modules/auth/signin/Model.ts'
@@ -17,17 +18,23 @@ type AuthenticatedUserStore = {
 }
 
 export const useAuthenticatedUserStore = create<AuthenticatedUserStore>(
-  (set) => ({
-    user: null,
-    setAuthenticatedUser: (user) =>
-      set({
-        user: {
-          accessToken: user.accessToken,
-          refreshToken: user.refreshToken,
-          tokenType: user.tokenType,
-          orgID: user.orgID ?? null,
-        },
-      }),
-    clearAuthenticatedUser: () => set({ user: null }),
-  }),
+  persist(
+    (set) => ({
+      user: null,
+      setAuthenticatedUser: (user) =>
+        set({
+          user: {
+            accessToken: user.accessToken,
+            refreshToken: user.refreshToken,
+            tokenType: user.tokenType,
+            orgID: user.orgID ?? null,
+          },
+        }),
+      clearAuthenticatedUser: () => set({ user: null }),
+    }),
+    {
+      name: 'authenticated-user',
+        storage: localStorage,
+    },
+  ),
 )
