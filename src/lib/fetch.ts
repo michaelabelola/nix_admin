@@ -2,9 +2,10 @@ import type {ErrorHandlerType, FetchError} from "#/lib/request.types.tsx";
 
 const DEFAULT_AUTH_TOKEN_KEY = 'accessToken'
 
+const apiUrl = import.meta.env.VITE_API_BASE_URL
+
 type AuthFetchInit = RequestInit & {
     tokenKey?: string
-
 }
 
 function buildHeaders(headers?: HeadersInit) {
@@ -19,22 +20,20 @@ function getStoredToken(tokenKey = DEFAULT_AUTH_TOKEN_KEY) {
     return window.localStorage.getItem(tokenKey)
 }
 
-export function apiFetch(input: RequestInfo | URL, init?: RequestInit) {
-    return fetch(input, init)
-}
-
-interface RequestPromise<T, E = Error> {
+interface RequestPromise<T, E = Error> extends Promise<T> {
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
     catch<TResult = never>(onrejected?: ((reason: E) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
 }
 
-export function authFetch<T>(input: RequestInfo | URL,
-                             init?: AuthFetchInit & {
-                                 errHandler?: ErrorHandlerType
-                             }) {
-    return new Promise<T>((resolve, reject) => {
-        authFetchRaw(input, init).then(async resp => {
+export namespace BACKEND {
+
+    function processResponse<T>(
+        resolve: Parameters<ConstructorParameters<typeof Promise>[0]>[0] | any,
+        reject: Parameters<ConstructorParameters<typeof Promise>[0]>[1],
+        init?: Parameters<typeof apiFetch>[1]) {
+        return async (resp: Response) => {
+
             const internalFields = {
                 status: resp.status,
                 statusText: resp.statusText,
@@ -58,22 +57,56 @@ export function authFetch<T>(input: RequestInfo | URL,
                 const text_1 = await resp.text()
                 return resolve(text_1 as any)
             }
+        }
+    }
+
+    export type Req<T> = {
+        errHandler?: ErrorHandlerType
+        body?: T,
+        params?: Record<string, string | number | boolean | undefined>
+    }
+
+    export function apiFetch<T>(
+        input: RequestInfo | URL,
+        init?: AuthFetchInit & {
+            errHandler?: ErrorHandlerType
+        }): RequestPromise<T> {
+
+        if (!(input instanceof URL)) input = new URL(input.toString(), apiUrl)
+
+        return new Promise<T>((resolve, reject) => {
+            fetch(input, init)
+                .then(processResponse<T>(resolve, resolve, init))
+                .catch(reject)
         })
-    }) as RequestPromise<T, FetchError>
-}
 
-export function authFetchRaw(input: RequestInfo | URL, init?: AuthFetchInit) {
-    const {tokenKey = DEFAULT_AUTH_TOKEN_KEY, ...requestInit} = init ?? {}
-    const headers = buildHeaders(requestInit.headers)
-    const token = getStoredToken(tokenKey)
+    }
 
-    if (token) headers.set('Authorization', `Bearer ${token}`)
+    export function authFetch<T>(input: RequestInfo | URL,
+                                 init?: AuthFetchInit & {
+                                     errHandler?: ErrorHandlerType
+                                 }) {
+        return new Promise<T>((resolve, reject) => {
+            return authFetchRaw(input, init)
+                .then(processResponse<T>(resolve, resolve, init))
+                .catch(reject)
+        }) as RequestPromise<T, FetchError>
+    }
 
+    function authFetchRaw(input: RequestInfo | URL, init?: AuthFetchInit) {
+        const {tokenKey = DEFAULT_AUTH_TOKEN_KEY, ...requestInit} = init ?? {}
+        const headers = buildHeaders(requestInit.headers)
+        const token = getStoredToken(tokenKey)
 
-    return fetch(input, {
-        ...requestInit,
-        headers,
-    })
+        if (token) headers.set('Authorization', `Bearer ${token}`)
+        if (!(input instanceof URL))
+            input = new URL(input.toString(), apiUrl)
+
+        return fetch(input, {
+            ...requestInit,
+            headers,
+        })
+    }
 }
 
 export {DEFAULT_AUTH_TOKEN_KEY}

@@ -1,6 +1,6 @@
 import type {NixID} from "@/models/Models.ts";
 
-export namespace LoginModels {
+export namespace LoginModel {
     type WithPassword = {
         password: string;
     }
