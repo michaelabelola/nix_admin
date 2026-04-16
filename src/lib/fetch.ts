@@ -1,5 +1,6 @@
 import type {ErrorHandlerType, FetchError} from "#/lib/request.types.tsx";
 import {QueryStringUtil} from "#/lib/QueryStringUtil.ts";
+import { useAuthenticatedUserStore } from '#/lib/authenticated-user.store'
 
 const DEFAULT_AUTH_TOKEN_KEY = 'accessToken'
 
@@ -14,6 +15,12 @@ function buildHeaders(headers?: HeadersInit) {
 }
 
 function getStoredToken(tokenKey = DEFAULT_AUTH_TOKEN_KEY) {
+    const authenticatedUser = useAuthenticatedUserStore.getState().user
+
+    if (tokenKey === DEFAULT_AUTH_TOKEN_KEY && authenticatedUser?.accessToken) {
+        return authenticatedUser.accessToken
+    }
+
     if (typeof window === 'undefined') {
         return null
     }

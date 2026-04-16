@@ -4,6 +4,7 @@ import {useForm, useStore} from '@tanstack/react-form'
 import {Alert, AlertDescription, AlertTitle} from '#/components/ui/alert'
 import {Button} from '#/components/ui/button'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card'
+import {useAuthenticatedUserStore} from '#/lib/authenticated-user.store'
 import {useEntityStore} from '#/lib/entity.store'
 import type {LoginModel} from '#/modules/auth/signin/Model.ts'
 import {LoginHook} from '#/modules/auth/signin/request.hook'
@@ -32,13 +33,9 @@ function validateEmail(value: string) {
 
 export function SignInForm() {
     const entityID = useEntityStore((state) => state.entityID)
+    const setAuthenticatedUser = useAuthenticatedUserStore((state) => state.setAuthenticatedUser)
     const login = LoginHook.useLogin((response) => {
-        window.localStorage.setItem('accessToken', response.accessToken)
-        window.localStorage.setItem('refreshToken', response.refreshToken)
-
-        if (response.orgID) {
-            window.localStorage.setItem('orgID', response.orgID)
-        }
+        setAuthenticatedUser(response)
     })
 
     // @ts-ignore
