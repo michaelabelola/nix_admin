@@ -10,51 +10,72 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as LandingRouteRouteImport } from './routes/_landing/route'
+import { Route as LandingIndexRouteImport } from './routes/_landing/index'
 import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
+import { Route as LandingWelcomeRouteImport } from './routes/_landing/welcome'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const LandingRouteRoute = LandingRouteRouteImport.update({
+  id: '/_landing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandingIndexRoute = LandingIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => LandingRouteRoute,
 } as any)
 const DemoI18nRoute = DemoI18nRouteImport.update({
   id: '/demo/i18n',
   path: '/demo/i18n',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LandingWelcomeRoute = LandingWelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => LandingRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof LandingIndexRoute
   '/about': typeof AboutRoute
+  '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
+  '/': typeof LandingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_landing': typeof LandingRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/_landing/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
+  '/_landing/': typeof LandingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/demo/i18n'
+  fullPaths: '/' | '/about' | '/welcome' | '/demo/i18n'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/demo/i18n'
-  id: '__root__' | '/' | '/about' | '/demo/i18n'
+  to: '/about' | '/welcome' | '/demo/i18n' | '/'
+  id:
+    | '__root__'
+    | '/_landing'
+    | '/about'
+    | '/_landing/welcome'
+    | '/demo/i18n'
+    | '/_landing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   DemoI18nRoute: typeof DemoI18nRoute
 }
@@ -68,12 +89,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_landing': {
+      id: '/_landing'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof LandingRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_landing/': {
+      id: '/_landing/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof LandingIndexRouteImport
+      parentRoute: typeof LandingRouteRoute
     }
     '/demo/i18n': {
       id: '/demo/i18n'
@@ -82,11 +110,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoI18nRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_landing/welcome': {
+      id: '/_landing/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof LandingWelcomeRouteImport
+      parentRoute: typeof LandingRouteRoute
+    }
   }
 }
 
+interface LandingRouteRouteChildren {
+  LandingWelcomeRoute: typeof LandingWelcomeRoute
+  LandingIndexRoute: typeof LandingIndexRoute
+}
+
+const LandingRouteRouteChildren: LandingRouteRouteChildren = {
+  LandingWelcomeRoute: LandingWelcomeRoute,
+  LandingIndexRoute: LandingIndexRoute,
+}
+
+const LandingRouteRouteWithChildren = LandingRouteRoute._addFileChildren(
+  LandingRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   DemoI18nRoute: DemoI18nRoute,
 }
