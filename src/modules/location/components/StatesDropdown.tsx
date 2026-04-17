@@ -23,31 +23,43 @@ export function StatesDropdown({
     stateToValue = (state) => state.iso2,
     ...props
 }: StatesDropdownProps) {
-    const hasRequiredParams = Boolean(countryIso2 && stateIso2)
-    const stateQuery = useQuery({
+    const hasCountry = Boolean(countryIso2)
+    const selectedStateQuery = useQuery({
         queryKey: ['location', 'state', countryIso2, stateIso2],
         queryFn: () =>
             statesApi.getStateByCountryIdAndStateId({
                 countryIso2: countryIso2 as string,
                 stateIso2: stateIso2 as string,
             }),
-        enabled: hasRequiredParams,
+        enabled: Boolean(countryIso2 && stateIso2),
+    })
+    const statesQuery = useQuery({
+        queryKey: ['location', 'states', countryIso2],
+        queryFn: () =>
+            statesApi.queryStates({
+                countryCode: countryIso2 as string,
+                size: 500,
+            }),
+        enabled: hasCountry,
     })
 
-    const options = stateQuery.data
-        ? [
-            {
-                label: stateToLabel(stateQuery.data),
-                value: stateToValue(stateQuery.data),
-            },
-        ]
-        : []
+    const options = stateIso2 && selectedStateQuery.data
+        ? [{
+            label: stateToLabel(selectedStateQuery.data),
+            value: stateToValue(selectedStateQuery.data),
+        }]
+        : (statesQuery.data?.content ?? []).map((state) => ({
+            label: stateToLabel(state),
+            value: stateToValue(state),
+        }))
 
-    const resolvedEmptyLabel = !hasRequiredParams
-        ? 'Select a country and state'
-        : stateQuery.isPending
+    const resolvedEmptyLabel = !hasCountry
+        ? 'Select a country first'
+        : stateIso2 && selectedStateQuery.isPending
+            ? 'Loading state...'
+            : statesQuery.isPending
             ? 'Loading states...'
-            : stateQuery.isError
+            : selectedStateQuery.isError || statesQuery.isError
                 ? 'Unable to load states'
                 : emptyLabel ?? 'No states available'
 
@@ -57,7 +69,7 @@ export function StatesDropdown({
             options={options}
             placeholder={placeholder}
             emptyLabel={resolvedEmptyLabel}
-            disabled={disabled || !hasRequiredParams || stateQuery.isPending || stateQuery.isError}
+            disabled={disabled || !hasCountry || statesQuery.isPending || statesQuery.isError}
             {...props}
         />
     )

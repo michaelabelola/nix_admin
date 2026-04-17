@@ -82,7 +82,8 @@ export function ResendVerificationEmailPage() {
     const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
 
     return (
-        <main className="page-wrap grid min-h-[calc(100vh-4rem)] gap-10 px-4 py-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <main
+            className="page-wrap grid min-h-[calc(100vh-4rem)] gap-10 px-4 py-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <section className="grid gap-6">
                 <Badge variant="outline" className="w-fit">
                     Email Verification
@@ -99,7 +100,9 @@ export function ResendVerificationEmailPage() {
                             <Link to="/login">Back to login</Link>
                         </Button>
                         <Button asChild variant="ghost">
-                            <Link to="/verify-email">Already have a code?</Link>
+                            <Link to="/verify-email" search={{
+                                email: "", token: ""
+                            }}>Already have a code?</Link>
                         </Button>
                     </div>
                 </div>
@@ -108,7 +111,8 @@ export function ResendVerificationEmailPage() {
                     {benefits.map((benefit) => (
                         <div key={benefit.title} className="grid gap-2 rounded-md border bg-card p-4">
                             <div className="flex items-center gap-3">
-                                <span className="flex size-10 items-center justify-center rounded-md border bg-muted text-primary">
+                                <span
+                                    className="flex size-10 items-center justify-center rounded-md border bg-muted text-primary">
                                     <benefit.icon className="size-5"/>
                                 </span>
                                 <h2 className="text-lg font-semibold">{benefit.title}</h2>
@@ -192,7 +196,14 @@ export function ResendVerificationEmailPage() {
                                 <Alert>
                                     <AlertTitle>Verification email sent</AlertTitle>
                                     <AlertDescription>
-                                        Check your inbox and use the verification details in that message to activate the account.
+                                        Check your inbox and use the verification details in that message to activate
+                                        the account.
+                                        <Button>
+                                            <Link to={"/verify-email"} search={{
+                                                email: form?.state?.values?.email,
+                                                token: ""
+                                            }}>Continue</Link>
+                                        </Button>
                                     </AlertDescription>
                                 </Alert>
                             ) : null}

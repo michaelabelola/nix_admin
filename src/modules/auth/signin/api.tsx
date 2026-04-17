@@ -25,8 +25,14 @@ class LoginApi {
         })
     }
 
-    verifyEmail(params: BACKEND.ReqBody<LoginModel.VerifyEmailRequest>) {
-        return BACKEND.apiFetch<ResponseDto<AuthProfileModel.AuthProfile>>(`/auth/verify-email`, params)
+    verifyEmail({body, ...params}: BACKEND.ReqBody<LoginModel.VerifyEmailRequest>) {
+        return BACKEND.apiFetch<ResponseDto<AuthProfileModel.AuthProfile>>(`/auth/verify-email`,
+            {
+                method: "POST",
+                ...params,
+                body: JSON.stringify(body)
+            }
+        )
     }
 }
 

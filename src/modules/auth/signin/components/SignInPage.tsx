@@ -24,7 +24,7 @@ const benefits = [
     },
 ]
 
-export function SignInPage() {
+export function SignInPage({initialEmail}: { initialEmail?: string }) {
     return (
         <main
             className="page-wrap grid min-h-[calc(100vh-4rem)] gap-10 px-4 py-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
@@ -45,7 +45,7 @@ export function SignInPage() {
                             <Link to="/signup">Register account</Link>
                         </Button>
                         <Button asChild variant="outline">
-                            <Link to="/resend-verification-email">Forgot Email</Link>
+                            <Link to="/resend-verification-email">Forgot Password?</Link>
                         </Button>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ export function SignInPage() {
             </section>
 
             <section>
-                <SignInForm/>
+                <SignInForm initialEmail={initialEmail}/>
             </section>
         </main>
     )

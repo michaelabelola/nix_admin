@@ -7,7 +7,10 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/compo
 import {Input} from '#/components/ui/input'
 import {Label} from '#/components/ui/label'
 import {Textarea} from '#/components/ui/textarea'
+import {CountryDropdown} from '#/modules/location/components/CountryDropdown'
+import {StatesDropdown} from '#/modules/location/components/StatesDropdown'
 import {SignupHook} from '#/modules/auth/signup/request.hook'
+import {useNavigate} from "@tanstack/react-router";
 
 type SignUpFormValues = {
     firstname: string
@@ -25,7 +28,7 @@ type SignUpFormValues = {
     zipcode: string
 }
 
-type FieldError = string | {message?: string}
+type FieldError = string | { message?: string }
 
 function required(value: string, label: string) {
     if (!value.trim()) {
@@ -52,11 +55,11 @@ function getErrorMessage(error: FieldError) {
 }
 
 function SignUpTextField({
-    field,
-    label,
-    placeholder,
-    type = 'text',
-}: {
+                             field,
+                             label,
+                             placeholder,
+                             type = 'text',
+                         }: {
     field: any
     label: string
     placeholder?: string
@@ -89,10 +92,10 @@ function SignUpTextField({
 }
 
 function SignUpTextAreaField({
-    field,
-    label,
-    placeholder,
-}: {
+                                 field,
+                                 label,
+                                 placeholder,
+                             }: {
     field: any
     label: string
     placeholder?: string
@@ -123,6 +126,33 @@ function SignUpTextAreaField({
     )
 }
 
+function SignUpDropdownField({
+                                 field,
+                                 label,
+                                 children,
+                             }: {
+    field: any
+    label: string
+    children: React.ReactNode
+}) {
+    const errors = useStore(field.store, (state: any) => state.meta.errors as FieldError[])
+
+    return (
+        <div className="grid gap-2">
+            <Label htmlFor={field.name}>{label}</Label>
+            {children}
+            {field.state.meta.isTouched && errors.length > 0 ? (
+                <div className="space-y-1 text-sm text-destructive">
+                    {errors.map((error) => {
+                        const message = getErrorMessage(error)
+                        return <small key={message}>{message}</small>
+                    })}
+                </div>
+            ) : null}
+        </div>
+    )
+}
+
 export function SignUpForm() {
     const [avatar, setAvatar] = useState<File | undefined>()
     const [isRegistered, setIsRegistered] = useState(false)
@@ -139,7 +169,7 @@ export function SignUpForm() {
             }).filter(([key]) => Boolean(key)),
         ) as Record<string, string>
     }, [signup.errHandler.errors])
-
+    const navigate = useNavigate()
     // @ts-ignore
     const form = useForm<SignUpFormValues>({
         defaultValues: {
@@ -179,6 +209,16 @@ export function SignUpForm() {
                     longitude: 0,
                 },
                 avatar,
+            }).then(value1 => {
+                setTimeout(() => {
+                    navigate({
+                        to: '/verify-email',
+                        search: {
+                            email: value1.auth.email,
+                            token: ''
+                        }
+                    })
+                }, 2000)
             })
         },
     })
@@ -228,7 +268,8 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => validateEmail(value)}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="Email" type="email" placeholder="you@company.com"/>
+                                <SignUpTextField field={field} label="Email" type="email"
+                                                 placeholder="you@company.com"/>
                             )}
                         </form.Field>
 
@@ -248,7 +289,8 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => required(value, 'Password')}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="Password" type="password" placeholder="Create a password"/>
+                                <SignUpTextField field={field} label="Password" type="password"
+                                                 placeholder="Create a password"/>
                             )}
                         </form.Field>
 
@@ -309,7 +351,15 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => required(value, 'State / Province')}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="State / Province" placeholder="Ontario"/>
+                                <SignUpDropdownField field={field} label="State / Province">
+                                    <StatesDropdown
+                                        name={field.name}
+                                        value={field.state.value}
+                                        countryIso2={form.getFieldValue('country')}
+                                        placeholder="Select a state or province"
+                                        onValueChange={(value) => field.handleChange(value)}
+                                    />
+                                </SignUpDropdownField>
                             )}
                         </form.Field>
                     </div>
@@ -320,7 +370,17 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => required(value, 'Country')}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="Country" placeholder="Canada"/>
+                                <SignUpDropdownField field={field} label="Country">
+                                    <CountryDropdown
+                                        name={field.name}
+                                        value={field.state.value}
+                                        placeholder="Select a country"
+                                        onValueChange={(value) => {
+                                            field.handleChange(value)
+                                            form.setFieldValue('state', '')
+                                        }}
+                                    />
+                                </SignUpDropdownField>
                             )}
                         </form.Field>
 
@@ -375,7 +435,8 @@ export function SignUpForm() {
                         <Alert>
                             <AlertTitle>Account created</AlertTitle>
                             <AlertDescription>
-                                Your registration was submitted successfully. You can now sign in with the credentials you created.
+                                Your registration was submitted successfully.
+                                Check your email for verification Token
                             </AlertDescription>
                         </Alert>
                     ) : null}

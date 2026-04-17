@@ -40,7 +40,9 @@ export namespace SignInHook {
         return {
             ...useMutation({
                 mutationFn: (dto: LoginModel.VerifyEmailRequest) =>
-                    loginApi.verifyEmail({errHandler, body: dto}),
+                    loginApi.verifyEmail({
+                        errHandler, body: dto,
+                    }),
                 onSuccess: successHandler,
                 networkMode: 'online'
             }),

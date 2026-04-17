@@ -60,16 +60,16 @@ export namespace BACKEND {
                     if (init?.errHandler) init.errHandler._errInit(data)
                     return reject(data)
                 } catch {
-                    const text = await resp.text()
-                    return reject({internalFields: {...internalFields, body: text}})
+                    return reject({internalFields: {...internalFields}})
                 }
             }
             try {
                 const data_1 = await resp.json() as T
                 return resolve(data_1)
             } catch {
-                const text_1 = await resp.text()
-                return resolve(text_1 as any)
+                return resolve({
+                    _internal: internalFields
+                })
             }
         }
     }
@@ -86,12 +86,13 @@ export namespace BACKEND {
     export type FullReq<B, Q = Record<string, string | number | boolean | undefined>> = {
         errHandler?: ErrorHandlerType
         query?: Q
-    } & B
+        body?: B
+    }
 
-    export type ReqQuery<B, Q = Record<string, string | number | boolean | undefined>> = {
+    export type ReqQuery<Q = Record<string, string | number | boolean | undefined>> = {
         errHandler?: ErrorHandlerType
         query?: Q
-    } & B
+    }
 
     export function apiFetch<T>(
         input: RequestInfo | URL,
@@ -99,7 +100,7 @@ export namespace BACKEND {
             contentType?: string | "omit"
             errHandler?: ErrorHandlerType,
             body?: any,
-            query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0]|Record<string, any>,
+            query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0] | Record<string, any>,
         }): RequestPromise<T> {
         var queryString = QueryStringUtil.paramsToQueryString(init?.query)
         if (!(input instanceof URL)) input = new URL(input.toString() + queryString, apiUrl)
@@ -122,6 +123,9 @@ export namespace BACKEND {
     export function authFetch<T>(input: RequestInfo | URL,
                                  init?: AuthFetchInit & {
                                      errHandler?: ErrorHandlerType
+                                     contentType?: string | "omit"
+                                     body?: any,
+                                     query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0] | Record<string, any>,
                                  }) {
         return new Promise<T>((resolve, reject) => {
             return authFetchRaw(input, init)
@@ -130,14 +134,23 @@ export namespace BACKEND {
         }) as RequestPromise<T, FetchError>
     }
 
-    function authFetchRaw(input: RequestInfo | URL, init?: AuthFetchInit) {
+    function authFetchRaw(input: RequestInfo | URL, init?: AuthFetchInit & {
+        contentType?: string | "omit"
+        errHandler?: ErrorHandlerType,
+        body?: any,
+        query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0] | Record<string, any>,
+    }) {
         const {tokenKey = DEFAULT_AUTH_TOKEN_KEY, ...requestInit} = init ?? {}
         const headers = buildHeaders(requestInit.headers)
         const token = getStoredToken(tokenKey)
+        var queryString = QueryStringUtil.paramsToQueryString(init?.query)
+
+        if (init?.contentType !== "omit")
+            headers.set("Content-Type", init?.contentType || "application/json")
 
         if (token) headers.set('Authorization', `Bearer ${token}`)
         if (!(input instanceof URL))
-            input = new URL(input.toString(), apiUrl)
+            input = new URL(input.toString() + queryString, apiUrl)
 
         return fetch(input, {
             ...requestInit,

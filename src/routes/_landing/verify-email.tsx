@@ -7,7 +7,7 @@ type VerifyEmailSearch = {
     token?: string
 }
 
-export const Route = createFileRoute('/verify-email')({
+export const Route = createFileRoute('/_landing/verify-email')({
     validateSearch: (search: VerifyEmailSearch) => ({
         email: typeof search.email === 'string' ? search.email : '',
         token: typeof search.token === 'string' ? search.token : '',

@@ -13,6 +13,8 @@ class SignUpApi {
 
         return BACKEND.apiFetch<SignUpModel.Response>(`/user/onboard`, {
             body: formData,
+            contentType: "omit",
+            method: 'POST',
             ...others
         })
     }

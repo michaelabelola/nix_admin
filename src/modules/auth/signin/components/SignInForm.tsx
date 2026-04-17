@@ -31,7 +31,7 @@ function validateEmail(value: string) {
     return undefined
 }
 
-export function SignInForm() {
+export function SignInForm({initialEmail}: { initialEmail?: string }) {
     const entityID = useEntityStore((state) => state.entityID)
     const setAuthenticatedUser = useAuthenticatedUserStore((state) => state.setAuthenticatedUser)
     const {errHandler, ...login} = SignInHook.useSignIn((response) => {
@@ -41,7 +41,7 @@ export function SignInForm() {
     // @ts-ignore
     const form = useForm<LoginModel.EmailAndPassword>({
         defaultValues: {
-            email: '',
+            email: initialEmail || '',
             password: '',
             orgID: entityID ?? '',
         },

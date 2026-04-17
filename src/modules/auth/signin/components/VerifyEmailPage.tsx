@@ -69,9 +69,9 @@ function validateToken(value: string) {
 }
 
 export function VerifyEmailPage({
-    initialEmail = '',
-    initialToken = '',
-}: {
+                                    initialEmail = '',
+                                    initialToken = '',
+                                }: {
     initialEmail?: string
     initialToken?: string
 }) {
@@ -108,7 +108,8 @@ export function VerifyEmailPage({
     const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
 
     return (
-        <main className="page-wrap grid min-h-[calc(100vh-4rem)] gap-10 px-4 py-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <main
+            className="page-wrap grid min-h-[calc(100vh-4rem)] gap-10 px-4 py-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <section className="grid gap-6">
                 <Badge variant="outline" className="w-fit">
                     Account Activation
@@ -118,14 +119,15 @@ export function VerifyEmailPage({
                         Verify your email address.
                     </h1>
                     <p className="max-w-xl text-base leading-8 text-muted-foreground">
-                        Complete email verification with the address and token supplied by your Suiteonix verification message.
+                        Complete email verification with the address and token supplied by your Suiteonix verification
+                        message.
                     </p>
                     <div className="flex flex-wrap gap-3">
                         <Button asChild variant="outline">
-                            <Link to="/login">Back to login</Link>
+                            <Link to="/login" search={{email: ""}}>Back to login</Link>
                         </Button>
                         <Button asChild variant="ghost">
-                            <Link to="/resend-verification-email">Need a new email?</Link>
+                            <Link to="/resend-verification-email">Resend Verification Mail</Link>
                         </Button>
                     </div>
                 </div>
@@ -134,7 +136,8 @@ export function VerifyEmailPage({
                     {benefits.map((benefit) => (
                         <div key={benefit.title} className="grid gap-2 rounded-md border bg-card p-4">
                             <div className="flex items-center gap-3">
-                                <span className="flex size-10 items-center justify-center rounded-md border bg-muted text-primary">
+                                <span
+                                    className="flex size-10 items-center justify-center rounded-md border bg-muted text-primary">
                                     <benefit.icon className="size-5"/>
                                 </span>
                                 <h2 className="text-lg font-semibold">{benefit.title}</h2>
@@ -198,6 +201,7 @@ export function VerifyEmailPage({
                                             id={field.name}
                                             name={field.name}
                                             type="email"
+                                            disabled={!!initialEmail}
                                             value={field.state.value}
                                             placeholder="you@company.com"
                                             onBlur={field.handleBlur}
@@ -248,6 +252,13 @@ export function VerifyEmailPage({
                                     <AlertTitle>Email verified</AlertTitle>
                                     <AlertDescription>
                                         {verifyEmail.data?.message || 'Your account is verified. You can sign in now.'}
+                                        <div className={"flex w-full justify-end gap-3"}>
+                                            <Button variant={"outline"}>
+                                                <Link to={"/login"} search={{email: form?.state?.values?.email}}>
+                                                    Sign In
+                                                </Link>
+                                            </Button>
+                                        </div>
                                     </AlertDescription>
                                 </Alert>
                             ) : null}
