@@ -1,45 +1,27 @@
-import {AuthenticatedRequest, ErrorFieldProcessor, type ErrorFieldProcessorParam} from "@/configs/axios.config.ts";
 import type {Paged, PagedRequest} from "@/models/PagedModel.ts";
-import type {AxiosResponse} from "axios";
+import {BACKEND} from "#/lib/fetch.ts";
 
 export class CountriesApi {
-    queryCountries(params: PagedRequest<LocationModel.Country_Query>, config?: ErrorFieldProcessorParam) {
-        return new Promise<Paged<LocationModel.Country>>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/countries`, {params})
-                .then((response: AxiosResponse<Paged<LocationModel.Country>>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+
+    queryCountries(params: PagedRequest<LocationModel.Country_Query>) {
+        return BACKEND.apiFetch<Paged<LocationModel.Country>>(`location/countries`, {
+            query: params
+        })
     }
 
-    queryOneCountry(params: LocationModel.Country_Query, config?: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.Country_Query>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/country`, {params})
-                .then((response: AxiosResponse<LocationModel.Country>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    queryOneCountry(query: LocationModel.Country_Query) {
+        return BACKEND.apiFetch<LocationModel.Country>(`location/country`, {
+            query: query
+        })
     }
 
-    getCountryById(id?: string | number, config?: ErrorFieldProcessorParam) {
-        if (!id) return Promise.reject("Country ID is required");
-        return new Promise<LocationModel.Country>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/country/${id}`)
-                .then((response: AxiosResponse<LocationModel.Country>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    getCountryById(id?: string | number) {
+        return BACKEND.apiFetch<LocationModel.Country>(`location/country/${id}`)
     }
 
-    getAllCountries(config?: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.Country[]>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/countries/all`)
-                .then((response: AxiosResponse<LocationModel.Country[]>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    getAllCountries() {
+        return BACKEND.apiFetch<LocationModel.Country[]>(`location/countries/all`)
     }
-
 }
 
 const countriesApi = new CountriesApi()

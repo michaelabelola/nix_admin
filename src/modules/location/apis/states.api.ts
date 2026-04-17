@@ -1,57 +1,32 @@
-import {AuthenticatedRequest, ErrorFieldProcessor, type ErrorFieldProcessorParam} from "@/configs/axios.config.ts";
 import type {Paged, PagedRequest} from "@/models/PagedModel.ts";
-import type {AxiosResponse} from "axios";
+import {BACKEND} from "#/lib/fetch.ts";
 
 export class StatesApi {
 
-    queryStates(params: PagedRequest<LocationModel.State_Query>, config: ErrorFieldProcessorParam) {
-        return new Promise<Paged<LocationModel.State>>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/states`, {params})
-                .then((response: AxiosResponse<Paged<LocationModel.State>>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    queryStates(query: PagedRequest<LocationModel.State_Query>) {
+        return BACKEND.apiFetch<Paged<LocationModel.State>>(`location/states`, {query})
     }
 
-
-    getAllStatesByCountryId(countryId: string | number, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.States>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/country/${countryId}/states`)
-                .then((response: AxiosResponse<LocationModel.States>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    getAllStatesByCountryId(countryId: string | number) {
+        return BACKEND.apiFetch<LocationModel.States>(`location/country/${countryId}/states`)
     }
 
     getStateByCountryIdAndStateId({countryIso2, stateIso2}: {
         countryIso2: string,
         stateIso2: string
-    }, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.State>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/country/${countryIso2}/state/${stateIso2}`)
-                .then((response: AxiosResponse<LocationModel.State>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    }) {
+        return BACKEND.apiFetch<LocationModel.State>(`location/country/${countryIso2}/state/${stateIso2}`)
     }
 
-    queryOneState(params: LocationModel.State_Query, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.State>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/state`, {params})
-                .then((response: AxiosResponse<LocationModel.State>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    queryOneState(query: LocationModel.State_Query) {
+        return BACKEND.apiFetch<LocationModel.State>(`location/state`, {query})
     }
 
-    getStateById(stateId: number, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.State>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/state/${stateId}`)
-                .then((response: AxiosResponse<LocationModel.State>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .then(reject)
-        )
+    getStateById(stateId: number) {
+        return BACKEND.apiFetch<LocationModel.State>(`location/state/${stateId}`)
     }
 
 }
-export default new StatesApi();
+
+const statesApi = new StatesApi();
+export default statesApi;

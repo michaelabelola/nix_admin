@@ -2,6 +2,8 @@ import {useMutation} from "@tanstack/react-query";
 import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx";
 import type {LoginModel} from "#/modules/auth/signin/Model.ts";
 import {loginApi} from "#/modules/auth/signin/api.tsx";
+import type {ResponseDto} from "#/models/Models.ts";
+import {AuthProfileModel} from "#/modules/Models.ts";
 
 export namespace SignInHook {
 
@@ -18,5 +20,31 @@ export namespace SignInHook {
             errHandler,
         }
 
+    }
+
+    export function useResendVerificationEmail(successHandler?: (res: unknown) => void) {
+        const errHandler = useResponseFieldErrorHandler()
+        return {
+            ...useMutation({
+                mutationFn: (dto: LoginModel.ResendVerificationRequest) =>
+                    loginApi.resendVerificationEmail({errHandler, body: dto}),
+                onSuccess: successHandler,
+                networkMode: 'online'
+            }),
+            errHandler,
+        }
+    }
+
+    export function useVerifyEmail(successHandler?: (res: ResponseDto<AuthProfileModel.AuthProfile>) => void) {
+        const errHandler = useResponseFieldErrorHandler()
+        return {
+            ...useMutation({
+                mutationFn: (dto: LoginModel.VerifyEmailRequest) =>
+                    loginApi.verifyEmail({errHandler, body: dto}),
+                onSuccess: successHandler,
+                networkMode: 'online'
+            }),
+            errHandler,
+        }
     }
 }

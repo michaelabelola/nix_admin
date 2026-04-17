@@ -96,15 +96,23 @@ export namespace BACKEND {
     export function apiFetch<T>(
         input: RequestInfo | URL,
         init?: Omit<RequestInit, 'body'> & {
+            contentType?: string | "omit"
             errHandler?: ErrorHandlerType,
             body?: any,
-            query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0],
+            query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0]|Record<string, any>,
         }): RequestPromise<T> {
         var queryString = QueryStringUtil.paramsToQueryString(init?.query)
         if (!(input instanceof URL)) input = new URL(input.toString() + queryString, apiUrl)
 
         return new Promise<T>((resolve, reject) => {
-            fetch(input, init)
+            let header = {};
+            if (init?.contentType !== "omit")
+                header = !init?.contentType ? {"Content-Type": "application/json"} : {"Content-Type": init?.contentType}
+
+            fetch(input, {
+                ...init,
+                headers: {...header, ...init?.headers}
+            })
                 .then(processResponse<T>(resolve, reject, init))
                 .catch(reject)
         })

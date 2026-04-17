@@ -37,7 +37,6 @@ export function SignInForm() {
     const {errHandler, ...login} = SignInHook.useSignIn((response) => {
         setAuthenticatedUser(response)
     })
-    console.log(login.error)
 
     // @ts-ignore
     const form = useForm<LoginModel.EmailAndPassword>({

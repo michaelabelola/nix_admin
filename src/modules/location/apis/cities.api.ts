@@ -1,56 +1,33 @@
-import {AuthenticatedRequest, ErrorFieldProcessor, type ErrorFieldProcessorParam} from "@/configs/axios.config.ts";
-import type {AxiosResponse} from "axios";
 import type {Paged} from "@/models/PagedModel.ts";
+import {BACKEND} from "#/lib/fetch.ts";
 
 export class CitiesApi {
-    queryOneCity(params: LocationModel.City_Query, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.City>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/city`, {params})
-                .then((response: AxiosResponse<LocationModel.City>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .catch(reject)
-        )
+
+    queryOneCity(query: LocationModel.City_Query) {
+        return BACKEND.apiFetch<LocationModel.City>(`location/city`, {query})
     }
 
-    queryCitiesByCountryId(countryId: string | number, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.Cities>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/country/${countryId}/cities`)
-                .then((response: AxiosResponse<LocationModel.Cities>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .catch(reject)
-        )
+    queryCitiesByCountryId(countryId: string | number) {
+        return BACKEND.apiFetch<LocationModel.Cities>(`location/country/${countryId}/cities`)
     }
 
     queryCitiesByCountryIso2AndStateIso2({countryId, stateId}: {
         countryId: string | number,
         stateId: string | number,
-    }, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.Cities>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/country/${countryId}/states/${stateId}/cities`)
-                .then((response: AxiosResponse<LocationModel.Cities>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .catch(reject)
-        )
+    }) {
+        return BACKEND.apiFetch<LocationModel.Cities>(`location/country/${countryId}/states/${stateId}/cities`)
     }
 
-    queryCitiesByStateIso2(stateId: string | number, config: ErrorFieldProcessorParam) {
-        return new Promise<LocationModel.Cities>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/state/${stateId}/cities`)
-                .then((response: AxiosResponse<LocationModel.Cities>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .catch(reject)
-        )
+    queryCitiesByStateIso2(stateId: string | number) {
+        return BACKEND.apiFetch<LocationModel.Cities>(`location/state/${stateId}/cities`)
     }
 
-    queryCities(params: LocationModel.City_Query, config: ErrorFieldProcessorParam) {
-        return new Promise<Paged<LocationModel.Cities>>((resolve, reject) =>
-            AuthenticatedRequest.get(`location/cities`, {params})
-                .then((response: AxiosResponse<Paged<LocationModel.Cities>>) => resolve(response.data))
-                .catch(ErrorFieldProcessor(config))
-                .catch(reject)
-        )
+    queryCities(query: LocationModel.City_Query) {
+        return BACKEND.apiFetch<Paged<LocationModel.Cities>>(`location/cities`, {query})
+
     }
 
 }
 
-export default new CitiesApi();
+const citiesApi = new CitiesApi();
+export default citiesApi;

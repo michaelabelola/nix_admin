@@ -9,7 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VerifyEmailRouteImport } from './routes/verify-email'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as ResendVerificationEmailRouteImport } from './routes/resend-verification-email'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LandingRouteRouteImport } from './routes/_landing/route'
@@ -17,9 +19,19 @@ import { Route as LandingIndexRouteImport } from './routes/_landing/index'
 import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
 import { Route as LandingWelcomeRouteImport } from './routes/_landing/welcome'
 
+const VerifyEmailRoute = VerifyEmailRouteImport.update({
+  id: '/verify-email',
+  path: '/verify-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResendVerificationEmailRoute = ResendVerificationEmailRouteImport.update({
+  id: '/resend-verification-email',
+  path: '/resend-verification-email',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -56,14 +68,18 @@ export interface FileRoutesByFullPath {
   '/': typeof LandingIndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/resend-verification-email': typeof ResendVerificationEmailRoute
   '/signup': typeof SignupRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/resend-verification-email': typeof ResendVerificationEmailRoute
   '/signup': typeof SignupRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/': typeof LandingIndexRoute
@@ -73,22 +89,42 @@ export interface FileRoutesById {
   '/_landing': typeof LandingRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/resend-verification-email': typeof ResendVerificationEmailRoute
   '/signup': typeof SignupRoute
+  '/verify-email': typeof VerifyEmailRoute
   '/_landing/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/login' | '/signup' | '/welcome' | '/demo/i18n'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/login'
+    | '/resend-verification-email'
+    | '/signup'
+    | '/verify-email'
+    | '/welcome'
+    | '/demo/i18n'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/login' | '/signup' | '/welcome' | '/demo/i18n' | '/'
+  to:
+    | '/about'
+    | '/login'
+    | '/resend-verification-email'
+    | '/signup'
+    | '/verify-email'
+    | '/welcome'
+    | '/demo/i18n'
+    | '/'
   id:
     | '__root__'
     | '/_landing'
     | '/about'
     | '/login'
+    | '/resend-verification-email'
     | '/signup'
+    | '/verify-email'
     | '/_landing/welcome'
     | '/demo/i18n'
     | '/_landing/'
@@ -98,17 +134,33 @@ export interface RootRouteChildren {
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
+  ResendVerificationEmailRoute: typeof ResendVerificationEmailRoute
   SignupRoute: typeof SignupRoute
+  VerifyEmailRoute: typeof VerifyEmailRoute
   DemoI18nRoute: typeof DemoI18nRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/verify-email': {
+      id: '/verify-email'
+      path: '/verify-email'
+      fullPath: '/verify-email'
+      preLoaderRoute: typeof VerifyEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/signup': {
       id: '/signup'
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resend-verification-email': {
+      id: '/resend-verification-email'
+      path: '/resend-verification-email'
+      fullPath: '/resend-verification-email'
+      preLoaderRoute: typeof ResendVerificationEmailRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -174,7 +226,9 @@ const rootRouteChildren: RootRouteChildren = {
   LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
+  ResendVerificationEmailRoute: ResendVerificationEmailRoute,
   SignupRoute: SignupRoute,
+  VerifyEmailRoute: VerifyEmailRoute,
   DemoI18nRoute: DemoI18nRoute,
 }
 export const routeTree = rootRouteImport

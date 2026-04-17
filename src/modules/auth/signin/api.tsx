@@ -8,9 +8,6 @@ class LoginApi {
     emailPasswordLogin({body, ...rest}: BACKEND.ReqBody<LoginModel.EmailAndPassword>) {
         return BACKEND.apiFetch<LoginModel.LoginResponse>("/auth/login", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
             body: JSON.stringify(body),
             ...rest
         })
@@ -21,10 +18,14 @@ class LoginApi {
     }
 
     resendVerificationEmail({body, ...params}: BACKEND.ReqBody<LoginModel.ResendVerificationRequest>) {
-        return BACKEND.apiFetch<any>(`/auth/resend-verification`, {...params, body: JSON.stringify(body)})
+        return BACKEND.apiFetch<any>(`/auth/resend-verification`, {
+            method: "POST",
+            ...params,
+            body: JSON.stringify(body)
+        })
     }
 
-    verifyEmail(params: BACKEND.Req<LoginModel.VerifyEmailRequest>) {
+    verifyEmail(params: BACKEND.ReqBody<LoginModel.VerifyEmailRequest>) {
         return BACKEND.apiFetch<ResponseDto<AuthProfileModel.AuthProfile>>(`/auth/verify-email`, params)
     }
 }
