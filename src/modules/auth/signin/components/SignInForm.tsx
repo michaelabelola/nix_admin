@@ -10,6 +10,7 @@ import type {LoginModel} from '#/modules/auth/signin/Model.ts'
 import {SignInHook} from '#/modules/auth/signin/request.hook'
 
 import {SignInField} from './SignInField'
+import {useNavigate} from "@tanstack/react-router";
 
 function required(value: string, label: string) {
     if (!value.trim()) {
@@ -32,10 +33,14 @@ function validateEmail(value: string) {
 }
 
 export function SignInForm({initialEmail}: { initialEmail?: string }) {
+    const navigate = useNavigate()
     const entityID = useEntityStore((state) => state.entityID)
     const setAuthenticatedUser = useAuthenticatedUserStore((state) => state.setAuthenticatedUser)
     const {errHandler, ...login} = SignInHook.useSignIn((response) => {
         setAuthenticatedUser(response)
+        navigate({
+            to: "/admin"
+        })
     })
 
     // @ts-ignore

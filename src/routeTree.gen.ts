@@ -18,6 +18,7 @@ import { Route as LandingVerifyEmailRouteImport } from './routes/_landing/verify
 import { Route as LandingSignupRouteImport } from './routes/_landing/signup'
 import { Route as LandingResendVerificationEmailRouteImport } from './routes/_landing/resend-verification-email'
 import { Route as LandingLoginRouteImport } from './routes/_landing/login'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -64,10 +65,16 @@ const LandingLoginRoute = LandingLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => LandingRouteRoute,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/_authenticated/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LandingIndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/login': typeof LandingLoginRoute
   '/resend-verification-email': typeof LandingResendVerificationEmailRoute
   '/signup': typeof LandingSignupRoute
@@ -77,6 +84,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
+  '/admin': typeof AuthenticatedAdminRoute
   '/login': typeof LandingLoginRoute
   '/resend-verification-email': typeof LandingResendVerificationEmailRoute
   '/signup': typeof LandingSignupRoute
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_landing': typeof LandingRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_landing/login': typeof LandingLoginRoute
   '/_landing/resend-verification-email': typeof LandingResendVerificationEmailRoute
   '/_landing/signup': typeof LandingSignupRoute
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
     | '/login'
     | '/resend-verification-email'
     | '/signup'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/about'
+    | '/admin'
     | '/login'
     | '/resend-verification-email'
     | '/signup'
@@ -122,6 +133,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_landing'
     | '/about'
+    | '/_authenticated/admin'
     | '/_landing/login'
     | '/_landing/resend-verification-email'
     | '/_landing/signup'
@@ -134,6 +146,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   DemoI18nRoute: typeof DemoI18nRoute
 }
 
@@ -202,6 +215,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LandingLoginRouteImport
       parentRoute: typeof LandingRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -230,6 +250,7 @@ const LandingRouteRouteWithChildren = LandingRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   DemoI18nRoute: DemoI18nRoute,
 }
 export const routeTree = rootRouteImport

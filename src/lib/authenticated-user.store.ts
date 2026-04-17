@@ -4,7 +4,7 @@ import {persist} from 'zustand/middleware'
 import type {NixID} from '#/models/Models'
 import type {LoginModel} from '#/modules/auth/signin/Model.ts'
 
-type AuthenticatedUser = {
+export type AuthenticatedUser = {
     accessToken: string | null
     refreshToken: string | null
     tokenType: string | null
