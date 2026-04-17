@@ -1,28 +1,29 @@
 import {Navigate} from '@tanstack/react-router'
 
 import {useAuthenticatedUser} from '#/lib/authenticated-user.store'
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '#/components/ui/card'
+import {Card, CardDescription, CardHeader, CardTitle} from '#/components/ui/card'
 
-import {BusinessAdminPage} from './BusinessAdminPage'
-import {UserAdminPage} from './UserAdminPage'
+import {BusinessAdminPage} from '../business-admin/BusinessAdminPage.tsx'
+import {UserAdminPage} from '../user-admin/UserAdminPage.tsx'
+import {Spinner} from "#/components/ui/spinner.tsx";
 
 export function AdminPage() {
     const {user, isHydrated} = useAuthenticatedUser()
 
-    if (isHydrated) {
+    if (!isHydrated) {
         return (
-            <main className="page-wrap px-4 py-10">
-                <Card className="mx-auto max-w-xl shadow-sm">
+            <main className="px-4 py-10 min-h-screen flex w-full items-center bg-background/70">
+                <Card className="mx-auto max-w-xl shadow-sm h-fit w-12/12 md:w-5/12">
                     <CardHeader>
-                        <CardTitle>Loading admin workspace</CardTitle>
-                        <CardDescription>
-                            Resolving your authenticated session before selecting the correct admin view.
+                        <CardTitle className={"flex flex-col-reverse items-center gap-4 md:gap-0 md:justify-between md:flex-row"}>
+                            Loading admin workspace
+                        <div className={"text-xl"}><Spinner className={"size-6 md:size-4"}/></div>
+                        </CardTitle>
+                        <CardDescription className={"text-center md:text-left"}>
+                            Resolving your authenticated session.
                         </CardDescription>
-                        <CardFooter>
-
-                        </CardFooter>
                     </CardHeader>
-                    <CardContent/>
+                    {/*<CardContent/>*/}
                 </Card>
             </main>
         )
