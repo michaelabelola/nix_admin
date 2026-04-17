@@ -3,9 +3,9 @@ import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx";
 import type {LoginModel} from "#/modules/auth/signin/Model.ts";
 import {loginApi} from "#/modules/auth/signin/api.tsx";
 
-export namespace LoginHook {
+export namespace SignInHook {
 
-    export function useLogin(successHandler?: (res: LoginModel.LoginResponse) => void) {
+    export function useSignIn(successHandler?: (res: LoginModel.LoginResponse) => void) {
         const errHandler = useResponseFieldErrorHandler()
         return {
             ...useMutation({

@@ -13,7 +13,8 @@ export type ResponseError = {
     type?: string //URI
     status: number //HTTP status code
     properties: ResponseProperties
-}
+} & Error
+
 export type FetchError = {
     _internal: string & Pick<Response, "status" | "redirected" | "statusText" | "headers"> & {
         body?: string

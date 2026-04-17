@@ -1,6 +1,6 @@
 import type {ErrorHandlerType, FetchError} from "#/lib/request.types.tsx";
 import {QueryStringUtil} from "#/lib/QueryStringUtil.ts";
-import { useAuthenticatedUserStore } from '#/lib/authenticated-user.store'
+import {useAuthenticatedUserStore} from '#/lib/authenticated-user.store'
 
 const DEFAULT_AUTH_TOKEN_KEY = 'accessToken'
 
@@ -28,7 +28,7 @@ function getStoredToken(tokenKey = DEFAULT_AUTH_TOKEN_KEY) {
     return window.localStorage.getItem(tokenKey)
 }
 
-interface RequestPromise<T, E = Error> extends Promise<T> {
+interface RequestPromise<T, E = FetchError> extends Promise<T> {
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
     catch<TResult = never>(onrejected?: ((reason: E) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
@@ -69,11 +69,24 @@ export namespace BACKEND {
         }
     }
 
-    export type Req<B,Q = Record<string, string | number | boolean | undefined>> = {
+    export type Req<B, Q = Record<string, string | number | boolean | undefined>> = {
         errHandler?: ErrorHandlerType
-        body?: B,
         query?: Q
+    } & B
+    export type ReqBody<B> = {
+        errHandler?: ErrorHandlerType
+        body?: B
     }
+
+    export type FullReq<B, Q = Record<string, string | number | boolean | undefined>> = {
+        errHandler?: ErrorHandlerType
+        query?: Q
+    } & B
+
+    export type ReqQuery<B, Q = Record<string, string | number | boolean | undefined>> = {
+        errHandler?: ErrorHandlerType
+        query?: Q
+    } & B
 
     export function apiFetch<T>(
         input: RequestInfo | URL,

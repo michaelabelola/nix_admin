@@ -5,7 +5,7 @@ import {AuthProfileModel} from "#/modules/Models.ts";
 
 
 class LoginApi {
-    emailPasswordLogin({body, ...rest}: BACKEND.Req<LoginModel.EmailAndPassword>) {
+    emailPasswordLogin({body,...rest}: BACKEND.ReqBody<LoginModel.EmailAndPassword>) {
         return BACKEND.apiFetch<LoginModel.LoginResponse>("/auth/login", {
             method: "POST",
             body: JSON.stringify(body),
@@ -17,7 +17,7 @@ class LoginApi {
         return BACKEND.apiFetch<LoginModel.LoginResponse>(`/auth/login/proxy`, init)
     }
 
-    resendVerificationEmail({body, ...params}: BACKEND.Req<LoginModel.ResendVerificationRequest>) {
+    resendVerificationEmail({body, ...params}: BACKEND.ReqBody<LoginModel.ResendVerificationRequest>) {
         return BACKEND.apiFetch<any>(`/auth/resend-verification`, {...params, body: JSON.stringify(body)})
     }
 

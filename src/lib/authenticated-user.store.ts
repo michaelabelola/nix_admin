@@ -1,40 +1,41 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import {create} from 'zustand'
+import {persist} from 'zustand/middleware'
 
-import type { NixID } from '#/models/Models'
-import type { LoginModel } from '#/modules/auth/signin/Model.ts'
+import type {NixID} from '#/models/Models'
+import type {LoginModel} from '#/modules/auth/signin/Model.ts'
+import {createJSONStorage} from "zustand/middleware/persist";
 
 type AuthenticatedUser = {
-  accessToken: string | null
-  refreshToken: string | null
-  tokenType: string | null
-  orgID: NixID | null
+    accessToken: string | null
+    refreshToken: string | null
+    tokenType: string | null
+    orgID: NixID | null
 }
 
 type AuthenticatedUserStore = {
-  user: AuthenticatedUser | null
-  setAuthenticatedUser: (user: LoginModel.LoginResponse) => void
-  clearAuthenticatedUser: () => void
+    user: AuthenticatedUser | null
+    setAuthenticatedUser: (user: LoginModel.LoginResponse) => void
+    clearAuthenticatedUser: () => void
 }
 
-export const useAuthenticatedUserStore = create<AuthenticatedUserStore>(
-  persist(
-    (set) => ({
-      user: null,
-      setAuthenticatedUser: (user) =>
-        set({
-          user: {
-            accessToken: user.accessToken,
-            refreshToken: user.refreshToken,
-            tokenType: user.tokenType,
-            orgID: user.orgID ?? null,
-          },
+export const useAuthenticatedUserStore = create<AuthenticatedUserStore>()(
+    persist(
+        (set) => ({
+            user: null,
+            setAuthenticatedUser: (user) =>
+                set({
+                    user: {
+                        accessToken: user.accessToken,
+                        refreshToken: user.refreshToken,
+                        tokenType: user.tokenType,
+                        orgID: user.orgID ?? null,
+                    },
+                }),
+            clearAuthenticatedUser: () => set({user: null}),
         }),
-      clearAuthenticatedUser: () => set({ user: null }),
-    }),
-    {
-      name: 'authenticated-user',
-        storage: localStorage,
-    },
-  ),
+        {
+            name: 'authenticated-user',
+            storage: createJSONStorage(() => localStorage)
+        },
+    ),
 )

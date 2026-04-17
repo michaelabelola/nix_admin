@@ -101,8 +101,8 @@ const testimonials = [
 
 const teamMembers = [
   {
-    name: 'Daniel Okoro',
-    role: 'Founder',
+    name: 'Michael Abel',
+    role: 'Founder/CTO',
     summary: 'Sets product direction and keeps Suiteonix focused on helping new agencies launch faster.',
   },
   {
