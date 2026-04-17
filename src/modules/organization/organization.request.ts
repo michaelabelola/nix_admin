@@ -13,7 +13,7 @@ export namespace OrganizationRequest {
         })
     }
 
-    export const useQueryOrganizations = (query: Parameters<typeof organizationApi.query>[0]) => {
+    export const useQueryOrganizations = (query: OrganizationModel.Query) => {
         return useQuery({
             queryKey: ['organizations', "query", query],
             queryFn: ({queryKey}) => organizationApi.query(queryKey[2] as any),
