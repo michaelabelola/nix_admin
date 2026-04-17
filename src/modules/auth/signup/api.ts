@@ -4,7 +4,7 @@ import {BACKEND} from "#/lib/fetch.ts";
 class SignUpApi {
     signUp({body, avatar, ...others}: BACKEND.Req<{
         body: SignUpModel.Request,
-        avatar: File
+        avatar?: File
     }>) {
         const formData = new FormData();
         formData.append("user", JSON.stringify(body));

@@ -9,7 +9,7 @@ export namespace SignupHook {
         const errHandler = useResponseFieldErrorHandler()
         return {
             ...useMutation({
-                mutationFn: ({avatar, ...dto}: SignUpModel.Request & { avatar: File }) =>
+                mutationFn: ({avatar, ...dto}: SignUpModel.Request & { avatar?: File }) =>
                     signUpApi.signUp({errHandler, body: dto, avatar: avatar}),
                 onSuccess: successHandler,
                 // onError: (_: ResponseError) => toast.error('Failed to create customer'),

@@ -3,7 +3,6 @@ import {persist} from 'zustand/middleware'
 
 import type {NixID} from '#/models/Models'
 import type {LoginModel} from '#/modules/auth/signin/Model.ts'
-import {createJSONStorage} from "zustand/middleware/persist";
 
 type AuthenticatedUser = {
     accessToken: string | null
@@ -35,7 +34,7 @@ export const useAuthenticatedUserStore = create<AuthenticatedUserStore>()(
         }),
         {
             name: 'authenticated-user',
-            storage: createJSONStorage(() => localStorage)
+            // storage: createJSONStorage(() => localStorage)
         },
     ),
 )

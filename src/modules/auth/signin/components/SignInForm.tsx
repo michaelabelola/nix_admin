@@ -7,7 +7,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/compo
 import {useAuthenticatedUserStore} from '#/lib/authenticated-user.store'
 import {useEntityStore} from '#/lib/entity.store'
 import type {LoginModel} from '#/modules/auth/signin/Model.ts'
-import {LoginHook} from '#/modules/auth/signin/request.hook'
+import {SignInHook} from '#/modules/auth/signin/request.hook'
 
 import {SignInField} from './SignInField'
 
@@ -34,7 +34,7 @@ function validateEmail(value: string) {
 export function SignInForm() {
     const entityID = useEntityStore((state) => state.entityID)
     const setAuthenticatedUser = useAuthenticatedUserStore((state) => state.setAuthenticatedUser)
-    const login = LoginHook.useLogin((response) => {
+    const login = SignInHook.useSignIn((response) => {
         setAuthenticatedUser(response)
     })
 
