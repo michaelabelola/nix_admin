@@ -42,20 +42,28 @@ export const useAuthenticatedUserStore = create<AuthenticatedUserStore>()(
 
 export function useAuthenticatedUser() {
     const user = useAuthenticatedUserStore((state) => state.user)
-    const [isHydrated, setIsHydrated] = useState(
-        useAuthenticatedUserStore.persist.hasHydrated(),
-    )
+    const persistApi = useAuthenticatedUserStore.persist
+    const [isHydrated, setIsHydrated] = useState(false)
 
     useEffect(() => {
-        if (useAuthenticatedUserStore.persist.hasHydrated()) {
+        if (typeof window === 'undefined') {
+            return
+        }
+
+        if (!persistApi) {
             setIsHydrated(true)
             return
         }
 
-        const unsubscribeHydrate = useAuthenticatedUserStore.persist.onHydrate(() => {
+        if (persistApi.hasHydrated()) {
+            setIsHydrated(true)
+            return
+        }
+
+        const unsubscribeHydrate = persistApi.onHydrate(() => {
             setIsHydrated(false)
         })
-        const unsubscribeFinishHydration = useAuthenticatedUserStore.persist.onFinishHydration(() => {
+        const unsubscribeFinishHydration = persistApi.onFinishHydration(() => {
             setIsHydrated(true)
         })
 
@@ -63,7 +71,7 @@ export function useAuthenticatedUser() {
             unsubscribeHydrate()
             unsubscribeFinishHydration()
         }
-    }, [])
+    }, [persistApi])
 
     return {
         user,

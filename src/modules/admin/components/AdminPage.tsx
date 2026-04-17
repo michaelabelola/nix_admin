@@ -1,7 +1,7 @@
 import {Navigate} from '@tanstack/react-router'
 
 import {useAuthenticatedUser} from '#/lib/authenticated-user.store'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card'
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '#/components/ui/card'
 
 import {BusinessAdminPage} from './BusinessAdminPage'
 import {UserAdminPage} from './UserAdminPage'
@@ -9,7 +9,7 @@ import {UserAdminPage} from './UserAdminPage'
 export function AdminPage() {
     const {user, isHydrated} = useAuthenticatedUser()
 
-    if (!isHydrated) {
+    if (isHydrated) {
         return (
             <main className="page-wrap px-4 py-10">
                 <Card className="mx-auto max-w-xl shadow-sm">
@@ -18,6 +18,9 @@ export function AdminPage() {
                         <CardDescription>
                             Resolving your authenticated session before selecting the correct admin view.
                         </CardDescription>
+                        <CardFooter>
+
+                        </CardFooter>
                     </CardHeader>
                     <CardContent/>
                 </Card>
