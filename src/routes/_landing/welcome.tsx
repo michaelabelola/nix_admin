@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   ArrowRight,
   BadgeCheck,
@@ -221,7 +221,15 @@ function App() {
                   size="lg"
                   className="h-12 px-7"
                 >
-                  <a href="/login">Login</a>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="secondary"
+                  size="lg"
+                  className="h-12 px-7"
+                >
+                  <Link to="/signup">Register account</Link>
                 </Button>
               </div>
 

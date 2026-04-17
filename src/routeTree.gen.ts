@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LandingRouteRouteImport } from './routes/_landing/route'
@@ -16,6 +17,11 @@ import { Route as LandingIndexRouteImport } from './routes/_landing/index'
 import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
 import { Route as LandingWelcomeRouteImport } from './routes/_landing/welcome'
 
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -50,12 +56,14 @@ export interface FileRoutesByFullPath {
   '/': typeof LandingIndexRoute
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/': typeof LandingIndexRoute
@@ -65,20 +73,22 @@ export interface FileRoutesById {
   '/_landing': typeof LandingRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/_landing/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/login' | '/welcome' | '/demo/i18n'
+  fullPaths: '/' | '/about' | '/login' | '/signup' | '/welcome' | '/demo/i18n'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/login' | '/welcome' | '/demo/i18n' | '/'
+  to: '/about' | '/login' | '/signup' | '/welcome' | '/demo/i18n' | '/'
   id:
     | '__root__'
     | '/_landing'
     | '/about'
     | '/login'
+    | '/signup'
     | '/_landing/welcome'
     | '/demo/i18n'
     | '/_landing/'
@@ -88,11 +98,19 @@ export interface RootRouteChildren {
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
   DemoI18nRoute: typeof DemoI18nRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -156,6 +174,7 @@ const rootRouteChildren: RootRouteChildren = {
   LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
   DemoI18nRoute: DemoI18nRoute,
 }
 export const routeTree = rootRouteImport

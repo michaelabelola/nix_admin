@@ -1,6 +1,8 @@
+import { Link } from '@tanstack/react-router'
 import { Building2, KeyRound, ShieldCheck } from 'lucide-react'
 
 import { Badge } from '#/components/ui/badge'
+import { Button } from '#/components/ui/button'
 
 import { SignInForm } from './SignInForm'
 
@@ -36,6 +38,11 @@ export function SignInPage() {
           <p className="max-w-xl text-base leading-8 text-muted-foreground">
             Log in to manage your real estate operations, track active listings, and keep rentals, leases, and sales moving.
           </p>
+          <div>
+            <Button asChild variant="outline">
+              <Link to="/signup">Register account</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="grid gap-4">
