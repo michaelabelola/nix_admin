@@ -5,9 +5,12 @@ import {AuthProfileModel} from "#/modules/Models.ts";
 
 
 class LoginApi {
-    emailPasswordLogin({body,...rest}: BACKEND.ReqBody<LoginModel.EmailAndPassword>) {
+    emailPasswordLogin({body, ...rest}: BACKEND.ReqBody<LoginModel.EmailAndPassword>) {
         return BACKEND.apiFetch<LoginModel.LoginResponse>("/auth/login", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(body),
             ...rest
         })

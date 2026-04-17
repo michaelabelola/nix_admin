@@ -34,9 +34,10 @@ function validateEmail(value: string) {
 export function SignInForm() {
     const entityID = useEntityStore((state) => state.entityID)
     const setAuthenticatedUser = useAuthenticatedUserStore((state) => state.setAuthenticatedUser)
-    const login = SignInHook.useSignIn((response) => {
+    const {errHandler, ...login} = SignInHook.useSignIn((response) => {
         setAuthenticatedUser(response)
     })
+    console.log(login.error)
 
     // @ts-ignore
     const form = useForm<LoginModel.EmailAndPassword>({

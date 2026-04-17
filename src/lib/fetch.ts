@@ -50,8 +50,13 @@ export namespace BACKEND {
                 redirected: resp.redirected,
             }
             if (!resp.ok) {
+                const resp1 = await resp.json()
                 try {
-                    const data = {...await resp.json(), _internal: internalFields} as FetchError
+                    const data = {
+                        ...resp1,
+                        message: resp1.detail,
+                        _internal: internalFields
+                    } as FetchError
                     if (init?.errHandler) init.errHandler._errInit(data)
                     return reject(data)
                 } catch {
@@ -100,7 +105,7 @@ export namespace BACKEND {
 
         return new Promise<T>((resolve, reject) => {
             fetch(input, init)
-                .then(processResponse<T>(resolve, resolve, init))
+                .then(processResponse<T>(resolve, reject, init))
                 .catch(reject)
         })
 
