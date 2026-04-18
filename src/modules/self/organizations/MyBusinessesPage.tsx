@@ -13,8 +13,10 @@ import {QuickToolTip, Tooltip, TooltipContent, TooltipTrigger} from "#/component
 import UserCell from "#/modules/user/components/UserCell.tsx";
 import {loginApi} from "#/modules/auth/signin/api.tsx";
 import {toast} from "sonner";
+import {useAuthenticatedUser, useAuthenticatedUserStore} from "#/lib/authenticated-user.store.ts";
 
 const signInAs = (request: Parameters<typeof loginApi.proxyLogin>[0]["query"]) => {
+    const {user, clearAuthenticatedUser, setAuthenticatedUser} = useAuthenticatedUserStore()
     loginApi.proxyLogin({
         query: request
     }).then((response) => {
@@ -94,7 +96,6 @@ const columns: Array<ColumnDef<TableData<PermissionModel.Permission, Organizatio
                                         signInAs({
                                             userId: row.original.granteeID,
                                             orgId: row.original.entityID,
-
                                         })
                                     }}>
                         <LogIn/>
@@ -118,6 +119,7 @@ const columns: Array<ColumnDef<TableData<PermissionModel.Permission, Organizatio
 ]
 
 export function MyBusinessesPage() {
+
     return (
         <section className="space-y-6 px-4 py-6 lg:px-6">
             <div className="space-y-1">
@@ -131,7 +133,7 @@ export function MyBusinessesPage() {
 
             <DataTable
                 columns={columns}
-                from="/admin/organizations"
+                from="/self/organizations"
                 useQuery={PermissionRequest.useQueryProxyLoginAccesses}
                 initialRequest={{
                     page: 0,
