@@ -17,6 +17,6 @@ export class OrgApi {
     }
 }
 
-const organizationApi = new OrgApi();
+const orgApi = new OrgApi();
 
-export default organizationApi;
+export default orgApi;

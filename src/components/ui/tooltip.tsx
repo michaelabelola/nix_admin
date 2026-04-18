@@ -15,12 +15,13 @@ function TooltipProvider({
     )
 }
 
-function QuickToolTip({children, content, ...props}: React.ComponentProps<typeof TooltipPrimitive.Root> & {
+function QuickToolTip({children, content, asChild, ...props}: React.ComponentProps<typeof TooltipPrimitive.Root> & {
+    asChild?: boolean,
     children?: React.ReactNode,
     content?: React.ReactNode | string | number
 }) {
     return <Tooltip {...props}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild={asChild}>
             {children}
         </TooltipTrigger>
         <TooltipContent>

@@ -80,7 +80,7 @@ const columns: Array<ColumnDef<TableData<PermissionModel.Permission, Organizatio
         accessorKey: "account",
         header: "Account",
         cell: ({row: {original}}) => {
-            return <UserCell.Cell1WithPopover id={original.granteeID}/>
+            return <UserCell.CellWithPopover id={original.granteeID}/>
         }
     },
     {
