@@ -1,11 +1,10 @@
 import {createFileRoute} from '@tanstack/react-router'
-
-import {AdminPage} from '#/modules/admin/components/AdminPage.tsx'
+import {AdminPage} from "#/modules/admin/components/AdminPage.tsx";
 
 export const Route = createFileRoute('/_authenticated/admin')({
-    component: AdminRoute,
+    component: RouteComponent,
 })
 
-function AdminRoute() {
+function RouteComponent() {
     return <AdminPage/>
 }

@@ -1,86 +1,27 @@
 import * as React from "react"
-import {
-  closestCenter,
-  DndContext,
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
-  useSensor,
-  useSensors,
-  type DragEndEvent,
-  type UniqueIdentifier,
-} from "@dnd-kit/core"
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
-import {
-  arrayMove,
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
-import {
-  IconChevronDown,
-  IconChevronLeft,
-  IconChevronRight,
-  IconChevronsLeft,
-  IconChevronsRight,
-  IconCircleCheckFilled,
-  IconDotsVertical,
-  IconGripVertical,
-  IconLayoutColumns,
-  IconLoader,
-  IconPlus,
-  IconTrendingUp,
-} from "@tabler/icons-react"
+import {useNavigate, useSearch} from "@tanstack/react-router"
+import type {UseQueryResult} from "@tanstack/react-query"
 import {
   flexRender,
   getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
   type ColumnDef,
-  type ColumnFiltersState,
-  type Row,
-  type SortingState,
-  type VisibilityState,
+  type ColumnSort,
+  type RowData,
 } from "@tanstack/react-table"
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
-import { toast } from "sonner"
-import { z } from "zod"
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpDown,
+  RefreshCw,
+  Search,
+  X,
+} from "lucide-react"
 
-import { useIsMobile } from "#/hooks/use-mobile"
-import { Badge } from "#/components/ui/badge"
-import { Button } from "#/components/ui/button"
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "#/components/ui/chart"
-import { Checkbox } from "#/components/ui/checkbox"
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "#/components/ui/drawer"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu"
-import { Input } from "#/components/ui/input"
-import { Label } from "#/components/ui/label"
+import type {Paged, PagedRequest, SortParam} from "#/models/PagedModel.ts"
+import {cn} from "#/lib/utils"
+import {Button} from "#/components/ui/button"
+import {Input} from "#/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -88,7 +29,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "#/components/ui/select"
-import { Separator } from "#/components/ui/separator"
 import {
   Table,
   TableBody,
@@ -97,709 +37,768 @@ import {
   TableHeader,
   TableRow,
 } from "#/components/ui/table"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "#/components/ui/tabs"
 
-export const schema = z.object({
-  id: z.number(),
-  header: z.string(),
-  type: z.string(),
-  status: z.string(),
-  target: z.string(),
-  limit: z.string(),
-  reviewer: z.string(),
-})
-
-// Create a separate component for the drag handle
-function DragHandle({ id }: { id: number }) {
-  const { attributes, listeners } = useSortable({
-    id,
-  })
-
-  return (
-    <Button
-      {...attributes}
-      {...listeners}
-      variant="ghost"
-      size="icon"
-      className="size-7 text-muted-foreground hover:bg-transparent"
-    >
-      <IconGripVertical className="size-3 text-muted-foreground" />
-      <span className="sr-only">Drag to reorder</span>
-    </Button>
-  )
+declare module "@tanstack/react-table" {
+  interface ColumnMeta<TData extends RowData, TValue> {
+    sortField?: string
+  }
 }
 
-const columns: ColumnDef<z.infer<typeof schema>>[] = [
-  {
-    id: "drag",
-    header: () => null,
-    cell: ({ row }) => <DragHandle id={row.original.id} />,
-  },
-  {
-    id: "select",
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "header",
-    header: "Header",
-    cell: ({ row }) => {
-      return <TableCellViewer item={row.original} />
-    },
-    enableHiding: false,
-  },
-  {
-    accessorKey: "type",
-    header: "Section Type",
-    cell: ({ row }) => (
-      <div className="w-32">
-        <Badge variant="outline" className="px-1.5 text-muted-foreground">
-          {row.original.type}
-        </Badge>
-      </div>
-    ),
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <Badge variant="outline" className="px-1.5 text-muted-foreground">
-        {row.original.status === "Done" ? (
-          <IconCircleCheckFilled className="fill-green-500 dark:fill-green-400" />
-        ) : (
-          <IconLoader />
-        )}
-        {row.original.status}
-      </Badge>
-    ),
-  },
-  {
-    accessorKey: "target",
-    header: () => <div className="w-full text-right">Target</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-target`} className="sr-only">
-          Target
-        </Label>
-        <Input
-          className="h-8 w-16 border-transparent bg-transparent text-right shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background dark:bg-transparent dark:hover:bg-input/30 dark:focus-visible:bg-input/30"
-          defaultValue={row.original.target}
-          id={`${row.original.id}-target`}
-        />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "limit",
-    header: () => <div className="w-full text-right">Limit</div>,
-    cell: ({ row }) => (
-      <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {
-            loading: `Saving ${row.original.header}`,
-            success: "Done",
-            error: "Error",
-          })
-        }}
-      >
-        <Label htmlFor={`${row.original.id}-limit`} className="sr-only">
-          Limit
-        </Label>
-        <Input
-          className="h-8 w-16 border-transparent bg-transparent text-right shadow-none hover:bg-input/30 focus-visible:border focus-visible:bg-background dark:bg-transparent dark:hover:bg-input/30 dark:focus-visible:bg-input/30"
-          defaultValue={row.original.limit}
-          id={`${row.original.id}-limit`}
-        />
-      </form>
-    ),
-  },
-  {
-    accessorKey: "reviewer",
-    header: "Reviewer",
-    cell: ({ row }) => {
-      const isAssigned = row.original.reviewer !== "Assign reviewer"
+type Primitive = string | number | boolean
+type TableFilterValue = Primitive | null | undefined
+type TableRequestFilters = Record<string, TableFilterValue>
+type SearchRecord = Record<string, unknown>
+type Updater<T> = T | ((prev: T) => T)
 
-      if (isAssigned) {
-        return row.original.reviewer
-      }
-
-      return (
-        <>
-          <Label htmlFor={`${row.original.id}-reviewer`} className="sr-only">
-            Reviewer
-          </Label>
-          <Select>
-            <SelectTrigger
-              className="w-38 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate"
-              size="sm"
-              id={`${row.original.id}-reviewer`}
-            >
-              <SelectValue placeholder="Assign reviewer" />
-            </SelectTrigger>
-            <SelectContent align="end">
-              <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
-              <SelectItem value="Jamik Tashpulatov">
-                Jamik Tashpulatov
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </>
-      )
-    },
-  },
-  {
-    id: "actions",
-    cell: () => (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="flex size-8 text-muted-foreground data-[state=open]:bg-muted"
-            size="icon"
-          >
-            <IconDotsVertical />
-            <span className="sr-only">Open menu</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          <DropdownMenuItem>Edit</DropdownMenuItem>
-          <DropdownMenuItem>Make a copy</DropdownMenuItem>
-          <DropdownMenuItem>Favorite</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem variant="destructive">Delete</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ),
-  },
-]
-
-function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
-  const { transform, transition, setNodeRef, isDragging } = useSortable({
-    id: row.original.id,
-  })
-
-  return (
-    <TableRow
-      data-state={row.getIsSelected() && "selected"}
-      data-dragging={isDragging}
-      ref={setNodeRef}
-      className="relative z-0 data-[dragging=true]:z-10 data-[dragging=true]:opacity-80"
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition: transition,
-      }}
-    >
-      {row.getVisibleCells().map((cell) => (
-        <TableCell key={cell.id}>
-          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-        </TableCell>
-      ))}
-    </TableRow>
-  )
+export type DataTableFilterField<
+  TFilters extends TableRequestFilters = TableRequestFilters,
+> = {
+  key: Extract<keyof TFilters, string>
+  label?: string
+  placeholder?: string
+  type?: "text" | "select"
+  options?: Array<{
+    label: string
+    value: string
+  }>
+  parseValue?: (value: string) => TFilters[Extract<keyof TFilters, string>] | undefined
+  serializeValue?: (value: TFilters[Extract<keyof TFilters, string>] | undefined) => string
 }
 
-export function DataTable({
-  data: initialData,
-}: {
-  data: z.infer<typeof schema>[]
-}) {
-  const [data, setData] = React.useState(() => initialData)
-  const [rowSelection, setRowSelection] = React.useState({})
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  )
-  const [sorting, setSorting] = React.useState<SortingState>([])
-  const [pagination, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 10,
+type DataTableSearchOptions<TFilters extends TableRequestFilters> = {
+  defaults?: Partial<PagedRequest<TFilters>>
+  filterFields?: Array<DataTableFilterField<TFilters>>
+}
+
+export type DataTableProps<
+  TData,
+  TValue = unknown,
+  TFilters extends TableRequestFilters = Record<string, never>,
+> = {
+  columns: Array<ColumnDef<TData, TValue>>
+  from: string
+  useQuery: (request: PagedRequest<TFilters>) => UseQueryResult<Paged<TData>>
+  initialRequest?: Partial<PagedRequest<TFilters>>
+  filterFields?: Array<DataTableFilterField<TFilters>>
+  searchPlaceholder?: string
+  emptyMessage?: string
+  pageSizeOptions?: number[]
+  debounceMs?: number
+  getRowId?: Parameters<typeof useReactTable<TData>>[0]["getRowId"]
+  toolbarActions?: React.ReactNode
+  className?: string
+}
+
+const DEFAULT_PAGE_SIZE_OPTIONS = [10, 20, 50, 100]
+
+function resolveUpdater<T>(updater: Updater<T>, previous: T): T {
+  return typeof updater === "function"
+    ? (updater as (prev: T) => T)(previous)
+    : updater
+}
+
+function parseInteger(value: unknown): number | undefined {
+  if (typeof value !== "string" || value.trim() === "") return undefined
+  const parsed = Number.parseInt(value, 10)
+  return Number.isFinite(parsed) ? parsed : undefined
+}
+
+function parseBoolean(value: unknown): boolean | undefined {
+  if (value === "true") return true
+  if (value === "false") return false
+  return undefined
+}
+
+function parseSortValue(value: string): SortParam | undefined {
+  const [field, direction] = value.split(",")
+  if (!field) return undefined
+  if (direction !== "ASC" && direction !== "DESC") return undefined
+  return {field, direction}
+}
+
+function parseSort(values: unknown): SortParam[] | undefined {
+  const rawValues = Array.isArray(values)
+    ? values.filter((value): value is string => typeof value === "string")
+    : typeof values === "string"
+      ? [values]
+      : []
+
+  const parsed = rawValues
+    .map(parseSortValue)
+    .filter((value): value is SortParam => value !== undefined)
+
+  return parsed.length > 0 ? parsed : undefined
+}
+
+function serializeSort(sort?: SortParam[]): string[] | undefined {
+  if (!sort?.length) return undefined
+  return sort.map((item) => `${item.field},${item.direction}`)
+}
+
+function defaultSerializeValue(value: TableFilterValue): string {
+  return value == null ? "" : String(value)
+}
+
+function defaultParseValue(value: string, sample?: TableFilterValue): TableFilterValue {
+  if (value === "") return undefined
+  if (typeof sample === "number") {
+    const parsed = Number(value)
+    return Number.isNaN(parsed) ? undefined : parsed
+  }
+  if (typeof sample === "boolean") {
+    return parseBoolean(value)
+  }
+  return value
+}
+
+function getManagedFilterKeys<TFilters extends TableRequestFilters>(
+  filterFields?: Array<DataTableFilterField<TFilters>>,
+  defaults?: Partial<PagedRequest<TFilters>>,
+): string[] {
+  const keys = new Set<string>()
+  filterFields?.forEach((field) => keys.add(field.key))
+  Object.keys(defaults ?? {}).forEach((key) => {
+    if (!["query", "page", "size", "sort"].includes(key)) keys.add(key)
   })
-  const sortableId = React.useId()
-  const sensors = useSensors(
-    useSensor(MouseSensor, {}),
-    useSensor(TouchSensor, {}),
-    useSensor(KeyboardSensor, {})
-  )
+  return [...keys]
+}
 
-  const dataIds = React.useMemo<UniqueIdentifier[]>(
-    () => data?.map(({ id }) => id) || [],
-    [data]
-  )
+function parseFilterValue<TFilters extends TableRequestFilters>(
+  key: string,
+  search: SearchRecord,
+  field?: DataTableFilterField<TFilters>,
+  defaults?: Partial<PagedRequest<TFilters>>,
+): TableFilterValue {
+  const rawValue = search[key]
+  const value = Array.isArray(rawValue) ? rawValue[0] : rawValue
+  if (typeof value !== "string") return undefined
+  if (field?.parseValue) return field.parseValue(value) as TableFilterValue
+  return defaultParseValue(value, defaults?.[key as keyof typeof defaults] as TableFilterValue)
+}
 
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      sorting,
-      columnVisibility,
-      rowSelection,
-      columnFilters,
-      pagination,
-    },
-    getRowId: (row) => row.id.toString(),
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFacetedRowModel: getFacetedRowModel(),
-    getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
-
-  function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event
-    if (active && over && active.id !== over.id) {
-      setData((data) => {
-        const oldIndex = dataIds.indexOf(active.id)
-        const newIndex = dataIds.indexOf(over.id)
-        return arrayMove(data, oldIndex, newIndex)
-      })
-    }
+export function parseDataTableSearch<
+  TFilters extends TableRequestFilters = Record<string, never>,
+>(
+  search: SearchRecord,
+  options: DataTableSearchOptions<TFilters> = {},
+): PagedRequest<TFilters> {
+  const {defaults, filterFields} = options
+  const request: PagedRequest<TFilters> = {
+    ...defaults,
   }
 
+  if (typeof search.query === "string") {
+    request.query = search.query || undefined
+  }
+
+  const page = parseInteger(search.page)
+  if (page !== undefined) request.page = page
+
+  const size = parseInteger(search.size)
+  if (size !== undefined) request.size = size
+
+  const sort = parseSort(search.sort)
+  if (sort !== undefined) request.sort = sort
+  if (search.sort == null && defaults?.sort) request.sort = defaults.sort
+
+  const filterKeySet = new Set(
+    getManagedFilterKeys(filterFields, defaults),
+  )
+
+  filterKeySet.forEach((key) => {
+    const field = filterFields?.find((item) => item.key === key)
+    const parsedValue = parseFilterValue(key, search, field, defaults)
+    if (parsedValue !== undefined) {
+      ;(request as Record<string, unknown>)[key] = parsedValue
+      return
+    }
+    if (defaults && key in defaults) {
+      ;(request as Record<string, unknown>)[key] =
+        defaults[key as keyof typeof defaults]
+      return
+    }
+    delete (request as Record<string, unknown>)[key]
+  })
+
+  return request
+}
+
+export function buildDataTableSearch<
+  TFilters extends TableRequestFilters = Record<string, never>,
+>(
+  request: PagedRequest<TFilters>,
+  currentSearch: SearchRecord = {},
+  options: DataTableSearchOptions<TFilters> = {},
+): SearchRecord {
+  const next: SearchRecord = {...currentSearch}
+  const managedKeys = new Set([
+    "query",
+    "page",
+    "size",
+    "sort",
+    ...getManagedFilterKeys(options.filterFields, options.defaults),
+  ])
+
+  managedKeys.forEach((key) => {
+    delete next[key]
+  })
+
+  if (request.query) next.query = request.query
+  if (request.page != null) next.page = request.page
+  if (request.size != null) next.size = request.size
+
+  const sort = serializeSort(request.sort)
+  if (sort?.length) next.sort = sort.length === 1 ? sort[0] : sort
+
+  options.filterFields?.forEach((field) => {
+    const value = request[field.key]
+    const serialized = field.serializeValue
+      ? field.serializeValue(value)
+      : defaultSerializeValue(value)
+    if (serialized !== "") next[field.key] = serialized
+  })
+
+  const defaultManagedKeys = getManagedFilterKeys(undefined, options.defaults)
+  defaultManagedKeys.forEach((key) => {
+    if (options.filterFields?.some((field) => field.key === key)) return
+    const value = request[key as keyof typeof request] as TableFilterValue
+    const serialized = defaultSerializeValue(value)
+    if (serialized !== "") next[key] = serialized
+  })
+
+  return next
+}
+
+export function useDataTableQueryState<
+  TFilters extends TableRequestFilters = Record<string, never>,
+>({
+  from,
+  defaults,
+  filterFields,
+}: {
+  from: string
+  defaults?: Partial<PagedRequest<TFilters>>
+  filterFields?: Array<DataTableFilterField<TFilters>>
+}) {
+  const search = useSearch({from, strict: false}) as SearchRecord
+  const navigate = useNavigate({from})
+
+  const request = React.useMemo(
+    () => parseDataTableSearch<TFilters>(search, {defaults, filterFields}),
+    [defaults, filterFields, search],
+  )
+
+  const setRequest = React.useCallback(
+    (updater: Updater<PagedRequest<TFilters>>) => {
+      const nextRequest = resolveUpdater(updater, request)
+
+      React.startTransition(() => {
+        void navigate({
+          search: (previous) =>
+            buildDataTableSearch(nextRequest, previous as SearchRecord, {
+              defaults,
+              filterFields,
+            }),
+          replace: true,
+        })
+      })
+    },
+    [defaults, filterFields, navigate, request],
+  )
+
+  return {request, setRequest}
+}
+
+function flattenColumns<TData, TValue>(
+  columns: Array<ColumnDef<TData, TValue>>,
+): Array<ColumnDef<TData, TValue>> {
+  return columns.flatMap((column) => {
+    if ("columns" in column && Array.isArray(column.columns)) {
+      return flattenColumns(column.columns as Array<ColumnDef<TData, TValue>>)
+    }
+    return [column]
+  })
+}
+
+function getColumnSortField<TData, TValue>(column: ColumnDef<TData, TValue>) {
+  if ("meta" in column && column.meta?.sortField) return column.meta.sortField
+  if ("accessorKey" in column && typeof column.accessorKey === "string") {
+    return column.accessorKey
+  }
+  if ("id" in column && typeof column.id === "string") return column.id
+  return undefined
+}
+
+function getSortingStateFromRequest<TData, TValue>(
+  columns: Array<ColumnDef<TData, TValue>>,
+  sort?: SortParam[],
+): ColumnSort[] {
+  if (!sort?.length) return []
+
+  const fieldToColumnId = new Map<string, string>()
+
+  flattenColumns(columns).forEach((column) => {
+    const sortField = getColumnSortField(column)
+    if (!sortField) return
+    const columnId =
+      ("id" in column && typeof column.id === "string" && column.id) ||
+      ("accessorKey" in column && typeof column.accessorKey === "string"
+        ? column.accessorKey
+        : sortField)
+    fieldToColumnId.set(sortField, columnId)
+  })
+
+  return sort.map((item) => ({
+    id: fieldToColumnId.get(item.field) ?? item.field,
+    desc: item.direction === "DESC",
+  }))
+}
+
+function getSortFieldByColumnId<TData, TValue>(
+  columns: Array<ColumnDef<TData, TValue>>,
+  columnId: string,
+) {
+  const column = flattenColumns(columns).find((item) => {
+    if ("id" in item && item.id === columnId) return true
+    return "accessorKey" in item && item.accessorKey === columnId
+  })
+
+  return column ? getColumnSortField(column) ?? columnId : columnId
+}
+
+function makePaginationRange(currentPage: number, totalPages: number) {
+  if (totalPages <= 1) return [0]
+
+  const pages = new Set<number>([0, totalPages - 1, currentPage - 1, currentPage, currentPage + 1])
+
+  return [...pages]
+    .filter((page) => page >= 0 && page < totalPages)
+    .sort((a, b) => a - b)
+}
+
+export function DataTable<
+  TData,
+  TValue = unknown,
+  TFilters extends TableRequestFilters = Record<string, never>,
+>({
+  columns,
+  from,
+  useQuery,
+  initialRequest,
+  filterFields,
+  searchPlaceholder = "Search...",
+  emptyMessage = "No results.",
+  pageSizeOptions = DEFAULT_PAGE_SIZE_OPTIONS,
+  debounceMs = 300,
+  getRowId,
+  toolbarActions,
+  className,
+}: DataTableProps<TData, TValue, TFilters>) {
+  const {request, setRequest} = useDataTableQueryState<TFilters>({
+    from,
+    defaults: initialRequest,
+    filterFields,
+  })
+
+  const query = useQuery(request)
+  const data = query.data
+  const tableId = React.useId()
+
+  const sorting = React.useMemo(
+    () => getSortingStateFromRequest(columns, request.sort),
+    [columns, request.sort],
+  )
+
+  const [searchDraft, setSearchDraft] = React.useState(request.query ?? "")
+  const textFilterFields = React.useMemo(
+    () => filterFields?.filter((field) => field.type !== "select") ?? [],
+    [filterFields],
+  )
+  const [textFilterDrafts, setTextFilterDrafts] = React.useState<Record<string, string>>({})
+
+  React.useEffect(() => {
+    setSearchDraft(request.query ?? "")
+  }, [request.query])
+
+  React.useEffect(() => {
+    const nextDrafts = Object.fromEntries(
+      textFilterFields.map((field) => [
+        field.key,
+        field.serializeValue
+          ? field.serializeValue(request[field.key])
+          : defaultSerializeValue(request[field.key]),
+      ]),
+    )
+    setTextFilterDrafts(nextDrafts)
+  }, [request, textFilterFields])
+
+  React.useEffect(() => {
+    if (searchDraft === (request.query ?? "")) return
+    const timeoutId = window.setTimeout(() => {
+      setRequest((previous) => ({
+        ...previous,
+        page: 0,
+        query: searchDraft.trim() || undefined,
+      }))
+    }, debounceMs)
+    return () => window.clearTimeout(timeoutId)
+  }, [debounceMs, request.query, searchDraft, setRequest])
+
+  React.useEffect(() => {
+    const hasChanges = textFilterFields.some((field) => {
+      const currentValue = field.serializeValue
+        ? field.serializeValue(request[field.key])
+        : defaultSerializeValue(request[field.key])
+      return (textFilterDrafts[field.key] ?? "") !== currentValue
+    })
+
+    if (!hasChanges) return
+
+    const timeoutId = window.setTimeout(() => {
+      setRequest((previous) => {
+        const next = {...previous, page: 0}
+        textFilterFields.forEach((field) => {
+          const rawValue = textFilterDrafts[field.key] ?? ""
+          const value = field.parseValue
+            ? field.parseValue(rawValue)
+            : defaultParseValue(rawValue, previous[field.key]) as TFilters[Extract<keyof TFilters, string>] | undefined
+
+          ;(next as Record<string, unknown>)[field.key] = value
+        })
+        return next
+      })
+    }, debounceMs)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [debounceMs, request, setRequest, textFilterDrafts, textFilterFields])
+
+  const table = useReactTable({
+    data: data?.content ?? [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+    manualSorting: true,
+    manualFiltering: true,
+    pageCount: data?.totalPages ?? 0,
+    getRowId,
+    state: {
+      sorting,
+      pagination: {
+        pageIndex: request.page ?? initialRequest?.page ?? 0,
+        pageSize: request.size ?? initialRequest?.size ?? pageSizeOptions[0] ?? 10,
+      },
+    },
+    onSortingChange: (updater) => {
+      const nextSorting = resolveUpdater(updater, sorting)
+      setRequest((previous) => ({
+        ...previous,
+        page: 0,
+        sort: nextSorting.length
+          ? nextSorting.map((item) => ({
+              field: getSortFieldByColumnId(columns, item.id),
+              direction: item.desc ? "DESC" : "ASC",
+            }))
+          : undefined,
+      }))
+    },
+  })
+
+  const currentPage = data?.number ?? request.page ?? 0
+  const totalPages = data?.totalPages ?? 0
+  const pageNumbers = makePaginationRange(currentPage, totalPages)
+  const pageSize = request.size ?? initialRequest?.size ?? pageSizeOptions[0] ?? 10
+  const hasRows = (data?.content?.length ?? 0) > 0
+  const pageStart = hasRows ? currentPage * pageSize + 1 : 0
+  const pageEnd = hasRows ? pageStart + (data?.content.length ?? 0) - 1 : 0
+
   return (
-    <Tabs
-      defaultValue="outline"
-      className="w-full flex-col justify-start gap-6"
-    >
-      <div className="flex items-center justify-between px-4 lg:px-6">
-        <Label htmlFor="view-selector" className="sr-only">
-          View
-        </Label>
-        <Select defaultValue="outline">
-          <SelectTrigger
-            className="flex w-fit @4xl/main:hidden"
+    <div className={cn("space-y-4", className)}>
+      <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="relative min-w-0">
+            <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={searchDraft}
+              onChange={(event) => setSearchDraft(event.target.value)}
+              placeholder={searchPlaceholder}
+              className="pl-9"
+              aria-label="Search table"
+            />
+          </div>
+          {filterFields?.map((field) => {
+            if (field.type === "select") {
+              const value = field.serializeValue
+                ? field.serializeValue(request[field.key])
+                : defaultSerializeValue(request[field.key])
+              return (
+                <Select
+                  key={field.key}
+                  value={value || "__all__"}
+                  onValueChange={(nextValue) => {
+                    setRequest((previous) => ({
+                      ...previous,
+                      page: 0,
+                      [field.key]:
+                        nextValue === "__all__"
+                          ? undefined
+                          : field.parseValue
+                            ? field.parseValue(nextValue)
+                            : defaultParseValue(
+                                nextValue,
+                                previous[field.key],
+                              ),
+                    }))
+                  }}
+                >
+                  <SelectTrigger className="min-w-0">
+                    <SelectValue placeholder={field.placeholder ?? field.label ?? field.key} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="__all__">All</SelectItem>
+                    {field.options?.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )
+            }
+
+            return (
+              <Input
+                key={field.key}
+                value={textFilterDrafts[field.key] ?? ""}
+                onChange={(event) =>
+                  setTextFilterDrafts((previous) => ({
+                    ...previous,
+                    [field.key]: event.target.value,
+                  }))
+                }
+                placeholder={field.placeholder ?? field.label ?? field.key}
+                aria-label={field.label ?? field.key}
+              />
+            )
+          })}
+        </div>
+        <div className="flex items-center justify-end gap-2">
+          {toolbarActions}
+          <Button
+            type="button"
+            variant="outline"
             size="sm"
-            id="view-selector"
+            onClick={() => void query.refetch()}
+            disabled={query.isFetching}
           >
-            <SelectValue placeholder="Select a view" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="outline">Outline</SelectItem>
-            <SelectItem value="past-performance">Past Performance</SelectItem>
-            <SelectItem value="key-personnel">Key Personnel</SelectItem>
-            <SelectItem value="focus-documents">Focus Documents</SelectItem>
-          </SelectContent>
-        </Select>
-        <TabsList className="hidden **:data-[slot=badge]:size-5 **:data-[slot=badge]:rounded-full **:data-[slot=badge]:bg-muted-foreground/30 **:data-[slot=badge]:px-1 @4xl/main:flex">
-          <TabsTrigger value="outline">Outline</TabsTrigger>
-          <TabsTrigger value="past-performance">
-            Past Performance <Badge variant="secondary">3</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="key-personnel">
-            Key Personnel <Badge variant="secondary">2</Badge>
-          </TabsTrigger>
-          <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
-        </TabsList>
-        <div className="flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                <IconLayoutColumns />
-                <span className="hidden lg:inline">Customize Columns</span>
-                <span className="lg:hidden">Columns</span>
-                <IconChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              {table
-                .getAllColumns()
-                .filter(
-                  (column) =>
-                    typeof column.accessorFn !== "undefined" &&
-                    column.getCanHide()
-                )
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className="capitalize"
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Button variant="outline" size="sm">
-            <IconPlus />
-            <span className="hidden lg:inline">Add Section</span>
+            <RefreshCw className={cn("size-4", query.isFetching && "animate-spin")} />
+            Refresh
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setSearchDraft("")
+              setTextFilterDrafts({})
+              setRequest((previous) => ({
+                ...previous,
+                query: undefined,
+                page: 0,
+                sort: undefined,
+                ...Object.fromEntries(
+                  (filterFields ?? []).map((field) => [field.key, undefined]),
+                ),
+              }))
+            }}
+          >
+            <X className="size-4" />
+            Clear
           </Button>
         </div>
       </div>
-      <TabsContent
-        value="outline"
-        className="relative flex flex-col gap-4 overflow-auto px-4 lg:px-6"
-      >
-        <div className="overflow-hidden rounded-lg border">
-          <DndContext
-            collisionDetection={closestCenter}
-            modifiers={[restrictToVerticalAxis]}
-            onDragEnd={handleDragEnd}
-            sensors={sensors}
-            id={sortableId}
-          >
-            <Table>
-              <TableHeader className="sticky top-0 z-10 bg-muted">
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => {
-                      return (
-                        <TableHead key={header.id} colSpan={header.colSpan}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
-                        </TableHead>
+
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder ? null : header.column.getCanSort() ? (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="-ml-3 h-8"
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                        {header.column.getIsSorted() === "asc" ? (
+                          <ArrowUp className="size-4" />
+                        ) : header.column.getIsSorted() === "desc" ? (
+                          <ArrowDown className="size-4" />
+                        ) : (
+                          <ArrowUpDown className="size-4" />
+                        )}
+                      </Button>
+                    ) : (
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
                       )
-                    })}
-                  </TableRow>
+                    )}
+                  </TableHead>
                 ))}
-              </TableHeader>
-              <TableBody className="**:data-[slot=table-cell]:first:w-8">
-                {table.getRowModel().rows?.length ? (
-                  <SortableContext
-                    items={dataIds}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    {table.getRowModel().rows.map((row) => (
-                      <DraggableRow key={row.id} row={row} />
-                    ))}
-                  </SortableContext>
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-24 text-center"
-                    >
-                      No results.
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {query.isLoading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
+                  Loading...
+                </TableCell>
+              </TableRow>
+            ) : query.isError ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center text-destructive">
+                  Failed to load table data.
+                </TableCell>
+              </TableRow>
+            ) : hasRows ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </DndContext>
-        </div>
-        <div className="flex items-center justify-between px-4">
-          <div className="hidden flex-1 text-sm text-muted-foreground lg:flex">
-            {table.getFilteredSelectedRowModel().rows.length} of{" "}
-            {table.getFilteredRowModel().rows.length} row(s) selected.
-          </div>
-          <div className="flex w-full items-center gap-8 lg:w-fit">
-            <div className="hidden items-center gap-2 lg:flex">
-              <Label htmlFor="rows-per-page" className="text-sm font-medium">
-                Rows per page
-              </Label>
-              <Select
-                value={`${table.getState().pagination.pageSize}`}
-                onValueChange={(value) => {
-                  table.setPageSize(Number(value))
-                }}
-              >
-                <SelectTrigger size="sm" className="w-20" id="rows-per-page">
-                  <SelectValue
-                    placeholder={table.getState().pagination.pageSize}
-                  />
-                </SelectTrigger>
-                <SelectContent side="top">
-                  {[10, 20, 30, 40, 50].map((pageSize) => (
-                    <SelectItem key={pageSize} value={`${pageSize}`}>
-                      {pageSize}
-                    </SelectItem>
                   ))}
-                </SelectContent>
-              </Select>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center text-muted-foreground">
+                  {emptyMessage}
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="text-sm text-muted-foreground">
+          {hasRows
+            ? `Showing ${pageStart}-${pageEnd} of ${data?.totalElements ?? 0}`
+            : "No rows to display"}
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">Rows per page</span>
+            <Select
+              value={String(pageSize)}
+              onValueChange={(value) =>
+                setRequest((previous) => ({
+                  ...previous,
+                  page: 0,
+                  size: Number(value),
+                }))
+              }
+            >
+              <SelectTrigger className="w-20">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {pageSizeOptions.map((option) => (
+                  <SelectItem key={option} value={String(option)}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="flex items-center gap-1">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() => setRequest((previous) => ({...previous, page: 0}))}
+              disabled={currentPage <= 0}
+            >
+              First
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() =>
+                setRequest((previous) => ({
+                  ...previous,
+                  page: Math.max((previous.page ?? 0) - 1, 0),
+                }))
+              }
+              disabled={currentPage <= 0}
+            >
+              Previous
+            </Button>
+            <div className="flex items-center gap-1">
+              {pageNumbers.map((page, index) => {
+                const previousPage = pageNumbers[index - 1]
+                return (
+                  <React.Fragment key={`${tableId}-${page}`}>
+                    {previousPage != null && page - previousPage > 1 ? (
+                      <span className="px-2 text-sm text-muted-foreground">...</span>
+                    ) : null}
+                    <Button
+                      type="button"
+                      variant={page === currentPage ? "default" : "outline"}
+                      size="sm"
+                      onClick={() =>
+                        setRequest((previous) => ({...previous, page}))
+                      }
+                    >
+                      {page + 1}
+                    </Button>
+                  </React.Fragment>
+                )
+              })}
             </div>
-            <div className="flex w-fit items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of{" "}
-              {table.getPageCount()}
-            </div>
-            <div className="ml-auto flex items-center gap-2 lg:ml-0">
-              <Button
-                variant="outline"
-                className="hidden h-8 w-8 p-0 lg:flex"
-                onClick={() => table.setPageIndex(0)}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <span className="sr-only">Go to first page</span>
-                <IconChevronsLeft />
-              </Button>
-              <Button
-                variant="outline"
-                className="size-8"
-                size="icon"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <span className="sr-only">Go to previous page</span>
-                <IconChevronLeft />
-              </Button>
-              <Button
-                variant="outline"
-                className="size-8"
-                size="icon"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <span className="sr-only">Go to next page</span>
-                <IconChevronRight />
-              </Button>
-              <Button
-                variant="outline"
-                className="hidden size-8 lg:flex"
-                size="icon"
-                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                disabled={!table.getCanNextPage()}
-              >
-                <span className="sr-only">Go to last page</span>
-                <IconChevronsRight />
-              </Button>
-            </div>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() =>
+                setRequest((previous) => ({
+                  ...previous,
+                  page: Math.min((previous.page ?? 0) + 1, Math.max(totalPages - 1, 0)),
+                }))
+              }
+              disabled={totalPages === 0 || currentPage >= totalPages - 1}
+            >
+              Next
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={() =>
+                setRequest((previous) => ({
+                  ...previous,
+                  page: Math.max(totalPages - 1, 0),
+                }))
+              }
+              disabled={totalPages === 0 || currentPage >= totalPages - 1}
+            >
+              Last
+            </Button>
           </div>
         </div>
-      </TabsContent>
-      <TabsContent
-        value="past-performance"
-        className="flex flex-col px-4 lg:px-6"
-      >
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
-      </TabsContent>
-      <TabsContent value="key-personnel" className="flex flex-col px-4 lg:px-6">
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
-      </TabsContent>
-      <TabsContent
-        value="focus-documents"
-        className="flex flex-col px-4 lg:px-6"
-      >
-        <div className="aspect-video w-full flex-1 rounded-lg border border-dashed"></div>
-      </TabsContent>
-    </Tabs>
+      </div>
+    </div>
   )
 }
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
-
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--primary)",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "var(--primary)",
-  },
-} satisfies ChartConfig
-
-function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
-  const isMobile = useIsMobile()
-
-  return (
-    <Drawer direction={isMobile ? "bottom" : "right"}>
-      <DrawerTrigger asChild>
-        <Button variant="link" className="w-fit px-0 text-left text-foreground">
-          {item.header}
-        </Button>
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader className="gap-1">
-          <DrawerTitle>{item.header}</DrawerTitle>
-          <DrawerDescription>
-            Showing total visitors for the last 6 months
-          </DrawerDescription>
-        </DrawerHeader>
-        <div className="flex flex-col gap-4 overflow-y-auto px-4 text-sm">
-          {!isMobile && (
-            <>
-              <ChartContainer config={chartConfig}>
-                <AreaChart
-                  accessibilityLayer
-                  data={chartData}
-                  margin={{
-                    left: 0,
-                    right: 10,
-                  }}
-                >
-                  <CartesianGrid vertical={false} />
-                  <XAxis
-                    dataKey="month"
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    tickFormatter={(value) => value.slice(0, 3)}
-                    hide
-                  />
-                  <ChartTooltip
-                    cursor={false}
-                    content={<ChartTooltipContent indicator="dot" />}
-                  />
-                  <Area
-                    dataKey="mobile"
-                    type="natural"
-                    fill="var(--color-mobile)"
-                    fillOpacity={0.6}
-                    stroke="var(--color-mobile)"
-                    stackId="a"
-                  />
-                  <Area
-                    dataKey="desktop"
-                    type="natural"
-                    fill="var(--color-desktop)"
-                    fillOpacity={0.4}
-                    stroke="var(--color-desktop)"
-                    stackId="a"
-                  />
-                </AreaChart>
-              </ChartContainer>
-              <Separator />
-              <div className="grid gap-2">
-                <div className="flex gap-2 leading-none font-medium">
-                  Trending up by 5.2% this month{" "}
-                  <IconTrendingUp className="size-4" />
-                </div>
-                <div className="text-muted-foreground">
-                  Showing total visitors for the last 6 months. This is just
-                  some random text to test the layout. It spans multiple lines
-                  and should wrap around.
-                </div>
-              </div>
-              <Separator />
-            </>
-          )}
-          <form className="flex flex-col gap-4">
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="header">Header</Label>
-              <Input id="header" defaultValue={item.header} />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="type">Type</Label>
-                <Select defaultValue={item.type}>
-                  <SelectTrigger id="type" className="w-full">
-                    <SelectValue placeholder="Select a type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Table of Contents">
-                      Table of Contents
-                    </SelectItem>
-                    <SelectItem value="Executive Summary">
-                      Executive Summary
-                    </SelectItem>
-                    <SelectItem value="Technical Approach">
-                      Technical Approach
-                    </SelectItem>
-                    <SelectItem value="Design">Design</SelectItem>
-                    <SelectItem value="Capabilities">Capabilities</SelectItem>
-                    <SelectItem value="Focus Documents">
-                      Focus Documents
-                    </SelectItem>
-                    <SelectItem value="Narrative">Narrative</SelectItem>
-                    <SelectItem value="Cover Page">Cover Page</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="status">Status</Label>
-                <Select defaultValue={item.status}>
-                  <SelectTrigger id="status" className="w-full">
-                    <SelectValue placeholder="Select a status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Done">Done</SelectItem>
-                    <SelectItem value="In Progress">In Progress</SelectItem>
-                    <SelectItem value="Not Started">Not Started</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="target">Target</Label>
-                <Input id="target" defaultValue={item.target} />
-              </div>
-              <div className="flex flex-col gap-3">
-                <Label htmlFor="limit">Limit</Label>
-                <Input id="limit" defaultValue={item.limit} />
-              </div>
-            </div>
-            <div className="flex flex-col gap-3">
-              <Label htmlFor="reviewer">Reviewer</Label>
-              <Select defaultValue={item.reviewer}>
-                <SelectTrigger id="reviewer" className="w-full">
-                  <SelectValue placeholder="Select a reviewer" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Eddie Lake">Eddie Lake</SelectItem>
-                  <SelectItem value="Jamik Tashpulatov">
-                    Jamik Tashpulatov
-                  </SelectItem>
-                  <SelectItem value="Emily Whalen">Emily Whalen</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </form>
-        </div>
-        <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose asChild>
-            <Button variant="outline">Done</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  )
-}
+export default DataTable
