@@ -13,7 +13,7 @@ class LoginApi {
         })
     }
 
-    proxyLogin(init: BACKEND.Req<undefined, { userId: NixID, orgId: NixID }>) {
+    proxyLogin(init: BACKEND.ReqQuery<{ userId: NixID, orgId: NixID }>) {
         return BACKEND.apiFetch<LoginModel.LoginResponse>(`/auth/login/proxy`, init)
     }
 

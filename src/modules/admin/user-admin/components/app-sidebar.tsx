@@ -31,7 +31,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "#/components/ui/sidebar.tsx"
-import {businessNavItems} from "#/modules/admin/user-admin/businesses/BusinessNav.tsx";
+import {businessNavItems} from "#/modules/admin/user-admin/organizations/OrgNav.tsx";
 import type {FileRoutesByTo} from "#/routeTree.gen.ts";
 export type NavSectionType = {
     title?: string,

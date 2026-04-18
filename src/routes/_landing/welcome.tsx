@@ -221,7 +221,7 @@ function App() {
                   size="lg"
                   className="h-12 px-7"
                 >
-                  <Link to="/login">Login</Link>
+                  <Link to="/login" search={{email: ""}}>Login</Link>
                 </Button>
                 <Button
                   asChild

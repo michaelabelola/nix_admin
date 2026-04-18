@@ -89,7 +89,7 @@ export namespace BACKEND {
         body?: B
     }
 
-    export type ReqQuery<Q = Record<string, string | number | boolean | undefined>> = {
+    export type ReqQuery<Q = (Record<string, string | number | boolean | undefined>)> = {
         errHandler?: ErrorHandlerType
         query?: Q
     }

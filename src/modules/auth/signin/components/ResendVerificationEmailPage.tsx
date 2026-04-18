@@ -97,7 +97,7 @@ export function ResendVerificationEmailPage() {
                     </p>
                     <div className="flex flex-wrap gap-3">
                         <Button asChild variant="outline">
-                            <Link to="/login">Back to login</Link>
+                            <Link to="/login" search={{email: ""}}>Back to login</Link>
                         </Button>
                         <Button asChild variant="ghost">
                             <Link to="/verify-email" search={{

@@ -7,12 +7,12 @@ export const businessNavItems: NavSectionType = {
         {
             name: "Home",
             icon: IconBrandOffice,
-            to: "/",
+            to: "/admin/organizations/dashboard",
         },
         {
-            name: "My Businesses",
+            name: "My Organizations",
             icon: IconBrandOffice,
-            to: "/admin/businesses",
+            to: "/admin/organizations",
         }
     ]
 } as NavSectionType

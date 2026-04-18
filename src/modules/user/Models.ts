@@ -9,7 +9,7 @@ export namespace UserModel {
         id: string,
         firstname: string
         lastname: string
-        avatar_url: string
+        avatar: string
         entityID: NixID
     }
     export type DetailedUser = {

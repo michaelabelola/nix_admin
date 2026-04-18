@@ -20,7 +20,9 @@ import { Route as LandingResendVerificationEmailRouteImport } from './routes/_la
 import { Route as LandingLoginRouteImport } from './routes/_landing/login'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
-import { Route as AuthenticatedAdminBusinessesRouteImport } from './routes/_authenticated/admin/businesses'
+import { Route as AuthenticatedAdminOrganizationsRouteRouteImport } from './routes/_authenticated/admin/organizations/route'
+import { Route as AuthenticatedAdminOrganizationsIndexRouteImport } from './routes/_authenticated/admin/organizations/index'
+import { Route as AuthenticatedAdminOrganizationsDashboardRouteImport } from './routes/_authenticated/admin/organizations/dashboard'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -77,11 +79,23 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const AuthenticatedAdminBusinessesRoute =
-  AuthenticatedAdminBusinessesRouteImport.update({
-    id: '/businesses',
-    path: '/businesses',
+const AuthenticatedAdminOrganizationsRouteRoute =
+  AuthenticatedAdminOrganizationsRouteRouteImport.update({
+    id: '/organizations',
+    path: '/organizations',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
+const AuthenticatedAdminOrganizationsIndexRoute =
+  AuthenticatedAdminOrganizationsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminOrganizationsRouteRoute,
+  } as any)
+const AuthenticatedAdminOrganizationsDashboardRoute =
+  AuthenticatedAdminOrganizationsDashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => AuthenticatedAdminOrganizationsRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -94,8 +108,10 @@ export interface FileRoutesByFullPath {
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
-  '/admin/businesses': typeof AuthenticatedAdminBusinessesRoute
+  '/admin/organizations': typeof AuthenticatedAdminOrganizationsRouteRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/organizations/dashboard': typeof AuthenticatedAdminOrganizationsDashboardRoute
+  '/admin/organizations/': typeof AuthenticatedAdminOrganizationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
@@ -106,8 +122,9 @@ export interface FileRoutesByTo {
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/': typeof LandingIndexRoute
-  '/admin/businesses': typeof AuthenticatedAdminBusinessesRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/organizations/dashboard': typeof AuthenticatedAdminOrganizationsDashboardRoute
+  '/admin/organizations': typeof AuthenticatedAdminOrganizationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -121,8 +138,10 @@ export interface FileRoutesById {
   '/_landing/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
-  '/_authenticated/admin/businesses': typeof AuthenticatedAdminBusinessesRoute
+  '/_authenticated/admin/organizations': typeof AuthenticatedAdminOrganizationsRouteRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/organizations/dashboard': typeof AuthenticatedAdminOrganizationsDashboardRoute
+  '/_authenticated/admin/organizations/': typeof AuthenticatedAdminOrganizationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -136,8 +155,10 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/welcome'
     | '/demo/i18n'
-    | '/admin/businesses'
+    | '/admin/organizations'
     | '/admin/'
+    | '/admin/organizations/dashboard'
+    | '/admin/organizations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/about'
@@ -148,8 +169,9 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/demo/i18n'
     | '/'
-    | '/admin/businesses'
     | '/admin'
+    | '/admin/organizations/dashboard'
+    | '/admin/organizations'
   id:
     | '__root__'
     | '/_landing'
@@ -162,8 +184,10 @@ export interface FileRouteTypes {
     | '/_landing/welcome'
     | '/demo/i18n'
     | '/_landing/'
-    | '/_authenticated/admin/businesses'
+    | '/_authenticated/admin/organizations'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/organizations/dashboard'
+    | '/_authenticated/admin/organizations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -252,12 +276,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/_authenticated/admin/businesses': {
-      id: '/_authenticated/admin/businesses'
-      path: '/businesses'
-      fullPath: '/admin/businesses'
-      preLoaderRoute: typeof AuthenticatedAdminBusinessesRouteImport
+    '/_authenticated/admin/organizations': {
+      id: '/_authenticated/admin/organizations'
+      path: '/organizations'
+      fullPath: '/admin/organizations'
+      preLoaderRoute: typeof AuthenticatedAdminOrganizationsRouteRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/organizations/': {
+      id: '/_authenticated/admin/organizations/'
+      path: '/'
+      fullPath: '/admin/organizations/'
+      preLoaderRoute: typeof AuthenticatedAdminOrganizationsIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminOrganizationsRouteRoute
+    }
+    '/_authenticated/admin/organizations/dashboard': {
+      id: '/_authenticated/admin/organizations/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/organizations/dashboard'
+      preLoaderRoute: typeof AuthenticatedAdminOrganizationsDashboardRouteImport
+      parentRoute: typeof AuthenticatedAdminOrganizationsRouteRoute
     }
   }
 }
@@ -284,14 +322,33 @@ const LandingRouteRouteWithChildren = LandingRouteRoute._addFileChildren(
   LandingRouteRouteChildren,
 )
 
+interface AuthenticatedAdminOrganizationsRouteRouteChildren {
+  AuthenticatedAdminOrganizationsDashboardRoute: typeof AuthenticatedAdminOrganizationsDashboardRoute
+  AuthenticatedAdminOrganizationsIndexRoute: typeof AuthenticatedAdminOrganizationsIndexRoute
+}
+
+const AuthenticatedAdminOrganizationsRouteRouteChildren: AuthenticatedAdminOrganizationsRouteRouteChildren =
+  {
+    AuthenticatedAdminOrganizationsDashboardRoute:
+      AuthenticatedAdminOrganizationsDashboardRoute,
+    AuthenticatedAdminOrganizationsIndexRoute:
+      AuthenticatedAdminOrganizationsIndexRoute,
+  }
+
+const AuthenticatedAdminOrganizationsRouteRouteWithChildren =
+  AuthenticatedAdminOrganizationsRouteRoute._addFileChildren(
+    AuthenticatedAdminOrganizationsRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminRouteRouteChildren {
-  AuthenticatedAdminBusinessesRoute: typeof AuthenticatedAdminBusinessesRoute
+  AuthenticatedAdminOrganizationsRouteRoute: typeof AuthenticatedAdminOrganizationsRouteRouteWithChildren
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
-    AuthenticatedAdminBusinessesRoute: AuthenticatedAdminBusinessesRoute,
+    AuthenticatedAdminOrganizationsRouteRoute:
+      AuthenticatedAdminOrganizationsRouteRouteWithChildren,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   }
 
