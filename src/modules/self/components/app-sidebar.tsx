@@ -18,10 +18,10 @@ import {
     IconUsers,
 } from "@tabler/icons-react"
 
-import {NavSection} from "#/modules/admin/user-admin/components/nav-section.tsx"
-import {NavMain} from "#/modules/admin/user-admin/components/nav-main.tsx"
-import {NavSecondary} from "#/modules/admin/user-admin/components/nav-secondary.tsx"
-import {NavUser} from "#/modules/admin/user-admin/components/nav-user.tsx"
+import {NavSection} from "#/modules/self/components/nav-section.tsx"
+import {NavMain} from "#/modules/self/components/nav-main.tsx"
+import {NavSecondary} from "#/modules/self/components/nav-secondary.tsx"
+import {NavUser} from "#/modules/self/components/nav-user.tsx"
 import {
     Sidebar,
     SidebarContent,
@@ -31,7 +31,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "#/components/ui/sidebar.tsx"
-import {businessNavItems} from "#/modules/admin/user-admin/organizations/OrgNav.tsx";
+import {businessNavItems} from "#/modules/self/organizations/OrgNav.tsx";
 import type {FileRoutesByTo} from "#/routeTree.gen.ts";
 export type NavSectionType = {
     title?: string,
@@ -187,7 +187,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 <NavSecondary items={data.navSecondary} className="mt-auto"/>
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user}/>
+                <NavUser/>
             </SidebarFooter>
         </Sidebar>
     )

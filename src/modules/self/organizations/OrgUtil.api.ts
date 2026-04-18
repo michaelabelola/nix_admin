@@ -1,4 +1,4 @@
-import {type OrganizationUtilModel} from "#/modules/admin/user-admin/organizations/org.util.model.tsx";
+import {type OrganizationUtilModel} from "#/modules/self/organizations/org.util.model.tsx";
 import {BACKEND} from "#/lib/fetch.ts";
 
 

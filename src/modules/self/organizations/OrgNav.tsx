@@ -1,4 +1,4 @@
-import type {NavSectionType} from "#/modules/admin/user-admin/components/app-sidebar.tsx";
+import type {NavSectionType} from "#/modules/self/components/app-sidebar.tsx";
 import {IconBrandOffice} from "@tabler/icons-react";
 
 export const businessNavItems: NavSectionType = {
@@ -7,12 +7,12 @@ export const businessNavItems: NavSectionType = {
         {
             name: "Home",
             icon: IconBrandOffice,
-            to: "/admin/organizations/dashboard",
+            to: "/self/organizations/dashboard",
         },
         {
             name: "My Organizations",
             icon: IconBrandOffice,
-            to: "/admin/organizations",
+            to: "/self/organizations",
         }
     ]
 } as NavSectionType

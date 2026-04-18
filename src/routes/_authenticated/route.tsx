@@ -1,13 +1,20 @@
-import {Navigate} from '@tanstack/react-router'
-
-import {useAuthenticatedUser} from '#/lib/authenticated-user.store'
-import {Card, CardDescription, CardHeader, CardTitle} from '#/components/ui/card'
-
-import {BusinessAdminPage} from '../business-admin/BusinessAdminPage.tsx'
-import {UserAdminPage} from '#/modules/self/UserAdminPage.tsx'
+import {createFileRoute, Navigate, Outlet} from '@tanstack/react-router'
+import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
+import {Card, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
 
-export function AdminPage() {
+export const Route = createFileRoute('/_authenticated')({
+    component: AdminPage,
+    head: () => ({
+        meta: [
+            {
+                title: 'Admin | Suiteonix',
+            }
+        ],
+    }),
+})
+
+function AdminPage() {
     const {user, isHydrated} = useAuthenticatedUser()
 
     if (!isHydrated) {
@@ -30,13 +37,9 @@ export function AdminPage() {
         )
     }
 
-    if (!user?.accessToken) {
-        return <Navigate to="/login" search={{
+    if (!user?.accessToken)
+        return <Navigate to={"/login"} search={{
             email: ""
         }}/>
-    }
-
-    if (user.orgID) return <BusinessAdminPage orgID={user.orgID}/>
-
-    return <UserAdminPage/>
+    return <Outlet/>
 }

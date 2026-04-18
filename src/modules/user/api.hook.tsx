@@ -11,9 +11,18 @@ export namespace UserRequest {
             initialData: undefined
         })
     }
+
+    export const useGetAuthenticatedUser = () => {
+        return useQuery<UserModel.DetailedUser>({
+            queryKey: ['user', "me"],
+            queryFn: () => userAPI.getMe(),
+            staleTime: 0, // 24 hours
+            initialData: {} as UserModel.DetailedUser,
+        })
+    }
     export const useGetDetailedUser = (id: UserModel.UserID) => {
         return useQuery<UserModel.DetailedUser>({
-            queryKey: ['user','detailed', id],
+            queryKey: ['user', 'detailed', id],
             queryFn: ({queryKey}) => userAPI.getUserDetailed(queryKey[2] as any),
             staleTime: 0, // 24 hours
             initialData: undefined

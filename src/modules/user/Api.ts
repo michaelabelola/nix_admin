@@ -6,12 +6,13 @@ class UserApi {
     getUserByID(id: UserModel.UserID) {
         return BACKEND.authFetch<UserModel.User>(`/user/${id}`)
     }
+
     getUserDetailed(id: UserModel.UserID) {
         return BACKEND.authFetch<UserModel.DetailedUser>(`/user/${id}/detailed`)
     }
 
-    getMe(): Promise<UserModel.DetailedUser> {
-        return BACKEND.authFetch<UserModel.DetailedUser>(`/user/me`)
+    getMe() {
+        return BACKEND.authFetch<UserModel.DetailedUser>(`/user/me`, {})
     }
 }
 

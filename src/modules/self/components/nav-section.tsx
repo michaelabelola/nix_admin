@@ -23,25 +23,33 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "#/components/ui/sidebar.tsx"
-import type {NavSectionType} from "#/modules/admin/user-admin/components/app-sidebar.tsx";
+import type {NavSectionType} from "#/modules/self/components/app-sidebar.tsx";
+import {Link} from "@tanstack/react-router";
 
 export function NavSection({section}: {
     section: NavSectionType
 }) {
     const {isMobile} = useSidebar()
-    if (section?.hidden)
-        return null
+    if (section?.hidden) return null
     return (
         <SidebarGroup className="group-data-[collapsible=icon]:hidden">
             <SidebarGroupLabel>{section.title}</SidebarGroupLabel>
             <SidebarMenu>
                 {section?.navs?.map((item) => (
                     <SidebarMenuItem key={item.name}>
-                        <SidebarMenuButton asChild>
-                            <a href={item.to}>
-                                <item.icon/>
-                                <span>{item.name}</span>
-                            </a>
+                        <SidebarMenuButton
+                            asChild
+                            // isActive={currentPath === item.to || (currentPath.startsWith(item.to as any))}
+                        >
+                            <Link to={item.to as any}
+                                  activeOptions={{exact: true}}
+                                  activeProps={{className: "bg-primary text-primary-foreground"}} className="flex-1">
+                                {item.name}
+                            </Link>
+                            {/*<a href={item.to}>*/}
+                            {/*    <item.icon/>*/}
+                            {/*    <span>{item.name}</span>*/}
+                            {/*</a>*/}
                         </SidebarMenuButton>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>

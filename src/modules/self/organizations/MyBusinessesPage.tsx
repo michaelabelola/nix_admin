@@ -7,7 +7,7 @@ import {type PermissionModel} from "#/modules/permissions/Models.ts";
 import orgApi from "#/modules/organization/apis/Org.api.ts";
 import {type OrganizationModel} from "#/modules/organization/models/models.ts";
 import {ButtonGroup} from "#/components/ui/button-group.tsx";
-import {buttonVariants} from "#/components/ui/button";
+import {buttonVariants} from "#/components/ui/button.tsx";
 import {EyeIcon, LogIn} from "lucide-react";
 import {QuickToolTip, Tooltip, TooltipContent, TooltipTrigger} from "#/components/ui/tooltip.tsx";
 import UserCell from "#/modules/user/components/UserCell.tsx";

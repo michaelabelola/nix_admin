@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LandingRouteRouteImport } from './routes/_landing/route'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LandingIndexRouteImport } from './routes/_landing/index'
 import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
 import { Route as LandingWelcomeRouteImport } from './routes/_landing/welcome'
@@ -18,11 +19,12 @@ import { Route as LandingVerifyEmailRouteImport } from './routes/_landing/verify
 import { Route as LandingSignupRouteImport } from './routes/_landing/signup'
 import { Route as LandingResendVerificationEmailRouteImport } from './routes/_landing/resend-verification-email'
 import { Route as LandingLoginRouteImport } from './routes/_landing/login'
+import { Route as AuthenticatedSelfRouteRouteImport } from './routes/_authenticated/self/route'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
-import { Route as AuthenticatedAdminOrganizationsRouteRouteImport } from './routes/_authenticated/admin/organizations/route'
-import { Route as AuthenticatedAdminOrganizationsIndexRouteImport } from './routes/_authenticated/admin/organizations/index'
-import { Route as AuthenticatedAdminOrganizationsDashboardRouteImport } from './routes/_authenticated/admin/organizations/dashboard'
+import { Route as AuthenticatedSelfOrganizationsRouteRouteImport } from './routes/_authenticated/self/organizations/route'
+import { Route as AuthenticatedSelfOrganizationsIndexRouteImport } from './routes/_authenticated/self/organizations/index'
+import { Route as AuthenticatedSelfOrganizationsDashboardRouteImport } from './routes/_authenticated/self/organizations/dashboard'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -31,6 +33,10 @@ const AboutRoute = AboutRouteImport.update({
 } as any)
 const LandingRouteRoute = LandingRouteRouteImport.update({
   id: '/_landing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LandingIndexRoute = LandingIndexRouteImport.update({
@@ -69,68 +75,77 @@ const LandingLoginRoute = LandingLoginRouteImport.update({
   path: '/login',
   getParentRoute: () => LandingRouteRoute,
 } as any)
+const AuthenticatedSelfRouteRoute = AuthenticatedSelfRouteRouteImport.update({
+  id: '/self',
+  path: '/self',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
-  id: '/_authenticated/admin',
+  id: '/admin',
   path: '/admin',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const AuthenticatedAdminOrganizationsRouteRoute =
-  AuthenticatedAdminOrganizationsRouteRouteImport.update({
+const AuthenticatedSelfOrganizationsRouteRoute =
+  AuthenticatedSelfOrganizationsRouteRouteImport.update({
     id: '/organizations',
     path: '/organizations',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
+    getParentRoute: () => AuthenticatedSelfRouteRoute,
   } as any)
-const AuthenticatedAdminOrganizationsIndexRoute =
-  AuthenticatedAdminOrganizationsIndexRouteImport.update({
+const AuthenticatedSelfOrganizationsIndexRoute =
+  AuthenticatedSelfOrganizationsIndexRouteImport.update({
     id: '/',
     path: '/',
-    getParentRoute: () => AuthenticatedAdminOrganizationsRouteRoute,
+    getParentRoute: () => AuthenticatedSelfOrganizationsRouteRoute,
   } as any)
-const AuthenticatedAdminOrganizationsDashboardRoute =
-  AuthenticatedAdminOrganizationsDashboardRouteImport.update({
+const AuthenticatedSelfOrganizationsDashboardRoute =
+  AuthenticatedSelfOrganizationsDashboardRouteImport.update({
     id: '/dashboard',
     path: '/dashboard',
-    getParentRoute: () => AuthenticatedAdminOrganizationsRouteRoute,
+    getParentRoute: () => AuthenticatedSelfOrganizationsRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof LandingIndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/self': typeof AuthenticatedSelfRouteRouteWithChildren
   '/login': typeof LandingLoginRoute
   '/resend-verification-email': typeof LandingResendVerificationEmailRoute
   '/signup': typeof LandingSignupRoute
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
-  '/admin/organizations': typeof AuthenticatedAdminOrganizationsRouteRouteWithChildren
+  '/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
-  '/admin/organizations/dashboard': typeof AuthenticatedAdminOrganizationsDashboardRoute
-  '/admin/organizations/': typeof AuthenticatedAdminOrganizationsIndexRoute
+  '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
+  '/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof LandingIndexRoute
   '/about': typeof AboutRoute
+  '/self': typeof AuthenticatedSelfRouteRouteWithChildren
   '/login': typeof LandingLoginRoute
   '/resend-verification-email': typeof LandingResendVerificationEmailRoute
   '/signup': typeof LandingSignupRoute
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
-  '/': typeof LandingIndexRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
-  '/admin/organizations/dashboard': typeof AuthenticatedAdminOrganizationsDashboardRoute
-  '/admin/organizations': typeof AuthenticatedAdminOrganizationsIndexRoute
+  '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
+  '/self/organizations': typeof AuthenticatedSelfOrganizationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_landing': typeof LandingRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/_authenticated/self': typeof AuthenticatedSelfRouteRouteWithChildren
   '/_landing/login': typeof LandingLoginRoute
   '/_landing/resend-verification-email': typeof LandingResendVerificationEmailRoute
   '/_landing/signup': typeof LandingSignupRoute
@@ -138,10 +153,10 @@ export interface FileRoutesById {
   '/_landing/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
-  '/_authenticated/admin/organizations': typeof AuthenticatedAdminOrganizationsRouteRouteWithChildren
+  '/_authenticated/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
-  '/_authenticated/admin/organizations/dashboard': typeof AuthenticatedAdminOrganizationsDashboardRoute
-  '/_authenticated/admin/organizations/': typeof AuthenticatedAdminOrganizationsIndexRoute
+  '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
+  '/_authenticated/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -149,34 +164,38 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/self'
     | '/login'
     | '/resend-verification-email'
     | '/signup'
     | '/verify-email'
     | '/welcome'
     | '/demo/i18n'
-    | '/admin/organizations'
+    | '/self/organizations'
     | '/admin/'
-    | '/admin/organizations/dashboard'
-    | '/admin/organizations/'
+    | '/self/organizations/dashboard'
+    | '/self/organizations/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/about'
+    | '/self'
     | '/login'
     | '/resend-verification-email'
     | '/signup'
     | '/verify-email'
     | '/welcome'
     | '/demo/i18n'
-    | '/'
     | '/admin'
-    | '/admin/organizations/dashboard'
-    | '/admin/organizations'
+    | '/self/organizations/dashboard'
+    | '/self/organizations'
   id:
     | '__root__'
+    | '/_authenticated'
     | '/_landing'
     | '/about'
     | '/_authenticated/admin'
+    | '/_authenticated/self'
     | '/_landing/login'
     | '/_landing/resend-verification-email'
     | '/_landing/signup'
@@ -184,16 +203,16 @@ export interface FileRouteTypes {
     | '/_landing/welcome'
     | '/demo/i18n'
     | '/_landing/'
-    | '/_authenticated/admin/organizations'
+    | '/_authenticated/self/organizations'
     | '/_authenticated/admin/'
-    | '/_authenticated/admin/organizations/dashboard'
-    | '/_authenticated/admin/organizations/'
+    | '/_authenticated/self/organizations/dashboard'
+    | '/_authenticated/self/organizations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
   DemoI18nRoute: typeof DemoI18nRoute
 }
 
@@ -211,6 +230,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof LandingRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_landing/': {
@@ -262,12 +288,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LandingLoginRouteImport
       parentRoute: typeof LandingRouteRoute
     }
+    '/_authenticated/self': {
+      id: '/_authenticated/self'
+      path: '/self'
+      fullPath: '/self'
+      preLoaderRoute: typeof AuthenticatedSelfRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -276,29 +309,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/_authenticated/admin/organizations': {
-      id: '/_authenticated/admin/organizations'
+    '/_authenticated/self/organizations': {
+      id: '/_authenticated/self/organizations'
       path: '/organizations'
-      fullPath: '/admin/organizations'
-      preLoaderRoute: typeof AuthenticatedAdminOrganizationsRouteRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
+      fullPath: '/self/organizations'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRouteRouteImport
+      parentRoute: typeof AuthenticatedSelfRouteRoute
     }
-    '/_authenticated/admin/organizations/': {
-      id: '/_authenticated/admin/organizations/'
+    '/_authenticated/self/organizations/': {
+      id: '/_authenticated/self/organizations/'
       path: '/'
-      fullPath: '/admin/organizations/'
-      preLoaderRoute: typeof AuthenticatedAdminOrganizationsIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminOrganizationsRouteRoute
+      fullPath: '/self/organizations/'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsIndexRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRouteRoute
     }
-    '/_authenticated/admin/organizations/dashboard': {
-      id: '/_authenticated/admin/organizations/dashboard'
+    '/_authenticated/self/organizations/dashboard': {
+      id: '/_authenticated/self/organizations/dashboard'
       path: '/dashboard'
-      fullPath: '/admin/organizations/dashboard'
-      preLoaderRoute: typeof AuthenticatedAdminOrganizationsDashboardRouteImport
-      parentRoute: typeof AuthenticatedAdminOrganizationsRouteRoute
+      fullPath: '/self/organizations/dashboard'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsDashboardRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRouteRoute
     }
   }
 }
+
+interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
+interface AuthenticatedSelfOrganizationsRouteRouteChildren {
+  AuthenticatedSelfOrganizationsDashboardRoute: typeof AuthenticatedSelfOrganizationsDashboardRoute
+  AuthenticatedSelfOrganizationsIndexRoute: typeof AuthenticatedSelfOrganizationsIndexRoute
+}
+
+const AuthenticatedSelfOrganizationsRouteRouteChildren: AuthenticatedSelfOrganizationsRouteRouteChildren =
+  {
+    AuthenticatedSelfOrganizationsDashboardRoute:
+      AuthenticatedSelfOrganizationsDashboardRoute,
+    AuthenticatedSelfOrganizationsIndexRoute:
+      AuthenticatedSelfOrganizationsIndexRoute,
+  }
+
+const AuthenticatedSelfOrganizationsRouteRouteWithChildren =
+  AuthenticatedSelfOrganizationsRouteRoute._addFileChildren(
+    AuthenticatedSelfOrganizationsRouteRouteChildren,
+  )
+
+interface AuthenticatedSelfRouteRouteChildren {
+  AuthenticatedSelfOrganizationsRouteRoute: typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
+}
+
+const AuthenticatedSelfRouteRouteChildren: AuthenticatedSelfRouteRouteChildren =
+  {
+    AuthenticatedSelfOrganizationsRouteRoute:
+      AuthenticatedSelfOrganizationsRouteRouteWithChildren,
+  }
+
+const AuthenticatedSelfRouteRouteWithChildren =
+  AuthenticatedSelfRouteRoute._addFileChildren(
+    AuthenticatedSelfRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+  AuthenticatedSelfRouteRoute: typeof AuthenticatedSelfRouteRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+  AuthenticatedSelfRouteRoute: AuthenticatedSelfRouteRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface LandingRouteRouteChildren {
   LandingLoginRoute: typeof LandingLoginRoute
@@ -322,45 +415,10 @@ const LandingRouteRouteWithChildren = LandingRouteRoute._addFileChildren(
   LandingRouteRouteChildren,
 )
 
-interface AuthenticatedAdminOrganizationsRouteRouteChildren {
-  AuthenticatedAdminOrganizationsDashboardRoute: typeof AuthenticatedAdminOrganizationsDashboardRoute
-  AuthenticatedAdminOrganizationsIndexRoute: typeof AuthenticatedAdminOrganizationsIndexRoute
-}
-
-const AuthenticatedAdminOrganizationsRouteRouteChildren: AuthenticatedAdminOrganizationsRouteRouteChildren =
-  {
-    AuthenticatedAdminOrganizationsDashboardRoute:
-      AuthenticatedAdminOrganizationsDashboardRoute,
-    AuthenticatedAdminOrganizationsIndexRoute:
-      AuthenticatedAdminOrganizationsIndexRoute,
-  }
-
-const AuthenticatedAdminOrganizationsRouteRouteWithChildren =
-  AuthenticatedAdminOrganizationsRouteRoute._addFileChildren(
-    AuthenticatedAdminOrganizationsRouteRouteChildren,
-  )
-
-interface AuthenticatedAdminRouteRouteChildren {
-  AuthenticatedAdminOrganizationsRouteRoute: typeof AuthenticatedAdminOrganizationsRouteRouteWithChildren
-  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
-}
-
-const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
-  {
-    AuthenticatedAdminOrganizationsRouteRoute:
-      AuthenticatedAdminOrganizationsRouteRouteWithChildren,
-    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
-  }
-
-const AuthenticatedAdminRouteRouteWithChildren =
-  AuthenticatedAdminRouteRoute._addFileChildren(
-    AuthenticatedAdminRouteRouteChildren,
-  )
-
 const rootRouteChildren: RootRouteChildren = {
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
-  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
   DemoI18nRoute: DemoI18nRoute,
 }
 export const routeTree = rootRouteImport

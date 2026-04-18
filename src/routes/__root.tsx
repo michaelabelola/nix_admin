@@ -18,6 +18,7 @@ import appCss from '../styles.css?url'
 import type {QueryClient} from '@tanstack/react-query'
 import {TooltipProvider} from "#/components/ui/tooltip.tsx";
 import {Toaster} from "#/components/ui/sonner.tsx";
+import Page404 from "#/components/pages/Page404.tsx";
 
 interface MyRouterContext {
     queryClient: QueryClient
@@ -46,6 +47,26 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
             {
                 title: 'Suiteonix',
             },
+            {
+                name: "description",
+                content: ""
+            },
+            {
+                name: "twitter:title",
+                content: ""
+            },
+            {
+                name: "twitter:description",
+                content: ""
+            },
+            {
+                name: "og:title",
+                content: ""
+            },
+            {
+                name: "og:description",
+                content: ""
+            }
         ],
         links: [
             {
@@ -54,6 +75,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
             },
         ],
     }),
+    notFoundComponent: () => (
+        <Page404 message="The route you requested does not exist or is no longer available."/>
+    ),
     shellComponent: RootDocument,
 })
 

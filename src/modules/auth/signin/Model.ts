@@ -18,6 +18,7 @@ export namespace LoginModel {
         "refreshToken": string
         "tokenType": string
         "orgID"?: NixID
+        userID: NixID
     }
     export type ResendVerificationRequest = {
         email: string,

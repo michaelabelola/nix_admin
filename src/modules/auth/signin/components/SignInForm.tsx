@@ -36,8 +36,14 @@ export function SignInForm({initialEmail}: { initialEmail?: string }) {
     const navigate = useNavigate()
     const entityID = useEntityStore((state) => state.entityID)
     const setAuthenticatedUser = useAuthenticatedUserStore((state) => state.setAuthenticatedUser)
-    const {errHandler, ...login} = SignInHook.useSignIn((response) => {
+
+    const {errHandler, ...login} = SignInHook.useSignIn(async (response) => {
+
         setAuthenticatedUser(response)
+
+
+
+
         navigate({
             to: "/admin"
         })
