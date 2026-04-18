@@ -19,16 +19,16 @@ import {
 } from "lucide-react"
 
 import type {Paged, PagedRequest, SortParam} from "#/models/PagedModel.ts"
-import {cn} from "#/lib/utils"
-import {Button} from "#/components/ui/button"
-import {Input} from "#/components/ui/input"
+import {cn} from "#/lib/utils.ts"
+import {Button} from "#/components/ui/button.tsx"
+import {Input} from "#/components/ui/input.tsx"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "#/components/ui/select"
+} from "#/components/ui/select.tsx"
 import {
   Table,
   TableBody,
@@ -36,7 +36,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "#/components/ui/table"
+} from "#/components/ui/table.tsx"
 
 declare module "@tanstack/react-table" {
   interface ColumnMeta<TData extends RowData, TValue> {
