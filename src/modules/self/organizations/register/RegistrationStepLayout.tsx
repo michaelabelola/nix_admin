@@ -77,8 +77,8 @@ export function RegistrationStepLayout({
                                     isActive ? "border-primary bg-primary/5" : ""
                                 }`}
                             >
-                                <div className={`mt-0.5 rounded-full border p-1 ${isActive ? "text-primary" : "text-muted-foreground"}`}>
-                                    {isComplete ? <CheckCircle2 className="size-3.5"/> : <item.icon className="size-3.5"/>}
+                                <div className={`mt-0.5 rounded-full border p-1 ${isActive ? "text-warning" : "text-muted-foreground"}`}>
+                                    {isComplete ? <CheckCircle2 className="size-3.5 text-success"/> : <item.icon className="size-3.5"/>}
                                 </div>
                                 <div>
                                     <div className="font-medium">{item.label}</div>
