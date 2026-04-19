@@ -12,6 +12,8 @@ export interface RegistrationStep {
     description: string
 }
 
+export const REGISTRATION_INTRO_PATH = '/self/organizations/register'
+
 export const REGISTRATION_STEPS: RegistrationStep[] = [
     {
         id: 'org-name',
@@ -94,3 +96,23 @@ export const REGISTRATION_STEPS: RegistrationStep[] = [
         description: 'Upload your organization\'s logo and cover images. All optional.',
     },
 ]
+
+export function getRegistrationStep(stepId: string) {
+    return REGISTRATION_STEPS.find((step) => step.id === stepId)
+}
+
+export function getRegistrationStepIndex(stepId: string) {
+    return REGISTRATION_STEPS.findIndex((step) => step.id === stepId)
+}
+
+export function getPreviousRegistrationStep(stepId: string) {
+    const index = getRegistrationStepIndex(stepId)
+    if (index <= 0) return undefined
+    return REGISTRATION_STEPS[index - 1]
+}
+
+export function getNextRegistrationStep(stepId: string) {
+    const index = getRegistrationStepIndex(stepId)
+    if (index < 0 || index >= REGISTRATION_STEPS.length - 1) return undefined
+    return REGISTRATION_STEPS[index + 1]
+}

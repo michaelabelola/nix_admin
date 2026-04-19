@@ -30,6 +30,16 @@ import { Route as AuthenticatedSelfOrganizationsRegisterRouteRouteImport } from 
 import { Route as AuthenticatedSelfOrganizationsRegisterIndexRouteImport } from './routes/_authenticated/self/organizations/register/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/index'
 import { Route as AuthenticatedAdminRealEstateDashboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/dashboard/index'
+import { Route as AuthenticatedSelfOrganizationsRegisterSocialsRouteImport } from './routes/_authenticated/self/organizations/register/socials'
+import { Route as AuthenticatedSelfOrganizationsRegisterOrgUserRouteImport } from './routes/_authenticated/self/organizations/register/org-user'
+import { Route as AuthenticatedSelfOrganizationsRegisterOrgNameRouteImport } from './routes/_authenticated/self/organizations/register/org-name'
+import { Route as AuthenticatedSelfOrganizationsRegisterLogosRouteImport } from './routes/_authenticated/self/organizations/register/logos'
+import { Route as AuthenticatedSelfOrganizationsRegisterIndustryRouteImport } from './routes/_authenticated/self/organizations/register/industry'
+import { Route as AuthenticatedSelfOrganizationsRegisterDetailsRouteImport } from './routes/_authenticated/self/organizations/register/details'
+import { Route as AuthenticatedSelfOrganizationsRegisterContactRouteImport } from './routes/_authenticated/self/organizations/register/contact'
+import { Route as AuthenticatedSelfOrganizationsRegisterBioRouteImport } from './routes/_authenticated/self/organizations/register/bio'
+import { Route as AuthenticatedSelfOrganizationsRegisterAvatarRouteImport } from './routes/_authenticated/self/organizations/register/avatar'
+import { Route as AuthenticatedSelfOrganizationsRegisterAddressRouteImport } from './routes/_authenticated/self/organizations/register/address'
 import { Route as AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/locations/index'
 
 const AboutRoute = AboutRouteImport.update({
@@ -144,6 +154,66 @@ const AuthenticatedAdminRealEstateDashboardIndexRoute =
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
   } as any)
+const AuthenticatedSelfOrganizationsRegisterSocialsRoute =
+  AuthenticatedSelfOrganizationsRegisterSocialsRouteImport.update({
+    id: '/socials',
+    path: '/socials',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterOrgUserRoute =
+  AuthenticatedSelfOrganizationsRegisterOrgUserRouteImport.update({
+    id: '/org-user',
+    path: '/org-user',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterOrgNameRoute =
+  AuthenticatedSelfOrganizationsRegisterOrgNameRouteImport.update({
+    id: '/org-name',
+    path: '/org-name',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterLogosRoute =
+  AuthenticatedSelfOrganizationsRegisterLogosRouteImport.update({
+    id: '/logos',
+    path: '/logos',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterIndustryRoute =
+  AuthenticatedSelfOrganizationsRegisterIndustryRouteImport.update({
+    id: '/industry',
+    path: '/industry',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterDetailsRoute =
+  AuthenticatedSelfOrganizationsRegisterDetailsRouteImport.update({
+    id: '/details',
+    path: '/details',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterContactRoute =
+  AuthenticatedSelfOrganizationsRegisterContactRouteImport.update({
+    id: '/contact',
+    path: '/contact',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterBioRoute =
+  AuthenticatedSelfOrganizationsRegisterBioRouteImport.update({
+    id: '/bio',
+    path: '/bio',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterAvatarRoute =
+  AuthenticatedSelfOrganizationsRegisterAvatarRouteImport.update({
+    id: '/avatar',
+    path: '/avatar',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterAddressRoute =
+  AuthenticatedSelfOrganizationsRegisterAddressRouteImport.update({
+    id: '/address',
+    path: '/address',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
 const AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute =
   AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport.update({
     id: '/properties/locations/',
@@ -168,6 +238,16 @@ export interface FileRoutesByFullPath {
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
+  '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
+  '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
+  '/self/organizations/register/contact': typeof AuthenticatedSelfOrganizationsRegisterContactRoute
+  '/self/organizations/register/details': typeof AuthenticatedSelfOrganizationsRegisterDetailsRoute
+  '/self/organizations/register/industry': typeof AuthenticatedSelfOrganizationsRegisterIndustryRoute
+  '/self/organizations/register/logos': typeof AuthenticatedSelfOrganizationsRegisterLogosRoute
+  '/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
+  '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
+  '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
   '/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
@@ -187,6 +267,16 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/self/organizations': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
+  '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
+  '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
+  '/self/organizations/register/contact': typeof AuthenticatedSelfOrganizationsRegisterContactRoute
+  '/self/organizations/register/details': typeof AuthenticatedSelfOrganizationsRegisterDetailsRoute
+  '/self/organizations/register/industry': typeof AuthenticatedSelfOrganizationsRegisterIndustryRoute
+  '/self/organizations/register/logos': typeof AuthenticatedSelfOrganizationsRegisterLogosRoute
+  '/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
+  '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
+  '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
   '/admin/real-estate/dashboard': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/properties': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
@@ -212,6 +302,16 @@ export interface FileRoutesById {
   '/_authenticated/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/_authenticated/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/_authenticated/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
+  '/_authenticated/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
+  '/_authenticated/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
+  '/_authenticated/self/organizations/register/contact': typeof AuthenticatedSelfOrganizationsRegisterContactRoute
+  '/_authenticated/self/organizations/register/details': typeof AuthenticatedSelfOrganizationsRegisterDetailsRoute
+  '/_authenticated/self/organizations/register/industry': typeof AuthenticatedSelfOrganizationsRegisterIndustryRoute
+  '/_authenticated/self/organizations/register/logos': typeof AuthenticatedSelfOrganizationsRegisterLogosRoute
+  '/_authenticated/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
+  '/_authenticated/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
+  '/_authenticated/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
   '/_authenticated/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/_authenticated/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/_authenticated/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
@@ -236,6 +336,16 @@ export interface FileRouteTypes {
     | '/self/organizations/register'
     | '/self/organizations/dashboard'
     | '/self/organizations/'
+    | '/self/organizations/register/address'
+    | '/self/organizations/register/avatar'
+    | '/self/organizations/register/bio'
+    | '/self/organizations/register/contact'
+    | '/self/organizations/register/details'
+    | '/self/organizations/register/industry'
+    | '/self/organizations/register/logos'
+    | '/self/organizations/register/org-name'
+    | '/self/organizations/register/org-user'
+    | '/self/organizations/register/socials'
     | '/admin/real-estate/dashboard/'
     | '/admin/real-estate/properties/'
     | '/self/organizations/register/'
@@ -255,6 +365,16 @@ export interface FileRouteTypes {
     | '/admin'
     | '/self/organizations/dashboard'
     | '/self/organizations'
+    | '/self/organizations/register/address'
+    | '/self/organizations/register/avatar'
+    | '/self/organizations/register/bio'
+    | '/self/organizations/register/contact'
+    | '/self/organizations/register/details'
+    | '/self/organizations/register/industry'
+    | '/self/organizations/register/logos'
+    | '/self/organizations/register/org-name'
+    | '/self/organizations/register/org-user'
+    | '/self/organizations/register/socials'
     | '/admin/real-estate/dashboard'
     | '/admin/real-estate/properties'
     | '/self/organizations/register'
@@ -279,6 +399,16 @@ export interface FileRouteTypes {
     | '/_authenticated/self/organizations/register'
     | '/_authenticated/self/organizations/dashboard'
     | '/_authenticated/self/organizations/'
+    | '/_authenticated/self/organizations/register/address'
+    | '/_authenticated/self/organizations/register/avatar'
+    | '/_authenticated/self/organizations/register/bio'
+    | '/_authenticated/self/organizations/register/contact'
+    | '/_authenticated/self/organizations/register/details'
+    | '/_authenticated/self/organizations/register/industry'
+    | '/_authenticated/self/organizations/register/logos'
+    | '/_authenticated/self/organizations/register/org-name'
+    | '/_authenticated/self/organizations/register/org-user'
+    | '/_authenticated/self/organizations/register/socials'
     | '/_authenticated/admin/real-estate/dashboard/'
     | '/_authenticated/admin/real-estate/properties/'
     | '/_authenticated/self/organizations/register/'
@@ -441,6 +571,76 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRealEstateDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
     }
+    '/_authenticated/self/organizations/register/socials': {
+      id: '/_authenticated/self/organizations/register/socials'
+      path: '/socials'
+      fullPath: '/self/organizations/register/socials'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterSocialsRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/org-user': {
+      id: '/_authenticated/self/organizations/register/org-user'
+      path: '/org-user'
+      fullPath: '/self/organizations/register/org-user'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterOrgUserRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/org-name': {
+      id: '/_authenticated/self/organizations/register/org-name'
+      path: '/org-name'
+      fullPath: '/self/organizations/register/org-name'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterOrgNameRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/logos': {
+      id: '/_authenticated/self/organizations/register/logos'
+      path: '/logos'
+      fullPath: '/self/organizations/register/logos'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterLogosRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/industry': {
+      id: '/_authenticated/self/organizations/register/industry'
+      path: '/industry'
+      fullPath: '/self/organizations/register/industry'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterIndustryRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/details': {
+      id: '/_authenticated/self/organizations/register/details'
+      path: '/details'
+      fullPath: '/self/organizations/register/details'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterDetailsRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/contact': {
+      id: '/_authenticated/self/organizations/register/contact'
+      path: '/contact'
+      fullPath: '/self/organizations/register/contact'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterContactRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/bio': {
+      id: '/_authenticated/self/organizations/register/bio'
+      path: '/bio'
+      fullPath: '/self/organizations/register/bio'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterBioRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/avatar': {
+      id: '/_authenticated/self/organizations/register/avatar'
+      path: '/avatar'
+      fullPath: '/self/organizations/register/avatar'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterAvatarRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/self/organizations/register/address': {
+      id: '/_authenticated/self/organizations/register/address'
+      path: '/address'
+      fullPath: '/self/organizations/register/address'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterAddressRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
     '/_authenticated/admin/real-estate/properties/locations/': {
       id: '/_authenticated/admin/real-estate/properties/locations/'
       path: '/properties/locations'
@@ -490,11 +690,41 @@ const AuthenticatedAdminRouteRouteWithChildren =
   )
 
 interface AuthenticatedSelfOrganizationsRegisterRouteRouteChildren {
+  AuthenticatedSelfOrganizationsRegisterAddressRoute: typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
+  AuthenticatedSelfOrganizationsRegisterAvatarRoute: typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
+  AuthenticatedSelfOrganizationsRegisterBioRoute: typeof AuthenticatedSelfOrganizationsRegisterBioRoute
+  AuthenticatedSelfOrganizationsRegisterContactRoute: typeof AuthenticatedSelfOrganizationsRegisterContactRoute
+  AuthenticatedSelfOrganizationsRegisterDetailsRoute: typeof AuthenticatedSelfOrganizationsRegisterDetailsRoute
+  AuthenticatedSelfOrganizationsRegisterIndustryRoute: typeof AuthenticatedSelfOrganizationsRegisterIndustryRoute
+  AuthenticatedSelfOrganizationsRegisterLogosRoute: typeof AuthenticatedSelfOrganizationsRegisterLogosRoute
+  AuthenticatedSelfOrganizationsRegisterOrgNameRoute: typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
+  AuthenticatedSelfOrganizationsRegisterOrgUserRoute: typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
+  AuthenticatedSelfOrganizationsRegisterSocialsRoute: typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
   AuthenticatedSelfOrganizationsRegisterIndexRoute: typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
 }
 
 const AuthenticatedSelfOrganizationsRegisterRouteRouteChildren: AuthenticatedSelfOrganizationsRegisterRouteRouteChildren =
   {
+    AuthenticatedSelfOrganizationsRegisterAddressRoute:
+      AuthenticatedSelfOrganizationsRegisterAddressRoute,
+    AuthenticatedSelfOrganizationsRegisterAvatarRoute:
+      AuthenticatedSelfOrganizationsRegisterAvatarRoute,
+    AuthenticatedSelfOrganizationsRegisterBioRoute:
+      AuthenticatedSelfOrganizationsRegisterBioRoute,
+    AuthenticatedSelfOrganizationsRegisterContactRoute:
+      AuthenticatedSelfOrganizationsRegisterContactRoute,
+    AuthenticatedSelfOrganizationsRegisterDetailsRoute:
+      AuthenticatedSelfOrganizationsRegisterDetailsRoute,
+    AuthenticatedSelfOrganizationsRegisterIndustryRoute:
+      AuthenticatedSelfOrganizationsRegisterIndustryRoute,
+    AuthenticatedSelfOrganizationsRegisterLogosRoute:
+      AuthenticatedSelfOrganizationsRegisterLogosRoute,
+    AuthenticatedSelfOrganizationsRegisterOrgNameRoute:
+      AuthenticatedSelfOrganizationsRegisterOrgNameRoute,
+    AuthenticatedSelfOrganizationsRegisterOrgUserRoute:
+      AuthenticatedSelfOrganizationsRegisterOrgUserRoute,
+    AuthenticatedSelfOrganizationsRegisterSocialsRoute:
+      AuthenticatedSelfOrganizationsRegisterSocialsRoute,
     AuthenticatedSelfOrganizationsRegisterIndexRoute:
       AuthenticatedSelfOrganizationsRegisterIndexRoute,
   }
