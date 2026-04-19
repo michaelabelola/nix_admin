@@ -26,6 +26,8 @@ import { Route as AuthenticatedSelfOrganizationsRouteRouteImport } from './route
 import { Route as AuthenticatedAdminRealEstateRouteRouteImport } from './routes/_authenticated/admin/real-estate/route'
 import { Route as AuthenticatedSelfOrganizationsIndexRouteImport } from './routes/_authenticated/self/organizations/index'
 import { Route as AuthenticatedSelfOrganizationsDashboardRouteImport } from './routes/_authenticated/self/organizations/dashboard'
+import { Route as AuthenticatedSelfOrganizationsRegisterRouteRouteImport } from './routes/_authenticated/self/organizations/register/route'
+import { Route as AuthenticatedSelfOrganizationsRegisterIndexRouteImport } from './routes/_authenticated/self/organizations/register/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/index'
 import { Route as AuthenticatedAdminRealEstateDashboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/dashboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/locations/index'
@@ -118,6 +120,18 @@ const AuthenticatedSelfOrganizationsDashboardRoute =
     path: '/dashboard',
     getParentRoute: () => AuthenticatedSelfOrganizationsRouteRoute,
   } as any)
+const AuthenticatedSelfOrganizationsRegisterRouteRoute =
+  AuthenticatedSelfOrganizationsRegisterRouteRouteImport.update({
+    id: '/register',
+    path: '/register',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRouteRoute,
+  } as any)
+const AuthenticatedSelfOrganizationsRegisterIndexRoute =
+  AuthenticatedSelfOrganizationsRegisterIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
 const AuthenticatedAdminRealEstatePropertiesIndexRoute =
   AuthenticatedAdminRealEstatePropertiesIndexRouteImport.update({
     id: '/properties/',
@@ -151,10 +165,12 @@ export interface FileRoutesByFullPath {
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
   '/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  '/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
   '/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -173,6 +189,7 @@ export interface FileRoutesByTo {
   '/self/organizations': typeof AuthenticatedSelfOrganizationsIndexRoute
   '/admin/real-estate/dashboard': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/properties': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
   '/admin/real-estate/properties/locations': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
 }
 export interface FileRoutesById {
@@ -192,10 +209,12 @@ export interface FileRoutesById {
   '/_authenticated/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/_authenticated/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/_authenticated/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
   '/_authenticated/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/_authenticated/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  '/_authenticated/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
   '/_authenticated/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
 }
 export interface FileRouteTypes {
@@ -214,10 +233,12 @@ export interface FileRouteTypes {
     | '/admin/real-estate'
     | '/self/organizations'
     | '/admin/'
+    | '/self/organizations/register'
     | '/self/organizations/dashboard'
     | '/self/organizations/'
     | '/admin/real-estate/dashboard/'
     | '/admin/real-estate/properties/'
+    | '/self/organizations/register/'
     | '/admin/real-estate/properties/locations/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -236,6 +257,7 @@ export interface FileRouteTypes {
     | '/self/organizations'
     | '/admin/real-estate/dashboard'
     | '/admin/real-estate/properties'
+    | '/self/organizations/register'
     | '/admin/real-estate/properties/locations'
   id:
     | '__root__'
@@ -254,10 +276,12 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/real-estate'
     | '/_authenticated/self/organizations'
     | '/_authenticated/admin/'
+    | '/_authenticated/self/organizations/register'
     | '/_authenticated/self/organizations/dashboard'
     | '/_authenticated/self/organizations/'
     | '/_authenticated/admin/real-estate/dashboard/'
     | '/_authenticated/admin/real-estate/properties/'
+    | '/_authenticated/self/organizations/register/'
     | '/_authenticated/admin/real-estate/properties/locations/'
   fileRoutesById: FileRoutesById
 }
@@ -389,6 +413,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsDashboardRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRouteRoute
     }
+    '/_authenticated/self/organizations/register': {
+      id: '/_authenticated/self/organizations/register'
+      path: '/register'
+      fullPath: '/self/organizations/register'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRouteRoute
+    }
+    '/_authenticated/self/organizations/register/': {
+      id: '/_authenticated/self/organizations/register/'
+      path: '/'
+      fullPath: '/self/organizations/register/'
+      preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterIndexRouteImport
+      parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
     '/_authenticated/admin/real-estate/properties/': {
       id: '/_authenticated/admin/real-estate/properties/'
       path: '/properties'
@@ -451,13 +489,31 @@ const AuthenticatedAdminRouteRouteWithChildren =
     AuthenticatedAdminRouteRouteChildren,
   )
 
+interface AuthenticatedSelfOrganizationsRegisterRouteRouteChildren {
+  AuthenticatedSelfOrganizationsRegisterIndexRoute: typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
+}
+
+const AuthenticatedSelfOrganizationsRegisterRouteRouteChildren: AuthenticatedSelfOrganizationsRegisterRouteRouteChildren =
+  {
+    AuthenticatedSelfOrganizationsRegisterIndexRoute:
+      AuthenticatedSelfOrganizationsRegisterIndexRoute,
+  }
+
+const AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren =
+  AuthenticatedSelfOrganizationsRegisterRouteRoute._addFileChildren(
+    AuthenticatedSelfOrganizationsRegisterRouteRouteChildren,
+  )
+
 interface AuthenticatedSelfOrganizationsRouteRouteChildren {
+  AuthenticatedSelfOrganizationsRegisterRouteRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   AuthenticatedSelfOrganizationsDashboardRoute: typeof AuthenticatedSelfOrganizationsDashboardRoute
   AuthenticatedSelfOrganizationsIndexRoute: typeof AuthenticatedSelfOrganizationsIndexRoute
 }
 
 const AuthenticatedSelfOrganizationsRouteRouteChildren: AuthenticatedSelfOrganizationsRouteRouteChildren =
   {
+    AuthenticatedSelfOrganizationsRegisterRouteRoute:
+      AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren,
     AuthenticatedSelfOrganizationsDashboardRoute:
       AuthenticatedSelfOrganizationsDashboardRoute,
     AuthenticatedSelfOrganizationsIndexRoute:

@@ -184,17 +184,18 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                                 <span className="text-base font-semibold">Suiteonix Inc.</span>
                             </a>
                         </SidebarMenuButton>
-                        <QuickToolTip content={org?.name || "Organization Name"}>
-                            <Avatar className="grayscale cursor-pointer" onClick={() => {
-                                navigate({
-                                    to: "/admin"
-                                })
-                            }}>
-                                <AvatarImage src={org?.logo} alt={`${org?.shortName}`}
-                                             className={"object-cover"}/>
-                                <AvatarFallback className="rounded-lg">{org?.shortName}</AvatarFallback>
-                            </Avatar>
-                        </QuickToolTip>
+                        {user?.orgID && (
+                            <QuickToolTip content={org?.name || "Organization Name"}>
+                                <Avatar className="grayscale cursor-pointer" onClick={() => {
+                                    navigate({
+                                        to: "/admin"
+                                    })
+                                }}>
+                                    <AvatarImage src={org?.logo} alt={`${org?.shortName}`}
+                                                 className={"object-cover"}/>
+                                    <AvatarFallback className="rounded-lg">{org?.shortName}</AvatarFallback>
+                                </Avatar>
+                            </QuickToolTip>)}
 
                     </SidebarMenuItem>
                 </SidebarMenu>

@@ -10,6 +10,10 @@ import {createMyBusinessesColumns} from "./my-businesses.columns.tsx"
 import {ProxyLoginConfirmDialog} from "./ProxyLoginConfirmDialog.tsx"
 import type {PendingSignIn, PermissionRow} from "./my-businesses.types.ts"
 import {useAuthenticatedUserStore} from "#/lib/authenticated-user.store.ts";
+import Page from "#/components/Page.tsx";
+import {ButtonGroup} from "#/components/ui/button-group.tsx";
+import {Button} from "#/components/ui/button.tsx";
+import {Link} from "@tanstack/react-router";
 
 function createPendingSignIn(row: PermissionRow): PendingSignIn {
     return {
@@ -52,28 +56,29 @@ export function MyBusinessesPage() {
     }
 
     return (
-        <>
-            <section className="space-y-6 px-4 py-6 lg:px-6">
-                <div className="space-y-1">
-                    <h1 className="text-2xl font-semibold tracking-tight">My Organizations</h1>
-                    <p className="text-sm text-muted-foreground">
-                        Review organizations linked to your admin workspace.
-                    </p>
-                </div>
-
-                <DataTable
-                    columns={columns}
-                    from="/self/organizations"
-                    useQuery={PermissionRequest.useQueryProxyLoginAccesses}
-                    initialRequest={{
-                        page: 0,
-                        size: 10,
-                    }}
-                    searchPlaceholder="Search businesses..."
-                    emptyMessage="No organizations found."
-                    useRowQuery={(data) => orgApi.getById(data.entityID)}
-                />
-            </section>
+        <Page header={{
+            title: "My Organizations",
+            description: "Review organizations linked to your admin workspace.",
+            actionView: <ButtonGroup>
+                <Link to={"/self/organizations/register"}>
+                    <Button variant={"outline"} size={"sm"}>
+                        Register Org
+                    </Button>
+                </Link>
+            </ButtonGroup>
+        }}>
+            <DataTable
+                columns={columns}
+                from="/self/organizations"
+                useQuery={PermissionRequest.useQueryProxyLoginAccesses}
+                initialRequest={{
+                    page: 0,
+                    size: 10,
+                }}
+                searchPlaceholder="Search businesses..."
+                emptyMessage="No organizations found."
+                useRowQuery={(data) => orgApi.getById(data.entityID)}
+            />
 
             <ProxyLoginConfirmDialog
                 pendingSignIn={pendingSignIn}
@@ -83,6 +88,6 @@ export function MyBusinessesPage() {
                     void confirmSignInAs()
                 }}
             />
-        </>
+        </Page>
     )
 }
