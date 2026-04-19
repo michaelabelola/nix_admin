@@ -5,7 +5,7 @@ type ResponseProperties = {
     message?: string
 }
 
-export type ResponseError = {
+export type ResponseError = Partial<{
     title: string
     detail: string
     message: string
@@ -13,10 +13,10 @@ export type ResponseError = {
     type?: string //URI
     status: number //HTTP status code
     properties: ResponseProperties
-} & Error
+}> & Error
 
 export type FetchError = {
-    _internal: string & Pick<Response, "status" | "redirected" | "statusText" | "headers"> & {
+    _internal: Partial<Pick<Response, "status" | "redirected" | "statusText" | "headers">> & {
         body?: string
     }
 } & ResponseError

@@ -12,11 +12,12 @@ export type AuthenticatedUser = {
     tokenType: string | null
     orgID: NixID | null
     userID: string
+    proxyUserID?: string | null
 }
 
 type AuthenticatedUserStore = {
     user: AuthenticatedUser | null
-    setAuthenticatedUser: (user: LoginModel.LoginResponse) => void
+    setAuthenticatedUser: (user: LoginModel.LoginResponse & { __options?: { isProxy?: boolean } }) => void
     clearAuthenticatedUser: () => void
 }
 
@@ -35,7 +36,7 @@ export const useLogout = () => {
 
 export const useAuthenticatedUserStore = create<AuthenticatedUserStore>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             user: null,
             setAuthenticatedUser: (user) =>
                 set({
@@ -45,6 +46,7 @@ export const useAuthenticatedUserStore = create<AuthenticatedUserStore>()(
                         tokenType: user.tokenType,
                         orgID: user.orgID ?? null,
                         userID: user.userID,
+                        proxyUserID: user?.__options?.isProxy ? get().user?.userID : null
                     },
                 }),
             clearAuthenticatedUser: () => set({user: null}),

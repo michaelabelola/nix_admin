@@ -14,7 +14,10 @@ class LoginApi {
     }
 
     proxyLogin(init: BACKEND.ReqQuery<{ userId: NixID, orgId: NixID }>) {
-        return BACKEND.apiFetch<LoginModel.LoginResponse>(`/auth/login/proxy`, init)
+        return BACKEND.authFetch<LoginModel.LoginResponse>(`/auth/login/proxy`, {
+            ...init,
+            method: "POST"
+        })
     }
 
     resendVerificationEmail({body, ...params}: BACKEND.ReqBody<LoginModel.ResendVerificationRequest>) {

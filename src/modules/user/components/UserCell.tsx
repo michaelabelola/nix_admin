@@ -105,6 +105,8 @@ function Cell2({user}: { user?: UserModel.User }) {
 }
 
 function CellWithPopover(props: { id: NixID }) {
+    if (!props.id)
+        return <Skeleton className="h-8 w-8 "/>
     const {data: user, isLoading, error} = UserRequest.useGetUser(props.id)
 
     if (isLoading)
@@ -128,7 +130,7 @@ function Cell2WithPopOver({user}: { user?: UserModel.User }) {
         <PopoverTrigger>
             <Cell2 user={user}/>
         </PopoverTrigger>
-        <PopoverContent className="w-96 space-y-4">
+        <PopoverContent className="w-96 space-y-4 cursor-pointer">
             <CellPopoverContent user={user}/>
         </PopoverContent>
     </Popover>
@@ -152,7 +154,7 @@ function CellPopoverContent({user}: { user?: UserModel.User }) {
     const quickViewHref = detailedUser?.id ? `/admin/users/${detailedUser.id}?view=quick` : "#"
 
     return (
-        <div className="space-y-4">
+        <div className="space-y-4 cursor-pointer">
             <div className="flex items-start gap-4">
                 <Avatar className="size-16 rounded-xl border">
                     <AvatarImage
