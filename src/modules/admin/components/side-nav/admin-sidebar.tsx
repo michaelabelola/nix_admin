@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
     type Icon,
     IconCamera,
@@ -10,7 +9,6 @@ import {
     IconFileWord,
     IconFolder,
     IconHelp,
-    IconInnerShadowTop,
     IconListDetails,
     IconReport,
     IconSearch,
@@ -18,10 +16,10 @@ import {
     IconUsers,
 } from "@tabler/icons-react"
 
-import {NavSection} from "#/modules/self/components/nav-section.tsx"
-import {NavMain} from "#/modules/self/components/nav-main.tsx"
-import {NavSecondary} from "#/modules/self/components/nav-secondary.tsx"
-import {NavUser} from "#/modules/self/components/nav-user.tsx"
+import {NavSection} from "#/modules/admin/components/side-nav/nav-section.tsx"
+import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx"
+import {NavSecondary} from "#/modules/admin/components/side-nav/nav-secondary.tsx"
+import {NavUser} from "#/modules/admin/components/side-nav/nav-user.tsx"
 import {
     Sidebar,
     SidebarContent,
@@ -31,13 +29,15 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "#/components/ui/sidebar.tsx"
-import {selfBusinessNavItems} from "#/modules/self/organizations/OrgNav.tsx";
 import type {FileRoutesByTo} from "#/routeTree.gen.ts";
 import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 import OrganizationRequest from "#/modules/organization/organization.request.ts";
 import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 import {useNavigate} from "@tanstack/react-router";
+import {realEstateNavItems} from "#/modules/real-estate/OrgNav.tsx";
+import {User2Icon} from "lucide-react";
+import {Button} from "#/components/ui/button.tsx";
 
 export type NavSectionType = {
     title?: string,
@@ -166,7 +166,7 @@ const data = {
     ],
 }
 
-export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+export function AdminSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
     const {user} = useAuthenticatedUser()
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
     const navigate = useNavigate()
@@ -180,20 +180,20 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
                         >
                             <a href="#">
-                                <IconInnerShadowTop className="size-5!"/>
-                                <span className="text-base font-semibold">Suiteonix Inc.</span>
+                                <Avatar className="grayscale cursor-pointer">
+                                    <AvatarImage src={org?.logo} alt={`${org?.shortName}`}
+                                                 className={"object-cover"}/>
+                                    <AvatarFallback className="rounded-lg">{org?.shortName}</AvatarFallback>
+                                </Avatar>
+                                <span className="text-base font-semibold">{org?.shortName}</span>
                             </a>
                         </SidebarMenuButton>
-                        <QuickToolTip content={org?.name || "Organization Name"}>
-                            <Avatar className="grayscale cursor-pointer" onClick={() => {
-                                navigate({
-                                    to: "/admin"
-                                })
-                            }}>
-                                <AvatarImage src={org?.logo} alt={`${org?.shortName}`}
-                                             className={"object-cover"}/>
-                                <AvatarFallback className="rounded-lg">{org?.shortName}</AvatarFallback>
-                            </Avatar>
+                        <QuickToolTip content={"User Page"}>
+                            <Button asChild variant={"ghost"} onClick={() => navigate({
+                                to: "/self"
+                            })} className="ml-auto">
+                                <User2Icon className="size-5!"/>
+                            </Button>
                         </QuickToolTip>
 
                     </SidebarMenuItem>
@@ -201,7 +201,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain}/>
-                {[selfBusinessNavItems].map((item, index) => (
+                {[realEstateNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
 
                 ))}

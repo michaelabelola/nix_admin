@@ -1,9 +1,10 @@
-import {createFileRoute, Link, Outlet} from '@tanstack/react-router'
+import {createFileRoute, Link} from '@tanstack/react-router'
 import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
 import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "#/components/ui/card.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {IconCancel} from "@tabler/icons-react";
+import BusinessBasePage from "#/modules/admin/BusinessBasePage.tsx";
 
 export const Route = createFileRoute('/_authenticated/admin')({
     component: AdminPage,
@@ -66,5 +67,5 @@ function AdminPage() {
             </main>
         )
     }
-    return <Outlet/>
+    return <BusinessBasePage/>
 }

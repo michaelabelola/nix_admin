@@ -40,12 +40,12 @@ export function SignInForm({initialEmail}: { initialEmail?: string }) {
     const {errHandler, ...login} = SignInHook.useSignIn(async (response) => {
 
         setAuthenticatedUser(response)
-
-
-
-
-        navigate({
-            to: "/admin"
+        if (response.orgID)
+            navigate({
+                to: "/admin"
+            })
+        else navigate({
+            to: "/self/organizations"
         })
     })
 

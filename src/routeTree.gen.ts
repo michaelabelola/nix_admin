@@ -23,8 +23,12 @@ import { Route as AuthenticatedSelfRouteRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedSelfOrganizationsRouteRouteImport } from './routes/_authenticated/self/organizations/route'
+import { Route as AuthenticatedAdminRealEstateRouteRouteImport } from './routes/_authenticated/admin/real-estate/route'
 import { Route as AuthenticatedSelfOrganizationsIndexRouteImport } from './routes/_authenticated/self/organizations/index'
 import { Route as AuthenticatedSelfOrganizationsDashboardRouteImport } from './routes/_authenticated/self/organizations/dashboard'
+import { Route as AuthenticatedAdminRealEstatePropertiesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/index'
+import { Route as AuthenticatedAdminRealEstateDashboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/dashboard/index'
+import { Route as AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/locations/index'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -96,6 +100,12 @@ const AuthenticatedSelfOrganizationsRouteRoute =
     path: '/organizations',
     getParentRoute: () => AuthenticatedSelfRouteRoute,
   } as any)
+const AuthenticatedAdminRealEstateRouteRoute =
+  AuthenticatedAdminRealEstateRouteRouteImport.update({
+    id: '/real-estate',
+    path: '/real-estate',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedSelfOrganizationsIndexRoute =
   AuthenticatedSelfOrganizationsIndexRouteImport.update({
     id: '/',
@@ -107,6 +117,24 @@ const AuthenticatedSelfOrganizationsDashboardRoute =
     id: '/dashboard',
     path: '/dashboard',
     getParentRoute: () => AuthenticatedSelfOrganizationsRouteRoute,
+  } as any)
+const AuthenticatedAdminRealEstatePropertiesIndexRoute =
+  AuthenticatedAdminRealEstatePropertiesIndexRouteImport.update({
+    id: '/properties/',
+    path: '/properties/',
+    getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+  } as any)
+const AuthenticatedAdminRealEstateDashboardIndexRoute =
+  AuthenticatedAdminRealEstateDashboardIndexRouteImport.update({
+    id: '/dashboard/',
+    path: '/dashboard/',
+    getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+  } as any)
+const AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute =
+  AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport.update({
+    id: '/properties/locations/',
+    path: '/properties/locations/',
+    getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -120,10 +148,14 @@ export interface FileRoutesByFullPath {
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
+  '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  '/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  '/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof LandingIndexRoute
@@ -135,9 +167,13 @@ export interface FileRoutesByTo {
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
+  '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/self/organizations': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/admin/real-estate/dashboard': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  '/admin/real-estate/properties': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  '/admin/real-estate/properties/locations': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -153,10 +189,14 @@ export interface FileRoutesById {
   '/_landing/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
+  '/_authenticated/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/_authenticated/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/_authenticated/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/_authenticated/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  '/_authenticated/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  '/_authenticated/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -171,10 +211,14 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/welcome'
     | '/demo/i18n'
+    | '/admin/real-estate'
     | '/self/organizations'
     | '/admin/'
     | '/self/organizations/dashboard'
     | '/self/organizations/'
+    | '/admin/real-estate/dashboard/'
+    | '/admin/real-estate/properties/'
+    | '/admin/real-estate/properties/locations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -186,9 +230,13 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/welcome'
     | '/demo/i18n'
+    | '/admin/real-estate'
     | '/admin'
     | '/self/organizations/dashboard'
     | '/self/organizations'
+    | '/admin/real-estate/dashboard'
+    | '/admin/real-estate/properties'
+    | '/admin/real-estate/properties/locations'
   id:
     | '__root__'
     | '/_authenticated'
@@ -203,10 +251,14 @@ export interface FileRouteTypes {
     | '/_landing/welcome'
     | '/demo/i18n'
     | '/_landing/'
+    | '/_authenticated/admin/real-estate'
     | '/_authenticated/self/organizations'
     | '/_authenticated/admin/'
     | '/_authenticated/self/organizations/dashboard'
     | '/_authenticated/self/organizations/'
+    | '/_authenticated/admin/real-estate/dashboard/'
+    | '/_authenticated/admin/real-estate/properties/'
+    | '/_authenticated/admin/real-estate/properties/locations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -316,6 +368,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRouteRouteImport
       parentRoute: typeof AuthenticatedSelfRouteRoute
     }
+    '/_authenticated/admin/real-estate': {
+      id: '/_authenticated/admin/real-estate'
+      path: '/real-estate'
+      fullPath: '/admin/real-estate'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstateRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/self/organizations/': {
       id: '/_authenticated/self/organizations/'
       path: '/'
@@ -330,15 +389,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsDashboardRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRouteRoute
     }
+    '/_authenticated/admin/real-estate/properties/': {
+      id: '/_authenticated/admin/real-estate/properties/'
+      path: '/properties'
+      fullPath: '/admin/real-estate/properties/'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
+    '/_authenticated/admin/real-estate/dashboard/': {
+      id: '/_authenticated/admin/real-estate/dashboard/'
+      path: '/dashboard'
+      fullPath: '/admin/real-estate/dashboard/'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstateDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/locations/': {
+      id: '/_authenticated/admin/real-estate/properties/locations/'
+      path: '/properties/locations'
+      fullPath: '/admin/real-estate/properties/locations/'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRealEstateRouteRouteChildren {
+  AuthenticatedAdminRealEstateDashboardIndexRoute: typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  AuthenticatedAdminRealEstatePropertiesIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
+}
+
+const AuthenticatedAdminRealEstateRouteRouteChildren: AuthenticatedAdminRealEstateRouteRouteChildren =
+  {
+    AuthenticatedAdminRealEstateDashboardIndexRoute:
+      AuthenticatedAdminRealEstateDashboardIndexRoute,
+    AuthenticatedAdminRealEstatePropertiesIndexRoute:
+      AuthenticatedAdminRealEstatePropertiesIndexRoute,
+    AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute:
+      AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute,
+  }
+
+const AuthenticatedAdminRealEstateRouteRouteWithChildren =
+  AuthenticatedAdminRealEstateRouteRoute._addFileChildren(
+    AuthenticatedAdminRealEstateRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminRealEstateRouteRoute: typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
+    AuthenticatedAdminRealEstateRouteRoute:
+      AuthenticatedAdminRealEstateRouteRouteWithChildren,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   }
 

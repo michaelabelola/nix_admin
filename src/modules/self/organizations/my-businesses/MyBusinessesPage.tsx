@@ -41,9 +41,6 @@ export function MyBusinessesPage() {
             const response = await loginApi.proxyLogin({
                 query: pendingSignIn.request,
             })
-            const dd = {...response, __options: {isProxy: true}}
-            console.log("RESPONSE")
-            console.log(dd)
             setAuthenticatedUser({...response, __options: {isProxy: true}})
             toast.success(`Signed in to ${pendingSignIn.businessName}.`)
             setPendingSignIn(null)
