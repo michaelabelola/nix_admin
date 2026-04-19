@@ -1,6 +1,5 @@
 import {AppSidebar} from "#/modules/self/components/app-sidebar.tsx";
 import {SidebarProvider} from "#/components/ui/sidebar.tsx";
-import {SiteHeader} from "#/modules/self/components/site-header.tsx";
 import {Outlet} from "@tanstack/react-router";
 import {Card, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
@@ -33,7 +32,7 @@ export function UserAdminPage() {
         <SidebarProvider>
             <AppSidebar/>
             <main className={"w-full"}>
-                <SiteHeader/>
+                {/*<SiteHeader/>*/}
                 <Outlet/>
             </main>
         </SidebarProvider>
