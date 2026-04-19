@@ -1,3 +1,5 @@
+import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
+
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"
 import {TextField} from "./shared.tsx"
@@ -14,10 +16,9 @@ export function DetailsStepSection() {
                     value={draft.data.detail.registrationNumber ?? ""}
                     onChange={(value) => updateDataDetail({registrationNumber: value})}
                 />
-                <TextField
-                    label="Registration country"
+                <CountryCombobox
                     value={draft.data.detail.registrationCountry}
-                    onChange={(value) => updateDataDetail({registrationCountry: value})}
+                    onValueChange={(value) => updateDataDetail({registrationCountry: value})}
                 />
                 <TextField
                     label="Date established"
