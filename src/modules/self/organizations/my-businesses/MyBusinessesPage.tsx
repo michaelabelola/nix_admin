@@ -13,7 +13,7 @@ import {useAuthenticatedUserStore} from "#/lib/authenticated-user.store.ts";
 import Page from "#/components/Page.tsx";
 import {ButtonGroup} from "#/components/ui/button-group.tsx";
 import {Button} from "#/components/ui/button.tsx";
-import {Link} from "@tanstack/react-router";
+import {Link, useNavigate} from "@tanstack/react-router";
 
 function createPendingSignIn(row: PermissionRow): PendingSignIn {
     return {
@@ -29,6 +29,7 @@ export function MyBusinessesPage() {
     const {setAuthenticatedUser} = useAuthenticatedUserStore()
     const [pendingSignIn, setPendingSignIn] = useState<PendingSignIn | null>(null)
     const [isSigningIn, setIsSigningIn] = useState(false)
+    const navigate = useNavigate()
     const columns = useMemo(
         () =>
             createMyBusinessesColumns({
@@ -48,6 +49,11 @@ export function MyBusinessesPage() {
             setAuthenticatedUser({...response, __options: {isProxy: true}})
             toast.success(`Signed in to ${pendingSignIn.businessName}.`)
             setPendingSignIn(null)
+            setTimeout(() => {
+                navigate({
+                    to: "/admin"
+                })
+            },1700)
         } catch (error: any) {
             toast.error(error?.message || "Failed to sign in to organization.")
         } finally {
