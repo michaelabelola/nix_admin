@@ -1,5 +1,4 @@
 import {
-    type Icon,
     IconCamera,
     IconChartBar,
     IconDashboard,
@@ -29,25 +28,15 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "#/components/ui/sidebar.tsx"
-import type {FileRoutesByTo} from "#/routeTree.gen.ts";
 import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 import OrganizationRequest from "#/modules/organization/organization.request.ts";
 import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 import {useNavigate} from "@tanstack/react-router";
 import {realEstateNavItems} from "#/modules/real-estate/OrgNav.tsx";
-import {User2Icon} from "lucide-react";
+import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";
 import {Button} from "#/components/ui/button.tsx";
-
-export type NavSectionType = {
-    title?: string,
-    hidden?: boolean
-    navs?: {
-        name?: string
-        to?: keyof FileRoutesByTo
-        icon?: Icon | any
-    }[]
-}
+import type {ComponentProps} from "react";
 
 const data = {
     user: {
@@ -166,7 +155,7 @@ const data = {
     ],
 }
 
-export function AdminSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
     const {user} = useAuthenticatedUser()
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
     const navigate = useNavigate()
@@ -181,11 +170,14 @@ export function AdminSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                         >
                             <a href="#">
                                 <Avatar className="grayscale cursor-pointer">
-                                    <AvatarImage src={org?.logo} alt={`${org?.shortName}`}
+                                    <AvatarImage src={org?.logo}
+                                                 alt={`${org?.shortName}`}
                                                  className={"object-cover"}/>
-                                    <AvatarFallback className="rounded-lg">{org?.shortName}</AvatarFallback>
+                                    <AvatarFallback className="rounded-lg bg-transparent">
+                                        <BriefcaseBusinessIcon className="size-5! text-primary"/>
+                                    </AvatarFallback>
                                 </Avatar>
-                                <span className="text-base font-semibold">{org?.shortName}</span>
+                                <span className="text-base font-semibold">{org?.shortName?.toUpperCase()}</span>
                             </a>
                         </SidebarMenuButton>
                         <QuickToolTip content={"User Page"}>
