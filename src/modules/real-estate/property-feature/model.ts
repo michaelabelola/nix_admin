@@ -3,7 +3,6 @@ import type { AuditSection, NixID } from "@/models/Models.ts"
 export namespace PropertyFeatureModel {
     export type PropertyFeatureID = string
     export type FeatureRuleID = string
-    export type PropertyID = string
     export type TagID = string
     export type FileID = string
 
@@ -28,7 +27,6 @@ export namespace PropertyFeatureModel {
         timeValue: string | null
         unit: string | null
         ruleID: FeatureRuleID | null
-        propertyID: PropertyID | null
         tags: TagID[]
         media: FileID[]
         files: FileID[]
@@ -46,7 +44,6 @@ export namespace PropertyFeatureModel {
         timeValue: string | null
         unit: string | null
         ruleID: FeatureRuleID | null
-        propertyID: PropertyID | null
         tags: TagID[]
         media: FileID[]
         files: FileID[]

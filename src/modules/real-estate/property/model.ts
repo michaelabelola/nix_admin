@@ -1,6 +1,7 @@
 import type { AuditSection, NixID } from "@/models/Models.ts"
 import type { LeaseDefinitionModel } from "../lease-definition/model.ts"
 import type { RealEstatePricingModel } from "../pricing/model.ts"
+import type { PropertyFeatureModel } from "../property-feature/model.ts"
 import type { RentDefinitionModel } from "../rent-definition/model.ts"
 import type { SpaceModel } from "../space/model.ts"
 
@@ -113,7 +114,8 @@ export namespace PropertyModel {
         lifecycleStage: PropertyLifecycleStage | null
         tags: TagID[]
         defaultPriceDefinition: RealEstatePricingModel.RealEstatePricing | null
-        priceDefinitions: RealEstatePricingModel.RealEstatePricing[]
+        pricingDefinitions: RealEstatePricingModel.RealEstatePricing[]
+        features: PropertyFeatureModel.PropertyFeature[]
         defaultRentDefinition: RentDefinitionModel.RentDefinition | null
         rentDefinitions: RentDefinitionModel.RentDefinition[]
         defaultLeaseDefinition: LeaseDefinitionModel.LeaseDefinition | null
