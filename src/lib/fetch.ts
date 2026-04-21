@@ -10,7 +10,7 @@ type AuthFetchInit = RequestInit & {
     tokenKey?: string
 }
 
-type RequestHelperInit = Omit<AuthFetchInit, 'body'> & {
+export type RequestHelperInit = Omit<AuthFetchInit, 'body'> & {
     errHandler?: ErrorHandlerType
     contentType?: string | "omit"
     body?: any

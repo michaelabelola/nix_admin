@@ -1,8 +1,9 @@
-import type { PropertyModel } from "@/modules/real-estate/property/model.ts"
-import type { RealEstatePricingModel } from "@/modules/real-estate/pricing/model.ts"
-import type { SpaceModel } from "@/modules/real-estate/space/model.ts"
-import {Backend} from "#/lib/fetch.ts"
+import type {PropertyModel} from "@/modules/real-estate/property/model.ts"
+import type {RealEstatePricingModel} from "@/modules/real-estate/pricing/model.ts"
+import type {SpaceModel} from "@/modules/real-estate/space/model.ts"
+import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
+import type {ErrorHandlerType} from "#/lib/request.types.tsx";
 
 class PricingApi {
     listByProperty(propertyId: PropertyModel.PropertyID) {
@@ -79,9 +80,10 @@ class PricingApi {
         })
     }
 
-    clearSpaceDefault(spaceId: SpaceModel.SpaceID) {
+    clearSpaceDefault(spaceId: SpaceModel.SpaceID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/default-pricing`, {
             method: "DELETE",
+            ...init
         })
     }
 
