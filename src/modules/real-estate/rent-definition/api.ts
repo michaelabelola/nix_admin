@@ -1,101 +1,113 @@
-import type { PropertyModel } from "@/modules/real-estate/property/model.ts"
-import type { RentDefinitionModel } from "@/modules/real-estate/rent-definition/model.ts"
-import type { SpaceModel } from "@/modules/real-estate/space/model.ts"
-import {Backend} from "#/lib/fetch.ts"
+import type {PropertyModel} from "@/modules/real-estate/property/model.ts"
+import type {RentDefinitionModel} from "@/modules/real-estate/rent-definition/model.ts"
+import type {SpaceModel} from "@/modules/real-estate/space/model.ts"
+import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
 
 class RentDefinitionApi {
-    listByProperty(propertyId: PropertyModel.PropertyID) {
-        return Backend.authRequest<RentDefinitionModel.RentDefinition[]>(`/real-estate/property/${propertyId}/rents`)
+    listByProperty(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RentDefinitionModel.RentDefinition[]>(`/real-estate/property/${propertyId}/rents`, init)
     }
 
-    getByProperty(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID) {
-        return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/property/${propertyId}/rents/${rentDefinitionId}`)
+    getByProperty(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/property/${propertyId}/rents/${rentDefinitionId}`, init)
     }
 
-    createForProperty(propertyId: PropertyModel.PropertyID, body: RentDefinitionModel.Create) {
+    createForProperty(propertyId: PropertyModel.PropertyID, body: RentDefinitionModel.Create, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/property/${propertyId}/rents`, {
             method: "POST",
             body,
+            ...init,
         })
     }
 
-    updateForProperty(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, body: RentDefinitionModel.Update) {
+    updateForProperty(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, body: RentDefinitionModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/property/${propertyId}/rents/${rentDefinitionId}`, {
             method: "PATCH",
             body,
+            ...init,
         })
     }
 
-    deleteForProperty(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID) {
+    deleteForProperty(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<ResponseDto<void>>(`/real-estate/property/${propertyId}/rents/${rentDefinitionId}`, {
             method: "DELETE",
+            ...init,
         })
     }
 
-    setPropertyDefault(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID) {
+    setPropertyDefault(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<PropertyModel.Detailed>(`/real-estate/property/${propertyId}/default-rent/${rentDefinitionId}`, {
             method: "PATCH",
+            ...init,
         })
     }
 
-    clearPropertyDefault(propertyId: PropertyModel.PropertyID) {
+    clearPropertyDefault(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<PropertyModel.Detailed>(`/real-estate/property/${propertyId}/default-rent`, {
             method: "DELETE",
+            ...init,
         })
     }
 
-    listBySpace(spaceId: SpaceModel.SpaceID) {
-        return Backend.authRequest<RentDefinitionModel.RentDefinition[]>(`/real-estate/space/${spaceId}/rents`)
+    listBySpace(spaceId: SpaceModel.SpaceID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RentDefinitionModel.RentDefinition[]>(`/real-estate/space/${spaceId}/rents`, init)
     }
 
-    getBySpace(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID) {
-        return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/space/${spaceId}/rents/${rentDefinitionId}`)
+    getBySpace(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/space/${spaceId}/rents/${rentDefinitionId}`, init)
     }
 
-    createForSpace(spaceId: SpaceModel.SpaceID, body: RentDefinitionModel.Create) {
+    createForSpace(spaceId: SpaceModel.SpaceID, body: RentDefinitionModel.Create, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/space/${spaceId}/rents`, {
             method: "POST",
             body,
+            ...init,
         })
     }
 
-    updateForSpace(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, body: RentDefinitionModel.Update) {
+    updateForSpace(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, body: RentDefinitionModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RentDefinitionModel.RentDefinition>(`/real-estate/space/${spaceId}/rents/${rentDefinitionId}`, {
             method: "PATCH",
             body,
+            ...init,
         })
     }
 
-    deleteForSpace(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID) {
+    deleteForSpace(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<ResponseDto<void>>(`/real-estate/space/${spaceId}/rents/${rentDefinitionId}`, {
             method: "DELETE",
+            ...init,
         })
     }
 
-    setSpaceDefault(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID) {
+    setSpaceDefault(spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/default-rent/${rentDefinitionId}`, {
             method: "PATCH",
+            ...init,
         })
     }
 
-    clearSpaceDefault(spaceId: SpaceModel.SpaceID) {
+    clearSpaceDefault(spaceId: SpaceModel.SpaceID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/default-rent`, {
             method: "DELETE",
+            ...init,
         })
     }
 
-    linkToSpace(spaceId: SpaceModel.SpaceID, rentDefinitionIds: RentDefinitionModel.RentDefinitionID[]) {
+    linkToSpace(spaceId: SpaceModel.SpaceID, rentDefinitionIds: RentDefinitionModel.RentDefinitionID[], init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/rents/links`, {
             method: "POST",
             body: rentDefinitionIds,
+            ...init,
         })
     }
 
-    unlinkFromSpace(spaceId: SpaceModel.SpaceID, rentDefinitionIds: RentDefinitionModel.RentDefinitionID[]) {
+    unlinkFromSpace(spaceId: SpaceModel.SpaceID, rentDefinitionIds: RentDefinitionModel.RentDefinitionID[], init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/rents/links`, {
             method: "DELETE",
             body: rentDefinitionIds,
+            ...init,
         })
     }
 }

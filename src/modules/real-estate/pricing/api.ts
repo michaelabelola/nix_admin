@@ -5,98 +5,109 @@ import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
 
 class PricingApi {
-    listByProperty(propertyId: PropertyModel.PropertyID) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing[]>(`/real-estate/property/${propertyId}/pricings`)
+    listByProperty(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing[]>(`/real-estate/property/${propertyId}/pricings`, init)
     }
 
-    getByProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/property/${propertyId}/pricings/${pricingId}`)
+    getByProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/property/${propertyId}/pricings/${pricingId}`, init)
     }
 
-    createForProperty(propertyId: PropertyModel.PropertyID, body: RealEstatePricingModel.Create) {
+    createForProperty(propertyId: PropertyModel.PropertyID, body: RealEstatePricingModel.Create, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/property/${propertyId}/pricings`, {
             method: "POST",
             body,
+            ...init,
         })
     }
 
-    updateForProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, body: RealEstatePricingModel.Update) {
+    updateForProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, body: RealEstatePricingModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/property/${propertyId}/pricings/${pricingId}`, {
             method: "PATCH",
             body,
+            ...init,
         })
     }
 
-    deleteForProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID) {
+    deleteForProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<ResponseDto<void>>(`/real-estate/property/${propertyId}/pricings/${pricingId}`, {
             method: "DELETE",
+            ...init,
         })
     }
 
-    setPropertyDefault(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID) {
+    setPropertyDefault(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<PropertyModel.Detailed>(`/real-estate/property/${propertyId}/default-pricing/${pricingId}`, {
             method: "PATCH",
+            ...init,
         })
     }
 
-    clearPropertyDefault(propertyId: PropertyModel.PropertyID) {
+    clearPropertyDefault(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<PropertyModel.Detailed>(`/real-estate/property/${propertyId}/default-pricing`, {
             method: "DELETE",
+            ...init,
         })
     }
 
-    listBySpace(spaceId: SpaceModel.SpaceID) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing[]>(`/real-estate/space/${spaceId}/pricings`)
+    listBySpace(spaceId: SpaceModel.SpaceID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing[]>(`/real-estate/space/${spaceId}/pricings`, init)
     }
 
-    getBySpace(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/space/${spaceId}/pricings/${pricingId}`)
+    getBySpace(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/space/${spaceId}/pricings/${pricingId}`, init)
     }
 
-    createForSpace(spaceId: SpaceModel.SpaceID, body: RealEstatePricingModel.Create) {
+    createForSpace(spaceId: SpaceModel.SpaceID, body: RealEstatePricingModel.Create, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/space/${spaceId}/pricings`, {
             method: "POST",
             body,
+            ...init,
         })
     }
 
-    updateForSpace(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID, body: RealEstatePricingModel.Update) {
+    updateForSpace(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID, body: RealEstatePricingModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/space/${spaceId}/pricings/${pricingId}`, {
             method: "PATCH",
             body,
+            ...init,
         })
     }
 
-    deleteForSpace(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID) {
+    deleteForSpace(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<ResponseDto<void>>(`/real-estate/space/${spaceId}/pricings/${pricingId}`, {
             method: "DELETE",
+            ...init,
         })
     }
 
-    setSpaceDefault(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID) {
+    setSpaceDefault(spaceId: SpaceModel.SpaceID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/default-pricing/${pricingId}`, {
             method: "PATCH",
+            ...init,
         })
     }
 
     clearSpaceDefault(spaceId: SpaceModel.SpaceID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/default-pricing`, {
             method: "DELETE",
-            ...init
+            ...init,
         })
     }
 
-    linkToSpace(spaceId: SpaceModel.SpaceID, pricingIds: RealEstatePricingModel.PriceID[]) {
+    linkToSpace(spaceId: SpaceModel.SpaceID, pricingIds: RealEstatePricingModel.PriceID[], init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/pricings/links`, {
             method: "POST",
             body: pricingIds,
+            ...init,
         })
     }
 
-    unlinkFromSpace(spaceId: SpaceModel.SpaceID, pricingIds: RealEstatePricingModel.PriceID[]) {
+    unlinkFromSpace(spaceId: SpaceModel.SpaceID, pricingIds: RealEstatePricingModel.PriceID[], init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<SpaceModel.Detailed>(`/real-estate/space/${spaceId}/pricings/links`, {
             method: "DELETE",
             body: pricingIds,
+            ...init,
         })
     }
 }
