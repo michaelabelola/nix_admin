@@ -10,6 +10,13 @@ type AuthFetchInit = RequestInit & {
     tokenKey?: string
 }
 
+type RequestHelperInit = Omit<AuthFetchInit, 'body'> & {
+    errHandler?: ErrorHandlerType
+    contentType?: string | "omit"
+    body?: any
+    query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0] | Record<string, any>
+}
+
 function buildHeaders(headers?: HeadersInit) {
     return new Headers(headers)
 }
@@ -120,6 +127,29 @@ export namespace BACKEND {
 
     }
 
+    function normalizeBody(body: any, contentType?: string | "omit") {
+        if (body == null)
+            return undefined
+
+        if (contentType === "omit")
+            return body
+
+        if (body instanceof FormData || body instanceof URLSearchParams || body instanceof Blob || typeof body === "string")
+            return body
+
+        return JSON.stringify(body)
+    }
+
+    export function request<T>(
+        input: RequestInfo | URL,
+        init?: RequestHelperInit
+    ) {
+        return apiFetch<T>(input, {
+            ...init,
+            body: normalizeBody(init?.body, init?.contentType),
+        })
+    }
+
     export function authFetch<T>(input: RequestInfo | URL,
                                  init?: AuthFetchInit & {
                                      errHandler?: ErrorHandlerType
@@ -132,6 +162,16 @@ export namespace BACKEND {
                 .then(processResponse<T>(resolve, resolve, init))
                 .catch(reject)
         }) as RequestPromise<T, FetchError>
+    }
+
+    export function authRequest<T>(
+        input: RequestInfo | URL,
+        init?: RequestHelperInit
+    ) {
+        return authFetch<T>(input, {
+            ...init,
+            body: normalizeBody(init?.body, init?.contentType),
+        })
     }
 
     function authFetchRaw(input: RequestInfo | URL, init?: AuthFetchInit & {
@@ -160,3 +200,8 @@ export namespace BACKEND {
 }
 
 export {DEFAULT_AUTH_TOKEN_KEY}
+
+export const Backend = {
+    request: BACKEND.request,
+    authRequest: BACKEND.authRequest,
+}

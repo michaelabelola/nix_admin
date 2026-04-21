@@ -58,6 +58,20 @@ export namespace SpaceModel {
         audit: AuditSection
     }
 
+    export type CreateSpaceType = {
+        name?: string | null
+        description?: string | null
+        category?: SpaceTypeCategory | null
+        colorHex?: string | null
+    }
+
+    export type UpdateSpaceType = {
+        name?: string | null
+        description?: string | null
+        category?: SpaceTypeCategory | null
+        colorHex?: string | null
+    }
+
     export type Space = {
         id: SpaceID
         propertyId: PropertyID | null
