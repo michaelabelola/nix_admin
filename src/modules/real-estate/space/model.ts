@@ -105,14 +105,7 @@ export namespace SpaceModel {
         about?: string | null
         enclosureType?: SpaceEnclosureType | null
         accessType?: SpaceAccessType | null
-        featureIds?: PropertyFeatureModel.PropertyFeatureID[]
         tagIds?: TagID[]
-        pricingDefinitionIds?: RealEstatePricingModel.PriceID[]
-        defaultPricingId?: RealEstatePricingModel.PriceID | null
-        rentDefinitionIds?: RentDefinitionModel.RentDefinitionID[]
-        defaultRentDefinitionId?: RentDefinitionModel.RentDefinitionID | null
-        leaseDefinitionIds?: LeaseDefinitionModel.LeaseDefinitionID[]
-        defaultLeaseDefinitionId?: LeaseDefinitionModel.LeaseDefinitionID | null
     }
 
     export type Update = {
@@ -125,6 +118,5 @@ export namespace SpaceModel {
         about?: string | null
         enclosureType?: SpaceEnclosureType | null
         accessType?: SpaceAccessType | null
-        tagIds?: TagID[]
     }
 }
