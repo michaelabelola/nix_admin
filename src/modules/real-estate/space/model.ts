@@ -125,13 +125,6 @@ export namespace SpaceModel {
         about?: string | null
         enclosureType?: SpaceEnclosureType | null
         accessType?: SpaceAccessType | null
-        featureIds?: string[]
         tagIds?: string[]
-        pricingDefinitionIds?: string[]
-        defaultPricingId?: string | null
-        rentDefinitionIds?: string[]
-        defaultRentDefinitionId?: string | null
-        leaseDefinitionIds?: string[]
-        defaultLeaseDefinitionId?: string | null
     }
 }
