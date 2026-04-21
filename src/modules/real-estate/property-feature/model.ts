@@ -57,10 +57,10 @@ export namespace PropertyFeatureModel {
         format?: FieldFormat | null
         value?: string | null
         unit?: string | null
-        featureRuleId?: string | null
-        tags?: string[]
-        media?: string[]
-        files?: string[]
+        featureRuleId?: FeatureRuleID | null
+        tags?: TagID[]
+        media?: FileID[]
+        files?: FileID[]
     }
 
     export type Update = {
@@ -68,9 +68,9 @@ export namespace PropertyFeatureModel {
         description?: string | null
         value?: string | null
         unit?: string | null
-        featureRuleId?: string | null
-        tags?: string[]
-        media?: string[]
-        files?: string[]
+        featureRuleId?: FeatureRuleID | null
+        tags?: TagID[]
+        media?: FileID[]
+        files?: FileID[]
     }
 }

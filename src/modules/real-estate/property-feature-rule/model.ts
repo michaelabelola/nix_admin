@@ -55,7 +55,7 @@ export namespace PropertyFeatureRuleModel {
         allowedPropType?: AllowedPropType | null
         isAddon?: boolean | null
         values?: FeatureRuleValue[]
-        tags?: string[]
+        tags?: TagID[]
     }
 
     export type Update = {
@@ -65,6 +65,6 @@ export namespace PropertyFeatureRuleModel {
         allowedPropType?: AllowedPropType | null
         isAddon?: boolean | null
         values?: FeatureRuleValue[]
-        tags?: string[]
+        tags?: TagID[]
     }
 }

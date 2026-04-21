@@ -96,35 +96,35 @@ export namespace SpaceModel {
     }
 
     export type Create = {
-        propertyId?: string | null
-        locationId?: string | null
+        propertyId?: PropertyID | null
+        locationId?: PropertyModel.PropertyLocationID | null
         label?: string | null
-        typeIds?: string[]
+        typeIds?: SpaceTypeID[]
         sizeInSqm?: number | null
         description?: string | null
         about?: string | null
         enclosureType?: SpaceEnclosureType | null
         accessType?: SpaceAccessType | null
-        featureIds?: string[]
-        tagIds?: string[]
-        pricingDefinitionIds?: string[]
-        defaultPricingId?: string | null
-        rentDefinitionIds?: string[]
-        defaultRentDefinitionId?: string | null
-        leaseDefinitionIds?: string[]
-        defaultLeaseDefinitionId?: string | null
+        featureIds?: PropertyFeatureModel.PropertyFeatureID[]
+        tagIds?: TagID[]
+        pricingDefinitionIds?: RealEstatePricingModel.PriceID[]
+        defaultPricingId?: RealEstatePricingModel.PriceID | null
+        rentDefinitionIds?: RentDefinitionModel.RentDefinitionID[]
+        defaultRentDefinitionId?: RentDefinitionModel.RentDefinitionID | null
+        leaseDefinitionIds?: LeaseDefinitionModel.LeaseDefinitionID[]
+        defaultLeaseDefinitionId?: LeaseDefinitionModel.LeaseDefinitionID | null
     }
 
     export type Update = {
-        propertyId?: string | null
-        locationId?: string | null
+        propertyId?: PropertyID | null
+        locationId?: PropertyModel.PropertyLocationID | null
         label?: string | null
-        typeIds?: string[]
+        typeIds?: SpaceTypeID[]
         sizeInSqm?: number | null
         description?: string | null
         about?: string | null
         enclosureType?: SpaceEnclosureType | null
         accessType?: SpaceAccessType | null
-        tagIds?: string[]
+        tagIds?: TagID[]
     }
 }

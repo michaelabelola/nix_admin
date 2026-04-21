@@ -81,7 +81,7 @@ export namespace PropertyModel {
         country?: string | null
         latitude?: number | null
         longitude?: number | null
-        refId?: string | null
+        refId?: PropertyLocationID | null
     }
 
     export type PropertyLocationUpdate = PropertyLocationCreate
