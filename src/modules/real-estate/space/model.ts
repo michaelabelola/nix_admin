@@ -70,12 +70,9 @@ export namespace SpaceModel {
         enclosureType: SpaceEnclosureType | null
         accessType: SpaceAccessType | null
         defaultPricing: RealEstatePricingModel.RealEstatePricing | null
-        pricingDefinitions: RealEstatePricingModel.RealEstatePricing[]
         defaultRentDefinition: RentDefinitionModel.RentDefinition | null
         defaultLeaseDefinition: LeaseDefinitionModel.LeaseDefinition | null
-        leaseDefinitions: LeaseDefinitionModel.LeaseDefinition[]
         tags: TagID[]
-        rentDefinitions: RentDefinitionModel.RentDefinition[]
     }
 
     export type Detailed = {
@@ -90,11 +87,8 @@ export namespace SpaceModel {
         enclosureType: SpaceEnclosureType | null
         accessType: SpaceAccessType | null
         defaultPricing: RealEstatePricingModel.RealEstatePricing | null
-        pricingDefinitions: RealEstatePricingModel.RealEstatePricing[]
         defaultRentDefinition: RentDefinitionModel.RentDefinition | null
         defaultLeaseDefinition: LeaseDefinitionModel.LeaseDefinition | null
-        leaseDefinitions: LeaseDefinitionModel.LeaseDefinition[]
-        rentDefinitions: RentDefinitionModel.RentDefinition[]
         features: PropertyFeatureModel.PropertyFeature[]
         tags: TagID[]
         entityID: NixID
