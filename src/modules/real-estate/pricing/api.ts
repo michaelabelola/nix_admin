@@ -3,7 +3,6 @@ import type {RealEstatePricingModel} from "@/modules/real-estate/pricing/model.t
 import type {SpaceModel} from "@/modules/real-estate/space/model.ts"
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
-import type {ErrorHandlerType} from "#/lib/request.types.tsx";
 
 class PricingApi {
     listByProperty(propertyId: PropertyModel.PropertyID) {
