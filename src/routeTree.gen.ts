@@ -40,7 +40,16 @@ import { Route as AuthenticatedSelfOrganizationsRegisterContactRouteImport } fro
 import { Route as AuthenticatedSelfOrganizationsRegisterBioRouteImport } from './routes/_authenticated/self/organizations/register/bio'
 import { Route as AuthenticatedSelfOrganizationsRegisterAvatarRouteImport } from './routes/_authenticated/self/organizations/register/avatar'
 import { Route as AuthenticatedSelfOrganizationsRegisterAddressRouteImport } from './routes/_authenticated/self/organizations/register/address'
+import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/locations/index'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/$propertyId/route'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/$propertyId/index'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/$propertyId/tags'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/$propertyId/storage'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/$propertyId/location'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/$propertyId/avatar'
+import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/$propertyId/about'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -214,12 +223,86 @@ const AuthenticatedSelfOrganizationsRegisterAddressRoute =
     path: '/address',
     getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
   } as any)
+const AuthenticatedAdminRealEstatePropertiesPropertyIdRoute =
+  AuthenticatedAdminRealEstatePropertiesPropertyIdRouteImport.update({
+    id: '/properties/$propertyId',
+    path: '/properties/$propertyId',
+    getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+  } as any)
+const AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardIndexRouteImport.update({
+    id: '/properties/onboard/',
+    path: '/properties/onboard/',
+    getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+  } as any)
 const AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute =
   AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport.update({
     id: '/properties/locations/',
     path: '/properties/locations/',
     getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
   } as any)
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteImport.update(
+    {
+      id: '/properties/onboard/$propertyId',
+      path: '/properties/onboard/$propertyId',
+      getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+    } as any,
+  )
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRouteImport.update(
+    {
+      id: '/',
+      path: '/',
+      getParentRoute: () =>
+        AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute,
+    } as any,
+  )
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRouteImport.update(
+    {
+      id: '/tags',
+      path: '/tags',
+      getParentRoute: () =>
+        AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute,
+    } as any,
+  )
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRouteImport.update(
+    {
+      id: '/storage',
+      path: '/storage',
+      getParentRoute: () =>
+        AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute,
+    } as any,
+  )
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRouteImport.update(
+    {
+      id: '/location',
+      path: '/location',
+      getParentRoute: () =>
+        AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute,
+    } as any,
+  )
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRouteImport.update(
+    {
+      id: '/avatar',
+      path: '/avatar',
+      getParentRoute: () =>
+        AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute,
+    } as any,
+  )
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRouteImport.update(
+    {
+      id: '/about',
+      path: '/about',
+      getParentRoute: () =>
+        AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute,
+    } as any,
+  )
 
 export interface FileRoutesByFullPath {
   '/': typeof LandingIndexRoute
@@ -238,6 +321,7 @@ export interface FileRoutesByFullPath {
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -251,7 +335,15 @@ export interface FileRoutesByFullPath {
   '/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
+  '/admin/real-estate/properties/onboard/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteWithChildren
   '/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
+  '/admin/real-estate/properties/onboard/': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
+  '/admin/real-estate/properties/onboard/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute
+  '/admin/real-estate/properties/onboard/$propertyId/avatar': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute
+  '/admin/real-estate/properties/onboard/$propertyId/location': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute
+  '/admin/real-estate/properties/onboard/$propertyId/storage': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute
+  '/admin/real-estate/properties/onboard/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute
+  '/admin/real-estate/properties/onboard/$propertyId/': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof LandingIndexRoute
@@ -267,6 +359,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/self/organizations': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -281,6 +374,13 @@ export interface FileRoutesByTo {
   '/admin/real-estate/properties': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
   '/admin/real-estate/properties/locations': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
+  '/admin/real-estate/properties/onboard': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
+  '/admin/real-estate/properties/onboard/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute
+  '/admin/real-estate/properties/onboard/$propertyId/avatar': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute
+  '/admin/real-estate/properties/onboard/$propertyId/location': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute
+  '/admin/real-estate/properties/onboard/$propertyId/storage': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute
+  '/admin/real-estate/properties/onboard/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute
+  '/admin/real-estate/properties/onboard/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -302,6 +402,7 @@ export interface FileRoutesById {
   '/_authenticated/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/_authenticated/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/_authenticated/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRoute
   '/_authenticated/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/_authenticated/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/_authenticated/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -315,7 +416,15 @@ export interface FileRoutesById {
   '/_authenticated/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/_authenticated/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/_authenticated/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
+  '/_authenticated/admin/real-estate/properties/onboard/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteWithChildren
   '/_authenticated/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
+  '/_authenticated/admin/real-estate/properties/onboard/': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
+  '/_authenticated/admin/real-estate/properties/onboard/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute
+  '/_authenticated/admin/real-estate/properties/onboard/$propertyId/avatar': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute
+  '/_authenticated/admin/real-estate/properties/onboard/$propertyId/location': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute
+  '/_authenticated/admin/real-estate/properties/onboard/$propertyId/storage': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute
+  '/_authenticated/admin/real-estate/properties/onboard/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute
+  '/_authenticated/admin/real-estate/properties/onboard/$propertyId/': typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -336,6 +445,7 @@ export interface FileRouteTypes {
     | '/self/organizations/register'
     | '/self/organizations/dashboard'
     | '/self/organizations/'
+    | '/admin/real-estate/properties/$propertyId'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -349,7 +459,15 @@ export interface FileRouteTypes {
     | '/admin/real-estate/dashboard/'
     | '/admin/real-estate/properties/'
     | '/self/organizations/register/'
+    | '/admin/real-estate/properties/onboard/$propertyId'
     | '/admin/real-estate/properties/locations/'
+    | '/admin/real-estate/properties/onboard/'
+    | '/admin/real-estate/properties/onboard/$propertyId/about'
+    | '/admin/real-estate/properties/onboard/$propertyId/avatar'
+    | '/admin/real-estate/properties/onboard/$propertyId/location'
+    | '/admin/real-estate/properties/onboard/$propertyId/storage'
+    | '/admin/real-estate/properties/onboard/$propertyId/tags'
+    | '/admin/real-estate/properties/onboard/$propertyId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -365,6 +483,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/self/organizations/dashboard'
     | '/self/organizations'
+    | '/admin/real-estate/properties/$propertyId'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -379,6 +498,13 @@ export interface FileRouteTypes {
     | '/admin/real-estate/properties'
     | '/self/organizations/register'
     | '/admin/real-estate/properties/locations'
+    | '/admin/real-estate/properties/onboard'
+    | '/admin/real-estate/properties/onboard/$propertyId/about'
+    | '/admin/real-estate/properties/onboard/$propertyId/avatar'
+    | '/admin/real-estate/properties/onboard/$propertyId/location'
+    | '/admin/real-estate/properties/onboard/$propertyId/storage'
+    | '/admin/real-estate/properties/onboard/$propertyId/tags'
+    | '/admin/real-estate/properties/onboard/$propertyId'
   id:
     | '__root__'
     | '/_authenticated'
@@ -399,6 +525,7 @@ export interface FileRouteTypes {
     | '/_authenticated/self/organizations/register'
     | '/_authenticated/self/organizations/dashboard'
     | '/_authenticated/self/organizations/'
+    | '/_authenticated/admin/real-estate/properties/$propertyId'
     | '/_authenticated/self/organizations/register/address'
     | '/_authenticated/self/organizations/register/avatar'
     | '/_authenticated/self/organizations/register/bio'
@@ -412,7 +539,15 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/real-estate/dashboard/'
     | '/_authenticated/admin/real-estate/properties/'
     | '/_authenticated/self/organizations/register/'
+    | '/_authenticated/admin/real-estate/properties/onboard/$propertyId'
     | '/_authenticated/admin/real-estate/properties/locations/'
+    | '/_authenticated/admin/real-estate/properties/onboard/'
+    | '/_authenticated/admin/real-estate/properties/onboard/$propertyId/about'
+    | '/_authenticated/admin/real-estate/properties/onboard/$propertyId/avatar'
+    | '/_authenticated/admin/real-estate/properties/onboard/$propertyId/location'
+    | '/_authenticated/admin/real-estate/properties/onboard/$propertyId/storage'
+    | '/_authenticated/admin/real-estate/properties/onboard/$propertyId/tags'
+    | '/_authenticated/admin/real-estate/properties/onboard/$propertyId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -641,6 +776,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterAddressRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
     }
+    '/_authenticated/admin/real-estate/properties/$propertyId': {
+      id: '/_authenticated/admin/real-estate/properties/$propertyId'
+      path: '/properties/$propertyId'
+      fullPath: '/admin/real-estate/properties/$propertyId'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/onboard/': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/'
+      path: '/properties/onboard'
+      fullPath: '/admin/real-estate/properties/onboard/'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
     '/_authenticated/admin/real-estate/properties/locations/': {
       id: '/_authenticated/admin/real-estate/properties/locations/'
       path: '/properties/locations'
@@ -648,23 +797,111 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
     }
+    '/_authenticated/admin/real-estate/properties/onboard/$propertyId': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/$propertyId'
+      path: '/properties/onboard/$propertyId'
+      fullPath: '/admin/real-estate/properties/onboard/$propertyId'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/onboard/$propertyId/': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/$propertyId/'
+      path: '/'
+      fullPath: '/admin/real-estate/properties/onboard/$propertyId/'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/onboard/$propertyId/tags': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/$propertyId/tags'
+      path: '/tags'
+      fullPath: '/admin/real-estate/properties/onboard/$propertyId/tags'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/onboard/$propertyId/storage': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/$propertyId/storage'
+      path: '/storage'
+      fullPath: '/admin/real-estate/properties/onboard/$propertyId/storage'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/onboard/$propertyId/location': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/$propertyId/location'
+      path: '/location'
+      fullPath: '/admin/real-estate/properties/onboard/$propertyId/location'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/onboard/$propertyId/avatar': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/$propertyId/avatar'
+      path: '/avatar'
+      fullPath: '/admin/real-estate/properties/onboard/$propertyId/avatar'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute
+    }
+    '/_authenticated/admin/real-estate/properties/onboard/$propertyId/about': {
+      id: '/_authenticated/admin/real-estate/properties/onboard/$propertyId/about'
+      path: '/about'
+      fullPath: '/admin/real-estate/properties/onboard/$propertyId/about'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute
+    }
   }
 }
 
+interface AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteChildren {
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute
+}
+
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteChildren: AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteChildren =
+  {
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRoute,
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAvatarRoute,
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdLocationRoute,
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdStorageRoute,
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdTagsRoute,
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdIndexRoute,
+  }
+
+const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteWithChildren =
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute._addFileChildren(
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminRealEstateRouteRouteChildren {
+  AuthenticatedAdminRealEstatePropertiesPropertyIdRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRoute
   AuthenticatedAdminRealEstateDashboardIndexRoute: typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   AuthenticatedAdminRealEstatePropertiesIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
+  AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteWithChildren
   AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
+  AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
 }
 
 const AuthenticatedAdminRealEstateRouteRouteChildren: AuthenticatedAdminRealEstateRouteRouteChildren =
   {
+    AuthenticatedAdminRealEstatePropertiesPropertyIdRoute:
+      AuthenticatedAdminRealEstatePropertiesPropertyIdRoute,
     AuthenticatedAdminRealEstateDashboardIndexRoute:
       AuthenticatedAdminRealEstateDashboardIndexRoute,
     AuthenticatedAdminRealEstatePropertiesIndexRoute:
       AuthenticatedAdminRealEstatePropertiesIndexRoute,
+    AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteWithChildren,
     AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute:
       AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute,
+    AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute:
+      AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute,
   }
 
 const AuthenticatedAdminRealEstateRouteRouteWithChildren =
