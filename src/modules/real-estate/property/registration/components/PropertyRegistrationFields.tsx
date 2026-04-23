@@ -14,8 +14,9 @@ import { Textarea } from "#/components/ui/textarea.tsx"
 
 import { StepField } from "./PropertyRegistrationFormParts.tsx"
 
-type FormLike = {
+export type RegistrationFormLike = {
   Field: any
+  Subscribe?: any
   handleSubmit: () => void | Promise<void>
 }
 
@@ -28,7 +29,7 @@ export function RegistrationForm({
   children,
   className = "grid gap-6",
 }: {
-  form: FormLike
+  form: RegistrationFormLike
   children: ReactNode
   className?: string
 }) {
@@ -55,7 +56,7 @@ export function RegistrationInputField({
   type = "text",
   validators,
 }: {
-  form: FormLike
+  form: RegistrationFormLike
   name: string
   label: string
   description?: string
@@ -93,7 +94,7 @@ export function RegistrationTextareaField({
   rows = 6,
   validators,
 }: {
-  form: FormLike
+  form: RegistrationFormLike
   name: string
   label: string
   description?: string
@@ -130,7 +131,7 @@ export function RegistrationSelectField({
   placeholder,
   options,
 }: {
-  form: FormLike
+  form: RegistrationFormLike
   name: string
   label: string
   description?: string
@@ -166,7 +167,7 @@ export function RegistrationFileField({
   description,
   accept,
 }: {
-  form: FormLike
+  form: RegistrationFormLike
   name: string
   label: string
   description?: string
@@ -200,7 +201,7 @@ export function RegistrationCountryComboboxField({
   description,
   validators,
 }: {
-  form: FormLike
+  form: RegistrationFormLike
   name: string
   label: string
   description?: string
@@ -233,10 +234,10 @@ export function RegistrationStateComboboxField({
   description,
   validators,
 }: {
-  form: FormLike
+  form: RegistrationFormLike
   name: string
   countryFieldName: string
-  label: string|boolean
+  label: string
   description?: string
   validators?: FieldValidators
 }) {

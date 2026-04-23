@@ -9,6 +9,7 @@ import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
 import {
     RegistrationCountryComboboxField,
     RegistrationForm,
+    type RegistrationFormLike,
     RegistrationInputField,
     RegistrationStateComboboxField,
 } from "./PropertyRegistrationFields.tsx"
@@ -35,6 +36,7 @@ export function PropertyLocationStep({
     const propertyLocationQuery = PropertyApiHook.useGetPropertyAssignedLocation(property.id)
     const addLocationToProperty = PropertyApiHook.useAddLocationToProperty()
 
+    // @ts-ignore
     const form = useForm<LocationFormValues>({
         defaultValues: getLocationFormDefaults(property),
         onSubmit: async ({value}) => {
@@ -106,16 +108,11 @@ export function PropertyLocationStep({
     )
 }
 
-type LocationFormApi = {
-    Field: any
-    Subscribe: any
-}
-
 function PropertyLocationInputField({
                                         form,
                                         field,
                                     }: {
-    form: LocationFormApi
+    form: RegistrationFormLike
     field: LocationFieldConfig
 }) {
     if (field.inputKind === "country-combobox") {
