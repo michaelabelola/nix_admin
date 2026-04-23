@@ -108,7 +108,7 @@ export namespace BACKEND {
             errHandler?: ErrorHandlerType,
             body?: any,
             query?: Parameters<typeof QueryStringUtil.paramsToQueryString>[0] | Record<string, any>,
-        }): RequestPromise<T> {
+        }): RequestPromise<T>&Promise<T> {
         var queryString = QueryStringUtil.paramsToQueryString(init?.query)
         if (!(input instanceof URL)) input = new URL(input.toString() + queryString, apiUrl)
 
@@ -161,7 +161,7 @@ export namespace BACKEND {
             return authFetchRaw(input, init)
                 .then(processResponse<T>(resolve, resolve, init))
                 .catch(reject)
-        }) as RequestPromise<T, FetchError>
+        }) as RequestPromise<T, FetchError> | Promise<T>
     }
 
     export function authRequest<T>(

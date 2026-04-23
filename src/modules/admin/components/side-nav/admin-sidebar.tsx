@@ -169,10 +169,10 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
                         >
                             <a href="#">
-                                <Avatar className="grayscale cursor-pointer">
+                                <Avatar className="h-8 w-8 rounded-lg grayscale cursor-pointer">
                                     <AvatarImage src={org?.logo}
                                                  alt={`${org?.shortName}`}
-                                                 className={"object-cover"}/>
+                                                 className={"object-cover border"}/>
                                     <AvatarFallback className="rounded-lg bg-transparent">
                                         <BriefcaseBusinessIcon className="size-5! text-primary"/>
                                     </AvatarFallback>
@@ -184,7 +184,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                             <Button asChild variant={"ghost"} onClick={() => navigate({
                                 to: "/self"
                             })} className="ml-auto">
-                                <User2Icon className="size-5!"/>
+                                <User2Icon className="size-5! text-foreground"/>
                             </Button>
                         </QuickToolTip>
 
@@ -195,7 +195,6 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain}/>
                 {[realEstateNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
-
                 ))}
                 <NavSecondary items={data.navSecondary} className="mt-auto"/>
             </SidebarContent>

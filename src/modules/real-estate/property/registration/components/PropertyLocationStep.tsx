@@ -120,7 +120,7 @@ function PropertyLocationInputField({
             <RegistrationCountryComboboxField
                 form={form}
                 name={field.name}
-                label={field.label}
+                label={false}
                 description={field.description}
                 validators={
                     field.required
@@ -139,7 +139,7 @@ function PropertyLocationInputField({
                 form={form}
                 name={field.name}
                 countryFieldName="country"
-                label={field.label}
+                label={false}
                 description={field.description}
                 validators={
                     field.required
