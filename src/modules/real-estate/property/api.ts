@@ -9,7 +9,7 @@ class PropertyApi {
     }
 
     getById(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}`, init)
+        return Backend.authRequest<PropertyModel.Detailed>(`/real-estate/properties/${propertyId}`, init)
     }
 
     getDetailed(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
@@ -17,7 +17,7 @@ class PropertyApi {
     }
 
     create(body: PropertyModel.Create, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<PropertyModel.Property>("/real-estate/properties", {
+        return Backend.authRequest<PropertyModel.Detailed>("/real-estate/properties", {
             method: "POST",
             body,
             ...init,
@@ -35,7 +35,7 @@ class PropertyApi {
     uploadAvatar(propertyId: PropertyModel.PropertyID, file: File, part: "image" | "avatar" = "image", init?: Partial<RequestHelperInit>) {
         const formData = new FormData()
         formData.append(part, file)
-        return Backend.authRequest<PropertyModel.Property>(`/real-estate/property/${propertyId}/${part}`, {
+        return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}/${part}`, {
             method: "POST",
             body: formData,
             contentType: "omit",
@@ -44,14 +44,14 @@ class PropertyApi {
     }
 
     initializeFilesStorage(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<PropertyModel.Property>(`/real-estate/property/${propertyId}/files-storage/initialize`, {
+        return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}/files-storage/initialize`, {
             method: "POST",
             ...init,
         })
     }
 
     addTags(propertyId: PropertyModel.PropertyID, tagIds: PropertyModel.TagID[], init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<PropertyModel.Property>(`/real-estate/property/${propertyId}/tags`, {
+        return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}/tags`, {
             method: "POST",
             body: tagIds,
             ...init,
@@ -59,7 +59,7 @@ class PropertyApi {
     }
 
     removeTags(propertyId: PropertyModel.PropertyID, tagIds: PropertyModel.TagID[], init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<PropertyModel.Property>(`/real-estate/property/${propertyId}/tags`, {
+        return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}/tags`, {
             method: "DELETE",
             body: tagIds,
             ...init,

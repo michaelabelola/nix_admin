@@ -41,7 +41,7 @@ export namespace PropertyApiHook {
         }
     }
 
-    export function useCreateProperty(successHandler?: SuccessHandler<PropertyModel.Property>) {
+    export function useCreateProperty(successHandler?: SuccessHandler<PropertyModel.Detailed>) {
         const queryClient = useQueryClient()
         const errHandler = useResponseFieldErrorHandler()
 
