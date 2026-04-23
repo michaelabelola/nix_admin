@@ -32,12 +32,12 @@ export type LocationFieldConfig = {
 }
 
 export const LOCATION_FORM_FIELDS: LocationFieldConfig[] = [
-  {
-    name: "label",
-    label: "Label",
-    description: "Optional internal label for this location record.",
-    placeholder: "Primary property address",
-  },
+  // {
+  //   name: "label",
+  //   label: "Label",
+  //   description: "Optional internal label for this location record.",
+  //   placeholder: "Primary property address",
+  // },
   {
     name: "building",
     label: "Building",

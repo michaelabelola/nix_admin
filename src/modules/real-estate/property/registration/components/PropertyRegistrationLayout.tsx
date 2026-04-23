@@ -26,6 +26,7 @@ export function PropertyRegistrationLayout({
   propertyId,
   property,
   children,
+  secondaryAction,
   nextHref,
   nextLabel = "Continue",
   disableNext = false,
@@ -39,6 +40,7 @@ export function PropertyRegistrationLayout({
     "id" | "name" | "type" | "lifecycleStage" | "storageID" | "tags"
   >
   children: ReactNode
+  secondaryAction?: ReactNode
   nextHref?: string
   nextLabel?: string
   disableNext?: boolean
@@ -83,19 +85,23 @@ export function PropertyRegistrationLayout({
               </Link>
             </Button>
 
-            {onNext ? (
-              <Button type="button" disabled={disableNext || isBusy} onClick={() => void onNext()}>
-                {nextLabel}
-                <ArrowRight className="size-4" />
-              </Button>
-            ) : resolvedNextHref ? (
-              <Button asChild type="button" disabled={disableNext || isBusy}>
-                <Link to={resolvedNextHref as any}>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              {secondaryAction}
+
+              {onNext ? (
+                <Button type="button" disabled={disableNext || isBusy} onClick={() => void onNext()}>
                   {nextLabel}
                   <ArrowRight className="size-4" />
-                </Link>
-              </Button>
-            ) : null}
+                </Button>
+              ) : resolvedNextHref ? (
+                <Button asChild type="button" disabled={disableNext || isBusy}>
+                  <Link to={resolvedNextHref as any}>
+                    {nextLabel}
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </Button>
+              ) : null}
+            </div>
           </div>
         </CardContent>
       </Card>
