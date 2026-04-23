@@ -84,6 +84,18 @@ class PropertyApi {
         return Backend.authRequest<Paged<PropertyModel.PropertyLocation>>("/real-estate/locations", {query: params, ...init})
     }
 
+    getPropertyLocation(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<PropertyModel.PropertyLocationDetailed>(`/real-estate/properties/${propertyId}/location`, init)
+    }
+
+    addLocationToProperty(propertyId: PropertyModel.PropertyID, body: PropertyModel.PropertyLocationCreate, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<PropertyModel.PropertyLocationDetailed>(`/real-estate/properties/${propertyId}/location`, {
+            method: "POST",
+            body,
+            ...init,
+        })
+    }
+
     getLocation(locationId: PropertyModel.PropertyLocationID, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<PropertyModel.PropertyLocationDetailed>(`/real-estate/locations/${locationId}`, init)
     }

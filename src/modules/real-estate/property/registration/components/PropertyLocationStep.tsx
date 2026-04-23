@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import {useNavigate} from "@tanstack/react-router"
 import {useForm, useStore} from "@tanstack/react-form"
 import {toast} from "sonner"
@@ -31,20 +32,44 @@ export function PropertyLocationStep({
     property: PropertyModel.Detailed
 }) {
     const navigate = useNavigate()
-    const createLocation = PropertyApiHook.useCreatePropertyLocation()
+    const propertyLocationQuery = PropertyApiHook.useGetPropertyAssignedLocation(property.id)
+    const addLocationToProperty = PropertyApiHook.useAddLocationToProperty()
 
     const form = useForm<LocationFormValues>({
         defaultValues: getLocationFormDefaults(property),
         onSubmit: async ({value}) => {
-            await createLocation.mutateAsync(toLocationCreateBody(value))
+            await addLocationToProperty.mutateAsync({
+                propertyId: property.id,
+                body: toLocationCreateBody(value),
+            })
 
-            toast.success("Property location record created.")
+            toast.success("Property location saved.")
             const nextStep = getNextPropertyRegistrationStep("location", property.id)
             if (nextStep?.path) {
                 await navigate({to: nextStep.path as any})
             }
         },
     })
+
+    useEffect(() => {
+        const location = propertyLocationQuery.data
+        if (!location) return
+
+        form.setFieldValue("label", location.label ?? "")
+        form.setFieldValue("apartment", location.apartment ?? "")
+        form.setFieldValue("unit", location.unit ?? "")
+        form.setFieldValue("building", location.building ?? "")
+        form.setFieldValue("floor", location.floor != null ? String(location.floor) : "")
+        form.setFieldValue("line1", location.line1 ?? "")
+        form.setFieldValue("line2", location.line2 ?? "")
+        form.setFieldValue("city", location.city ?? "")
+        form.setFieldValue("state", location.state ?? "")
+        form.setFieldValue("postalCode", location.postalCode ?? "")
+        form.setFieldValue("country", location.country ?? "")
+        form.setFieldValue("latitude", location.latitude != null ? String(location.latitude) : "")
+        form.setFieldValue("longitude", location.longitude != null ? String(location.longitude) : "")
+        form.setFieldValue("refId", location.ref ?? "")
+    }, [form, propertyLocationQuery.data])
 
     const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
     const values = useStore(form.store, (state) => state.values)
@@ -60,9 +85,9 @@ export function PropertyLocationStep({
             propertyId={property.id}
             property={property}
             skipHref={getNextPropertyRegistrationStep("location", property.id)?.path}
-            nextLabel="Create location"
+            nextLabel="Save location"
             disableNext={disableNext}
-            isBusy={isSubmitting || createLocation.isPending}
+            isBusy={isSubmitting || addLocationToProperty.isPending}
             onNext={() => form.handleSubmit()}
         >
             <RegistrationForm form={form}>
@@ -73,19 +98,24 @@ export function PropertyLocationStep({
                 </div>
 
                 <StepMutationError
-                    title="Unable to create location"
-                    message={createLocation.error?.message}
+                    title="Unable to save location"
+                    message={addLocationToProperty.error?.message || propertyLocationQuery.error?.message}
                 />
             </RegistrationForm>
         </PropertyRegistrationLayout>
     )
 }
 
+type LocationFormApi = {
+    Field: any
+    Subscribe: any
+}
+
 function PropertyLocationInputField({
                                         form,
                                         field,
                                     }: {
-    form: ReturnType<typeof useForm<LocationFormValues>>
+    form: LocationFormApi
     field: LocationFieldConfig
 }) {
     if (field.inputKind === "country-combobox") {
@@ -93,7 +123,7 @@ function PropertyLocationInputField({
             <RegistrationCountryComboboxField
                 form={form}
                 name={field.name}
-                label={false}
+                label={field.label}
                 description={field.description}
                 validators={
                     field.required
@@ -112,7 +142,7 @@ function PropertyLocationInputField({
                 form={form}
                 name={field.name}
                 countryFieldName="country"
-                label={false}
+                label={field.label}
                 description={field.description}
                 validators={
                     field.required

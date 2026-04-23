@@ -203,12 +203,44 @@ export namespace PropertyApiHook {
         }
     }
 
+    export const useGetPropertyAssignedLocation = (propertyId: PropertyModel.PropertyID) => {
+        const errHandler = useResponseFieldErrorHandler()
+        return {
+            ...useQuery({
+                queryKey: RealEstateQueryKeys.propertyAssignedLocation(propertyId),
+                queryFn: () => propertyApi.getPropertyLocation(propertyId, {errHandler}),
+            }),
+            errHandler,
+        }
+    }
+
     export const useGetPropertyLocation = (locationId: PropertyModel.PropertyLocationID) => {
         const errHandler = useResponseFieldErrorHandler()
         return {
             ...useQuery({
                 queryKey: RealEstateQueryKeys.propertyLocation(locationId),
                 queryFn: () => propertyApi.getLocation(locationId, {errHandler}),
+            }),
+            errHandler,
+        }
+    }
+
+    export function useAddLocationToProperty(successHandler?: SuccessHandler<PropertyModel.PropertyLocationDetailed>) {
+        const queryClient = useQueryClient()
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useMutation({
+                mutationFn: ({propertyId, body}: { propertyId: PropertyModel.PropertyID, body: PropertyModel.PropertyLocationCreate }) =>
+                    propertyApi.addLocationToProperty(propertyId, body, {errHandler}),
+                onSuccess: async (data, variables) => {
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyAssignedLocation(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyLocationsRoot}),
+                    ])
+                    successHandler?.(data)
+                },
             }),
             errHandler,
         }

@@ -22,6 +22,7 @@ export namespace RealEstateQueryKeys {
     export const propertyLeases = (propertyId: PropertyModel.PropertyID) => [...property(propertyId), 'leases'] as const
     export const propertyLease = (propertyId: PropertyModel.PropertyID, leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID) => [...propertyLeases(propertyId), leaseDefinitionId] as const
     export const propertySpaces = (propertyId: PropertyModel.PropertyID, params?: PageRequest) => [...property(propertyId), 'spaces', 'list', params] as const
+    export const propertyAssignedLocation = (propertyId: PropertyModel.PropertyID) => [...property(propertyId), 'location'] as const
 
     export const propertyLocationsRoot = ['real-estate', 'locations'] as const
     export const propertyLocations = (params?: PageRequest) => [...propertyLocationsRoot, 'list', params] as const
