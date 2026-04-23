@@ -59,6 +59,7 @@ export function PropertyAvatarStep({
       stepId="avatar"
       propertyId={property.id}
       property={property}
+      skipHref={getNextPropertyRegistrationStep("avatar", property.id)?.path}
       nextLabel={property.avatar && !selectedFile ? "Continue" : "Upload avatar"}
       disableNext={disableNext}
       isBusy={isSubmitting || uploadAvatar.isPending}

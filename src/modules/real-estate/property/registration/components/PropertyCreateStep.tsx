@@ -51,6 +51,7 @@ export function PropertyCreateStep() {
   return (
     <PropertyRegistrationLayout
       stepId="create"
+      skipHref="/admin/real-estate/properties"
       nextLabel="Create property"
       disableNext={disableNext}
       isBusy={isSubmitting || createProperty.isPending}

@@ -24,6 +24,13 @@ class PropertyApi {
         })
     }
 
+    finishOnboarding(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<PropertyModel.Detailed>(`/real-estate/properties/${propertyId}/onboarding/finish`, {
+            method: "POST",
+            ...init,
+        })
+    }
+
     update(propertyId: PropertyModel.PropertyID, body: PropertyModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}`, {
             method: "PATCH",

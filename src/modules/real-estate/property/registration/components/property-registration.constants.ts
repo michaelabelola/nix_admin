@@ -1,5 +1,6 @@
 import {
   Building2,
+  CircleCheckBig,
   FileImage,
   FileText,
   FolderCog,
@@ -18,6 +19,7 @@ export type PropertyRegistrationStepID =
   | "storage"
   | "location"
   | "tags"
+  | "finish"
 
 export type PropertyRegistrationStep = {
   id: PropertyRegistrationStepID
@@ -95,6 +97,17 @@ const PROPERTY_REGISTRATION_STEP_DEFINITIONS: PropertyRegistrationStepDefinition
       getPath: (propertyId) =>
         propertyId
           ? `/admin/real-estate/properties/onboard/${propertyId}/tags`
+          : undefined,
+    },
+    {
+      id: "finish",
+      label: "Finish",
+      shortLabel: "Finish",
+      description: "Finalize onboarding and move the property out of onboarding state.",
+      icon: CircleCheckBig,
+      getPath: (propertyId) =>
+        propertyId
+          ? `/admin/real-estate/properties/onboard/${propertyId}/finish`
           : undefined,
     },
   ]

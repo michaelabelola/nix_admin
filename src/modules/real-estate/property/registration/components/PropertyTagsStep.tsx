@@ -12,7 +12,7 @@ import {
 } from "./PropertyRegistrationFields.tsx"
 import { PropertyRegistrationLayout } from "./PropertyRegistrationLayout.tsx"
 import { StepMutationError, splitTagIds } from "./PropertyRegistrationFormParts.tsx"
-import { propertyDetailPath } from "./property-registration.constants.ts"
+import { getNextPropertyRegistrationStep } from "./property-registration.constants.ts"
 
 type TagsFormValues = {
   tagIds: string
@@ -37,7 +37,10 @@ export function PropertyTagsStep({
       })
 
       toast.success("Property tags saved.")
-      await navigate({ to: propertyDetailPath(property.id) as any })
+      const nextStep = getNextPropertyRegistrationStep("tags", property.id)
+      if (nextStep?.path) {
+        await navigate({ to: nextStep.path as any })
+      }
     },
   })
 
@@ -48,7 +51,8 @@ export function PropertyTagsStep({
       stepId="tags"
       propertyId={property.id}
       property={property}
-      nextLabel="Finish onboarding"
+      skipHref={getNextPropertyRegistrationStep("tags", property.id)?.path}
+      nextLabel="Save tags"
       isBusy={isSubmitting || addTags.isPending}
       onNext={() => form.handleSubmit()}
     >

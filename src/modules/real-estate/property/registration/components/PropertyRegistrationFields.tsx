@@ -1,6 +1,8 @@
 import type { ReactNode } from "react"
 
 import { Input } from "#/components/ui/input.tsx"
+import { CountryCombobox } from "#/modules/location/components/CountryCombobox.tsx"
+import { StateCombobox } from "#/modules/location/components/StateCombobox.tsx"
 import {
   Select,
   SelectContent,
@@ -186,6 +188,77 @@ export function RegistrationFileField({
             </p>
           ) : null}
         </StepField>
+      )}
+    </form.Field>
+  )
+}
+
+export function RegistrationCountryComboboxField({
+  form,
+  name,
+  label,
+  description,
+  validators,
+}: {
+  form: FormLike
+  name: string
+  label: string
+  description?: string
+  validators?: FieldValidators
+}) {
+  return (
+    <form.Field name={name} validators={validators}>
+      {(field: any) => (
+        <StepField
+          label={label}
+          description={description}
+          error={field.state.meta.errors[0]?.message}
+        >
+          <CountryCombobox
+            label={undefined}
+            value={field.state.value ?? ""}
+            onValueChange={field.handleChange}
+          />
+        </StepField>
+      )}
+    </form.Field>
+  )
+}
+
+export function RegistrationStateComboboxField({
+  form,
+  name,
+  countryFieldName,
+  label,
+  description,
+  validators,
+}: {
+  form: FormLike
+  name: string
+  countryFieldName: string
+  label: string|boolean
+  description?: string
+  validators?: FieldValidators
+}) {
+  return (
+    <form.Field name={name} validators={validators}>
+      {(field: any) => (
+        <form.Subscribe selector={(state: any) => state.values[countryFieldName]}>
+          {(countryIso2: string) => (
+            <StepField
+              label={label}
+              description={description}
+              error={field.state.meta.errors[0]?.message}
+            >
+              <StateCombobox
+                label={undefined}
+                countryIso2={countryIso2}
+                value={field.state.value ?? ""}
+                onValueChange={field.handleChange}
+              />
+            </StepField>
+          )}
+        </form.Subscribe>
       )}
     </form.Field>
   )

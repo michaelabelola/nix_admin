@@ -21,7 +21,7 @@ export function LocationCombobox({
     disabled,
     onValueChange,
 }: {
-    label: string
+    label?: string|boolean
     value?: string
     options: LocationComboboxOption[]
     placeholder: string
@@ -33,7 +33,7 @@ export function LocationCombobox({
 
     return (
         <label className="grid gap-2">
-            <span className="text-sm font-medium">{label}</span>
+            {label ? <span className="text-sm font-medium">{label}</span> : null}
             <Combobox<LocationComboboxOption>
                 items={options}
                 value={selectedOption}

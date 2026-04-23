@@ -5,10 +5,12 @@ import countriesApi from "#/modules/location/apis/countries.api.ts"
 import {LocationCombobox} from "./LocationCombobox.tsx"
 
 export function CountryCombobox({
-    value,
-    disabled,
-    onValueChange,
-}: {
+                                    label = "Country",
+                                    value,
+                                    disabled,
+                                    onValueChange,
+                                }: {
+    label?: string | boolean
     value?: string
     disabled?: boolean
     onValueChange: (value: string) => void
@@ -25,7 +27,7 @@ export function CountryCombobox({
 
     return (
         <LocationCombobox
-            label="Country"
+            label={label}
             value={value}
             options={options}
             placeholder="Search and select a country"

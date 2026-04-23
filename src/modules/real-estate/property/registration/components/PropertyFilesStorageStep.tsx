@@ -42,16 +42,7 @@ export function PropertyFilesStorageStep({
       stepId="storage"
       propertyId={property.id}
       property={{ ...property, storageID: storageId }}
-      secondaryAction={
-        <Button
-          variant="ghost"
-          type="button"
-          disabled={initializeStorage.isPending}
-          onClick={() => void handleNext()}
-        >
-          Skip
-        </Button>
-      }
+      skipHref={getNextPropertyRegistrationStep("storage", property.id)?.path}
       nextLabel="Next"
       isBusy={false}
       onNext={() => void handleNext()}

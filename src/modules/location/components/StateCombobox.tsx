@@ -5,11 +5,13 @@ import statesApi from "#/modules/location/apis/states.api.ts"
 import {LocationCombobox} from "./LocationCombobox.tsx"
 
 export function StateCombobox({
+    label = "State / Province",
     countryIso2,
     value,
     disabled,
     onValueChange,
 }: {
+    label?: string
     countryIso2?: string
     value?: string
     disabled?: boolean
@@ -33,7 +35,7 @@ export function StateCombobox({
 
     return (
         <LocationCombobox
-            label="State / Province"
+            label={label}
             value={value}
             options={options}
             placeholder={hasCountry ? "Search and select a state" : "Select a country first"}

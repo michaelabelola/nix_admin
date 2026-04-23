@@ -77,6 +77,25 @@ export namespace PropertyApiHook {
         }
     }
 
+    export function useFinishPropertyOnboarding(successHandler?: SuccessHandler<PropertyModel.Detailed>) {
+        const queryClient = useQueryClient()
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useMutation({
+                mutationFn: (propertyId: PropertyModel.PropertyID) => propertyApi.finishOnboarding(propertyId, {errHandler}),
+                onSuccess: async (data, propertyId) => {
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertiesRoot}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(propertyId)}),
+                    ])
+                    successHandler?.(data)
+                },
+            }),
+            errHandler,
+        }
+    }
+
     export function useUploadPropertyAvatar(successHandler?: SuccessHandler<PropertyModel.Property>) {
         const queryClient = useQueryClient()
         const errHandler = useResponseFieldErrorHandler()

@@ -29,6 +29,7 @@ export type LocationFieldConfig = {
   description?: string
   type?: string
   required?: boolean
+  inputKind?: "input" | "country-combobox" | "state-combobox"
 }
 
 export const LOCATION_FORM_FIELDS: LocationFieldConfig[] = [
@@ -38,22 +39,6 @@ export const LOCATION_FORM_FIELDS: LocationFieldConfig[] = [
   //   description: "Optional internal label for this location record.",
   //   placeholder: "Primary property address",
   // },
-  {
-    name: "building",
-    label: "Building",
-    placeholder: "North tower",
-  },
-  {
-    name: "line1",
-    label: "Address line 1",
-    placeholder: "123 Main Street",
-    required: true,
-  },
-  {
-    name: "line2",
-    label: "Address line 2",
-    placeholder: "Suite or district",
-  },
   {
     name: "apartment",
     label: "Apartment",
@@ -71,6 +56,22 @@ export const LOCATION_FORM_FIELDS: LocationFieldConfig[] = [
     type: "number",
   },
   {
+    name: "building",
+    label: "Building",
+    placeholder: "North tower",
+  },
+  {
+    name: "line1",
+    label: "Address line 1",
+    placeholder: "123 Main Street",
+    required: true,
+  },
+  {
+    name: "line2",
+    label: "Address line 2",
+    placeholder: "Suite or district",
+  },
+  {
     name: "city",
     label: "City",
     placeholder: "Toronto",
@@ -79,8 +80,8 @@ export const LOCATION_FORM_FIELDS: LocationFieldConfig[] = [
   {
     name: "state",
     label: "State / Province",
-    placeholder: "Ontario",
     required: true,
+    inputKind: "state-combobox",
   },
   {
     name: "postalCode",
@@ -90,26 +91,26 @@ export const LOCATION_FORM_FIELDS: LocationFieldConfig[] = [
   {
     name: "country",
     label: "Country",
-    placeholder: "Canada",
     required: true,
+    inputKind: "country-combobox",
   },
-  {
-    name: "refId",
-    label: "Reference location id",
-    placeholder: "Optional linked location id",
-  },
-  {
-    name: "latitude",
-    label: "Latitude",
-    placeholder: "43.6426",
-    type: "number",
-  },
-  {
-    name: "longitude",
-    label: "Longitude",
-    placeholder: "-79.3871",
-    type: "number",
-  },
+  // {
+  //   name: "refId",
+  //   label: "Reference location id",
+  //   placeholder: "Optional linked location id",
+  // },
+  // {
+  //   name: "latitude",
+  //   label: "Latitude",
+  //   placeholder: "43.6426",
+  //   type: "number",
+  // },
+  // {
+  //   name: "longitude",
+  //   label: "Longitude",
+  //   placeholder: "-79.3871",
+  //   type: "number",
+  // },
 ]
 
 export function getLocationFormDefaults(property: PropertyModel.Detailed): LocationFormValues {

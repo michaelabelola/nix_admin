@@ -57,6 +57,7 @@ export function PropertyAboutStep({
       stepId="about"
       propertyId={property.id}
       property={property}
+      skipHref={getNextPropertyRegistrationStep("about", property.id)?.path}
       nextLabel="Save about"
       disableNext={!aboutValue.trim()}
       isBusy={isSubmitting || updateProperty.isPending}

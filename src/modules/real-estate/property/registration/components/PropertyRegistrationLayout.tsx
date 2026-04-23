@@ -26,7 +26,7 @@ export function PropertyRegistrationLayout({
   propertyId,
   property,
   children,
-  secondaryAction,
+  skipHref,
   nextHref,
   nextLabel = "Continue",
   disableNext = false,
@@ -40,7 +40,7 @@ export function PropertyRegistrationLayout({
     "id" | "name" | "type" | "lifecycleStage" | "storageID" | "tags"
   >
   children: ReactNode
-  secondaryAction?: ReactNode
+  skipHref?: string
   nextHref?: string
   nextLabel?: string
   disableNext?: boolean
@@ -86,7 +86,11 @@ export function PropertyRegistrationLayout({
             </Button>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              {secondaryAction}
+              {skipHref ? (
+                <Button variant="ghost" asChild disabled={isBusy}>
+                  <Link to={skipHref as any}>Skip</Link>
+                </Button>
+              ) : null}
 
               {onNext ? (
                 <Button type="button" disabled={disableNext || isBusy} onClick={() => void onNext()}>
