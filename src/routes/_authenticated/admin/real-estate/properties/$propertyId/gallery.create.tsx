@@ -5,7 +5,7 @@ import PropertyPage from "#/modules/real-estate/property/details/PropertyPage.ts
 import {PropertyDetailsGalleryTab} from "#/modules/real-estate/property/details/tabs/gallery/PropertyDetailsGalleryTab.tsx";
 
 export const Route = createFileRoute(
-    "/_authenticated/admin/real-estate/properties/$propertyId/gallery",
+    "/_authenticated/admin/real-estate/properties/$propertyId/gallery/create",
 )({
     component: RouteComponent,
 })
@@ -19,11 +19,13 @@ function RouteComponent() {
         <PropertyPage activeTab="gallery">
             <PropertyDetailsGalleryTab
                 property={data}
+                createOpen
                 onCreateOpenChange={(open) => {
-                    if (open) {
+                    if (!open) {
                         void navigate({
-                            to: "/admin/real-estate/properties/$propertyId/gallery/create",
+                            to: "/admin/real-estate/properties/$propertyId/gallery",
                             params: {propertyId},
+                            replace: true,
                         })
                     }
                 }}

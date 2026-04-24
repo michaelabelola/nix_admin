@@ -69,6 +69,7 @@ import { Route as AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdAboutRo
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdRentCreateRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/rent.create'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdPricingCreateRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/pricing.create'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseCreateRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/lease.create'
+import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/gallery.create'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/features.create'
 
 const AboutRoute = AboutRouteImport.update({
@@ -458,6 +459,15 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseCreateRoute =
         AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRoute,
     } as any,
   )
+const AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute =
+  AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRouteImport.update(
+    {
+      id: '/create',
+      path: '/create',
+      getParentRoute: () =>
+        AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute,
+    } as any,
+  )
 const AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRoute =
   AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRouteImport.update(
     {
@@ -507,7 +517,7 @@ export interface FileRoutesByFullPath {
   '/admin/real-estate/properties/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute
   '/admin/real-estate/properties/$propertyId/details': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute
   '/admin/real-estate/properties/$propertyId/features': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren
-  '/admin/real-estate/properties/$propertyId/gallery': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute
+  '/admin/real-estate/properties/$propertyId/gallery': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteWithChildren
   '/admin/real-estate/properties/$propertyId/lease': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRouteWithChildren
   '/admin/real-estate/properties/$propertyId/location': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLocationRoute
   '/admin/real-estate/properties/$propertyId/pricing': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
@@ -518,6 +528,7 @@ export interface FileRoutesByFullPath {
   '/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
   '/admin/real-estate/properties/onboard/': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
   '/admin/real-estate/properties/$propertyId/features/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRoute
+  '/admin/real-estate/properties/$propertyId/gallery/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute
   '/admin/real-estate/properties/$propertyId/lease/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseCreateRoute
   '/admin/real-estate/properties/$propertyId/pricing/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingCreateRoute
   '/admin/real-estate/properties/$propertyId/rent/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRentCreateRoute
@@ -562,7 +573,7 @@ export interface FileRoutesByTo {
   '/admin/real-estate/properties/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute
   '/admin/real-estate/properties/$propertyId/details': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute
   '/admin/real-estate/properties/$propertyId/features': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren
-  '/admin/real-estate/properties/$propertyId/gallery': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute
+  '/admin/real-estate/properties/$propertyId/gallery': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteWithChildren
   '/admin/real-estate/properties/$propertyId/lease': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRouteWithChildren
   '/admin/real-estate/properties/$propertyId/location': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLocationRoute
   '/admin/real-estate/properties/$propertyId/pricing': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
@@ -573,6 +584,7 @@ export interface FileRoutesByTo {
   '/admin/real-estate/properties/locations': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
   '/admin/real-estate/properties/onboard': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
   '/admin/real-estate/properties/$propertyId/features/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRoute
+  '/admin/real-estate/properties/$propertyId/gallery/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute
   '/admin/real-estate/properties/$propertyId/lease/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseCreateRoute
   '/admin/real-estate/properties/$propertyId/pricing/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingCreateRoute
   '/admin/real-estate/properties/$propertyId/rent/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRentCreateRoute
@@ -626,7 +638,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/real-estate/properties/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/details': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/features': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren
-  '/_authenticated/admin/real-estate/properties/$propertyId/gallery': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute
+  '/_authenticated/admin/real-estate/properties/$propertyId/gallery': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteWithChildren
   '/_authenticated/admin/real-estate/properties/$propertyId/lease': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRouteWithChildren
   '/_authenticated/admin/real-estate/properties/$propertyId/location': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLocationRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/pricing': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
@@ -637,6 +649,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
   '/_authenticated/admin/real-estate/properties/onboard/': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/features/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRoute
+  '/_authenticated/admin/real-estate/properties/$propertyId/gallery/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/lease/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseCreateRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/pricing/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingCreateRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/rent/create': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRentCreateRoute
@@ -700,6 +713,7 @@ export interface FileRouteTypes {
     | '/admin/real-estate/properties/locations/'
     | '/admin/real-estate/properties/onboard/'
     | '/admin/real-estate/properties/$propertyId/features/create'
+    | '/admin/real-estate/properties/$propertyId/gallery/create'
     | '/admin/real-estate/properties/$propertyId/lease/create'
     | '/admin/real-estate/properties/$propertyId/pricing/create'
     | '/admin/real-estate/properties/$propertyId/rent/create'
@@ -755,6 +769,7 @@ export interface FileRouteTypes {
     | '/admin/real-estate/properties/locations'
     | '/admin/real-estate/properties/onboard'
     | '/admin/real-estate/properties/$propertyId/features/create'
+    | '/admin/real-estate/properties/$propertyId/gallery/create'
     | '/admin/real-estate/properties/$propertyId/lease/create'
     | '/admin/real-estate/properties/$propertyId/pricing/create'
     | '/admin/real-estate/properties/$propertyId/rent/create'
@@ -818,6 +833,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/real-estate/properties/locations/'
     | '/_authenticated/admin/real-estate/properties/onboard/'
     | '/_authenticated/admin/real-estate/properties/$propertyId/features/create'
+    | '/_authenticated/admin/real-estate/properties/$propertyId/gallery/create'
     | '/_authenticated/admin/real-estate/properties/$propertyId/lease/create'
     | '/_authenticated/admin/real-estate/properties/$propertyId/pricing/create'
     | '/_authenticated/admin/real-estate/properties/$propertyId/rent/create'
@@ -1259,6 +1275,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseCreateRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRoute
     }
+    '/_authenticated/admin/real-estate/properties/$propertyId/gallery/create': {
+      id: '/_authenticated/admin/real-estate/properties/$propertyId/gallery/create'
+      path: '/create'
+      fullPath: '/admin/real-estate/properties/$propertyId/gallery/create'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute
+    }
     '/_authenticated/admin/real-estate/properties/$propertyId/features/create': {
       id: '/_authenticated/admin/real-estate/properties/$propertyId/features/create'
       path: '/create'
@@ -1282,6 +1305,21 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteChildren: Aut
 const AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren =
   AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRoute._addFileChildren(
     AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteChildren,
+  )
+
+interface AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteChildren {
+  AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute
+}
+
+const AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteChildren: AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteChildren =
+  {
+    AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute:
+      AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateRoute,
+  }
+
+const AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteWithChildren =
+  AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute._addFileChildren(
+    AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteChildren,
   )
 
 interface AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRouteChildren {
@@ -1333,7 +1371,7 @@ interface AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteChildren {
   AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute
   AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute
   AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren
-  AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute
+  AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteWithChildren
   AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRouteWithChildren
   AuthenticatedAdminRealEstatePropertiesPropertyIdLocationRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdLocationRoute
   AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
@@ -1352,7 +1390,7 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteChildren: Authen
     AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRoute:
       AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren,
     AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute:
-      AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRoute,
+      AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteWithChildren,
     AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRoute:
       AuthenticatedAdminRealEstatePropertiesPropertyIdLeaseRouteWithChildren,
     AuthenticatedAdminRealEstatePropertiesPropertyIdLocationRoute:
