@@ -18,7 +18,9 @@ import {
     TabsTrigger,
 } from "#/components/ui/tabs.tsx";
 import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
-import {Route as PropertyDetailsRoute} from "#/routes/_authenticated/admin/real-estate/properties/$propertyId/route.tsx";
+import {
+    Route as PropertyDetailsRoute
+} from "#/routes/_authenticated/admin/real-estate/properties/$propertyId/route.tsx";
 
 import {
     PROPERTY_DETAILS_TABS,
@@ -32,10 +34,10 @@ type PropertyDetailsPageProps = {
     children: ReactNode
 }
 
-const PropertyDetailsPage = ({
-    activeTab,
-    children,
-}: PropertyDetailsPageProps) => {
+const PropertyPage = ({
+                                 activeTab,
+                                 children,
+                             }: PropertyDetailsPageProps) => {
     const navigate = useNavigate()
     const {propertyId} = PropertyDetailsRoute.useParams()
     const {data, isLoading, isFetching} = PropertyApiHook.useGetDetailedProperty(propertyId)
@@ -83,7 +85,7 @@ const PropertyDetailsPage = ({
                         onValueChange={(value) => {
                             void navigate({
                                 to: PROPERTY_DETAILS_TAB_TO[value as PropertyDetailsTab] as any,
-                                params: {propertyId},
+                                params: {propertyId} as any,
                                 replace: true,
                             })
                         }}
@@ -107,4 +109,4 @@ const PropertyDetailsPage = ({
     )
 }
 
-export default PropertyDetailsPage
+export default PropertyPage

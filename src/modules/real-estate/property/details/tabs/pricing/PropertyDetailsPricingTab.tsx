@@ -1,7 +1,7 @@
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
-import {EmptyState, SummaryMetric} from "./PropertyDetailsPrimitives.tsx";
-import {formatMoney} from "./property-details.utils.ts";
+import {EmptyState, SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";
+import {formatMoney} from "../../property-details.utils.ts";
 
 export function PropertyDetailsPricingTab({property}: { property?: PropertyModel.Detailed }) {
     const pricing = property?.defaultPriceDefinition

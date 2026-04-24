@@ -45,7 +45,10 @@ export namespace RentDefinitionRequest {
                 }) =>
                     rentDefinitionApi.createForProperty(propertyId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyRents(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -66,7 +69,10 @@ export namespace RentDefinitionRequest {
                 }) =>
                     rentDefinitionApi.updateForProperty(propertyId, rentDefinitionId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyRents(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -86,7 +92,10 @@ export namespace RentDefinitionRequest {
                 }) =>
                     rentDefinitionApi.deleteForProperty(propertyId, rentDefinitionId, {errHandler}),
                 onSuccess: async (_data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyRents(variables.propertyId)}),
+                    ])
                     await queryClient.removeQueries({queryKey: RealEstateQueryKeys.propertyRent(variables.propertyId, variables.rentDefinitionId)})
                     successHandler?.()
                 },
@@ -107,7 +116,10 @@ export namespace RentDefinitionRequest {
                 }) =>
                     rentDefinitionApi.setPropertyDefault(propertyId, rentDefinitionId, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyRents(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -123,7 +135,10 @@ export namespace RentDefinitionRequest {
             ...useMutation({
                 mutationFn: (propertyId: PropertyModel.PropertyID) => rentDefinitionApi.clearPropertyDefault(propertyId, {errHandler}),
                 onSuccess: async (data, propertyId) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyRents(propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),

@@ -1,6 +1,6 @@
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
-import {KeyValue} from "./PropertyDetailsPrimitives.tsx";
+import {KeyValue} from "../../PropertyDetailsPrimitives.tsx";
 import organizationRequest from "#/modules/organization/organization.request.ts";
 import {Spinner} from "#/components/ui/spinner.tsx";
 

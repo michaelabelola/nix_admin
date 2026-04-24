@@ -1,8 +1,8 @@
 import {Badge} from "#/components/ui/badge.tsx";
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
-import {EmptyState} from "./PropertyDetailsPrimitives.tsx";
-import {formatFeatureValue} from "./property-details.utils.ts";
+import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";
+import {formatFeatureValue} from "../../property-details.utils.ts";
 
 export function PropertyDetailsFeaturesTab({property}: { property?: PropertyModel.Detailed }) {
     return (

@@ -1,8 +1,8 @@
 import {Separator} from "#/components/ui/separator.tsx";
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
-import {SummaryMetric} from "./PropertyDetailsPrimitives.tsx";
-import {formatDefinitionAmount, formatLocation, formatMoney} from "./property-details.utils.ts";
+import {SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";
+import {formatDefinitionAmount, formatLocation, formatMoney} from "../../property-details.utils.ts";
 
 export function PropertyDetailsSummaryTab({property}: { property?: PropertyModel.Detailed }) {
     const locationLabel = formatLocation(property?.location)

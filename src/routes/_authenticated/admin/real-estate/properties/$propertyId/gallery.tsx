@@ -1,7 +1,7 @@
 import {createFileRoute} from "@tanstack/react-router";
 
-import PropertyDetailsPage from "#/modules/real-estate/property/details/PropertyDetailsPage.tsx";
-import {PropertyDetailsGalleryTab} from "#/modules/real-estate/property/details/PropertyDetailsGalleryTab.tsx";
+import PropertyPage from "#/modules/real-estate/property/details/PropertyPage.tsx";
+import {PropertyDetailsGalleryTab} from "#/modules/real-estate/property/details/tabs/gallery/PropertyDetailsGalleryTab.tsx";
 
 export const Route = createFileRoute(
     "/_authenticated/admin/real-estate/properties/$propertyId/gallery",
@@ -11,8 +11,8 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
     return (
-        <PropertyDetailsPage activeTab="gallery">
+        <PropertyPage activeTab="gallery">
             <PropertyDetailsGalleryTab/>
-        </PropertyDetailsPage>
+        </PropertyPage>
     )
 }

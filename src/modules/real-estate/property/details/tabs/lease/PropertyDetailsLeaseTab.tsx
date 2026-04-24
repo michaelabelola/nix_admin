@@ -1,7 +1,7 @@
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
-import {DefinitionCard, EmptyState, SummaryMetric} from "./PropertyDetailsPrimitives.tsx";
-import {formatDuration, formatMoney} from "./property-details.utils.ts";
+import {DefinitionCard, EmptyState, SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";
+import {formatDuration, formatMoney} from "../../property-details.utils.ts";
 
 export function PropertyDetailsLeaseTab({property}: { property?: PropertyModel.Detailed }) {
     const definition = property?.defaultLeaseDefinition

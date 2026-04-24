@@ -1,7 +1,7 @@
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
-import {EmptyState, KeyValue} from "./PropertyDetailsPrimitives.tsx";
-import {getGoogleMapsEmbedUrl} from "./property-details.utils.ts";
+import {EmptyState, KeyValue} from "../../PropertyDetailsPrimitives.tsx";
+import {getGoogleMapsEmbedUrl} from "../../property-details.utils.ts";
 import countriesApi from "#/modules/location/apis/countries.api.ts";
 import {useEffect, useState} from "react";
 import statesApi from "#/modules/location/apis/states.api.ts";
