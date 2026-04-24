@@ -1,12 +1,10 @@
 import {useMemo, useState} from "react";
 import type {ColumnDef} from "@tanstack/react-table";
-import {Check, PlusCircle} from "lucide-react";
+import {PlusCircle} from "lucide-react";
 import {toast} from "sonner";
 
 import DataTable from "#/components/data-table/data-table.tsx";
 import {Button} from "#/components/ui/button.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
-import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 import {PricingApiHook} from "#/modules/real-estate/pricing/api.hook.ts";
 import type {RealEstatePricingModel} from "#/modules/real-estate/pricing/model.ts";
@@ -14,6 +12,13 @@ import type {RealEstatePricingModel} from "#/modules/real-estate/pricing/model.t
 import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatMoney} from "../../property-details.utils.ts";
 import {PropertyPricingDefinitionCreateSheet} from "./PropertyPricingDefinitionCreateSheet.tsx";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem, DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "#/components/ui/dropdown-menu.tsx";
+import {IconDotsVertical, IconShare3, IconTrash} from "@tabler/icons-react";
 
 export function PropertyDetailsPricingTab({property}: { property?: PropertyModel.Detailed }) {
     const [isCreateOpen, setIsCreateOpen] = useState(false)
@@ -57,9 +62,10 @@ export function PropertyDetailsPricingTab({property}: { property?: PropertyModel
                     searchPlaceholder="Search Pricing Definitions..."
                     emptyMessage="No Pricing Definitions found."
                     toolbarActions={
-                        <Button size={"xs"} variant={"outline"} onClick={() => setIsCreateOpen(true)} disabled={!property?.id}>
+                        <Button size={"xs"} variant={"outline"} onClick={() => setIsCreateOpen(true)}
+                                disabled={!property?.id}>
                             <PlusCircle className="size-4"/>
-                            new definition
+                            Add
                         </Button>
                     }
                 />
@@ -75,10 +81,10 @@ export function PropertyDetailsPricingTab({property}: { property?: PropertyModel
 }
 
 function createPricingDefinitionColumns({
-    property,
-    isSettingDefault,
-    onMakeDefault,
-}: {
+                                            property,
+                                            isSettingDefault,
+                                            onMakeDefault,
+                                        }: {
     property?: PropertyModel.Detailed
     isSettingDefault: boolean
     onMakeDefault: (pricingId: RealEstatePricingModel.PriceID) => void
@@ -95,11 +101,6 @@ function createPricingDefinitionColumns({
             cell: ({row}) => String(row.original.id),
         },
         {
-            accessorKey: "entityID",
-            header: "Entity ID",
-            cell: ({row}) => row.original.entityID,
-        },
-        {
             id: "default",
             header: "Default",
             cell: ({row}) =>
@@ -112,24 +113,43 @@ function createPricingDefinitionColumns({
                 const isDefault = property?.defaultPriceDefinition?.id === row.original.id
 
                 return (
-                    <ButtonGroup>
-                        <QuickToolTip
-                            asChild
-                            content={isDefault ? "Current default pricing definition" : "Make default pricing definition"}
-                        >
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
                             <Button
-                                variant="outline"
-                                size="icon"
+                                variant="ghost"
+                                size="icon-xs"
+                            >
+                                <IconDotsVertical className="size-4"/>
+                            </Button>
+                            {/*<SidebarMenuAction*/}
+                            {/*    showOnHover*/}
+                            {/*    className="rounded-sm data-[state=open]:bg-accent"*/}
+                            {/*>*/}
+                            {/*    <IconDots/>*/}
+                            {/*    <span className="sr-only">More</span>*/}
+                            {/*</SidebarMenuAction>*/}
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-24 rounded-lg">
+                            <DropdownMenuItem
                                 disabled={isDefault || isSettingDefault || !property?.id}
                                 onClick={() => {
                                     if (isDefault) return
                                     onMakeDefault(row.original.id)
-                                }}
-                            >
-                                <Check className="size-4"/>
-                            </Button>
-                        </QuickToolTip>
-                    </ButtonGroup>
+                                }}>
+                                {/*<IconFolder/>*/}
+                                <span className={"text-nowrap"}>Set As Default</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem>
+                                <IconShare3/>
+                                <span>Share</span>
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator/>
+                            <DropdownMenuItem variant="destructive">
+                                <IconTrash/>
+                                <span>Delete</span>
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 )
             },
         },
