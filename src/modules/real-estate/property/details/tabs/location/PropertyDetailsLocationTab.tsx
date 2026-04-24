@@ -21,8 +21,7 @@ export function PropertyDetailsLocationTab({property}: { property?: PropertyMode
         }).then(setState)
     }, [location?.state]);
     const mapEmbedUrl = getGoogleMapsEmbedUrl(location)
-    console.log(country)
-    console.log(state)
+
     return (
         <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
             <section className="overflow-hidden rounded-lg border p-6">
