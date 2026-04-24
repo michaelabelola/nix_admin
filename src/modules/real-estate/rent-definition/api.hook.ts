@@ -8,13 +8,15 @@ import rentDefinitionApi from "./api.ts";
 
 type SuccessHandler<T> = (data: T) => void
 
-export namespace RentDefinitionApiHook {
-    export const useQueryPropertyRents = (propertyId: PropertyModel.PropertyID) => {
+export namespace RentDefinitionRequest {
+    export const useQueryPropertyRents = (
+        query: Parameters<typeof rentDefinitionApi.listByProperty>[0],
+    ) => {
         const errHandler = useResponseFieldErrorHandler()
         return {
             ...useQuery({
-                queryKey: RealEstateQueryKeys.propertyRents(propertyId),
-                queryFn: () => rentDefinitionApi.listByProperty(propertyId, {errHandler}),
+                queryKey: [...RealEstateQueryKeys.propertyRents(query?.propertyId ?? ""), query],
+                queryFn: () => rentDefinitionApi.listByProperty(query, {errHandler}),
             }),
             errHandler,
         }
@@ -37,7 +39,10 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, body}: { propertyId: PropertyModel.PropertyID, body: RentDefinitionModel.Create }) =>
+                mutationFn: ({propertyId, body}: {
+                    propertyId: PropertyModel.PropertyID,
+                    body: RentDefinitionModel.Create
+                }) =>
                     rentDefinitionApi.createForProperty(propertyId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -54,7 +59,11 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, rentDefinitionId, body}: { propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, body: RentDefinitionModel.Update }) =>
+                mutationFn: ({propertyId, rentDefinitionId, body}: {
+                    propertyId: PropertyModel.PropertyID,
+                    rentDefinitionId: RentDefinitionModel.RentDefinitionID,
+                    body: RentDefinitionModel.Update
+                }) =>
                     rentDefinitionApi.updateForProperty(propertyId, rentDefinitionId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -71,7 +80,10 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, rentDefinitionId}: { propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID }) =>
+                mutationFn: ({propertyId, rentDefinitionId}: {
+                    propertyId: PropertyModel.PropertyID,
+                    rentDefinitionId: RentDefinitionModel.RentDefinitionID
+                }) =>
                     rentDefinitionApi.deleteForProperty(propertyId, rentDefinitionId, {errHandler}),
                 onSuccess: async (_data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -89,7 +101,10 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, rentDefinitionId}: { propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID }) =>
+                mutationFn: ({propertyId, rentDefinitionId}: {
+                    propertyId: PropertyModel.PropertyID,
+                    rentDefinitionId: RentDefinitionModel.RentDefinitionID
+                }) =>
                     rentDefinitionApi.setPropertyDefault(propertyId, rentDefinitionId, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -161,7 +176,11 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({spaceId, rentDefinitionId, body}: { spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, body: RentDefinitionModel.Update }) =>
+                mutationFn: ({spaceId, rentDefinitionId, body}: {
+                    spaceId: SpaceModel.SpaceID,
+                    rentDefinitionId: RentDefinitionModel.RentDefinitionID,
+                    body: RentDefinitionModel.Update
+                }) =>
                     rentDefinitionApi.updateForSpace(spaceId, rentDefinitionId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.space(variables.spaceId)})
@@ -178,7 +197,10 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({spaceId, rentDefinitionId}: { spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID }) =>
+                mutationFn: ({spaceId, rentDefinitionId}: {
+                    spaceId: SpaceModel.SpaceID,
+                    rentDefinitionId: RentDefinitionModel.RentDefinitionID
+                }) =>
                     rentDefinitionApi.deleteForSpace(spaceId, rentDefinitionId, {errHandler}),
                 onSuccess: async (_data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.space(variables.spaceId)})
@@ -196,7 +218,10 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({spaceId, rentDefinitionId}: { spaceId: SpaceModel.SpaceID, rentDefinitionId: RentDefinitionModel.RentDefinitionID }) =>
+                mutationFn: ({spaceId, rentDefinitionId}: {
+                    spaceId: SpaceModel.SpaceID,
+                    rentDefinitionId: RentDefinitionModel.RentDefinitionID
+                }) =>
                     rentDefinitionApi.setSpaceDefault(spaceId, rentDefinitionId, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.space(variables.spaceId)})
@@ -229,7 +254,10 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({spaceId, rentDefinitionIds}: { spaceId: SpaceModel.SpaceID, rentDefinitionIds: RentDefinitionModel.RentDefinitionID[] }) =>
+                mutationFn: ({spaceId, rentDefinitionIds}: {
+                    spaceId: SpaceModel.SpaceID,
+                    rentDefinitionIds: RentDefinitionModel.RentDefinitionID[]
+                }) =>
                     rentDefinitionApi.linkToSpace(spaceId, rentDefinitionIds, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.space(variables.spaceId)})
@@ -246,7 +274,10 @@ export namespace RentDefinitionApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({spaceId, rentDefinitionIds}: { spaceId: SpaceModel.SpaceID, rentDefinitionIds: RentDefinitionModel.RentDefinitionID[] }) =>
+                mutationFn: ({spaceId, rentDefinitionIds}: {
+                    spaceId: SpaceModel.SpaceID,
+                    rentDefinitionIds: RentDefinitionModel.RentDefinitionID[]
+                }) =>
                     rentDefinitionApi.unlinkFromSpace(spaceId, rentDefinitionIds, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.space(variables.spaceId)})

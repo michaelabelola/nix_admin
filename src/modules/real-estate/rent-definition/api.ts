@@ -3,10 +3,17 @@ import type {RentDefinitionModel} from "@/modules/real-estate/rent-definition/mo
 import type {SpaceModel} from "@/modules/real-estate/space/model.ts"
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
+import type {PagedRequest} from "#/models/PagedModel.ts";
 
 class RentDefinitionApi {
-    listByProperty(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<RentDefinitionModel.RentDefinition[]>(`/real-estate/properties/${propertyId}/rent-definitions`, init)
+    listByProperty({propertyId, ...query}: PagedRequest<{
+        propertyId: PropertyModel.PropertyID
+    }>, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<RentDefinitionModel.RentDefinition[]>(
+            `/real-estate/properties/${propertyId}/rent-definitions`, {
+                ...init,
+                query: query
+            })
     }
 
     getByProperty(propertyId: PropertyModel.PropertyID, rentDefinitionId: RentDefinitionModel.RentDefinitionID, init?: Partial<RequestHelperInit>) {

@@ -1,49 +1,110 @@
+import type {ReactNode} from "react";
+import {useNavigate} from "@tanstack/react-router";
+
+import Page from "#/components/Page.tsx";
+import {Badge} from "#/components/ui/badge.tsx";
+import {Button} from "#/components/ui/button.tsx";
+import {ButtonGroup} from "#/components/ui/button-group.tsx";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
-    CardTitle
+    CardTitle,
 } from "#/components/ui/card.tsx";
-import {Route} from "#/routes/_authenticated/admin/real-estate/properties/$propertyId.tsx";
+import {
+    Tabs,
+    TabsList,
+    TabsTrigger,
+} from "#/components/ui/tabs.tsx";
 import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
-import Page from "#/components/Page.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
+import {Route as PropertyDetailsRoute} from "#/routes/_authenticated/admin/real-estate/properties/$propertyId/route.tsx";
 
-const PropertyDetailsPage = () => {
+import {
+    PROPERTY_DETAILS_TABS,
+    PROPERTY_DETAILS_TAB_LABELS,
+    PROPERTY_DETAILS_TAB_TO,
+    type PropertyDetailsTab,
+} from "./property-details.constants.ts";
 
-    const {propertyId} = Route.useParams()
+type PropertyDetailsPageProps = {
+    activeTab: PropertyDetailsTab
+    children: ReactNode
+}
 
+const PropertyDetailsPage = ({
+    activeTab,
+    children,
+}: PropertyDetailsPageProps) => {
+    const navigate = useNavigate()
+    const {propertyId} = PropertyDetailsRoute.useParams()
     const {data, isLoading, isFetching} = PropertyApiHook.useGetDetailedProperty(propertyId)
 
-
     return (
-        <Page isLoading={isLoading} isFetching={isFetching} loading={{
-            title: "Loading",
-            description: `Fetching property (${propertyId})`,
-        }} header={{
-            avatar: data?.avatar,
-            title: data?.name,
-            description: data?.name,
-            actionView: <ButtonGroup>
-                <Button variant={"outline"} onClick={() => window.history.back()}>Back</Button>
-            </ButtonGroup>
-        }}>
-            <Card className={"min-h-full"}>
-                <CardHeader>
-                    <CardTitle>Property detail page</CardTitle>
-                    <CardDescription>
-                        {data?.name}
-                        Placeholder page for property {propertyId}.
-                    </CardDescription>
+        <Page
+            isLoading={isLoading}
+            isFetching={isFetching}
+            loading={{
+                title: "Loading",
+                description: `Fetching property (${propertyId})`,
+            }}
+            header={{
+                avatar: data?.avatar,
+                title: data?.name ?? "Property details",
+                description: data?.description ?? "Property overview and configuration",
+                actionView: (
+                    <ButtonGroup>
+                        <Button variant={"outline"} onClick={() => window.history.back()}>
+                            Back
+                        </Button>
+                    </ButtonGroup>
+                ),
+            }}
+        >
+            <Card className="min-h-full">
+                <CardHeader className="gap-4">
+                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                        <div className="space-y-1">
+                            <CardTitle>{data?.name ?? "Property details"}</CardTitle>
+                            <CardDescription>
+                                Review the property summary, location, pricing, tenancy setup, and features.
+                            </CardDescription>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2">
+                            <Badge variant="outline">{data?.type ?? "TYPE_UNSET"}</Badge>
+                            <Badge variant="outline">{data?.lifecycleStage ?? "STAGE_UNSET"}</Badge>
+                            <Badge variant="outline">ID: {propertyId}</Badge>
+                        </div>
+                    </div>
                 </CardHeader>
                 <CardContent>
-                    <div className="min-h-full rounded-lg border border-dashed"/>
+                    <Tabs
+                        value={activeTab}
+                        onValueChange={(value) => {
+                            void navigate({
+                                to: PROPERTY_DETAILS_TAB_TO[value as PropertyDetailsTab] as any,
+                                params: {propertyId},
+                                replace: true,
+                            })
+                        }}
+                        className="gap-6"
+                    >
+                        <TabsList variant="line" className="h-auto w-full flex-wrap justify-start rounded-none p-0">
+                            {PROPERTY_DETAILS_TABS.map((tab) => (
+                                <TabsTrigger key={tab} value={tab} className="flex-none px-1.5 py-2">
+                                    {PROPERTY_DETAILS_TAB_LABELS[tab]}
+                                </TabsTrigger>
+                            ))}
+                        </TabsList>
+                    </Tabs>
+
+                    <div className="mt-6">
+                        {children}
+                    </div>
                 </CardContent>
             </Card>
         </Page>
-    );
-};
+    )
+}
 
-export default PropertyDetailsPage;
+export default PropertyDetailsPage
