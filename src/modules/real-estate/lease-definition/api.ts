@@ -3,18 +3,27 @@ import type {PropertyModel} from "@/modules/real-estate/property/model.ts"
 import type {SpaceModel} from "@/modules/real-estate/space/model.ts"
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
+import type {Paged, PagedRequest} from "#/models/PagedModel.ts"
 
 class LeaseDefinitionApi {
-    listByProperty(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<LeaseDefinitionModel.LeaseDefinition[]>(`/real-estate/property/${propertyId}/leases`, init)
+    listByProperty({propertyId, ...query}: PagedRequest<{
+        propertyId: PropertyModel.PropertyID
+    }>, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<Paged<LeaseDefinitionModel.LeaseDefinition>>(
+            `/real-estate/properties/${propertyId}/lease-definitions`,
+            {
+                ...init,
+                query,
+            },
+        )
     }
 
     getByProperty(propertyId: PropertyModel.PropertyID, leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<LeaseDefinitionModel.LeaseDefinition>(`/real-estate/property/${propertyId}/leases/${leaseDefinitionId}`, init)
+        return Backend.authRequest<LeaseDefinitionModel.LeaseDefinition>(`/real-estate/properties/${propertyId}/lease-definitions/${leaseDefinitionId}`, init)
     }
 
     createForProperty(propertyId: PropertyModel.PropertyID, body: LeaseDefinitionModel.Create, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<LeaseDefinitionModel.LeaseDefinition>(`/real-estate/property/${propertyId}/leases`, {
+        return Backend.authRequest<LeaseDefinitionModel.LeaseDefinition>(`/real-estate/properties/${propertyId}/lease-definitions`, {
             method: "POST",
             body,
             ...init,
@@ -22,7 +31,7 @@ class LeaseDefinitionApi {
     }
 
     updateForProperty(propertyId: PropertyModel.PropertyID, leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID, body: LeaseDefinitionModel.Update, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<LeaseDefinitionModel.LeaseDefinition>(`/real-estate/property/${propertyId}/leases/${leaseDefinitionId}`, {
+        return Backend.authRequest<LeaseDefinitionModel.LeaseDefinition>(`/real-estate/properties/${propertyId}/lease-definitions/${leaseDefinitionId}`, {
             method: "PATCH",
             body,
             ...init,
@@ -30,7 +39,7 @@ class LeaseDefinitionApi {
     }
 
     deleteForProperty(propertyId: PropertyModel.PropertyID, leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<ResponseDto<void>>(`/real-estate/property/${propertyId}/leases/${leaseDefinitionId}`, {
+        return Backend.authRequest<ResponseDto<void>>(`/real-estate/properties/${propertyId}/lease-definitions/${leaseDefinitionId}`, {
             method: "DELETE",
             ...init,
         })

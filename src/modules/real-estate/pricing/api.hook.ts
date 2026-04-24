@@ -9,12 +9,14 @@ import pricingApi from "./api.ts";
 type SuccessHandler<T> = (data: T) => void
 
 export namespace PricingApiHook {
-    export const useQueryPropertyPricings = (propertyId: PropertyModel.PropertyID) => {
+    export const useQueryPropertyPricings = (
+        query: Parameters<typeof pricingApi.listByProperty>[0],
+    ) => {
         const errHandler = useResponseFieldErrorHandler()
         return {
             ...useQuery({
-                queryKey: RealEstateQueryKeys.propertyPricings(propertyId),
-                queryFn: () => pricingApi.listByProperty(propertyId, {errHandler}),
+                queryKey: [...RealEstateQueryKeys.propertyPricings(query?.propertyId ?? ""), query],
+                queryFn: () => pricingApi.listByProperty(query, {errHandler}),
             }),
             errHandler,
         }
@@ -40,7 +42,10 @@ export namespace PricingApiHook {
                 mutationFn: ({propertyId, body}: { propertyId: PropertyModel.PropertyID, body: RealEstatePricingModel.Create }) =>
                     pricingApi.createForProperty(propertyId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyPricings(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -60,7 +65,10 @@ export namespace PricingApiHook {
                     body: RealEstatePricingModel.Update
                 }) => pricingApi.updateForProperty(propertyId, pricingId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyPricings(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -79,7 +87,10 @@ export namespace PricingApiHook {
                     pricingId: RealEstatePricingModel.PriceID
                 }) => pricingApi.deleteForProperty(propertyId, pricingId, {errHandler}),
                 onSuccess: async (_data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyPricings(variables.propertyId)}),
+                    ])
                     await queryClient.removeQueries({queryKey: RealEstateQueryKeys.propertyPricing(variables.propertyId, variables.pricingId)})
                     successHandler?.()
                 },
@@ -99,7 +110,10 @@ export namespace PricingApiHook {
                     pricingId: RealEstatePricingModel.PriceID
                 }) => pricingApi.setPropertyDefault(propertyId, pricingId, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyPricings(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -115,7 +129,10 @@ export namespace PricingApiHook {
             ...useMutation({
                 mutationFn: (propertyId: PropertyModel.PropertyID) => pricingApi.clearPropertyDefault(propertyId, {errHandler}),
                 onSuccess: async (data, propertyId) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyPricings(propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),

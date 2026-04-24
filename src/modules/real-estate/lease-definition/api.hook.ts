@@ -9,12 +9,14 @@ import leaseDefinitionApi from "./api.ts";
 type SuccessHandler<T> = (data: T) => void
 
 export namespace LeaseDefinitionApiHook {
-    export const useQueryPropertyLeases = (propertyId: PropertyModel.PropertyID) => {
+    export const useQueryPropertyLeases = (
+        query: Parameters<typeof leaseDefinitionApi.listByProperty>[0],
+    ) => {
         const errHandler = useResponseFieldErrorHandler()
         return {
             ...useQuery({
-                queryKey: RealEstateQueryKeys.propertyLeases(propertyId),
-                queryFn: () => leaseDefinitionApi.listByProperty(propertyId, {errHandler}),
+                queryKey: [...RealEstateQueryKeys.propertyLeases(query?.propertyId ?? ""), query],
+                queryFn: () => leaseDefinitionApi.listByProperty(query, {errHandler}),
             }),
             errHandler,
         }
@@ -40,7 +42,10 @@ export namespace LeaseDefinitionApiHook {
                 mutationFn: ({propertyId, body}: { propertyId: PropertyModel.PropertyID, body: LeaseDefinitionModel.Create }) =>
                     leaseDefinitionApi.createForProperty(propertyId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyLeases(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -57,7 +62,10 @@ export namespace LeaseDefinitionApiHook {
                 mutationFn: ({propertyId, leaseDefinitionId, body}: { propertyId: PropertyModel.PropertyID, leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID, body: LeaseDefinitionModel.Update }) =>
                     leaseDefinitionApi.updateForProperty(propertyId, leaseDefinitionId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyLeases(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -74,7 +82,10 @@ export namespace LeaseDefinitionApiHook {
                 mutationFn: ({propertyId, leaseDefinitionId}: { propertyId: PropertyModel.PropertyID, leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID }) =>
                     leaseDefinitionApi.deleteForProperty(propertyId, leaseDefinitionId, {errHandler}),
                 onSuccess: async (_data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyLeases(variables.propertyId)}),
+                    ])
                     await queryClient.removeQueries({queryKey: RealEstateQueryKeys.propertyLease(variables.propertyId, variables.leaseDefinitionId)})
                     successHandler?.()
                 },
@@ -92,7 +103,10 @@ export namespace LeaseDefinitionApiHook {
                 mutationFn: ({propertyId, leaseDefinitionId}: { propertyId: PropertyModel.PropertyID, leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID }) =>
                     leaseDefinitionApi.setPropertyDefault(propertyId, leaseDefinitionId, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyLeases(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -108,7 +122,10 @@ export namespace LeaseDefinitionApiHook {
             ...useMutation({
                 mutationFn: (propertyId: PropertyModel.PropertyID) => leaseDefinitionApi.clearPropertyDefault(propertyId, {errHandler}),
                 onSuccess: async (data, propertyId) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyLeases(propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),

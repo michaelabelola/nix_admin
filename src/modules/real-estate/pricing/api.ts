@@ -3,18 +3,27 @@ import type {RealEstatePricingModel} from "@/modules/real-estate/pricing/model.t
 import type {SpaceModel} from "@/modules/real-estate/space/model.ts"
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
+import type {Paged, PagedRequest} from "#/models/PagedModel.ts"
 
 class PricingApi {
-    listByProperty(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing[]>(`/real-estate/property/${propertyId}/pricings`, init)
+    listByProperty({propertyId, ...query}: PagedRequest<{
+        propertyId: PropertyModel.PropertyID
+    }>, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<Paged<RealEstatePricingModel.RealEstatePricing>>(
+            `/real-estate/properties/${propertyId}/pricing-definitions`,
+            {
+                ...init,
+                query,
+            },
+        )
     }
 
     getByProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/property/${propertyId}/pricings/${pricingId}`, init)
+        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/properties/${propertyId}/pricing-definitions/${pricingId}`, init)
     }
 
     createForProperty(propertyId: PropertyModel.PropertyID, body: RealEstatePricingModel.Create, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/property/${propertyId}/pricings`, {
+        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/properties/${propertyId}/pricing-definitions`, {
             method: "POST",
             body,
             ...init,
@@ -22,7 +31,7 @@ class PricingApi {
     }
 
     updateForProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, body: RealEstatePricingModel.Update, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/property/${propertyId}/pricings/${pricingId}`, {
+        return Backend.authRequest<RealEstatePricingModel.RealEstatePricing>(`/real-estate/properties/${propertyId}/pricing-definitions/${pricingId}`, {
             method: "PATCH",
             body,
             ...init,
@@ -30,7 +39,7 @@ class PricingApi {
     }
 
     deleteForProperty(propertyId: PropertyModel.PropertyID, pricingId: RealEstatePricingModel.PriceID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<ResponseDto<void>>(`/real-estate/property/${propertyId}/pricings/${pricingId}`, {
+        return Backend.authRequest<ResponseDto<void>>(`/real-estate/properties/${propertyId}/pricing-definitions/${pricingId}`, {
             method: "DELETE",
             ...init,
         })
