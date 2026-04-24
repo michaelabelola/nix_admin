@@ -1,41 +1,109 @@
+import {useMemo} from "react";
+import type {ColumnDef} from "@tanstack/react-table";
+import {PlusCircle} from "lucide-react";
+
+import DataTable from "#/components/data-table/data-table.tsx";
 import {Badge} from "#/components/ui/badge.tsx";
+import {Button} from "#/components/ui/button.tsx";
+import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/model.ts";
+import {PropertyFeatureApiHook} from "#/modules/real-estate/property-feature/api.hook.ts";
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
-import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";
+import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatFeatureValue} from "../../property-details.utils.ts";
+import {PropertyFeatureCreateSheet} from "./PropertyFeatureCreateSheet.tsx";
 
-export function PropertyDetailsFeaturesTab({property}: { property?: PropertyModel.Detailed }) {
-    return (
-        <section className="rounded-lg border p-6">
-            <div className="mb-4">
-                <h2 className="font-semibold">Features</h2>
-                <p className="text-sm text-muted-foreground">Registered property features and values.</p>
-            </div>
-            {property?.features.length ? (
-                <div className="grid gap-3">
-                    {property.features.map((feature) => (
-                        <div key={feature.id} className="rounded-lg border p-3">
-                            <div className="flex items-start justify-between gap-3">
-                                <div>
-                                    <div className="font-medium">{feature.name ?? "Unnamed feature"}</div>
-                                    <p className="text-sm text-muted-foreground">
-                                        {feature.description ?? "No description"}
-                                    </p>
-                                </div>
-                                <Badge variant="outline">{feature.format ?? "UNSET"}</Badge>
-                            </div>
-                            <p className="mt-3 text-sm text-muted-foreground">
-                                {formatFeatureValue(feature) ?? "No value"}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <EmptyState
-                    title="No features yet"
-                    description="This property does not have any feature records."
-                />
-            )}
-        </section>
+export function PropertyDetailsFeaturesTab({
+    property,
+    createOpen = false,
+    onCreateOpenChange = () => undefined,
+}: {
+    property?: PropertyModel.Detailed
+    createOpen?: boolean
+    onCreateOpenChange?: (open: boolean) => void
+}) {
+    const columns = useMemo<Array<ColumnDef<PropertyFeatureModel.PropertyFeature>>>(
+        () => createFeatureColumns(),
+        [],
     )
+
+    return (
+        <>
+            <DefinitionCard
+                title="Features"
+                description="All feature records assigned to this property."
+            >
+                <DataTable
+                    columns={columns}
+                    from="/admin/real-estate/properties/$propertyId/features"
+                    useQuery={PropertyFeatureApiHook.useQueryPropertyFeatures as any}
+                    defaultQueryFields={{
+                        propertyId: property?.id,
+                    }}
+                    initialRequest={{
+                        page: 0,
+                        size: 10,
+                    }}
+                    searchPlaceholder="Search features..."
+                    emptyMessage="No features found."
+                    toolbarActions={
+                        <Button
+                            size="xs"
+                            variant="outline"
+                            onClick={() => onCreateOpenChange(true)}
+                            disabled={!property?.id}
+                        >
+                            <PlusCircle className="size-4"/>
+                            Add feature
+                        </Button>
+                    }
+                />
+            </DefinitionCard>
+
+            <PropertyFeatureCreateSheet
+                property={property}
+                open={createOpen}
+                onOpenChange={onCreateOpenChange}
+            />
+        </>
+    )
+}
+
+function createFeatureColumns(): ColumnDef<PropertyFeatureModel.PropertyFeature>[] {
+    return [
+        {
+            accessorKey: "name",
+            header: "Name",
+            cell: ({row}) => row.original.name || "Unnamed feature",
+        },
+        {
+            accessorKey: "description",
+            header: "Description",
+            cell: ({row}) => row.original.description || "No description",
+        },
+        {
+            accessorKey: "format",
+            header: "Format",
+            cell: ({row}) => (
+                <Badge variant="outline">
+                    {row.original.format || "UNSET"}
+                </Badge>
+            ),
+        },
+        {
+            id: "value",
+            header: "Value",
+            cell: ({row}) => formatFeatureValue(row.original) || "No value",
+        },
+        {
+            accessorKey: "unit",
+            header: "Unit",
+            cell: ({row}) => row.original.unit || "Not set",
+        },
+        {
+            id: "tags",
+            header: "Tags",
+            cell: ({row}) => String(row.original.tags.length),
+        },
+    ]
 }

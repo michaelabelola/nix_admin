@@ -9,17 +9,19 @@ import propertyFeatureApi from "./api.ts";
 type SuccessHandler<T> = (data: T) => void
 
 export namespace PropertyFeatureApiHook {
-    export const useQueryPropertyFeatures = ({
-                                                 propertyId,
-                                                 ...props
-                                             }: Parameters<typeof propertyFeatureApi.queryByProperty>[0]) => {
+    export const useQueryPropertyFeatures = (
+        query: Parameters<typeof propertyFeatureApi.queryByProperty>[0],
+    ) => {
         const errHandler = useResponseFieldErrorHandler()
+        const propertyId = query?.propertyId ?? ""
         return {
             ...useQuery({
-                queryKey: [...RealEstateQueryKeys.propertyFeatures(propertyId), props],
+                queryKey: [...RealEstateQueryKeys.propertyFeatures(propertyId), query],
                 queryFn: () => propertyFeatureApi.queryByProperty({
-                    ...props, propertyId
+                    ...query,
+                    propertyId,
                 }, {errHandler}),
+                enabled: Boolean(propertyId),
             }),
             errHandler,
         }
@@ -140,7 +142,10 @@ export namespace PropertyFeatureApiHook {
                 }) =>
                     propertyFeatureApi.createForProperty(propertyId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyFeatures(variables.propertyId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -161,7 +166,11 @@ export namespace PropertyFeatureApiHook {
                 }) =>
                     propertyFeatureApi.updateForProperty(propertyId, featureId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyFeatures(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyFeature(variables.propertyId, variables.featureId)}),
+                    ])
                     successHandler?.(data)
                 },
             }),
@@ -181,7 +190,10 @@ export namespace PropertyFeatureApiHook {
                 }) =>
                     propertyFeatureApi.deleteForProperty(propertyId, featureId, {errHandler}),
                 onSuccess: async (_data, variables) => {
-                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
+                    await Promise.all([
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
+                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyFeatures(variables.propertyId)}),
+                    ])
                     await queryClient.removeQueries({queryKey: RealEstateQueryKeys.propertyFeature(variables.propertyId, variables.featureId)})
                     successHandler?.()
                 },
