@@ -33,7 +33,7 @@ import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 import OrganizationRequest from "#/modules/organization/organization.request.ts";
 import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 import {useNavigate} from "@tanstack/react-router";
-import {realEstateNavItems} from "#/modules/real-estate/OrgNav.tsx";
+import {realEstateNavItems} from "#/modules/real-estate/nav.tsx";
 import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";
 import {Button} from "#/components/ui/button.tsx";
 import type {ComponentProps} from "react";
