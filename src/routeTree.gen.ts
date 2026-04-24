@@ -32,6 +32,7 @@ import { Route as AuthenticatedSelfOrganizationsRegisterRouteRouteImport } from 
 import { Route as AuthenticatedSelfOrganizationsRegisterIndexRouteImport } from './routes/_authenticated/self/organizations/register/index'
 import { Route as AuthenticatedAdminTagsDashboardIndexRouteImport } from './routes/_authenticated/admin/tags/dashboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/index'
+import { Route as AuthenticatedAdminRealEstateFeatureRulesIndexRouteImport } from './routes/_authenticated/admin/real-estate/feature-rules/index'
 import { Route as AuthenticatedAdminRealEstateDashboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/dashboard/index'
 import { Route as AuthenticatedSelfOrganizationsRegisterSocialsRouteImport } from './routes/_authenticated/self/organizations/register/socials'
 import { Route as AuthenticatedSelfOrganizationsRegisterOrgUserRouteImport } from './routes/_authenticated/self/organizations/register/org-user'
@@ -191,6 +192,12 @@ const AuthenticatedAdminRealEstatePropertiesIndexRoute =
   AuthenticatedAdminRealEstatePropertiesIndexRouteImport.update({
     id: '/properties/',
     path: '/properties/',
+    getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+  } as any)
+const AuthenticatedAdminRealEstateFeatureRulesIndexRoute =
+  AuthenticatedAdminRealEstateFeatureRulesIndexRouteImport.update({
+    id: '/feature-rules/',
+    path: '/feature-rules/',
     getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
   } as any)
 const AuthenticatedAdminRealEstateDashboardIndexRoute =
@@ -482,6 +489,7 @@ export interface FileRoutesByFullPath {
   '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
   '/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  '/admin/real-estate/feature-rules/': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/admin/tags/dashboard/': typeof AuthenticatedAdminTagsDashboardIndexRoute
   '/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
@@ -536,6 +544,7 @@ export interface FileRoutesByTo {
   '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
   '/admin/real-estate/dashboard': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  '/admin/real-estate/feature-rules': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/admin/real-estate/properties': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/admin/tags/dashboard': typeof AuthenticatedAdminTagsDashboardIndexRoute
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
@@ -597,6 +606,7 @@ export interface FileRoutesById {
   '/_authenticated/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/_authenticated/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
   '/_authenticated/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  '/_authenticated/admin/real-estate/feature-rules/': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/_authenticated/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   '/_authenticated/admin/tags/dashboard/': typeof AuthenticatedAdminTagsDashboardIndexRoute
   '/_authenticated/self/organizations/register/': typeof AuthenticatedSelfOrganizationsRegisterIndexRoute
@@ -658,6 +668,7 @@ export interface FileRouteTypes {
     | '/self/organizations/register/org-user'
     | '/self/organizations/register/socials'
     | '/admin/real-estate/dashboard/'
+    | '/admin/real-estate/feature-rules/'
     | '/admin/real-estate/properties/'
     | '/admin/tags/dashboard/'
     | '/self/organizations/register/'
@@ -712,6 +723,7 @@ export interface FileRouteTypes {
     | '/self/organizations/register/org-user'
     | '/self/organizations/register/socials'
     | '/admin/real-estate/dashboard'
+    | '/admin/real-estate/feature-rules'
     | '/admin/real-estate/properties'
     | '/admin/tags/dashboard'
     | '/self/organizations/register'
@@ -772,6 +784,7 @@ export interface FileRouteTypes {
     | '/_authenticated/self/organizations/register/org-user'
     | '/_authenticated/self/organizations/register/socials'
     | '/_authenticated/admin/real-estate/dashboard/'
+    | '/_authenticated/admin/real-estate/feature-rules/'
     | '/_authenticated/admin/real-estate/properties/'
     | '/_authenticated/admin/tags/dashboard/'
     | '/_authenticated/self/organizations/register/'
@@ -969,6 +982,13 @@ declare module '@tanstack/react-router' {
       path: '/properties'
       fullPath: '/admin/real-estate/properties/'
       preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
+    '/_authenticated/admin/real-estate/feature-rules/': {
+      id: '/_authenticated/admin/real-estate/feature-rules/'
+      path: '/feature-rules'
+      fullPath: '/admin/real-estate/feature-rules/'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstateFeatureRulesIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
     }
     '/_authenticated/admin/real-estate/dashboard/': {
@@ -1352,6 +1372,7 @@ const AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteWithChild
 interface AuthenticatedAdminRealEstateRouteRouteChildren {
   AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren
   AuthenticatedAdminRealEstateDashboardIndexRoute: typeof AuthenticatedAdminRealEstateDashboardIndexRoute
+  AuthenticatedAdminRealEstateFeatureRulesIndexRoute: typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   AuthenticatedAdminRealEstatePropertiesIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
   AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute: typeof AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRouteWithChildren
   AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
@@ -1364,6 +1385,8 @@ const AuthenticatedAdminRealEstateRouteRouteChildren: AuthenticatedAdminRealEsta
       AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren,
     AuthenticatedAdminRealEstateDashboardIndexRoute:
       AuthenticatedAdminRealEstateDashboardIndexRoute,
+    AuthenticatedAdminRealEstateFeatureRulesIndexRoute:
+      AuthenticatedAdminRealEstateFeatureRulesIndexRoute,
     AuthenticatedAdminRealEstatePropertiesIndexRoute:
       AuthenticatedAdminRealEstatePropertiesIndexRoute,
     AuthenticatedAdminRealEstatePropertiesOnboardPropertyIdRouteRoute:

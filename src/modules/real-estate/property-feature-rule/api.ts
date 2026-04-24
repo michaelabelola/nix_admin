@@ -1,10 +1,10 @@
 import type {PropertyFeatureRuleModel} from "@/modules/real-estate/property-feature-rule/model.ts"
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
-import type {PageRequest, Paged} from "#/models/PagedModel.ts"
+import type {Paged} from "#/models/PagedModel.ts"
 
 class PropertyFeatureRuleApi {
-    query(params?: PageRequest, init?: Partial<RequestHelperInit>) {
+    query(params?: PropertyFeatureRuleModel.Query, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<Paged<PropertyFeatureRuleModel.PropertyFeatureRule>>("/real-estate/feature-rules", {query: params, ...init})
     }
 

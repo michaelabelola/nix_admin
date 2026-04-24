@@ -9,12 +9,17 @@ import propertyFeatureApi from "./api.ts";
 type SuccessHandler<T> = (data: T) => void
 
 export namespace PropertyFeatureApiHook {
-    export const useQueryPropertyFeatures = (propertyId: PropertyModel.PropertyID) => {
+    export const useQueryPropertyFeatures = ({
+                                                 propertyId,
+                                                 ...props
+                                             }: Parameters<typeof propertyFeatureApi.queryByProperty>[0]) => {
         const errHandler = useResponseFieldErrorHandler()
         return {
             ...useQuery({
-                queryKey: RealEstateQueryKeys.propertyFeatures(propertyId),
-                queryFn: () => propertyFeatureApi.listByProperty(propertyId, {errHandler}),
+                queryKey: [...RealEstateQueryKeys.propertyFeatures(propertyId), props],
+                queryFn: () => propertyFeatureApi.queryByProperty({
+                    ...props, propertyId
+                }, {errHandler}),
             }),
             errHandler,
         }
@@ -37,7 +42,10 @@ export namespace PropertyFeatureApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, featureIds}: { propertyId: PropertyModel.PropertyID, featureIds: PropertyFeatureModel.PropertyFeatureID[] }) =>
+                mutationFn: ({propertyId, featureIds}: {
+                    propertyId: PropertyModel.PropertyID,
+                    featureIds: PropertyFeatureModel.PropertyFeatureID[]
+                }) =>
                     propertyFeatureApi.linkToProperty(propertyId, featureIds, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -54,7 +62,10 @@ export namespace PropertyFeatureApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, featureIds}: { propertyId: PropertyModel.PropertyID, featureIds: PropertyFeatureModel.PropertyFeatureID[] }) =>
+                mutationFn: ({propertyId, featureIds}: {
+                    propertyId: PropertyModel.PropertyID,
+                    featureIds: PropertyFeatureModel.PropertyFeatureID[]
+                }) =>
                     propertyFeatureApi.unlinkFromProperty(propertyId, featureIds, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -71,7 +82,11 @@ export namespace PropertyFeatureApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({spaceId, featureIds, propertyId}: { spaceId: SpaceModel.SpaceID, featureIds: PropertyFeatureModel.PropertyFeatureID[], propertyId?: PropertyModel.PropertyID }) =>
+                mutationFn: ({spaceId, featureIds, propertyId}: {
+                    spaceId: SpaceModel.SpaceID,
+                    featureIds: PropertyFeatureModel.PropertyFeatureID[],
+                    propertyId?: PropertyModel.PropertyID
+                }) =>
                     propertyFeatureApi.linkToSpace(spaceId, featureIds, propertyId, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await Promise.all([
@@ -93,7 +108,11 @@ export namespace PropertyFeatureApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({spaceId, featureIds, propertyId}: { spaceId: SpaceModel.SpaceID, featureIds: PropertyFeatureModel.PropertyFeatureID[], propertyId?: PropertyModel.PropertyID }) =>
+                mutationFn: ({spaceId, featureIds, propertyId}: {
+                    spaceId: SpaceModel.SpaceID,
+                    featureIds: PropertyFeatureModel.PropertyFeatureID[],
+                    propertyId?: PropertyModel.PropertyID
+                }) =>
                     propertyFeatureApi.unlinkFromSpace(spaceId, featureIds, propertyId, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await Promise.all([
@@ -115,7 +134,10 @@ export namespace PropertyFeatureApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, body}: { propertyId: PropertyModel.PropertyID, body: PropertyFeatureModel.Create }) =>
+                mutationFn: ({propertyId, body}: {
+                    propertyId: PropertyModel.PropertyID,
+                    body: PropertyFeatureModel.Create
+                }) =>
                     propertyFeatureApi.createForProperty(propertyId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -132,7 +154,11 @@ export namespace PropertyFeatureApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, featureId, body}: { propertyId: PropertyModel.PropertyID, featureId: PropertyFeatureModel.PropertyFeatureID, body: PropertyFeatureModel.Update }) =>
+                mutationFn: ({propertyId, featureId, body}: {
+                    propertyId: PropertyModel.PropertyID,
+                    featureId: PropertyFeatureModel.PropertyFeatureID,
+                    body: PropertyFeatureModel.Update
+                }) =>
                     propertyFeatureApi.updateForProperty(propertyId, featureId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
@@ -149,7 +175,10 @@ export namespace PropertyFeatureApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, featureId}: { propertyId: PropertyModel.PropertyID, featureId: PropertyFeatureModel.PropertyFeatureID }) =>
+                mutationFn: ({propertyId, featureId}: {
+                    propertyId: PropertyModel.PropertyID,
+                    featureId: PropertyFeatureModel.PropertyFeatureID
+                }) =>
                     propertyFeatureApi.deleteForProperty(propertyId, featureId, {errHandler}),
                 onSuccess: async (_data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})

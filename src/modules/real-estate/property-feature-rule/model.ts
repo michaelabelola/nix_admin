@@ -1,4 +1,5 @@
 import type { AuditSection, NixID } from "@/models/Models.ts"
+import type {ObjectVisibility, PagedRequest} from "@/models/PagedModel.ts"
 
 export namespace PropertyFeatureRuleModel {
     export type FeatureRuleID = string
@@ -47,6 +48,12 @@ export namespace PropertyFeatureRuleModel {
         entityID: NixID
         audit: AuditSection
     }
+
+    export type Query = PagedRequest<{
+        format?: FieldFormat
+        allowedPropType?: AllowedPropType
+        show?: ObjectVisibility
+    }>
 
     export type Create = {
         name?: string | null

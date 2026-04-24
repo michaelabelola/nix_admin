@@ -1,4 +1,5 @@
-import type { AuditSection, NixID } from "@/models/Models.ts"
+import type {AuditSection, NixID} from "@/models/Models.ts"
+import type {ObjectVisibility, PagedRequest} from "#/models/PagedModel.ts";
 
 export namespace PropertyFeatureModel {
     export type PropertyFeatureID = string
@@ -73,4 +74,10 @@ export namespace PropertyFeatureModel {
         media?: FileID[]
         files?: FileID[]
     }
+    export type Query = PagedRequest<{
+        id?: PropertyFeatureID | null,
+        name?: string | null,
+        // audit?:AuditSection,
+        show?: ObjectVisibility
+    }>
 }

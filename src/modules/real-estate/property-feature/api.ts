@@ -3,6 +3,7 @@ import type {PropertyModel} from "@/modules/real-estate/property/model.ts"
 import type {SpaceModel} from "@/modules/real-estate/space/model.ts"
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
+import type {Paged} from "#/models/PagedModel.ts";
 
 class PropertyFeatureApi {
     linkToProperty(propertyId: PropertyModel.PropertyID, featureIds: PropertyFeatureModel.PropertyFeatureID[], init?: Partial<RequestHelperInit>) {
@@ -43,8 +44,13 @@ class PropertyFeatureApi {
         })
     }
 
-    listByProperty(propertyId: PropertyModel.PropertyID, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<PropertyFeatureModel.PropertyFeature[]>(`/real-estate/properties/${propertyId}/features`, init)
+    queryByProperty({propertyId, ...params}: PropertyFeatureModel.Query & {
+        propertyId: PropertyModel.PropertyID
+    }, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<Paged<PropertyFeatureModel.PropertyFeature>>(`/real-estate/properties/${propertyId}/features`, {
+            query: params,
+            ...init
+        })
     }
 
     getByProperty(propertyId: PropertyModel.PropertyID, featureId: PropertyFeatureModel.PropertyFeatureID, init?: Partial<RequestHelperInit>) {

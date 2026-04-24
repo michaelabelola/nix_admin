@@ -144,8 +144,10 @@ export function PropertyDetailsTagsTab({property}: { property?: PropertyModel.De
                             <div key={tag.id} className="rounded-lg border p-4">
                                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                                     <div className="min-w-0 space-y-2">
-                                        <div className="flex items-center gap-2">
-                                            <TagIcon className="size-4 text-muted-foreground"/>
+                                        <div className="flex items-center gap-2"
+                                             style={tag?.colorHex ? {color: tag?.colorHex} : {}}>
+                                            <TagIcon className="size-4 text-muted-foreground"
+                                                     style={tag?.colorHex ? {color: tag?.colorHex} : {}}/>
                                             <div className="truncate font-medium">
                                                 {tag.name?.trim() || tag.id}
                                             </div>
@@ -161,8 +163,9 @@ export function PropertyDetailsTagsTab({property}: { property?: PropertyModel.De
                                     </div>
 
                                     <Button
-                                        variant="outline"
-                                        size="sm"
+                                        variant="ghost"
+                                        size="xs"
+                                        className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
                                         disabled={!property?.id || removeTag.isPending}
                                         onClick={() => {
                                             if (!property?.id) return
@@ -174,7 +177,6 @@ export function PropertyDetailsTagsTab({property}: { property?: PropertyModel.De
                                         }}
                                     >
                                         <Trash2 className="size-4"/>
-                                        Remove
                                     </Button>
                                 </div>
                             </div>
