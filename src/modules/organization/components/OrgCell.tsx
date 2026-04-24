@@ -39,10 +39,12 @@ function OrgDetailRow({
   label: string;
   value?: ReactNode;
 }) {
+  const Icon = icon;
+
   return (
     <div className="flex items-start gap-3 rounded-md border bg-muted/30 px-3 py-2">
       <div className="mt-0.5 rounded-sm border bg-background p-1.5 text-muted-foreground">
-        {icon && icon({ className: "size-3.5" })}
+        <Icon className="size-3.5" />
       </div>
       <div className="min-w-0">
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
