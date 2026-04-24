@@ -129,6 +129,7 @@ function DataTable<
       debounceMs = 300,
       getRowId,
       toolbarActions,
+      defaultQueryFields,
       className,
   }: DataTableProps<TData, TValue, TRequest>) {
     const {request, setRequest} = useDataTableQueryState<TRequest>({
@@ -136,7 +137,10 @@ function DataTable<
         defaults: initialRequest,
         filterFields,
     })
-    const query = useQuery(request)
+    const query = useQuery({
+        ...defaultQueryFields,
+        ...request
+    })
     const data = query.data
     const tableId = React.useId()
     const sorting = React.useMemo(

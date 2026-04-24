@@ -52,6 +52,7 @@ export type DataTableProps<
     columns: Array<ColumnDef<TableData<TData, T>, TValue>>
     from: keyof FileRoutesByTo
     useQuery: (request: TRequest) => UseQueryResult<Paged<TableData<TData, T> | any>>
+    defaultQueryFields?:Record<string, unknown>,
     useRowQuery?: (data: TData) => Promise<T>
     initialRequest?: Partial<TRequest>
     filterFields?: Array<DataTableFilterField<TRequest>>
