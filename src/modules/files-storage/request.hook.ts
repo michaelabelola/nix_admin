@@ -7,8 +7,10 @@ import type {FilesStorageModel} from "./model.ts";
 
 type SuccessHandler<T> = (data: T) => void
 
+const root = ["files-storage"] as const
+// @ts-ignore
 const FilesStorageQueryKeys = {
-    root: ["files-storage"] as const,
+    root: root,
     query: (query?: FilesStorageModel.Query) => [...FilesStorageQueryKeys.root, "list", query] as const,
     fts: (query?: FilesStorageModel.FullTextSearchQuery) => [...FilesStorageQueryKeys.root, "fts", query] as const,
     detail: (storageId: FilesStorageModel.FilesStorageID) => [...FilesStorageQueryKeys.root, "detail", storageId] as const,
@@ -18,7 +20,7 @@ const FilesStorageQueryKeys = {
     storageFile: (storageId: FilesStorageModel.FilesStorageID, itemId: FilesStorageModel.FileID) =>
         [...FilesStorageQueryKeys.filesRoot(storageId), itemId] as const,
     file: (itemId: FilesStorageModel.FileID) => [...FilesStorageQueryKeys.root, "file", itemId] as const,
-    types: [...FilesStorageQueryKeys.root, "types"] as const,
+    types: [...root, "types"] as const,
 };
 
 export namespace FilesStorageRequest {
@@ -129,7 +131,10 @@ export namespace FilesStorageRequest {
 
         return {
             ...useMutation({
-                mutationFn: ({storageId, body}: { storageId: FilesStorageModel.FilesStorageID, body: FilesStorageModel.Update }) =>
+                mutationFn: ({storageId, body}: {
+                    storageId: FilesStorageModel.FilesStorageID,
+                    body: FilesStorageModel.Update
+                }) =>
                     filesStorageApi.update(storageId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await Promise.all([
@@ -166,7 +171,10 @@ export namespace FilesStorageRequest {
 
         return {
             ...useMutation({
-                mutationFn: ({storageId, body}: { storageId: FilesStorageModel.FilesStorageID, body: FilesStorageModel.UploadFile }) =>
+                mutationFn: ({storageId, body}: {
+                    storageId: FilesStorageModel.FilesStorageID,
+                    body: FilesStorageModel.UploadFile
+                }) =>
                     filesStorageApi.addFile(storageId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await Promise.all([
@@ -213,7 +221,10 @@ export namespace FilesStorageRequest {
 
         return {
             ...useMutation({
-                mutationFn: ({itemId, body}: { itemId: FilesStorageModel.FileID, body: FilesStorageModel.UpdateFile }) =>
+                mutationFn: ({itemId, body}: {
+                    itemId: FilesStorageModel.FileID,
+                    body: FilesStorageModel.UpdateFile
+                }) =>
                     filesStorageApi.updateFile(itemId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: FilesStorageQueryKeys.root});
@@ -231,7 +242,10 @@ export namespace FilesStorageRequest {
 
         return {
             ...useMutation({
-                mutationFn: ({storageId, itemId}: { storageId: FilesStorageModel.FilesStorageID, itemId: FilesStorageModel.FileID }) =>
+                mutationFn: ({storageId, itemId}: {
+                    storageId: FilesStorageModel.FilesStorageID,
+                    itemId: FilesStorageModel.FileID
+                }) =>
                     filesStorageApi.deleteStorageFile(storageId, itemId, {errHandler}),
                 onSuccess: async (_data, variables) => {
                     await Promise.all([
@@ -272,7 +286,10 @@ export namespace FilesStorageRequest {
 
         return {
             ...useMutation({
-                mutationFn: ({itemId, body}: { itemId: FilesStorageModel.FileID, body: FilesStorageModel.UpdateListableStatus }) =>
+                mutationFn: ({itemId, body}: {
+                    itemId: FilesStorageModel.FileID,
+                    body: FilesStorageModel.UpdateListableStatus
+                }) =>
                     filesStorageApi.setFileListableStatus(itemId, body, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: FilesStorageQueryKeys.root});

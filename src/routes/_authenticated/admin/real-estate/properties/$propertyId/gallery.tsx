@@ -1,5 +1,6 @@
 import {createFileRoute} from "@tanstack/react-router";
 
+import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
 import PropertyPage from "#/modules/real-estate/property/details/PropertyPage.tsx";
 import {PropertyDetailsGalleryTab} from "#/modules/real-estate/property/details/tabs/gallery/PropertyDetailsGalleryTab.tsx";
 
@@ -10,9 +11,12 @@ export const Route = createFileRoute(
 })
 
 function RouteComponent() {
+    const {propertyId} = Route.useParams()
+    const {data} = PropertyApiHook.useGetDetailedProperty(propertyId)
+
     return (
         <PropertyPage activeTab="gallery">
-            <PropertyDetailsGalleryTab/>
+            <PropertyDetailsGalleryTab property={data}/>
         </PropertyPage>
     )
 }
