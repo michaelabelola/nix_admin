@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {type ReactNode, useState} from "react";
 import {toast} from "sonner";
 
 import {Button} from "#/components/ui/button.tsx";
@@ -45,10 +45,10 @@ const INITIAL_FORM_STATE: RentFormState = {
 }
 
 export function PropertyRentDefinitionCreateSheet({
-    property,
-    open,
-    onOpenChange,
-}: {
+                                                      property,
+                                                      open,
+                                                      onOpenChange,
+                                                  }: {
     property?: PropertyModel.Detailed
     open: boolean
     onOpenChange: (open: boolean) => void
@@ -208,11 +208,11 @@ export function PropertyRentDefinitionCreateSheet({
 }
 
 function Field({
-    label,
-    children,
-}: {
+                   label,
+                   children,
+               }: {
     label: string
-    children: React.ReactNode
+    children: ReactNode
 }) {
     return (
         <div className="grid gap-2">
