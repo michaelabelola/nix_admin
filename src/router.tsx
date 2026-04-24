@@ -4,6 +4,7 @@ import {setupRouterSsrQueryIntegration} from '@tanstack/react-router-ssr-query'
 import {
     getContext,
 } from './integrations/tanstack-query/root-provider'
+import Page404 from "#/components/pages/Page404.tsx";
 
 export function getRouter() {
     const context = getContext()
@@ -14,6 +15,7 @@ export function getRouter() {
         scrollRestoration: true,
         defaultPreload: 'intent',
         defaultPreloadStaleTime: 0,
+        defaultNotFoundComponent: (props) => <Page404 {...props}/>
     })
 
     setupRouterSsrQueryIntegration({router, queryClient: context.queryClient})

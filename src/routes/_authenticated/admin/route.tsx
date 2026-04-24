@@ -5,9 +5,12 @@ import {Spinner} from "#/components/ui/spinner.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {IconCancel} from "@tabler/icons-react";
 import BusinessBasePage from "#/modules/admin/BusinessBasePage.tsx";
+import Page404 from "#/components/pages/Page404.tsx";
 
 export const Route = createFileRoute('/_authenticated/admin')({
     component: AdminPage,
+    notFoundComponent: (props) => <Page404
+        message="The route you requested does not exist or is no longer available." {...props}/>,
     head: () => ({
         meta: [
             {
