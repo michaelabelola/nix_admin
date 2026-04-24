@@ -1,5 +1,5 @@
 import * as React from "react"
-import {useLocation, useRouter} from "@tanstack/react-router"
+import {useLocation, useNavigate} from "@tanstack/react-router"
 import type {FileRoutesByTo} from "#/routeTree.gen.ts"
 
 import type {SortParam} from "#/models/PagedModel.ts"
@@ -18,12 +18,16 @@ import {
 } from "./types.ts"
 
 function parseInteger(value: unknown): number | undefined {
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : undefined
+  }
   if (typeof value !== "string" || value.trim() === "") return undefined
   const parsed = Number.parseInt(value, 10)
   return Number.isFinite(parsed) ? parsed : undefined
 }
 
 function parseBoolean(value: unknown): boolean | undefined {
+  if (typeof value === "boolean") return value
   if (value === "true") return true
   if (value === "false") return false
   return undefined
@@ -38,7 +42,9 @@ function parseSortValue(value: string): SortParam | undefined {
 
 function parseSort(values: unknown): SortParam[] | undefined {
   const rawValues = Array.isArray(values)
-    ? values.filter((value): value is string => typeof value === "string")
+    ? values
+        .map((value) => (typeof value === "string" ? value : undefined))
+        .filter((value): value is string => value !== undefined)
     : typeof values === "string"
       ? [values]
       : []
@@ -94,12 +100,15 @@ function parseFilterValue<TRequest extends DataTableRequestBase>(
 ): TableFilterValue {
   const rawValue = search[key]
   const value = Array.isArray(rawValue) ? rawValue[0] : rawValue
-  if (typeof value !== "string") return undefined
+  if (typeof value !== "string" && typeof value !== "number" && typeof value !== "boolean") {
+    return undefined
+  }
+  const normalizedValue = String(value)
   if (field?.parseValue) {
-    return field.parseValue(value) as TableFilterValue
+    return field.parseValue(normalizedValue) as TableFilterValue
   }
   return defaultParseValue(
-    value,
+    normalizedValue,
     defaults?.[key as keyof TRequest] as TableFilterValue,
   )
 }
@@ -221,14 +230,13 @@ export function useDataTableQueryState<
   defaults?: Partial<TRequest>
   filterFields?: Array<DataTableFilterField<TRequest>>
 }) {
-  void from
+  const navigate = useNavigate({ from })
   const {pathname, search} = useLocation({
     select: (location) => ({
       pathname: location.pathname,
       search: location.search as SearchRecord,
     }),
   })
-  const router = useRouter()
 
   const request = React.useMemo(
     () => parseDataTableSearch<TRequest>(search, {defaults, filterFields}),
@@ -244,11 +252,14 @@ export function useDataTableQueryState<
       })
 
       React.startTransition(() => {
-        const searchParams = buildSearchParams(nextSearch).toString()
-        router.history.replace(searchParams ? `${pathname}?${searchParams}` : pathname)
+        void navigate({
+          to: pathname,
+          search: nextSearch,
+          replace: true,
+        })
       })
     },
-    [defaults, filterFields, pathname, request, router.history, search],
+    [defaults, filterFields, navigate, pathname, request, search],
   )
 
   return {request, setRequest}
