@@ -15,7 +15,6 @@ export const tagsNavItems: NavSectionType = {
             icon: TagsIcon,
             to: "/admin/tags",
         },
-
     ]
 
 } as NavSectionType
