@@ -47,6 +47,7 @@ import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteImpo
 import { Route as AuthenticatedAdminRealEstatePropertiesOnboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/locations/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/index'
+import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/tags'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/summary'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdRentRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/rent'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/pricing'
@@ -283,6 +284,13 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute =
     getParentRoute: () =>
       AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute,
   } as any)
+const AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute =
+  AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRouteImport.update({
+    id: '/tags',
+    path: '/tags',
+    getParentRoute: () =>
+      AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute,
+  } as any)
 const AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute =
   AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRouteImport.update({
     id: '/summary',
@@ -487,6 +495,7 @@ export interface FileRoutesByFullPath {
   '/admin/real-estate/properties/$propertyId/pricing': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
   '/admin/real-estate/properties/$propertyId/rent': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRentRouteWithChildren
   '/admin/real-estate/properties/$propertyId/summary': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute
+  '/admin/real-estate/properties/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute
   '/admin/real-estate/properties/$propertyId/': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute
   '/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
   '/admin/real-estate/properties/onboard/': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
@@ -539,6 +548,7 @@ export interface FileRoutesByTo {
   '/admin/real-estate/properties/$propertyId/pricing': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
   '/admin/real-estate/properties/$propertyId/rent': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRentRouteWithChildren
   '/admin/real-estate/properties/$propertyId/summary': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute
+  '/admin/real-estate/properties/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute
   '/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute
   '/admin/real-estate/properties/locations': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
   '/admin/real-estate/properties/onboard': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
@@ -600,6 +610,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/real-estate/properties/$propertyId/pricing': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
   '/_authenticated/admin/real-estate/properties/$propertyId/rent': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRentRouteWithChildren
   '/_authenticated/admin/real-estate/properties/$propertyId/summary': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute
+  '/_authenticated/admin/real-estate/properties/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute
   '/_authenticated/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
   '/_authenticated/admin/real-estate/properties/onboard/': typeof AuthenticatedAdminRealEstatePropertiesOnboardIndexRoute
@@ -660,6 +671,7 @@ export interface FileRouteTypes {
     | '/admin/real-estate/properties/$propertyId/pricing'
     | '/admin/real-estate/properties/$propertyId/rent'
     | '/admin/real-estate/properties/$propertyId/summary'
+    | '/admin/real-estate/properties/$propertyId/tags'
     | '/admin/real-estate/properties/$propertyId/'
     | '/admin/real-estate/properties/locations/'
     | '/admin/real-estate/properties/onboard/'
@@ -712,6 +724,7 @@ export interface FileRouteTypes {
     | '/admin/real-estate/properties/$propertyId/pricing'
     | '/admin/real-estate/properties/$propertyId/rent'
     | '/admin/real-estate/properties/$propertyId/summary'
+    | '/admin/real-estate/properties/$propertyId/tags'
     | '/admin/real-estate/properties/$propertyId'
     | '/admin/real-estate/properties/locations'
     | '/admin/real-estate/properties/onboard'
@@ -772,6 +785,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/real-estate/properties/$propertyId/pricing'
     | '/_authenticated/admin/real-estate/properties/$propertyId/rent'
     | '/_authenticated/admin/real-estate/properties/$propertyId/summary'
+    | '/_authenticated/admin/real-estate/properties/$propertyId/tags'
     | '/_authenticated/admin/real-estate/properties/$propertyId/'
     | '/_authenticated/admin/real-estate/properties/locations/'
     | '/_authenticated/admin/real-estate/properties/onboard/'
@@ -1062,6 +1076,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute
     }
+    '/_authenticated/admin/real-estate/properties/$propertyId/tags': {
+      id: '/_authenticated/admin/real-estate/properties/$propertyId/tags'
+      path: '/tags'
+      fullPath: '/admin/real-estate/properties/$propertyId/tags'
+      preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRouteImport
+      parentRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute
+    }
     '/_authenticated/admin/real-estate/properties/$propertyId/summary': {
       id: '/_authenticated/admin/real-estate/properties/$propertyId/summary'
       path: '/summary'
@@ -1260,6 +1281,7 @@ interface AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteChildren {
   AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdPricingRouteWithChildren
   AuthenticatedAdminRealEstatePropertiesPropertyIdRentRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRentRouteWithChildren
   AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute
+  AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute
   AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute
 }
 
@@ -1283,6 +1305,8 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteChildren: Authen
       AuthenticatedAdminRealEstatePropertiesPropertyIdRentRouteWithChildren,
     AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute:
       AuthenticatedAdminRealEstatePropertiesPropertyIdSummaryRoute,
+    AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute:
+      AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute,
     AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute:
       AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute,
   }
