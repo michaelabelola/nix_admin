@@ -52,10 +52,10 @@ function GalleryItemCard({item}: { item: FilesStorageModel.FileItem }) {
 
     return (
         <Card className="gap-4">
-            <CardHeader className="px-4 pt-4">
+            <CardHeader className="px-4">
                 <FilePreview item={item}/>
             </CardHeader>
-            <CardContent className="space-y-4 px-4 pb-4">
+            <CardContent className="space-y-4 px-4">
                 <div className="space-y-2">
                     <div className="flex flex-wrap items-center gap-2">
                         <CardTitle className="text-base">
@@ -65,7 +65,7 @@ function GalleryItemCard({item}: { item: FilesStorageModel.FileItem }) {
                             {status || "UNKNOWN"}
                         </Badge>
                     </div>
-                    <CardDescription className="line-clamp-3 min-h-12">
+                    <CardDescription className="line-clamp-3 min-h-6">
                         {item.description?.trim() || "No description"}
                     </CardDescription>
                 </div>
@@ -80,11 +80,18 @@ function GalleryItemCard({item}: { item: FilesStorageModel.FileItem }) {
 
                 <div className="flex flex-wrap gap-2">
                     {item.file ? (
-                        <Button asChild variant="outline" size="sm">
-                            <a href={item.file} target="_blank" rel="noreferrer">
-                                Open file
-                            </a>
-                        </Button>
+                       <div className={"flex gap-4"}>
+                           {/*<Button asChild variant="outline" size="sm">*/}
+                           {/*    <a href={item.file} target="_blank" rel="noreferrer">*/}
+                           {/*        Open file*/}
+                           {/*    </a>*/}
+                           {/*</Button>*/}
+                           <Button asChild variant="outline" size="sm">
+                               <a href={item.file} target="_blank" rel="noreferrer">
+                                   Download file
+                               </a>
+                           </Button>
+                       </div>
                     ) : null}
                     {item.thumbnail && item.thumbnail !== item.file ? (
                         <Button asChild variant="ghost" size="sm">
@@ -203,7 +210,7 @@ export function GalleryItemsContent({
 
     return (
         <div className="space-y-6">
-            <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
                 {items.map((item) => (
                     <GalleryItemCard key={item.id} item={item}/>
                 ))}

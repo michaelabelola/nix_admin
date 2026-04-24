@@ -19,6 +19,7 @@ import {
     DropdownMenuTrigger
 } from "#/components/ui/dropdown-menu.tsx";
 import {IconDotsVertical, IconShare3, IconTrash} from "@tabler/icons-react";
+import {Badge} from "#/components/ui/badge.tsx";
 
 export function PropertyDetailsPricingTab({
     property,
@@ -100,18 +101,17 @@ function createPricingDefinitionColumns({
         {
             accessorKey: "amount",
             header: "Amount",
-            cell: ({row}) => formatMoney(row.original.amount) ?? "Not set",
+            cell: ({row}) => {
+                return <span>
+                {formatMoney(row.original.amount) ?? "Not set"}
+                    {property?.defaultPriceDefinition?.id === row.original.id && <Badge variant={"default"} className={"ml-2"}>Default</Badge>}
+                </span>
+            },
         },
         {
             accessorKey: "id",
             header: "Pricing ID",
             cell: ({row}) => String(row.original.id),
-        },
-        {
-            id: "default",
-            header: "Default",
-            cell: ({row}) =>
-                property?.defaultPriceDefinition?.id === row.original.id ? "Yes" : "No",
         },
         {
             id: "action",

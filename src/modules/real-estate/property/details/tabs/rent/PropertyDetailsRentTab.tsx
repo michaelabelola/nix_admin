@@ -14,6 +14,7 @@ import {RentDefinitionModel} from "#/modules/real-estate/rent-definition/model.t
 import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDuration, formatMoney} from "../../property-details.utils.ts";
 import {PropertyRentDefinitionCreateSheet} from "./PropertyRentDefinitionCreateSheet.tsx";
+import {Badge} from "#/components/ui/badge.tsx";
 
 export function PropertyDetailsRentTab({
                                            property,
@@ -64,7 +65,8 @@ export function PropertyDetailsRentTab({
                     searchPlaceholder="Search Rent Definitions..."
                     emptyMessage="No Rent Definitions found."
                     toolbarActions={
-                        <Button size={"xs"} variant={"outline"} onClick={() => onCreateOpenChange(true)} disabled={!property?.id}>
+                        <Button size={"xs"} variant={"outline"} onClick={() => onCreateOpenChange(true)}
+                                disabled={!property?.id}>
                             <PlusCircle className="size-4"/>
                             new definition
                         </Button>
@@ -89,12 +91,17 @@ function createRentDefinitionColumns({
     property?: PropertyModel.Detailed
     isSettingDefault: boolean
     onMakeDefault: (rentDefinitionId: RentDefinitionModel.RentDefinitionID) => void
-}):ColumnDef<RentDefinitionModel.RentDefinition>[] {
+}): ColumnDef<RentDefinitionModel.RentDefinition>[] {
     return [
         {
             accessorKey: "name",
             header: "Name",
-            cell: ({row}) => row.original.name || "Untitled",
+            cell: ({row}) =>
+                <span>
+                    {row.original.name || "Untitled"}
+                    {property?.defaultRentDefinition?.id === row.original.id &&
+                        <Badge variant={"default"} className={"ml-2"}>Default</Badge>}
+                </span>,
         },
         {
             accessorKey: "description",
@@ -110,12 +117,6 @@ function createRentDefinitionColumns({
             accessorKey: "duration",
             header: "Duration",
             cell: ({row}) => formatDuration(row.original.duration, row.original.durationUnit),
-        },
-        {
-            id: "default",
-            header: "Default",
-            cell: ({row}) =>
-                property?.defaultRentDefinition?.id === row.original.id ? "Yes" : "No",
         },
         {
             id: "action",

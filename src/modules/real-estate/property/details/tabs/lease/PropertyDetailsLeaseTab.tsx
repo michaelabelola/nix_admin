@@ -14,12 +14,13 @@ import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDuration, formatMoney} from "../../property-details.utils.ts";
 import {PropertyLeaseDefinitionCreateSheet} from "./PropertyLeaseDefinitionCreateSheet.tsx";
+import {Badge} from "#/components/ui/badge.tsx";
 
 export function PropertyDetailsLeaseTab({
-    property,
-    createOpen = false,
-    onCreateOpenChange = () => undefined,
-}: {
+                                            property,
+                                            createOpen = false,
+                                            onCreateOpenChange = () => undefined,
+                                        }: {
     property?: PropertyModel.Detailed
     createOpen?: boolean
     onCreateOpenChange?: (open: boolean) => void
@@ -64,7 +65,8 @@ export function PropertyDetailsLeaseTab({
                     searchPlaceholder="Search Lease Definitions..."
                     emptyMessage="No Lease Definitions found."
                     toolbarActions={
-                        <Button size={"xs"} variant={"outline"} onClick={() => onCreateOpenChange(true)} disabled={!property?.id}>
+                        <Button size={"xs"} variant={"outline"} onClick={() => onCreateOpenChange(true)}
+                                disabled={!property?.id}>
                             <PlusCircle className="size-4"/>
                             new definition
                         </Button>
@@ -82,10 +84,10 @@ export function PropertyDetailsLeaseTab({
 }
 
 function createLeaseDefinitionColumns({
-    property,
-    isSettingDefault,
-    onMakeDefault,
-}: {
+                                          property,
+                                          isSettingDefault,
+                                          onMakeDefault,
+                                      }: {
     property?: PropertyModel.Detailed
     isSettingDefault: boolean
     onMakeDefault: (leaseDefinitionId: LeaseDefinitionModel.LeaseDefinitionID) => void
@@ -94,7 +96,13 @@ function createLeaseDefinitionColumns({
         {
             accessorKey: "name",
             header: "Name",
-            cell: ({row}) => row.original.name || "Untitled",
+            cell: ({row}) => {
+                return <span>
+                {row.original.name || "Untitled"}
+                    {property?.defaultLeaseDefinition?.id === row.original.id &&
+                        <Badge variant={"default"} className={"ml-2"}>Default</Badge>}
+                </span>
+            },
         },
         {
             accessorKey: "description",
@@ -110,12 +118,6 @@ function createLeaseDefinitionColumns({
             accessorKey: "duration",
             header: "Duration",
             cell: ({row}) => formatDuration(row.original.duration, row.original.durationUnit),
-        },
-        {
-            id: "default",
-            header: "Default",
-            cell: ({row}) =>
-                property?.defaultLeaseDefinition?.id === row.original.id ? "Yes" : "No",
         },
         {
             id: "action",

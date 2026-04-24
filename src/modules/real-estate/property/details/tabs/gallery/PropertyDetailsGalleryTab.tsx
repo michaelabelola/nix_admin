@@ -1,6 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
-import {ImageIcon} from "lucide-react";
+import {ImageIcon, Upload} from "lucide-react";
 
+import {Button} from "#/components/ui/button.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
 import {FilesStorageRequest} from "#/modules/files-storage/request.hook.ts";
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
@@ -124,6 +125,17 @@ export function PropertyDetailsGalleryTab({
                             </>
                         )}
                     </div>
+                </div>
+
+                <div className="mb-6 flex justify-end">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => onCreateOpenChange(true)}
+                    >
+                        <Upload className="size-4"/>
+                        Upload gallery file
+                    </Button>
                 </div>
 
                 <GalleryUploadForm
