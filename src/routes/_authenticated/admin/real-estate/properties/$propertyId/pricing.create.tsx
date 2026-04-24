@@ -5,7 +5,7 @@ import {PropertyDetailsPricingTab} from "#/modules/real-estate/property/details/
 import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
 
 export const Route = createFileRoute(
-    "/_authenticated/admin/real-estate/properties/$propertyId/pricing",
+    "/_authenticated/admin/real-estate/properties/$propertyId/pricing/create",
 )({
     component: RouteComponent,
 })
@@ -19,11 +19,13 @@ function RouteComponent() {
         <PropertyPage activeTab="pricing">
             <PropertyDetailsPricingTab
                 property={data}
+                createOpen
                 onCreateOpenChange={(open) => {
-                    if (open) {
+                    if (!open) {
                         void navigate({
-                            to: "/admin/real-estate/properties/$propertyId/pricing/create",
+                            to: "/admin/real-estate/properties/$propertyId/pricing",
                             params: {propertyId},
+                            replace: true,
                         })
                     }
                 }}

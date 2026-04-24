@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import {useMemo} from "react";
 import type {ColumnDef} from "@tanstack/react-table";
 import {PlusCircle} from "lucide-react";
 import {toast} from "sonner";
@@ -20,8 +20,15 @@ import {
 } from "#/components/ui/dropdown-menu.tsx";
 import {IconDotsVertical, IconShare3, IconTrash} from "@tabler/icons-react";
 
-export function PropertyDetailsPricingTab({property}: { property?: PropertyModel.Detailed }) {
-    const [isCreateOpen, setIsCreateOpen] = useState(false)
+export function PropertyDetailsPricingTab({
+    property,
+    createOpen = false,
+    onCreateOpenChange = () => undefined,
+}: {
+    property?: PropertyModel.Detailed
+    createOpen?: boolean
+    onCreateOpenChange?: (open: boolean) => void
+}) {
     const setDefaultPricing = PricingApiHook.useSetPropertyDefaultPricing(() => {
         toast.success("Default pricing updated.")
     })
@@ -62,7 +69,7 @@ export function PropertyDetailsPricingTab({property}: { property?: PropertyModel
                     searchPlaceholder="Search Pricing Definitions..."
                     emptyMessage="No Pricing Definitions found."
                     toolbarActions={
-                        <Button size={"xs"} variant={"outline"} onClick={() => setIsCreateOpen(true)}
+                        <Button size={"xs"} variant={"outline"} onClick={() => onCreateOpenChange(true)}
                                 disabled={!property?.id}>
                             <PlusCircle className="size-4"/>
                             Add
@@ -73,8 +80,8 @@ export function PropertyDetailsPricingTab({property}: { property?: PropertyModel
 
             <PropertyPricingDefinitionCreateSheet
                 property={property}
-                open={isCreateOpen}
-                onOpenChange={setIsCreateOpen}
+                open={createOpen}
+                onOpenChange={onCreateOpenChange}
             />
         </>
     )

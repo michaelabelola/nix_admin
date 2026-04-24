@@ -1,4 +1,4 @@
-import {createFileRoute} from "@tanstack/react-router";
+import {createFileRoute, useNavigate} from "@tanstack/react-router";
 
 import PropertyPage from "#/modules/real-estate/property/details/PropertyPage.tsx";
 import {PropertyDetailsLeaseTab} from "#/modules/real-estate/property/details/tabs/lease/PropertyDetailsLeaseTab.tsx";
@@ -12,11 +12,22 @@ export const Route = createFileRoute(
 
 function RouteComponent() {
     const {propertyId} = Route.useParams()
+    const navigate = useNavigate()
     const {data} = PropertyApiHook.useGetDetailedProperty(propertyId)
 
     return (
         <PropertyPage activeTab="lease">
-            <PropertyDetailsLeaseTab property={data}/>
+            <PropertyDetailsLeaseTab
+                property={data}
+                onCreateOpenChange={(open) => {
+                    if (open) {
+                        void navigate({
+                            to: "/admin/real-estate/properties/$propertyId/lease/create",
+                            params: {propertyId},
+                        })
+                    }
+                }}
+            />
         </PropertyPage>
     )
 }

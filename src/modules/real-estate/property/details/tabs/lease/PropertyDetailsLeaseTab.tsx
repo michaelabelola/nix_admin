@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react";
+import {useMemo} from "react";
 import type {ColumnDef} from "@tanstack/react-table";
 import {Check, PlusCircle} from "lucide-react";
 import {toast} from "sonner";
@@ -15,8 +15,15 @@ import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDuration, formatMoney} from "../../property-details.utils.ts";
 import {PropertyLeaseDefinitionCreateSheet} from "./PropertyLeaseDefinitionCreateSheet.tsx";
 
-export function PropertyDetailsLeaseTab({property}: { property?: PropertyModel.Detailed }) {
-    const [isCreateOpen, setIsCreateOpen] = useState(false)
+export function PropertyDetailsLeaseTab({
+    property,
+    createOpen = false,
+    onCreateOpenChange = () => undefined,
+}: {
+    property?: PropertyModel.Detailed
+    createOpen?: boolean
+    onCreateOpenChange?: (open: boolean) => void
+}) {
     const setDefaultLease = LeaseDefinitionApiHook.useSetPropertyDefaultLease(() => {
         toast.success("Default lease definition updated.")
     })
@@ -57,7 +64,7 @@ export function PropertyDetailsLeaseTab({property}: { property?: PropertyModel.D
                     searchPlaceholder="Search Lease Definitions..."
                     emptyMessage="No Lease Definitions found."
                     toolbarActions={
-                        <Button size={"xs"} variant={"outline"} onClick={() => setIsCreateOpen(true)} disabled={!property?.id}>
+                        <Button size={"xs"} variant={"outline"} onClick={() => onCreateOpenChange(true)} disabled={!property?.id}>
                             <PlusCircle className="size-4"/>
                             new definition
                         </Button>
@@ -67,8 +74,8 @@ export function PropertyDetailsLeaseTab({property}: { property?: PropertyModel.D
 
             <PropertyLeaseDefinitionCreateSheet
                 property={property}
-                open={isCreateOpen}
-                onOpenChange={setIsCreateOpen}
+                open={createOpen}
+                onOpenChange={onCreateOpenChange}
             />
         </>
     )
