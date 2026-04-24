@@ -3,6 +3,7 @@ import {toast} from "sonner";
 
 import {Button} from "#/components/ui/button.tsx";
 import {Checkbox} from "#/components/ui/checkbox.tsx";
+import {CurrencyDropdown} from "#/lib/currency/CurrencyDropdown.tsx";
 import {Input} from "#/components/ui/input.tsx";
 import {
     Select,
@@ -145,11 +146,10 @@ export function PropertyRentDefinitionCreateSheet({
                         </Field>
 
                         <Field label="Currency code">
-                            <Input
+                            <CurrencyDropdown
                                 value={formState.currencyCode}
-                                onChange={(event) => updateField("currencyCode", event.target.value.toUpperCase())}
-                                placeholder="USD"
-                                maxLength={3}
+                                onValueChange={(value) => updateField("currencyCode", value)}
+                                placeholder="Select currency"
                             />
                         </Field>
                     </div>

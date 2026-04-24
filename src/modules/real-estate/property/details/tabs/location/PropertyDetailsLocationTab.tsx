@@ -37,12 +37,12 @@ export function PropertyDetailsLocationTab({property}: { property?: PropertyMode
                         src={mapEmbedUrl}
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
-                        className="h-[420px] w-full rounded-lg border"
+                        className="h-105 w-full rounded-lg border gMapIframe"
                     />
                 ) : (
                     <EmptyState
                         title="No map available"
-                        description="Add a property location with coordinates or an address to display the map."
+                        description="Add a location with coordinates or an address to display the map."
                     />
                 )}
             </section>
