@@ -9,16 +9,14 @@ import type {PropertyListingProfileModel} from "./model.ts"
 export namespace PropertyListingProfileApiHook {
     export const useQueryPropertyListingProfiles = (query?: PropertyListingProfileModel.Query) => {
         const errHandler = useResponseFieldErrorHandler()
-        const propertyId = query?.propertyID ?? ""
+        const propertyId = query?.propertyID
 
         return {
             ...useQuery({
-                queryKey: [...RealEstateQueryKeys.propertyListingProfiles(propertyId), query],
-                queryFn: () => propertyListingProfileApi.query({
-                    ...query,
-                    propertyID: propertyId,
-                }, {errHandler}),
-                enabled: Boolean(propertyId),
+                queryKey: propertyId
+                    ? [...RealEstateQueryKeys.propertyListingProfiles(propertyId), query]
+                    : RealEstateQueryKeys.listingProfiles(query),
+                queryFn: () => propertyListingProfileApi.query(query, {errHandler}),
             }),
             errHandler,
         }

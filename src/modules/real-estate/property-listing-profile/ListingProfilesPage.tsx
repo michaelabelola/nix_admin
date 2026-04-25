@@ -1,0 +1,51 @@
+import {useMemo} from "react"
+import {Link} from "@tanstack/react-router"
+
+import Page from "#/components/Page.tsx"
+import DataTable from "#/components/data-table/data-table.tsx"
+import type {DataTableRequestBase} from "#/components/data-table/types.ts"
+import {Button} from "#/components/ui/button.tsx"
+import {ButtonGroup} from "#/components/ui/button-group.tsx"
+import {PropertyListingProfileApiHook} from "#/modules/real-estate/property-listing-profile/api.hook.ts"
+import type {PropertyListingProfileModel} from "#/modules/real-estate/property-listing-profile/model.ts"
+
+import {createPropertyListingProfileColumns} from "./table.tsx"
+
+type ListingProfileTableRequest = DataTableRequestBase & Pick<
+    PropertyListingProfileModel.Query,
+    "propertyID" | "isDefault" | "type"
+>
+
+export function ListingProfilesPage() {
+    const columns = useMemo(() => createPropertyListingProfileColumns(), [])
+
+    return (
+        <Page
+            header={{
+                title: "Listing Profiles",
+                description: "Browse listing profile snapshots created across all properties.",
+                actionView: (
+                    <ButtonGroup>
+                        <Button variant="outline" asChild>
+                            <Link to="/admin/real-estate/properties">
+                                View properties
+                            </Link>
+                        </Button>
+                    </ButtonGroup>
+                ),
+            }}
+        >
+            <DataTable<PropertyListingProfileModel.PropertyListingProfile, unknown, ListingProfileTableRequest>
+                columns={columns}
+                from="/admin/real-estate/properties/listing-profiles"
+                useQuery={PropertyListingProfileApiHook.useQueryPropertyListingProfiles}
+                initialRequest={{
+                    page: 0,
+                    size: 10,
+                }}
+                searchPlaceholder="Search listing profiles..."
+                emptyMessage="No listing profiles found."
+            />
+        </Page>
+    )
+}
