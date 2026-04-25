@@ -35,21 +35,53 @@ type FormState = {
 
 const EMPTY_OPTION = "__none__"
 
-function buildInitialLocationState(property?: PropertyModel.Detailed): Required<NonNullable<PropertyModel.CreateListingProfile["location"]>> {
-    const hasLocation = Boolean(property?.location)
+function hasLocationFieldValue(
+    location: PropertyModel.PropertyLocationDetailed | null | undefined,
+    key: keyof Required<NonNullable<PropertyModel.CreateListingProfile["location"]>>,
+) {
+    if (!location) return false
 
+    switch (key) {
+        case "apartment":
+            return location.apartment != null
+        case "unit":
+            return location.unit != null
+        case "building":
+            return location.building != null
+        case "floor":
+            return location.floor != null
+        case "line1":
+            return location.line1 != null
+        case "line2":
+            return location.line2 != null
+        case "city":
+            return location.city != null
+        case "state":
+            return location.state != null
+        case "postalCode":
+            return location.postalCode != null
+        case "country":
+            return location.country != null
+        case "latLng":
+            return location.latitude != null || location.longitude != null
+        default:
+            return false
+    }
+}
+
+function buildInitialLocationState(property?: PropertyModel.Detailed): Required<NonNullable<PropertyModel.CreateListingProfile["location"]>> {
     return {
-        apartment: hasLocation,
-        unit: hasLocation,
-        building: hasLocation,
-        floor: hasLocation,
-        line1: hasLocation,
-        line2: hasLocation,
-        city: hasLocation,
-        state: hasLocation,
-        postalCode: hasLocation,
-        country: hasLocation,
-        latLng: hasLocation,
+        apartment: hasLocationFieldValue(property?.location, "apartment"),
+        unit: hasLocationFieldValue(property?.location, "unit"),
+        building: hasLocationFieldValue(property?.location, "building"),
+        floor: hasLocationFieldValue(property?.location, "floor"),
+        line1: hasLocationFieldValue(property?.location, "line1"),
+        line2: hasLocationFieldValue(property?.location, "line2"),
+        city: hasLocationFieldValue(property?.location, "city"),
+        state: hasLocationFieldValue(property?.location, "state"),
+        postalCode: hasLocationFieldValue(property?.location, "postalCode"),
+        country: hasLocationFieldValue(property?.location, "country"),
+        latLng: hasLocationFieldValue(property?.location, "latLng"),
     }
 }
 
@@ -115,6 +147,10 @@ export function PropertyListingProfileCreatePage({
 
     const availableFeatures = property?.features ?? []
     const hasLocation = Boolean(property?.location)
+    const availableLocationFields = useMemo(
+        () => LOCATION_FIELDS.filter((field) => hasLocationFieldValue(property?.location, field.key)),
+        [property?.location],
+    )
     const isSubmitting = createListingProfile.isPending
 
     function toggleSelection<T extends string>(values: T[], value: T, checked: boolean) {
@@ -157,7 +193,7 @@ export function PropertyListingProfileCreatePage({
                 pricingId: formState.pricingId !== EMPTY_OPTION ? formState.pricingId : undefined,
                 rentId: formState.rentId !== EMPTY_OPTION ? formState.rentId : undefined,
                 leaseId: formState.leaseId !== EMPTY_OPTION ? formState.leaseId : undefined,
-                location: hasLocation ? formState.location : undefined,
+                location: availableLocationFields.length > 0 ? formState.location : undefined,
                 isDefault: formState.isDefault,
             },
         })
@@ -335,15 +371,14 @@ export function PropertyListingProfileCreatePage({
                 <CardHeader>
                     <CardTitle>Location Fields</CardTitle>
                     <CardDescription>
-                        Choose which property location fields should be copied into the listing profile snapshot.
+                        Choose which populated property location fields should be copied into the listing profile snapshot.
                     </CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                    {LOCATION_FIELDS.map((field) => (
+                    {availableLocationFields.map((field) => (
                         <label key={field.key} className="flex items-center gap-3 rounded-lg border p-3 text-sm">
                             <Checkbox
                                 checked={formState.location[field.key]}
-                                disabled={!hasLocation}
                                 onCheckedChange={(checked) => toggleLocationField(field.key, checked === true)}
                             />
                             <span>{field.label}</span>
@@ -353,6 +388,10 @@ export function PropertyListingProfileCreatePage({
                     {!hasLocation ? (
                         <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
                             This property does not have a location assigned yet.
+                        </div>
+                    ) : availableLocationFields.length === 0 ? (
+                        <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+                            This property location does not have any populated fields to copy.
                         </div>
                     ) : null}
                 </CardContent>
