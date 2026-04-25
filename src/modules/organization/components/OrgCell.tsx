@@ -50,7 +50,7 @@ function OrgDetailRow({
         <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
           {label}
         </p>
-        <div className="break-words text-sm text-foreground">
+        <div className="wrap-break-word text-sm text-foreground">
           {value || "Not provided"}
         </div>
       </div>
