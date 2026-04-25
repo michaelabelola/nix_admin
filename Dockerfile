@@ -23,7 +23,7 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
-ENV PORT=3000
+ENV PORT=80
 
 COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile --production
@@ -31,6 +31,6 @@ RUN bun install --frozen-lockfile --production
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/server.mjs ./server.mjs
 
-EXPOSE 3000
+EXPOSE 80
 
 CMD ["bun", "server.mjs"]
