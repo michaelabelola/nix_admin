@@ -11,8 +11,8 @@ env:
   BACKEND__IMAGE_NAME: backend
 
 jobs:
-  frontend__deploy:
-    name: Build, Push And Deploy Frontend
+  deploy_admin_ui:
+    name: Build, Push And Deploy Admin UI To Staging Server
     runs-on: ubuntu-latest
     permissions:
       contents: read
