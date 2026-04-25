@@ -10,6 +10,7 @@ export namespace PropertyModel {
     export type FilesStorageID = string | number
     export type TagID = string
     export type NixFile = string | null
+    export type FileID = string
 
     export enum PropertyType {
         HOUSE = "HOUSE",
@@ -131,5 +132,30 @@ export namespace PropertyModel {
         description?: string | null
         about?: string | null
         type?: PropertyType | null
+    }
+
+    export type CreateListingProfileLocation = {
+        apartment?: boolean
+        unit?: boolean
+        building?: boolean
+        floor?: boolean
+        line1?: boolean
+        line2?: boolean
+        city?: boolean
+        state?: boolean
+        postalCode?: boolean
+        country?: boolean
+        latLng?: boolean
+    }
+
+    export type CreateListingProfile = {
+        tagIds?: TagID[]
+        featureIds?: PropertyFeatureModel.PropertyFeatureID[]
+        pricingId?: RealEstatePricingModel.PriceID | null
+        rentId?: RentDefinitionModel.RentDefinitionID | null
+        leaseId?: LeaseDefinitionModel.LeaseDefinitionID | null
+        location?: CreateListingProfileLocation | null
+        media?: FileID[]
+        isDefault?: boolean | null
     }
 }

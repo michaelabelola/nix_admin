@@ -1,4 +1,5 @@
 import type {PropertyModel} from "@/modules/real-estate/property/model.ts"
+import type {PropertyListingProfileModel} from "@/modules/real-estate/property-listing-profile/model.ts"
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
 import type {ResponseDto} from "#/models/Models.ts"
 import type {PageRequest, Paged} from "#/models/PagedModel.ts"
@@ -34,6 +35,14 @@ class PropertyApi {
     update(propertyId: PropertyModel.PropertyID, body: PropertyModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}`, {
             method: "PATCH",
+            body,
+            ...init,
+        })
+    }
+
+    createListingProfile(propertyId: PropertyModel.PropertyID, body: PropertyModel.CreateListingProfile, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<PropertyListingProfileModel.PropertyListingProfile>(`/real-estate/properties/${propertyId}/listing-profiles`, {
+            method: "POST",
             body,
             ...init,
         })

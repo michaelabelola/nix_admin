@@ -1,4 +1,5 @@
 import type {PropertyModel} from "@/modules/real-estate/property/model.ts";
+import type {PropertyListingProfileModel} from "@/modules/real-estate/property-listing-profile/model.ts";
 import {RealEstateQueryKeys} from "@/modules/real-estate/query-keys.ts";
 import type {PageRequest} from "@/models/PagedModel.ts";
 import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx";
@@ -70,6 +71,23 @@ export namespace PropertyApiHook {
                         queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertiesRoot}),
                         queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
                     ])
+                    successHandler?.(data)
+                },
+            }),
+            errHandler,
+        }
+    }
+
+    export function useCreatePropertyListingProfile(successHandler?: SuccessHandler<PropertyListingProfileModel.PropertyListingProfile>) {
+        const queryClient = useQueryClient()
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useMutation({
+                mutationFn: ({propertyId, body}: { propertyId: PropertyModel.PropertyID, body: PropertyModel.CreateListingProfile }) =>
+                    propertyApi.createListingProfile(propertyId, body, {errHandler}),
+                onSuccess: async (data, variables) => {
+                    await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyListingProfiles(variables.propertyId)})
                     successHandler?.(data)
                 },
             }),
