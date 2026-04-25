@@ -1,7 +1,7 @@
 import {useMemo} from "react"
-import {useNavigate} from "@tanstack/react-router"
+import {Link, useNavigate} from "@tanstack/react-router"
 import type {ColumnDef} from "@tanstack/react-table"
-import {PlusCircle} from "lucide-react"
+import {EyeIcon, PlusCircle} from "lucide-react"
 
 import DataTable from "#/components/data-table/data-table.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
@@ -11,10 +11,11 @@ import {formatDuration, formatMoney} from "#/modules/real-estate/property/detail
 import type {PropertyListingProfileModel} from "#/modules/real-estate/property-listing-profile/model.ts"
 import {PropertyListingProfileApiHook} from "#/modules/real-estate/property-listing-profile/api.hook.ts"
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import {property} from "zod";
 
 export function PropertyDetailsListingProfilesTab({
-    property,
-}: {
+                                                      property,
+                                                  }: {
     property?: PropertyModel.Detailed
 }) {
     const navigate = useNavigate()
@@ -119,6 +120,20 @@ function createListingProfileColumns(): Array<ColumnDef<PropertyListingProfileMo
             id: "features",
             header: "Features",
             cell: ({row}) => String(row.original.features.length),
+        },
+        {
+            id: "action",
+            header: "Action",
+            cell: ({row}) =>
+                <Link to={"/admin/real-estate/properties/listing-profiles/$listingProfileId"}
+                      params={{
+                          listingProfileID: row?.original?.id,
+                      }}>
+                    <Button size="xs" variant={"ghost"}>
+                        <EyeIcon/>
+                    </Button>
+                </Link>
+            ,
         },
     ]
 }
