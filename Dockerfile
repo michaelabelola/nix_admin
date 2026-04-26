@@ -33,5 +33,4 @@ COPY --from=builder /app/server.mjs ./server.mjs
 
 EXPOSE 80
 
-CMD ["bun", "./dist/server/server.js"]
-#CMD ["bun", "server.mjs"]
+CMD ["bun", "server.mjs"]
