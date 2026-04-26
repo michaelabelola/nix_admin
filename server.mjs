@@ -32,6 +32,8 @@ const MIME_TYPES = new Map([
 
 const HOST = process.env.HOST || "0.0.0.0"
 const PORT = Number(process.env.PORT || 3000)
+const STORAGE_PROXY_PREFIX = "/nix-storage/"
+const STORAGE_PROXY_ORIGIN = "https://suiteonix.com"
 
 function getMimeType(filePath) {
     return MIME_TYPES.get(path.extname(filePath).toLowerCase()) || "application/octet-stream"
@@ -71,6 +73,44 @@ function createRequest(req) {
         body,
         duplex: body ? "half" : undefined,
     })
+}
+
+function getProxyHeaders(req) {
+    const headers = new Headers()
+
+    for (const [key, value] of Object.entries(req.headers)) {
+        if (value == null || key.toLowerCase() === "host") continue
+
+        if (Array.isArray(value)) {
+            for (const entry of value) {
+                headers.append(key, entry)
+            }
+            continue
+        }
+
+        headers.append(key, value)
+    }
+
+    return headers
+}
+
+async function proxyStorageRequest(req, res) {
+    const origin = `http://${req.headers.host || `${HOST}:${PORT}`}`
+    const incomingUrl = new URL(req.url || "/", origin)
+    const targetUrl = new URL(incomingUrl.pathname + incomingUrl.search, STORAGE_PROXY_ORIGIN)
+    const method = req.method || "GET"
+    const body = method === "GET" || method === "HEAD"
+        ? undefined
+        : Readable.toWeb(req)
+
+    const response = await fetch(targetUrl, {
+        method,
+        headers: getProxyHeaders(req),
+        body,
+        duplex: body ? "half" : undefined,
+    })
+
+    await sendFetchResponse(response, res)
 }
 
 async function findStaticFile(pathname) {
@@ -130,6 +170,12 @@ async function sendFetchResponse(fetchResponse, res) {
 const server = createServer(async (req, res) => {
     try {
         const pathname = new URL(req.url || "/", `http://${req.headers.host || `${HOST}:${PORT}`}`).pathname
+
+        if (pathname.startsWith(STORAGE_PROXY_PREFIX)) {
+            await proxyStorageRequest(req, res)
+            return
+        }
+
         const staticFile = await findStaticFile(pathname)
 
         if (staticFile) {

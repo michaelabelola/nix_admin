@@ -71,9 +71,11 @@ function validateToken(value: string) {
 export function VerifyEmailPage({
                                     initialEmail = '',
                                     initialToken = '',
+                                    initialSuccess = false,
                                 }: {
     initialEmail?: string
     initialToken?: string
+    initialSuccess?: boolean
 }) {
     const entityID = useEntityStore((state) => state.entityID)
     const verifyEmail = SignInHook.useVerifyEmail()
@@ -151,10 +153,15 @@ export function VerifyEmailPage({
             <section>
                 <Card className="shadow-sm">
                     <CardHeader>
-                        <CardTitle className="text-2xl">Verify email</CardTitle>
-                        <CardDescription>
-                            Submit the verification token from your email to activate the account.
-                        </CardDescription>
+                        <CardTitle className="text-2xl">
+                            {!initialSuccess ? "Verify email" :
+                                <span className={"text-success"}>Email Verified Successfully !!!</span>}
+                        </CardTitle>
+                        {!initialSuccess &&
+                            < CardDescription>
+                                Submit the verification token from your email to activate the account.
+                            </CardDescription>
+                        }
                     </CardHeader>
                     <CardContent>
                         <form
@@ -217,37 +224,40 @@ export function VerifyEmailPage({
                                     </div>
                                 )}
                             </form.Field>
+                            {
+                                !initialSuccess &&
 
-                            <form.Field
-                                name="token"
-                                validators={{
-                                    onChange: ({value}) => validateToken(value),
-                                }}
-                            >
-                                {(field) => (
-                                    <div className="grid gap-2">
-                                        <Label htmlFor={field.name}>Verification token</Label>
-                                        <Input
-                                            id={field.name}
-                                            name={field.name}
-                                            inputMode="numeric"
-                                            value={field.state.value}
-                                            placeholder="Enter the token from your email"
-                                            onBlur={field.handleBlur}
-                                            onChange={(event) => field.handleChange(event.target.value)}
-                                        />
-                                        {field.state.meta.isTouched && field.state.meta.errors.length > 0 ? (
-                                            <div className="space-y-1 text-sm text-destructive">
-                                                {field.state.meta.errors.map((error) => (
-                                                    <small key={String(error)}>{String(error)}</small>
-                                                ))}
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                )}
-                            </form.Field>
+                                <form.Field
+                                    name="token"
+                                    validators={{
+                                        onChange: ({value}) => validateToken(value),
+                                    }}
+                                >
+                                    {(field) => (
+                                        <div className="grid gap-2">
+                                            <Label htmlFor={field.name}>Verification token</Label>
+                                            <Input
+                                                id={field.name}
+                                                name={field.name}
+                                                inputMode="numeric"
+                                                value={field.state.value}
+                                                placeholder="Enter the token from your email"
+                                                onBlur={field.handleBlur}
+                                                onChange={(event) => field.handleChange(event.target.value)}
+                                            />
+                                            {field.state.meta.isTouched && field.state.meta.errors.length > 0 ? (
+                                                <div className="space-y-1 text-sm text-destructive">
+                                                    {field.state.meta.errors.map((error) => (
+                                                        <small key={String(error)}>{String(error)}</small>
+                                                    ))}
+                                                </div>
+                                            ) : null}
+                                        </div>
+                                    )}
+                                </form.Field>
+                            }
 
-                            {verifyEmail.isSuccess ? (
+                            {initialSuccess || verifyEmail.isSuccess ? (
                                 <Alert>
                                     <AlertTitle>Email verified</AlertTitle>
                                     <AlertDescription>
@@ -271,10 +281,10 @@ export function VerifyEmailPage({
                                     </AlertDescription>
                                 </Alert>
                             ) : null}
-
-                            <Button type="submit" disabled={isSubmitting || verifyEmail.isPending}>
-                                {isSubmitting || verifyEmail.isPending ? 'Verifying...' : 'Verify email'}
-                            </Button>
+                            {!initialSuccess &&
+                                <Button type="submit" disabled={isSubmitting || verifyEmail.isPending}>
+                                    {isSubmitting || verifyEmail.isPending ? 'Verifying...' : 'Verify email'}
+                                </Button>}
                         </form>
                     </CardContent>
                 </Card>
