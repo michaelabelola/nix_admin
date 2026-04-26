@@ -6,6 +6,7 @@
     "#/*": "./src/*"
   },
   "scripts": {
+    "start": "node dist/server/server.js",
     "dev": "vite dev --port 3000 --host",
     "build": "vite build",
     "preview": "vite preview",
