@@ -25,15 +25,21 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as AuthenticatedSelfOrganizationsRouteRouteImport } from './routes/_authenticated/self/organizations/route'
 import { Route as AuthenticatedAdminTagsRouteRouteImport } from './routes/_authenticated/admin/tags/route'
 import { Route as AuthenticatedAdminRealEstateRouteRouteImport } from './routes/_authenticated/admin/real-estate/route'
+import { Route as AuthenticatedAdminCustomersRouteRouteImport } from './routes/_authenticated/admin/customers/route'
 import { Route as AuthenticatedSelfOrganizationsIndexRouteImport } from './routes/_authenticated/self/organizations/index'
 import { Route as AuthenticatedAdminTagsIndexRouteImport } from './routes/_authenticated/admin/tags/index'
+import { Route as AuthenticatedAdminCustomersIndexRouteImport } from './routes/_authenticated/admin/customers/index'
 import { Route as AuthenticatedSelfOrganizationsDashboardRouteImport } from './routes/_authenticated/self/organizations/dashboard'
 import { Route as AuthenticatedSelfOrganizationsRegisterRouteRouteImport } from './routes/_authenticated/self/organizations/register/route'
+import { Route as AuthenticatedAdminCustomersCreateRouteRouteImport } from './routes/_authenticated/admin/customers/create/route'
+import { Route as AuthenticatedAdminCustomersCustomerIdRouteRouteImport } from './routes/_authenticated/admin/customers/$customerId/route'
 import { Route as AuthenticatedSelfOrganizationsRegisterIndexRouteImport } from './routes/_authenticated/self/organizations/register/index'
 import { Route as AuthenticatedAdminTagsDashboardIndexRouteImport } from './routes/_authenticated/admin/tags/dashboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/index'
 import { Route as AuthenticatedAdminRealEstateFeatureRulesIndexRouteImport } from './routes/_authenticated/admin/real-estate/feature-rules/index'
 import { Route as AuthenticatedAdminRealEstateDashboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/dashboard/index'
+import { Route as AuthenticatedAdminCustomersCreateIndexRouteImport } from './routes/_authenticated/admin/customers/create/index'
+import { Route as AuthenticatedAdminCustomersCustomerIdIndexRouteImport } from './routes/_authenticated/admin/customers/$customerId/index'
 import { Route as AuthenticatedSelfOrganizationsRegisterSocialsRouteImport } from './routes/_authenticated/self/organizations/register/socials'
 import { Route as AuthenticatedSelfOrganizationsRegisterOrgUserRouteImport } from './routes/_authenticated/self/organizations/register/org-user'
 import { Route as AuthenticatedSelfOrganizationsRegisterOrgNameRouteImport } from './routes/_authenticated/self/organizations/register/org-name'
@@ -44,6 +50,16 @@ import { Route as AuthenticatedSelfOrganizationsRegisterContactRouteImport } fro
 import { Route as AuthenticatedSelfOrganizationsRegisterBioRouteImport } from './routes/_authenticated/self/organizations/register/bio'
 import { Route as AuthenticatedSelfOrganizationsRegisterAvatarRouteImport } from './routes/_authenticated/self/organizations/register/avatar'
 import { Route as AuthenticatedSelfOrganizationsRegisterAddressRouteImport } from './routes/_authenticated/self/organizations/register/address'
+import { Route as AuthenticatedAdminCustomersCreateReviewRouteImport } from './routes/_authenticated/admin/customers/create/review'
+import { Route as AuthenticatedAdminCustomersCreatePreferencesRouteImport } from './routes/_authenticated/admin/customers/create/preferences'
+import { Route as AuthenticatedAdminCustomersCreatePersonalRouteImport } from './routes/_authenticated/admin/customers/create/personal'
+import { Route as AuthenticatedAdminCustomersCreateContactRouteImport } from './routes/_authenticated/admin/customers/create/contact'
+import { Route as AuthenticatedAdminCustomersCreateBusinessRouteImport } from './routes/_authenticated/admin/customers/create/business'
+import { Route as AuthenticatedAdminCustomersCreateBasicsRouteImport } from './routes/_authenticated/admin/customers/create/basics'
+import { Route as AuthenticatedAdminCustomersCreateAddressesRouteImport } from './routes/_authenticated/admin/customers/create/addresses'
+import { Route as AuthenticatedAdminCustomersCustomerIdTagsRouteImport } from './routes/_authenticated/admin/customers/$customerId/tags'
+import { Route as AuthenticatedAdminCustomersCustomerIdSummaryRouteImport } from './routes/_authenticated/admin/customers/$customerId/summary'
+import { Route as AuthenticatedAdminCustomersCustomerIdDetailsRouteImport } from './routes/_authenticated/admin/customers/$customerId/details'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/route'
 import { Route as AuthenticatedAdminRealEstatePropertiesOnboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/locations/index'
@@ -158,6 +174,12 @@ const AuthenticatedAdminRealEstateRouteRoute =
     path: '/real-estate',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminCustomersRouteRoute =
+  AuthenticatedAdminCustomersRouteRouteImport.update({
+    id: '/customers',
+    path: '/customers',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedSelfOrganizationsIndexRoute =
   AuthenticatedSelfOrganizationsIndexRouteImport.update({
     id: '/',
@@ -170,6 +192,12 @@ const AuthenticatedAdminTagsIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedAdminTagsRouteRoute,
   } as any)
+const AuthenticatedAdminCustomersIndexRoute =
+  AuthenticatedAdminCustomersIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminCustomersRouteRoute,
+  } as any)
 const AuthenticatedSelfOrganizationsDashboardRoute =
   AuthenticatedSelfOrganizationsDashboardRouteImport.update({
     id: '/dashboard',
@@ -181,6 +209,18 @@ const AuthenticatedSelfOrganizationsRegisterRouteRoute =
     id: '/register',
     path: '/register',
     getParentRoute: () => AuthenticatedSelfOrganizationsRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateRouteRoute =
+  AuthenticatedAdminCustomersCreateRouteRouteImport.update({
+    id: '/create',
+    path: '/create',
+    getParentRoute: () => AuthenticatedAdminCustomersRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCustomerIdRouteRoute =
+  AuthenticatedAdminCustomersCustomerIdRouteRouteImport.update({
+    id: '/$customerId',
+    path: '/$customerId',
+    getParentRoute: () => AuthenticatedAdminCustomersRouteRoute,
   } as any)
 const AuthenticatedSelfOrganizationsRegisterIndexRoute =
   AuthenticatedSelfOrganizationsRegisterIndexRouteImport.update({
@@ -211,6 +251,18 @@ const AuthenticatedAdminRealEstateDashboardIndexRoute =
     id: '/dashboard/',
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateIndexRoute =
+  AuthenticatedAdminCustomersCreateIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCustomerIdIndexRoute =
+  AuthenticatedAdminCustomersCustomerIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminCustomersCustomerIdRouteRoute,
   } as any)
 const AuthenticatedSelfOrganizationsRegisterSocialsRoute =
   AuthenticatedSelfOrganizationsRegisterSocialsRouteImport.update({
@@ -271,6 +323,66 @@ const AuthenticatedSelfOrganizationsRegisterAddressRoute =
     id: '/address',
     path: '/address',
     getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateReviewRoute =
+  AuthenticatedAdminCustomersCreateReviewRouteImport.update({
+    id: '/review',
+    path: '/review',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreatePreferencesRoute =
+  AuthenticatedAdminCustomersCreatePreferencesRouteImport.update({
+    id: '/preferences',
+    path: '/preferences',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreatePersonalRoute =
+  AuthenticatedAdminCustomersCreatePersonalRouteImport.update({
+    id: '/personal',
+    path: '/personal',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateContactRoute =
+  AuthenticatedAdminCustomersCreateContactRouteImport.update({
+    id: '/contact',
+    path: '/contact',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateBusinessRoute =
+  AuthenticatedAdminCustomersCreateBusinessRouteImport.update({
+    id: '/business',
+    path: '/business',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateBasicsRoute =
+  AuthenticatedAdminCustomersCreateBasicsRouteImport.update({
+    id: '/basics',
+    path: '/basics',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateAddressesRoute =
+  AuthenticatedAdminCustomersCreateAddressesRouteImport.update({
+    id: '/addresses',
+    path: '/addresses',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCustomerIdTagsRoute =
+  AuthenticatedAdminCustomersCustomerIdTagsRouteImport.update({
+    id: '/tags',
+    path: '/tags',
+    getParentRoute: () => AuthenticatedAdminCustomersCustomerIdRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCustomerIdSummaryRoute =
+  AuthenticatedAdminCustomersCustomerIdSummaryRouteImport.update({
+    id: '/summary',
+    path: '/summary',
+    getParentRoute: () => AuthenticatedAdminCustomersCustomerIdRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCustomerIdDetailsRoute =
+  AuthenticatedAdminCustomersCustomerIdDetailsRouteImport.update({
+    id: '/details',
+    path: '/details',
+    getParentRoute: () => AuthenticatedAdminCustomersCustomerIdRouteRoute,
   } as any)
 const AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute =
   AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteImport.update({
@@ -525,15 +637,29 @@ export interface FileRoutesByFullPath {
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
+  '/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
+  '/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
+  '/admin/customers/': typeof AuthenticatedAdminCustomersIndexRoute
   '/admin/tags/': typeof AuthenticatedAdminTagsIndexRoute
   '/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
   '/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren
+  '/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
+  '/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
+  '/admin/customers/$customerId/tags': typeof AuthenticatedAdminCustomersCustomerIdTagsRoute
+  '/admin/customers/create/addresses': typeof AuthenticatedAdminCustomersCreateAddressesRoute
+  '/admin/customers/create/basics': typeof AuthenticatedAdminCustomersCreateBasicsRoute
+  '/admin/customers/create/business': typeof AuthenticatedAdminCustomersCreateBusinessRoute
+  '/admin/customers/create/contact': typeof AuthenticatedAdminCustomersCreateContactRoute
+  '/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
+  '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
+  '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -544,6 +670,8 @@ export interface FileRoutesByFullPath {
   '/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
   '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
+  '/admin/customers/$customerId/': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
+  '/admin/customers/create/': typeof AuthenticatedAdminCustomersCreateIndexRoute
   '/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/feature-rules/': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
@@ -593,8 +721,19 @@ export interface FileRoutesByTo {
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
+  '/admin/customers': typeof AuthenticatedAdminCustomersIndexRoute
   '/admin/tags': typeof AuthenticatedAdminTagsIndexRoute
   '/self/organizations': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
+  '/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
+  '/admin/customers/$customerId/tags': typeof AuthenticatedAdminCustomersCustomerIdTagsRoute
+  '/admin/customers/create/addresses': typeof AuthenticatedAdminCustomersCreateAddressesRoute
+  '/admin/customers/create/basics': typeof AuthenticatedAdminCustomersCreateBasicsRoute
+  '/admin/customers/create/business': typeof AuthenticatedAdminCustomersCreateBusinessRoute
+  '/admin/customers/create/contact': typeof AuthenticatedAdminCustomersCreateContactRoute
+  '/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
+  '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
+  '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -605,6 +744,8 @@ export interface FileRoutesByTo {
   '/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
   '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
+  '/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
+  '/admin/customers/create': typeof AuthenticatedAdminCustomersCreateIndexRoute
   '/admin/real-estate/dashboard': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/feature-rules': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/admin/real-estate/properties': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
@@ -654,15 +795,29 @@ export interface FileRoutesById {
   '/_landing/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
+  '/_authenticated/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   '/_authenticated/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/_authenticated/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/_authenticated/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
+  '/_authenticated/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
   '/_authenticated/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
+  '/_authenticated/admin/customers/': typeof AuthenticatedAdminCustomersIndexRoute
   '/_authenticated/admin/tags/': typeof AuthenticatedAdminTagsIndexRoute
   '/_authenticated/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
   '/_authenticated/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren
+  '/_authenticated/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
+  '/_authenticated/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
+  '/_authenticated/admin/customers/$customerId/tags': typeof AuthenticatedAdminCustomersCustomerIdTagsRoute
+  '/_authenticated/admin/customers/create/addresses': typeof AuthenticatedAdminCustomersCreateAddressesRoute
+  '/_authenticated/admin/customers/create/basics': typeof AuthenticatedAdminCustomersCreateBasicsRoute
+  '/_authenticated/admin/customers/create/business': typeof AuthenticatedAdminCustomersCreateBusinessRoute
+  '/_authenticated/admin/customers/create/contact': typeof AuthenticatedAdminCustomersCreateContactRoute
+  '/_authenticated/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
+  '/_authenticated/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
+  '/_authenticated/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
   '/_authenticated/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/_authenticated/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/_authenticated/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -673,6 +828,8 @@ export interface FileRoutesById {
   '/_authenticated/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
   '/_authenticated/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/_authenticated/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
+  '/_authenticated/admin/customers/$customerId/': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
+  '/_authenticated/admin/customers/create/': typeof AuthenticatedAdminCustomersCreateIndexRoute
   '/_authenticated/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/_authenticated/admin/real-estate/feature-rules/': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/_authenticated/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
@@ -722,15 +879,29 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/welcome'
     | '/demo/i18n'
+    | '/admin/customers'
     | '/admin/real-estate'
     | '/admin/tags'
     | '/self/organizations'
     | '/admin/'
+    | '/admin/customers/$customerId'
+    | '/admin/customers/create'
     | '/self/organizations/register'
     | '/self/organizations/dashboard'
+    | '/admin/customers/'
     | '/admin/tags/'
     | '/self/organizations/'
     | '/admin/real-estate/properties/$propertyId'
+    | '/admin/customers/$customerId/details'
+    | '/admin/customers/$customerId/summary'
+    | '/admin/customers/$customerId/tags'
+    | '/admin/customers/create/addresses'
+    | '/admin/customers/create/basics'
+    | '/admin/customers/create/business'
+    | '/admin/customers/create/contact'
+    | '/admin/customers/create/personal'
+    | '/admin/customers/create/preferences'
+    | '/admin/customers/create/review'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -741,6 +912,8 @@ export interface FileRouteTypes {
     | '/self/organizations/register/org-name'
     | '/self/organizations/register/org-user'
     | '/self/organizations/register/socials'
+    | '/admin/customers/$customerId/'
+    | '/admin/customers/create/'
     | '/admin/real-estate/dashboard/'
     | '/admin/real-estate/feature-rules/'
     | '/admin/real-estate/properties/'
@@ -790,8 +963,19 @@ export interface FileRouteTypes {
     | '/admin/real-estate'
     | '/admin'
     | '/self/organizations/dashboard'
+    | '/admin/customers'
     | '/admin/tags'
     | '/self/organizations'
+    | '/admin/customers/$customerId/details'
+    | '/admin/customers/$customerId/summary'
+    | '/admin/customers/$customerId/tags'
+    | '/admin/customers/create/addresses'
+    | '/admin/customers/create/basics'
+    | '/admin/customers/create/business'
+    | '/admin/customers/create/contact'
+    | '/admin/customers/create/personal'
+    | '/admin/customers/create/preferences'
+    | '/admin/customers/create/review'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -802,6 +986,8 @@ export interface FileRouteTypes {
     | '/self/organizations/register/org-name'
     | '/self/organizations/register/org-user'
     | '/self/organizations/register/socials'
+    | '/admin/customers/$customerId'
+    | '/admin/customers/create'
     | '/admin/real-estate/dashboard'
     | '/admin/real-estate/feature-rules'
     | '/admin/real-estate/properties'
@@ -850,15 +1036,29 @@ export interface FileRouteTypes {
     | '/_landing/welcome'
     | '/demo/i18n'
     | '/_landing/'
+    | '/_authenticated/admin/customers'
     | '/_authenticated/admin/real-estate'
     | '/_authenticated/admin/tags'
     | '/_authenticated/self/organizations'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/customers/$customerId'
+    | '/_authenticated/admin/customers/create'
     | '/_authenticated/self/organizations/register'
     | '/_authenticated/self/organizations/dashboard'
+    | '/_authenticated/admin/customers/'
     | '/_authenticated/admin/tags/'
     | '/_authenticated/self/organizations/'
     | '/_authenticated/admin/real-estate/properties/$propertyId'
+    | '/_authenticated/admin/customers/$customerId/details'
+    | '/_authenticated/admin/customers/$customerId/summary'
+    | '/_authenticated/admin/customers/$customerId/tags'
+    | '/_authenticated/admin/customers/create/addresses'
+    | '/_authenticated/admin/customers/create/basics'
+    | '/_authenticated/admin/customers/create/business'
+    | '/_authenticated/admin/customers/create/contact'
+    | '/_authenticated/admin/customers/create/personal'
+    | '/_authenticated/admin/customers/create/preferences'
+    | '/_authenticated/admin/customers/create/review'
     | '/_authenticated/self/organizations/register/address'
     | '/_authenticated/self/organizations/register/avatar'
     | '/_authenticated/self/organizations/register/bio'
@@ -869,6 +1069,8 @@ export interface FileRouteTypes {
     | '/_authenticated/self/organizations/register/org-name'
     | '/_authenticated/self/organizations/register/org-user'
     | '/_authenticated/self/organizations/register/socials'
+    | '/_authenticated/admin/customers/$customerId/'
+    | '/_authenticated/admin/customers/create/'
     | '/_authenticated/admin/real-estate/dashboard/'
     | '/_authenticated/admin/real-estate/feature-rules/'
     | '/_authenticated/admin/real-estate/properties/'
@@ -1027,6 +1229,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRealEstateRouteRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/customers': {
+      id: '/_authenticated/admin/customers'
+      path: '/customers'
+      fullPath: '/admin/customers'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/self/organizations/': {
       id: '/_authenticated/self/organizations/'
       path: '/'
@@ -1041,6 +1250,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminTagsIndexRouteImport
       parentRoute: typeof AuthenticatedAdminTagsRouteRoute
     }
+    '/_authenticated/admin/customers/': {
+      id: '/_authenticated/admin/customers/'
+      path: '/'
+      fullPath: '/admin/customers/'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersRouteRoute
+    }
     '/_authenticated/self/organizations/dashboard': {
       id: '/_authenticated/self/organizations/dashboard'
       path: '/dashboard'
@@ -1054,6 +1270,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/self/organizations/register'
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRouteRoute
+    }
+    '/_authenticated/admin/customers/create': {
+      id: '/_authenticated/admin/customers/create'
+      path: '/create'
+      fullPath: '/admin/customers/create'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersRouteRoute
+    }
+    '/_authenticated/admin/customers/$customerId': {
+      id: '/_authenticated/admin/customers/$customerId'
+      path: '/$customerId'
+      fullPath: '/admin/customers/$customerId'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersRouteRoute
     }
     '/_authenticated/self/organizations/register/': {
       id: '/_authenticated/self/organizations/register/'
@@ -1089,6 +1319,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/real-estate/dashboard/'
       preLoaderRoute: typeof AuthenticatedAdminRealEstateDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
+    '/_authenticated/admin/customers/create/': {
+      id: '/_authenticated/admin/customers/create/'
+      path: '/'
+      fullPath: '/admin/customers/create/'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/$customerId/': {
+      id: '/_authenticated/admin/customers/$customerId/'
+      path: '/'
+      fullPath: '/admin/customers/$customerId/'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCustomerIdIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRoute
     }
     '/_authenticated/self/organizations/register/socials': {
       id: '/_authenticated/self/organizations/register/socials'
@@ -1159,6 +1403,76 @@ declare module '@tanstack/react-router' {
       fullPath: '/self/organizations/register/address'
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterAddressRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/admin/customers/create/review': {
+      id: '/_authenticated/admin/customers/create/review'
+      path: '/review'
+      fullPath: '/admin/customers/create/review'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateReviewRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/create/preferences': {
+      id: '/_authenticated/admin/customers/create/preferences'
+      path: '/preferences'
+      fullPath: '/admin/customers/create/preferences'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreatePreferencesRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/create/personal': {
+      id: '/_authenticated/admin/customers/create/personal'
+      path: '/personal'
+      fullPath: '/admin/customers/create/personal'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreatePersonalRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/create/contact': {
+      id: '/_authenticated/admin/customers/create/contact'
+      path: '/contact'
+      fullPath: '/admin/customers/create/contact'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateContactRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/create/business': {
+      id: '/_authenticated/admin/customers/create/business'
+      path: '/business'
+      fullPath: '/admin/customers/create/business'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateBusinessRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/create/basics': {
+      id: '/_authenticated/admin/customers/create/basics'
+      path: '/basics'
+      fullPath: '/admin/customers/create/basics'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateBasicsRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/create/addresses': {
+      id: '/_authenticated/admin/customers/create/addresses'
+      path: '/addresses'
+      fullPath: '/admin/customers/create/addresses'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateAddressesRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
+    '/_authenticated/admin/customers/$customerId/tags': {
+      id: '/_authenticated/admin/customers/$customerId/tags'
+      path: '/tags'
+      fullPath: '/admin/customers/$customerId/tags'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCustomerIdTagsRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRoute
+    }
+    '/_authenticated/admin/customers/$customerId/summary': {
+      id: '/_authenticated/admin/customers/$customerId/summary'
+      path: '/summary'
+      fullPath: '/admin/customers/$customerId/summary'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCustomerIdSummaryRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRoute
+    }
+    '/_authenticated/admin/customers/$customerId/details': {
+      id: '/_authenticated/admin/customers/$customerId/details'
+      path: '/details'
+      fullPath: '/admin/customers/$customerId/details'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCustomerIdDetailsRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRoute
     }
     '/_authenticated/admin/real-estate/properties/$propertyId': {
       id: '/_authenticated/admin/real-estate/properties/$propertyId'
@@ -1379,6 +1693,87 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedAdminCustomersCustomerIdRouteRouteChildren {
+  AuthenticatedAdminCustomersCustomerIdDetailsRoute: typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
+  AuthenticatedAdminCustomersCustomerIdSummaryRoute: typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
+  AuthenticatedAdminCustomersCustomerIdTagsRoute: typeof AuthenticatedAdminCustomersCustomerIdTagsRoute
+  AuthenticatedAdminCustomersCustomerIdIndexRoute: typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
+}
+
+const AuthenticatedAdminCustomersCustomerIdRouteRouteChildren: AuthenticatedAdminCustomersCustomerIdRouteRouteChildren =
+  {
+    AuthenticatedAdminCustomersCustomerIdDetailsRoute:
+      AuthenticatedAdminCustomersCustomerIdDetailsRoute,
+    AuthenticatedAdminCustomersCustomerIdSummaryRoute:
+      AuthenticatedAdminCustomersCustomerIdSummaryRoute,
+    AuthenticatedAdminCustomersCustomerIdTagsRoute:
+      AuthenticatedAdminCustomersCustomerIdTagsRoute,
+    AuthenticatedAdminCustomersCustomerIdIndexRoute:
+      AuthenticatedAdminCustomersCustomerIdIndexRoute,
+  }
+
+const AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren =
+  AuthenticatedAdminCustomersCustomerIdRouteRoute._addFileChildren(
+    AuthenticatedAdminCustomersCustomerIdRouteRouteChildren,
+  )
+
+interface AuthenticatedAdminCustomersCreateRouteRouteChildren {
+  AuthenticatedAdminCustomersCreateAddressesRoute: typeof AuthenticatedAdminCustomersCreateAddressesRoute
+  AuthenticatedAdminCustomersCreateBasicsRoute: typeof AuthenticatedAdminCustomersCreateBasicsRoute
+  AuthenticatedAdminCustomersCreateBusinessRoute: typeof AuthenticatedAdminCustomersCreateBusinessRoute
+  AuthenticatedAdminCustomersCreateContactRoute: typeof AuthenticatedAdminCustomersCreateContactRoute
+  AuthenticatedAdminCustomersCreatePersonalRoute: typeof AuthenticatedAdminCustomersCreatePersonalRoute
+  AuthenticatedAdminCustomersCreatePreferencesRoute: typeof AuthenticatedAdminCustomersCreatePreferencesRoute
+  AuthenticatedAdminCustomersCreateReviewRoute: typeof AuthenticatedAdminCustomersCreateReviewRoute
+  AuthenticatedAdminCustomersCreateIndexRoute: typeof AuthenticatedAdminCustomersCreateIndexRoute
+}
+
+const AuthenticatedAdminCustomersCreateRouteRouteChildren: AuthenticatedAdminCustomersCreateRouteRouteChildren =
+  {
+    AuthenticatedAdminCustomersCreateAddressesRoute:
+      AuthenticatedAdminCustomersCreateAddressesRoute,
+    AuthenticatedAdminCustomersCreateBasicsRoute:
+      AuthenticatedAdminCustomersCreateBasicsRoute,
+    AuthenticatedAdminCustomersCreateBusinessRoute:
+      AuthenticatedAdminCustomersCreateBusinessRoute,
+    AuthenticatedAdminCustomersCreateContactRoute:
+      AuthenticatedAdminCustomersCreateContactRoute,
+    AuthenticatedAdminCustomersCreatePersonalRoute:
+      AuthenticatedAdminCustomersCreatePersonalRoute,
+    AuthenticatedAdminCustomersCreatePreferencesRoute:
+      AuthenticatedAdminCustomersCreatePreferencesRoute,
+    AuthenticatedAdminCustomersCreateReviewRoute:
+      AuthenticatedAdminCustomersCreateReviewRoute,
+    AuthenticatedAdminCustomersCreateIndexRoute:
+      AuthenticatedAdminCustomersCreateIndexRoute,
+  }
+
+const AuthenticatedAdminCustomersCreateRouteRouteWithChildren =
+  AuthenticatedAdminCustomersCreateRouteRoute._addFileChildren(
+    AuthenticatedAdminCustomersCreateRouteRouteChildren,
+  )
+
+interface AuthenticatedAdminCustomersRouteRouteChildren {
+  AuthenticatedAdminCustomersCustomerIdRouteRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
+  AuthenticatedAdminCustomersCreateRouteRoute: typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
+  AuthenticatedAdminCustomersIndexRoute: typeof AuthenticatedAdminCustomersIndexRoute
+}
+
+const AuthenticatedAdminCustomersRouteRouteChildren: AuthenticatedAdminCustomersRouteRouteChildren =
+  {
+    AuthenticatedAdminCustomersCustomerIdRouteRoute:
+      AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren,
+    AuthenticatedAdminCustomersCreateRouteRoute:
+      AuthenticatedAdminCustomersCreateRouteRouteWithChildren,
+    AuthenticatedAdminCustomersIndexRoute:
+      AuthenticatedAdminCustomersIndexRoute,
+  }
+
+const AuthenticatedAdminCustomersRouteRouteWithChildren =
+  AuthenticatedAdminCustomersRouteRoute._addFileChildren(
+    AuthenticatedAdminCustomersRouteRouteChildren,
+  )
 
 interface AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteChildren {
   AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRoute
@@ -1608,6 +2003,7 @@ const AuthenticatedAdminTagsRouteRouteWithChildren =
   )
 
 interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminCustomersRouteRoute: typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   AuthenticatedAdminRealEstateRouteRoute: typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   AuthenticatedAdminTagsRouteRoute: typeof AuthenticatedAdminTagsRouteRouteWithChildren
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -1615,6 +2011,8 @@ interface AuthenticatedAdminRouteRouteChildren {
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
+    AuthenticatedAdminCustomersRouteRoute:
+      AuthenticatedAdminCustomersRouteRouteWithChildren,
     AuthenticatedAdminRealEstateRouteRoute:
       AuthenticatedAdminRealEstateRouteRouteWithChildren,
     AuthenticatedAdminTagsRouteRoute:
