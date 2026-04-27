@@ -238,6 +238,15 @@ pre code {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
+    main {
+        zoom: 0.9;
+        /*font-size: 20%!important;*/
+    }
+    [data-sidebar="sidebar"]{
+        zoom: 0.8;
+        /*font-size: 20%!important;*/
+    }
+
 
     .gMapIframe {
         filter: var(--g-map-filter);
