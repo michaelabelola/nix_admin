@@ -9,13 +9,13 @@ import {FinanceQueryKeys} from "#/modules/finance/query-keys.ts"
 type SuccessHandler<T> = (data: T) => void
 
 export namespace AccountRequest {
-  export const useGetSupportedCurrencies = () => {
+  export const useGetSupportedCurrencies = (accountType: AccountModel.AccountType) => {
     const errHandler = useResponseFieldErrorHandler()
 
     return {
       ...useQuery({
-        queryKey: FinanceQueryKeys.supportedCurrencies,
-        queryFn: () => accountApi.getSupportedCurrencies({errHandler}),
+        queryKey: [...FinanceQueryKeys.supportedCurrencies, accountType],
+        queryFn: () => accountApi.getSupportedCurrencies(accountType, {errHandler}),
         initialData: [] as AccountModel.SupportedCurrency[],
       }),
       errHandler,
@@ -61,13 +61,29 @@ export namespace AccountRequest {
     }
   }
 
-  export function useCreateAccount(successHandler?: SuccessHandler<AccountModel.Account>) {
+  export function useCreateNixAccount(successHandler?: SuccessHandler<AccountModel.Detailed>) {
     const queryClient = useQueryClient()
     const errHandler = useResponseFieldErrorHandler()
 
     return {
       ...useMutation({
-        mutationFn: (body: AccountModel.Create) => accountApi.create(body, {errHandler}),
+        mutationFn: (body: AccountModel.CreateNix) => accountApi.createNix(body, {errHandler}),
+        onSuccess: async (data) => {
+          await queryClient.invalidateQueries({queryKey: FinanceQueryKeys.accountsRoot})
+          successHandler?.(data)
+        },
+      }),
+      errHandler,
+    }
+  }
+
+  export function useCreateAggregateAccount(successHandler?: SuccessHandler<AccountModel.Detailed>) {
+    const queryClient = useQueryClient()
+    const errHandler = useResponseFieldErrorHandler()
+
+    return {
+      ...useMutation({
+        mutationFn: (body: AccountModel.CreateAggregate) => accountApi.createAggregate(body, {errHandler}),
         onSuccess: async (data) => {
           await queryClient.invalidateQueries({queryKey: FinanceQueryKeys.accountsRoot})
           successHandler?.(data)

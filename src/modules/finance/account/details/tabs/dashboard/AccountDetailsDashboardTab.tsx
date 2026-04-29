@@ -16,7 +16,7 @@ import {
 
 export function AccountDetailsDashboardTab({account}: { account?: AccountModel.Detailed }) {
   const recentTransactionsQuery = TransactionRequest.useQueryTransactions({
-    accountID: account?.id,
+    entries: account?.id ? [{account: {id: account.id}}] : undefined,
     page: 0,
     size: 5,
     sort: [{field: "audit.createdDate", direction: "DESC"}],
@@ -35,15 +35,15 @@ export function AccountDetailsDashboardTab({account}: { account?: AccountModel.D
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             <SummaryMetric label="Type" value={account?.type || null}/>
             <SummaryMetric label="Status" value={account?.status || null}/>
-            <SummaryMetric label="Balances" value={String(account?.balances?.length ?? 0)}/>
+            <SummaryMetric label="Balances" value={account?.balance ? "1" : "0"}/>
             <SummaryMetric label="Currencies" value={String(currencies.length)}/>
           </div>
           <Separator/>
           <div className="grid gap-4 sm:grid-cols-2">
-            <SummaryMetric label="Primary Balance" value={formatMoney(primaryBalance?.availableBalance)}/>
-            <SummaryMetric label="Primary Currency" value={primaryBalance?.currencyCode || null}/>
-            <SummaryMetric label="IBAN" value={account?.iban || null}/>
-            <SummaryMetric label="Routing Number" value={account?.routingNumber || null}/>
+            <SummaryMetric label="Current Balance" value={formatMoney(primaryBalance?.current)}/>
+            <SummaryMetric label="Ledger Balance" value={formatMoney(primaryBalance?.ledger)}/>
+            <SummaryMetric label="Primary Currency" value={primaryBalance?.currency || null}/>
+            <SummaryMetric label="Account Number" value={account?.accountNumber || null}/>
           </div>
         </div>
       </section>

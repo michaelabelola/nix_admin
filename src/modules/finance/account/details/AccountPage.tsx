@@ -55,7 +55,7 @@ const AccountPage = ({
       }}
       header={{
         title: getAccountDisplayName(data),
-        description: data?.accountNumberMasked || data?.iban || "Finance account overview and activity",
+        description: data?.accountNumber || "Finance account overview and activity",
         actionView: (
           <ButtonGroup>
             <Button variant="outline" onClick={() => window.history.back()}>

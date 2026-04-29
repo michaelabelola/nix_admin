@@ -1,4 +1,4 @@
-import type {Money} from "#/models/Money.model.ts"
+import type {Money, Money_RangedQuery} from "#/models/Money.model.ts"
 import type {AuditSection, NixID} from "#/models/Models.ts"
 import type {ObjectVisibility, PagedRequest} from "#/models/PagedModel.ts"
 import type {AccountModel} from "#/modules/finance/account/model.ts"
@@ -6,7 +6,6 @@ import type {FinanceModel} from "#/modules/finance/model.ts"
 
 export namespace TransactionModel {
   export type TransactionID = string
-  export type BeneficiaryID = string
 
   export enum TransactionType {
     DEPOSIT = "DEPOSIT",
@@ -29,9 +28,56 @@ export namespace TransactionModel {
     CANCELLED = "CANCELLED",
   }
 
-  export enum TransactionDirection {
+  export enum EntryType {
     DEBIT = "DEBIT",
     CREDIT = "CREDIT",
+  }
+
+  export type LedgerEntry = {
+    id: number
+    type: EntryType
+    account?: AccountModel.Account | null
+    amount?: Money | null
+  }
+
+  export type LedgerEntryDetailed = LedgerEntry & {
+    audit?: AuditSection | null
+  }
+
+  export type LedgerEntryQuery = {
+    id?: number
+    type?: EntryType
+    account?: AccountModel.Query
+    amount?: Money_RangedQuery
+    audit?: FinanceModel.AuditQuery
+  }
+
+  export type Transaction = {
+    id: TransactionID
+    entries?: LedgerEntry[] | null
+    status?: TransactionStatus | null
+    type?: TransactionType | null
+    amount?: Money | null
+    reference?: string | null
+    externalReference?: string | null
+    narration?: string | null
+    occurredAt?: string | null
+    settledAt?: string | null
+  }
+
+  export type Detailed = {
+    id: TransactionID
+    entries?: LedgerEntryDetailed[] | null
+    status?: TransactionStatus | null
+    type?: TransactionType | null
+    amount?: Money | null
+    reference?: string | null
+    externalReference?: string | null
+    narration?: string | null
+    occurredAt?: string | null
+    settledAt?: string | null
+    entityID: NixID
+    audit?: AuditSection | null
   }
 
   export type Counterparty = {
@@ -42,35 +88,10 @@ export namespace TransactionModel {
     reference?: string | null
   }
 
-  export type Transaction = {
-    id: TransactionID
-    accountID?: AccountModel.AccountID | null
-    beneficiaryID?: BeneficiaryID | null
-    type?: TransactionType | null
-    status?: TransactionStatus | null
-    direction?: TransactionDirection | null
-    amount?: Money | null
-    feeAmount?: Money | null
-    netAmount?: Money | null
-    runningBalance?: Money | null
-    reference?: string | null
-    externalReference?: string | null
-    narration?: string | null
-    counterparty?: Counterparty | null
-    occurredAt?: string | null
-    settledAt?: string | null
-  }
-
-  export type Detailed = Transaction & {
-    entityID: NixID
-    audit?: AuditSection | null
-  }
-
   export type Create = {
-    beneficiaryID?: BeneficiaryID | null
     type: TransactionType
     status?: TransactionStatus | null
-    direction: TransactionDirection
+    direction: EntryType
     amount: Money
     feeAmount?: Money | null
     reference?: string | null
@@ -83,13 +104,13 @@ export namespace TransactionModel {
 
   export type Query = PagedRequest<{
     id?: TransactionID
-    accountID?: AccountModel.AccountID
-    beneficiaryID?: BeneficiaryID
-    type?: TransactionType
+    entries?: LedgerEntryQuery[]
     status?: TransactionStatus
-    direction?: TransactionDirection
+    type?: TransactionType
+    amount?: Money_RangedQuery
     reference?: string
     externalReference?: string
+    narration?: string
     occurredAt?: FinanceModel.RangedQuery<string>
     settledAt?: FinanceModel.RangedQuery<string>
     entityID?: NixID

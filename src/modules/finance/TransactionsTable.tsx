@@ -17,6 +17,8 @@ import {
   formatDateTime,
   formatMoney,
   getAccountDisplayName,
+  getTransactionAccount,
+  getTransactionDirection,
   transactionDirectionBadgeVariant,
   transactionStatusBadgeVariant,
 } from "#/modules/finance/finance.utils.tsx"
@@ -27,7 +29,7 @@ export type TransactionsTableRequest = DataTableRequestBase & {
   accountID?: AccountModel.AccountID
   status?: TransactionModel.TransactionStatus
   type?: TransactionModel.TransactionType
-  direction?: TransactionModel.TransactionDirection
+  direction?: TransactionModel.EntryType
 }
 
 const TRANSACTION_FILTER_FIELDS: Array<DataTableFilterField<TransactionsTableRequest>> = [
@@ -59,7 +61,7 @@ const TRANSACTION_FILTER_FIELDS: Array<DataTableFilterField<TransactionsTableReq
     key: "direction",
     label: "Direction",
     type: "select",
-    options: Object.values(TransactionModel.TransactionDirection).map((direction) => ({
+    options: Object.values(TransactionModel.EntryType).map((direction) => ({
       label: direction,
       value: direction,
     })),
@@ -72,10 +74,14 @@ function useTransactionTableQuery(request: TransactionsTableRequest, fixedAccoun
     page: request.page,
     size: request.size,
     sort: request.sort,
-    accountID: fixedAccountId ?? request.accountID,
     status: request.status,
     type: request.type,
-    direction: request.direction,
+    entries: [
+      {
+        account: fixedAccountId || request.accountID ? {id: fixedAccountId ?? request.accountID} : undefined,
+        type: request.direction,
+      },
+    ].filter((entry) => entry.account || entry.type),
   }
 
   return TransactionRequest.useQueryTransactions(query)
@@ -119,24 +125,21 @@ function createTransactionColumns(showAccount: boolean): Array<ColumnDef<Transac
       },
     },
     {
-      accessorKey: "direction",
+      id: "direction",
       header: "Direction",
-      cell: ({row}) => row.original.direction ? (
-        <Badge variant={transactionDirectionBadgeVariant[row.original.direction]}>
-          {row.original.direction}
+      cell: ({row}) => getTransactionDirection(row.original) ? (
+        <Badge variant={transactionDirectionBadgeVariant[getTransactionDirection(row.original)!]}>
+          {getTransactionDirection(row.original)}
         </Badge>
       ) : (
         <Badge variant="outline">UNSET</Badge>
       ),
-      meta: {
-        sortField: "direction",
-      },
     },
     {
       id: "amount",
       header: "Amount",
       cell: ({row}) => (
-        <span className={row.original.direction === TransactionModel.TransactionDirection.DEBIT ? "text-warning" : "text-success"}>
+        <span className={getTransactionDirection(row.original) === TransactionModel.EntryType.DEBIT ? "text-warning" : "text-success"}>
           {formatMoney(row.original.amount) || "Not set"}
         </span>
       ),
@@ -153,23 +156,20 @@ function createTransactionColumns(showAccount: boolean): Array<ColumnDef<Transac
 
   if (showAccount) {
     baseColumns.splice(1, 0, {
-      accessorKey: "accountID",
+      id: "account",
       header: "Account",
-      cell: ({row}) => row.original.accountID ? (
+      cell: ({row}) => getTransactionAccount(row.original)?.id ? (
         <Button variant="link" size="sm" className="h-auto px-0" asChild>
           <Link
             to="/admin/finance/accounts/$accountId/dashboard"
-            params={{accountId: row.original.accountID}}
+            params={{accountId: getTransactionAccount(row.original)!.id}}
           >
-            {getAccountDisplayName({id: row.original.accountID})}
+            {getAccountDisplayName(getTransactionAccount(row.original) ?? undefined)}
           </Link>
         </Button>
       ) : (
         "Not set"
       ),
-      meta: {
-        sortField: "accountID",
-      },
     })
   }
 
@@ -177,12 +177,12 @@ function createTransactionColumns(showAccount: boolean): Array<ColumnDef<Transac
     id: "actions",
     header: "Actions",
     cell: ({row}) =>
-      row.original.accountID ? (
+      getTransactionAccount(row.original)?.id ? (
         <ButtonGroup>
           <Button variant="outline" size="sm" asChild>
             <Link
               to="/admin/finance/accounts/$accountId/dashboard"
-              params={{accountId: row.original.accountID}}
+              params={{accountId: getTransactionAccount(row.original)!.id}}
             >
               Account
               <ArrowRight className="size-4"/>

@@ -80,7 +80,7 @@ function createAccountColumns(): Array<ColumnDef<AccountModel.Account>> {
         <div className="space-y-1">
           <div className="font-medium">{getAccountDisplayName(row.original)}</div>
           <div className="text-sm text-muted-foreground">
-            {row.original.accountNumberMasked || row.original.iban || row.original.id}
+            {row.original.accountNumber || row.original.id}
           </div>
         </div>
       ),

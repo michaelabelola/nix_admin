@@ -13,13 +13,14 @@ import {
 } from "#/components/ui/card.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
 import {AccountRequest} from "#/modules/finance/account/request.hook.ts"
-import {TransactionModel} from "#/modules/finance/transaction/model.ts"
+import {FinanceCurrencyRequest} from "#/modules/finance/currency/request.hook.ts"
 import {TransactionRequest} from "#/modules/finance/transaction/request.hook.ts"
 import {
   accountStatusBadgeVariant,
   formatDateTime,
   formatMoney,
   getAccountDisplayName,
+  getTransactionAccount,
   transactionStatusBadgeVariant,
 } from "#/modules/finance/finance.utils.tsx"
 
@@ -63,7 +64,7 @@ const FinanceDashboard = () => {
     size: 1,
     primaryAccount: true,
   })
-  const supportedCurrenciesQuery = AccountRequest.useGetSupportedCurrencies()
+  const supportedCurrenciesQuery = FinanceCurrencyRequest.useGetAllCurrencies()
   const transactionsQuery = TransactionRequest.useQueryTransactions({
     page: 0,
     size: 6,
@@ -127,7 +128,7 @@ const FinanceDashboard = () => {
                   <div className="space-y-1">
                     <div className="font-medium">{getAccountDisplayName(account)}</div>
                     <div className="text-sm text-muted-foreground">
-                      {account.accountNumberMasked || account.iban || account.providerAccountId || account.id}
+                      {account.accountNumber || account.providerAccountId || account.id}
                     </div>
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
@@ -161,7 +162,7 @@ const FinanceDashboard = () => {
                     <div className="space-y-1">
                       <div className="font-medium">{transaction.reference || transaction.externalReference || transaction.id}</div>
                       <div className="text-sm text-muted-foreground">
-                        {transaction.accountID ? `Account ${transaction.accountID}` : "Unassigned account"}
+                        {getAccountDisplayName(getTransactionAccount(transaction))}
                       </div>
                       <div className="text-sm text-muted-foreground">
                         {formatDateTime(transaction.occurredAt) || "No occurrence date"}

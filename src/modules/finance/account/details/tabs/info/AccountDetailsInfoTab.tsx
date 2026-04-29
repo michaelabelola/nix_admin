@@ -1,10 +1,12 @@
 import {Spinner} from "#/components/ui/spinner.tsx"
+import {AccountRequest} from "#/modules/finance/account/request.hook.ts"
 import {AccountModel} from "#/modules/finance/account/model.ts"
 import {KeyValue, SectionCard} from "#/modules/finance/FinancePrimitives.tsx"
 import organizationRequest from "#/modules/organization/organization.request.ts"
 import {formatDateTime, formatMoney} from "#/modules/finance/finance.utils.tsx"
 
 export function AccountDetailsInfoTab({account}: { account?: AccountModel.Detailed }) {
+  const {data: accountRecord} = AccountRequest.useGetAccount(account?.id)
   const {data: org, isLoading: isLoadingOrg} = organizationRequest.useGetOrganizationByID(account?.entityID)
 
   return (
@@ -19,11 +21,9 @@ export function AccountDetailsInfoTab({account}: { account?: AccountModel.Detail
           <KeyValue label="Type" value={account?.type}/>
           <KeyValue label="Status" value={account?.status}/>
           <KeyValue label="Primary" value={account?.primaryAccount ? "Yes" : "No"}/>
-          <KeyValue label="Account Number" value={account?.accountNumberMasked}/>
-          <KeyValue label="IBAN" value={account?.iban}/>
-          <KeyValue label="Routing Number" value={account?.routingNumber}/>
-          <KeyValue label="Provider Account ID" value={account?.providerAccountId}/>
-          <KeyValue label="Provider Customer ID" value={account?.providerCustomerId}/>
+          <KeyValue label="Account Number" value={account?.accountNumber}/>
+          <KeyValue label="Provider Account ID" value={accountRecord?.providerAccountId}/>
+          <KeyValue label="Provider Customer ID" value={accountRecord?.providerCustomerId}/>
           <KeyValue
             label="Organization"
             value={isLoadingOrg ? <Spinner className="size-4"/> : org?.shortName || org?.name || account?.entityID}
@@ -35,29 +35,13 @@ export function AccountDetailsInfoTab({account}: { account?: AccountModel.Detail
       </SectionCard>
 
       <SectionCard
-        title="Balances"
-        description="Per-currency balances currently attached to this account."
+        title="Balance"
+        description="Current balance snapshot attached to this account."
       >
-        <div className="grid gap-3 lg:grid-cols-2">
-          {(account?.balances ?? []).map((balance) => (
-            <div key={balance.id} className="rounded-lg border p-4">
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <div className="font-medium">{balance.currencyCode || "Currency unset"}</div>
-                  <div className="text-sm text-muted-foreground">Balance ID: {balance.id}</div>
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {balance.primaryBalance ? "Primary balance" : "Secondary balance"}
-                </div>
-              </div>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <KeyValue label="Available" value={formatMoney(balance.availableBalance)}/>
-                <KeyValue label="Ledger" value={formatMoney(balance.ledgerBalance)}/>
-                <KeyValue label="Reserved" value={formatMoney(balance.reservedBalance)}/>
-                <KeyValue label="Last Synced" value={formatDateTime(balance.lastSyncedAt)}/>
-              </div>
-            </div>
-          ))}
+        <div className="grid gap-3 md:grid-cols-2">
+          <KeyValue label="Currency" value={account?.balance?.currency}/>
+          <KeyValue label="Current" value={formatMoney(account?.balance?.current)}/>
+          <KeyValue label="Ledger" value={formatMoney(account?.balance?.ledger)}/>
         </div>
       </SectionCard>
     </div>

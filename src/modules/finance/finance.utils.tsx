@@ -44,13 +44,23 @@ export function formatIdentifierList(values?: Array<string | null | undefined> |
 }
 
 export function getPrimaryBalance(account?: AccountModel.Detailed) {
-  return account?.balances?.find((balance) => balance.primaryBalance) ?? account?.balances?.[0]
+  return account?.balance
 }
 
 export function getAccountCurrencies(account?: AccountModel.Detailed) {
-  return Array.from(
-    new Set(account?.balances?.map((balance) => balance.currencyCode).filter(Boolean) ?? []),
-  )
+  return account?.balance?.currency ? [account.balance.currency] : []
+}
+
+export function getTransactionPrimaryEntry(transaction?: TransactionModel.Transaction | TransactionModel.Detailed | null) {
+  return transaction?.entries?.[0] ?? null
+}
+
+export function getTransactionDirection(transaction?: TransactionModel.Transaction | TransactionModel.Detailed | null) {
+  return getTransactionPrimaryEntry(transaction)?.type ?? null
+}
+
+export function getTransactionAccount(transaction?: TransactionModel.Transaction | TransactionModel.Detailed | null) {
+  return getTransactionPrimaryEntry(transaction)?.account ?? null
 }
 
 export const accountStatusBadgeVariant: Record<
@@ -77,7 +87,7 @@ export const transactionStatusBadgeVariant: Record<
 }
 
 export const transactionDirectionBadgeVariant: Record<
-  TransactionModel.TransactionDirection,
+  TransactionModel.EntryType,
   "default" | "secondary" | "outline" | "success" | "warning" | "destructive"
 > = {
   DEBIT: "warning",

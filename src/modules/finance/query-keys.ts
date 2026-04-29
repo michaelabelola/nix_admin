@@ -4,6 +4,11 @@ import type {TransactionModel} from "#/modules/finance/transaction/model.ts"
 export namespace FinanceQueryKeys {
   export const root = ["finance"] as const
 
+  export const currenciesRoot = [...root, "currencies"] as const
+  export const currenciesAll = [...currenciesRoot, "all"] as const
+  export const currencies = (query?: string) => [...currenciesRoot, "query", query] as const
+  export const currenciesMap = [...currenciesRoot, "map"] as const
+
   export const accountsRoot = [...root, "accounts"] as const
   export const accounts = (query?: AccountModel.Query) => [...accountsRoot, "list", query] as const
   export const supportedCurrencies = [...accountsRoot, "utils", "supported-currencies"] as const
