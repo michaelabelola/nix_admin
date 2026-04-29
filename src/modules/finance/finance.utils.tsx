@@ -3,7 +3,7 @@ import type {TransactionModel} from "#/modules/finance/transaction/model.ts"
 import type {Money} from "#/models/Money.model.ts"
 
 export function getAccountDisplayName(
-  account?: Pick<AccountModel.Account, "name" | "id"> | Pick<AccountModel.Detailed, "name" | "id">,
+  account?: Pick<AccountModel.Account, "name" | "id"> | Pick<AccountModel.Detailed, "name" | "id"> | null,
 ) {
   return account?.name?.trim() || account?.id || "Untitled account"
 }

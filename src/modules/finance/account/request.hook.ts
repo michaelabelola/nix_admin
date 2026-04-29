@@ -1,5 +1,6 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
 
+import type {Paged} from "#/models/PagedModel.ts"
 import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx"
 import {Page_EMPTY} from "#/models/PagedModel.ts"
 import accountApi from "#/modules/finance/account/api.ts"
@@ -29,7 +30,7 @@ export namespace AccountRequest {
       ...useQuery({
         queryKey: FinanceQueryKeys.accounts(query),
         queryFn: () => accountApi.query(query, {errHandler}),
-        initialData: Page_EMPTY,
+        initialData: Page_EMPTY as Paged<AccountModel.Account>,
       }),
       errHandler,
     }

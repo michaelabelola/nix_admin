@@ -68,6 +68,12 @@ const TRANSACTION_FILTER_FIELDS: Array<DataTableFilterField<TransactionsTableReq
   },
 ]
 
+const TRANSACTIONS_INITIAL_REQUEST = {
+  page: 0,
+  size: 10,
+  sort: [{field: "audit.createdDate", direction: "DESC"}],
+} as Partial<TransactionsTableRequest>
+
 function useTransactionTableQuery(request: TransactionsTableRequest, fixedAccountId?: AccountModel.AccountID) {
   const query: TransactionModel.Query = {
     query: request.query,
@@ -217,11 +223,7 @@ export function TransactionsTable({
       columns={columns}
       from={from}
       useQuery={(request) => useTransactionTableQuery(request, fixedAccountId)}
-      initialRequest={{
-        page: 0,
-        size: 10,
-        sort: [{field: "audit.createdDate", direction: "DESC"}],
-      }}
+      initialRequest={TRANSACTIONS_INITIAL_REQUEST}
       filterFields={filterFields}
       searchPlaceholder={searchPlaceholder}
       emptyMessage="No transactions found."

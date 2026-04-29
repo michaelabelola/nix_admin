@@ -1,5 +1,5 @@
 import {Link} from "@tanstack/react-router"
-import {ArrowRightLeft, Banknote, Landmark, WalletCards} from "lucide-react"
+import {ArrowRightLeft, Banknote, CirclePlus, Landmark, WalletCards} from "lucide-react"
 
 import Page from "#/components/Page.tsx"
 import {Button} from "#/components/ui/button.tsx"
@@ -81,6 +81,12 @@ const FinanceDashboard = () => {
             <Button variant="outline" asChild>
               <Link to="/admin/finance/accounts">Accounts</Link>
             </Button>
+            <Button variant="outline" asChild>
+              <Link to="/admin/finance/accounts/create">
+                Create Account
+                <CirclePlus className="size-4"/>
+              </Link>
+            </Button>
             <Button asChild>
               <Link to="/admin/finance/transactions">Transactions</Link>
             </Button>
@@ -133,7 +139,7 @@ const FinanceDashboard = () => {
                   </div>
                   <div className="flex flex-wrap items-center gap-2">
                     {account.status ? (
-                      <Badge variant={accountStatusBadgeVariant[account.status]}>
+                      <Badge variant={(accountStatusBadgeVariant as any)[account.status]}>
                         {account.status}
                       </Badge>
                     ) : null}

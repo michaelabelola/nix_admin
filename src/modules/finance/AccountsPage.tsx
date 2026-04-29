@@ -1,7 +1,7 @@
 import {useMemo} from "react"
 import type {ColumnDef} from "@tanstack/react-table"
 import {Link} from "@tanstack/react-router"
-import {ArrowRight} from "lucide-react"
+import {ArrowRight, CirclePlus} from "lucide-react"
 
 import Page from "#/components/Page.tsx"
 import DataTable from "#/components/data-table/data-table.tsx"
@@ -56,6 +56,12 @@ const ACCOUNT_FILTER_FIELDS: Array<DataTableFilterField<AccountsTableRequest>> =
     serializeValue: (value) => value == null ? "" : String(value),
   },
 ]
+
+const ACCOUNTS_INITIAL_REQUEST = {
+  page: 0,
+  size: 10,
+  sort: [{field: "audit.createdDate", direction: "DESC"}],
+} as Partial<AccountsTableRequest>
 
 function useAccountsTableQuery(request: AccountsTableRequest) {
   const query: AccountModel.Query = {
@@ -155,17 +161,23 @@ export function AccountsPage() {
       header={{
         title: "Accounts",
         description: "Monitor finance accounts, their operational status, and linked providers.",
+        actionView: (
+          <ButtonGroup>
+            <Button asChild>
+              <Link to="/admin/finance/accounts/create">
+                Create account
+                <CirclePlus className="size-4"/>
+              </Link>
+            </Button>
+          </ButtonGroup>
+        ),
       }}
     >
       <DataTable<AccountModel.Account, unknown, AccountsTableRequest>
         columns={columns}
         from="/admin/finance/accounts"
         useQuery={useAccountsTableQuery}
-        initialRequest={{
-          page: 0,
-          size: 10,
-          sort: [{field: "audit.createdDate", direction: "DESC"}],
-        }}
+        initialRequest={ACCOUNTS_INITIAL_REQUEST}
         filterFields={ACCOUNT_FILTER_FIELDS}
         searchPlaceholder="Search accounts..."
         emptyMessage="No accounts found."
