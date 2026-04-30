@@ -195,7 +195,7 @@ function FormShell({
                             // "border-t-destructive! border-b-destructive! border-l-destructive! text-destructive! border-r-transparent!",
                             "text-destructive hover:bg-destructive! hover:text-destructive-foreground! hover:border-destructive!"
                         )}>
-                            <Link to="/admin/finance/accounts" className={""}>Cancel</Link>
+                            <Link to="/admin/finance/accounts/create" className={""}>Cancel</Link>
                         </Button>
                         <Button type="submit" variant={"outline"} className={"border-l-transparent!"}
                                 disabled={isSubmitting}>

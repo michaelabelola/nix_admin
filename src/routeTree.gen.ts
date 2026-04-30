@@ -55,7 +55,6 @@ import { Route as AuthenticatedSelfOrganizationsRegisterContactRouteImport } fro
 import { Route as AuthenticatedSelfOrganizationsRegisterBioRouteImport } from './routes/_authenticated/self/organizations/register/bio'
 import { Route as AuthenticatedSelfOrganizationsRegisterAvatarRouteImport } from './routes/_authenticated/self/organizations/register/avatar'
 import { Route as AuthenticatedSelfOrganizationsRegisterAddressRouteImport } from './routes/_authenticated/self/organizations/register/address'
-import { Route as AuthenticatedAdminFinanceAccountsCreateRouteImport } from './routes/_authenticated/admin/finance/accounts/create'
 import { Route as AuthenticatedAdminCustomersCreateReviewRouteImport } from './routes/_authenticated/admin/customers/create/review'
 import { Route as AuthenticatedAdminCustomersCreatePreferencesRouteImport } from './routes/_authenticated/admin/customers/create/preferences'
 import { Route as AuthenticatedAdminCustomersCreatePersonalRouteImport } from './routes/_authenticated/admin/customers/create/personal'
@@ -67,11 +66,13 @@ import { Route as AuthenticatedAdminCustomersCustomerIdTagsRouteImport } from '.
 import { Route as AuthenticatedAdminCustomersCustomerIdSummaryRouteImport } from './routes/_authenticated/admin/customers/$customerId/summary'
 import { Route as AuthenticatedAdminCustomersCustomerIdDetailsRouteImport } from './routes/_authenticated/admin/customers/$customerId/details'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/route'
+import { Route as AuthenticatedAdminFinanceAccountsCreateRouteRouteImport } from './routes/_authenticated/admin/finance/accounts/create/route'
 import { Route as AuthenticatedAdminFinanceAccountsAccountIdRouteRouteImport } from './routes/_authenticated/admin/finance/accounts/$accountId/route'
 import { Route as AuthenticatedAdminRealEstatePropertiesOnboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/onboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesLocationsIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/locations/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesListingProfilesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/listing-profiles/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/index'
+import { Route as AuthenticatedAdminFinanceAccountsCreateIndexRouteImport } from './routes/_authenticated/admin/finance/accounts/create/index'
 import { Route as AuthenticatedAdminFinanceAccountsAccountIdIndexRouteImport } from './routes/_authenticated/admin/finance/accounts/$accountId/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesListingProfilesListingProfileIdRouteImport } from './routes/_authenticated/admin/real-estate/properties/listing-profiles/$listingProfileId'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/tags'
@@ -85,6 +86,8 @@ import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryRouteIm
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/features'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/details'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/about'
+import { Route as AuthenticatedAdminFinanceAccountsCreateNixRouteImport } from './routes/_authenticated/admin/finance/accounts/create/nix'
+import { Route as AuthenticatedAdminFinanceAccountsCreateAggregateRouteImport } from './routes/_authenticated/admin/finance/accounts/create/aggregate'
 import { Route as AuthenticatedAdminFinanceAccountsAccountIdTransactionsRouteImport } from './routes/_authenticated/admin/finance/accounts/$accountId/transactions'
 import { Route as AuthenticatedAdminFinanceAccountsAccountIdInfoRouteImport } from './routes/_authenticated/admin/finance/accounts/$accountId/info'
 import { Route as AuthenticatedAdminFinanceAccountsAccountIdDashboardRouteImport } from './routes/_authenticated/admin/finance/accounts/$accountId/dashboard'
@@ -365,12 +368,6 @@ const AuthenticatedSelfOrganizationsRegisterAddressRoute =
     path: '/address',
     getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
   } as any)
-const AuthenticatedAdminFinanceAccountsCreateRoute =
-  AuthenticatedAdminFinanceAccountsCreateRouteImport.update({
-    id: '/accounts/create',
-    path: '/accounts/create',
-    getParentRoute: () => AuthenticatedAdminFinanceRouteRoute,
-  } as any)
 const AuthenticatedAdminCustomersCreateReviewRoute =
   AuthenticatedAdminCustomersCreateReviewRouteImport.update({
     id: '/review',
@@ -437,6 +434,12 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute =
     path: '/properties/$propertyId',
     getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
   } as any)
+const AuthenticatedAdminFinanceAccountsCreateRouteRoute =
+  AuthenticatedAdminFinanceAccountsCreateRouteRouteImport.update({
+    id: '/accounts/create',
+    path: '/accounts/create',
+    getParentRoute: () => AuthenticatedAdminFinanceRouteRoute,
+  } as any)
 const AuthenticatedAdminFinanceAccountsAccountIdRouteRoute =
   AuthenticatedAdminFinanceAccountsAccountIdRouteRouteImport.update({
     id: '/accounts/$accountId',
@@ -467,6 +470,12 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute =
     path: '/',
     getParentRoute: () =>
       AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute,
+  } as any)
+const AuthenticatedAdminFinanceAccountsCreateIndexRoute =
+  AuthenticatedAdminFinanceAccountsCreateIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminFinanceAccountsCreateRouteRoute,
   } as any)
 const AuthenticatedAdminFinanceAccountsAccountIdIndexRoute =
   AuthenticatedAdminFinanceAccountsAccountIdIndexRouteImport.update({
@@ -560,6 +569,18 @@ const AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute =
     path: '/about',
     getParentRoute: () =>
       AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute,
+  } as any)
+const AuthenticatedAdminFinanceAccountsCreateNixRoute =
+  AuthenticatedAdminFinanceAccountsCreateNixRouteImport.update({
+    id: '/nix',
+    path: '/nix',
+    getParentRoute: () => AuthenticatedAdminFinanceAccountsCreateRouteRoute,
+  } as any)
+const AuthenticatedAdminFinanceAccountsCreateAggregateRoute =
+  AuthenticatedAdminFinanceAccountsCreateAggregateRouteImport.update({
+    id: '/aggregate',
+    path: '/aggregate',
+    getParentRoute: () => AuthenticatedAdminFinanceAccountsCreateRouteRoute,
   } as any)
 const AuthenticatedAdminFinanceAccountsAccountIdTransactionsRoute =
   AuthenticatedAdminFinanceAccountsAccountIdTransactionsRouteImport.update({
@@ -729,6 +750,7 @@ export interface FileRoutesByFullPath {
   '/admin/tags/': typeof AuthenticatedAdminTagsIndexRoute
   '/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
   '/admin/finance/accounts/$accountId': typeof AuthenticatedAdminFinanceAccountsAccountIdRouteRouteWithChildren
+  '/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateRouteRouteWithChildren
   '/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren
   '/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
   '/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
@@ -740,7 +762,6 @@ export interface FileRoutesByFullPath {
   '/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
   '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
-  '/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -765,6 +786,8 @@ export interface FileRoutesByFullPath {
   '/admin/finance/accounts/$accountId/dashboard': typeof AuthenticatedAdminFinanceAccountsAccountIdDashboardRoute
   '/admin/finance/accounts/$accountId/info': typeof AuthenticatedAdminFinanceAccountsAccountIdInfoRoute
   '/admin/finance/accounts/$accountId/transactions': typeof AuthenticatedAdminFinanceAccountsAccountIdTransactionsRoute
+  '/admin/finance/accounts/create/aggregate': typeof AuthenticatedAdminFinanceAccountsCreateAggregateRoute
+  '/admin/finance/accounts/create/nix': typeof AuthenticatedAdminFinanceAccountsCreateNixRoute
   '/admin/real-estate/properties/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute
   '/admin/real-estate/properties/$propertyId/details': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute
   '/admin/real-estate/properties/$propertyId/features': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren
@@ -778,6 +801,7 @@ export interface FileRoutesByFullPath {
   '/admin/real-estate/properties/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute
   '/admin/real-estate/properties/listing-profiles/$listingProfileId': typeof AuthenticatedAdminRealEstatePropertiesListingProfilesListingProfileIdRoute
   '/admin/finance/accounts/$accountId/': typeof AuthenticatedAdminFinanceAccountsAccountIdIndexRoute
+  '/admin/finance/accounts/create/': typeof AuthenticatedAdminFinanceAccountsCreateIndexRoute
   '/admin/real-estate/properties/$propertyId/': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute
   '/admin/real-estate/properties/listing-profiles/': typeof AuthenticatedAdminRealEstatePropertiesListingProfilesIndexRoute
   '/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
@@ -823,7 +847,6 @@ export interface FileRoutesByTo {
   '/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
   '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
-  '/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -847,6 +870,8 @@ export interface FileRoutesByTo {
   '/admin/finance/accounts/$accountId/dashboard': typeof AuthenticatedAdminFinanceAccountsAccountIdDashboardRoute
   '/admin/finance/accounts/$accountId/info': typeof AuthenticatedAdminFinanceAccountsAccountIdInfoRoute
   '/admin/finance/accounts/$accountId/transactions': typeof AuthenticatedAdminFinanceAccountsAccountIdTransactionsRoute
+  '/admin/finance/accounts/create/aggregate': typeof AuthenticatedAdminFinanceAccountsCreateAggregateRoute
+  '/admin/finance/accounts/create/nix': typeof AuthenticatedAdminFinanceAccountsCreateNixRoute
   '/admin/real-estate/properties/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute
   '/admin/real-estate/properties/$propertyId/details': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute
   '/admin/real-estate/properties/$propertyId/features': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren
@@ -860,6 +885,7 @@ export interface FileRoutesByTo {
   '/admin/real-estate/properties/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute
   '/admin/real-estate/properties/listing-profiles/$listingProfileId': typeof AuthenticatedAdminRealEstatePropertiesListingProfilesListingProfileIdRoute
   '/admin/finance/accounts/$accountId': typeof AuthenticatedAdminFinanceAccountsAccountIdIndexRoute
+  '/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateIndexRoute
   '/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute
   '/admin/real-estate/properties/listing-profiles': typeof AuthenticatedAdminRealEstatePropertiesListingProfilesIndexRoute
   '/admin/real-estate/properties/locations': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
@@ -907,6 +933,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/tags/': typeof AuthenticatedAdminTagsIndexRoute
   '/_authenticated/self/organizations/': typeof AuthenticatedSelfOrganizationsIndexRoute
   '/_authenticated/admin/finance/accounts/$accountId': typeof AuthenticatedAdminFinanceAccountsAccountIdRouteRouteWithChildren
+  '/_authenticated/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateRouteRouteWithChildren
   '/_authenticated/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren
   '/_authenticated/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
   '/_authenticated/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
@@ -918,7 +945,6 @@ export interface FileRoutesById {
   '/_authenticated/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
   '/_authenticated/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/_authenticated/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
-  '/_authenticated/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateRoute
   '/_authenticated/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/_authenticated/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/_authenticated/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -943,6 +969,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/finance/accounts/$accountId/dashboard': typeof AuthenticatedAdminFinanceAccountsAccountIdDashboardRoute
   '/_authenticated/admin/finance/accounts/$accountId/info': typeof AuthenticatedAdminFinanceAccountsAccountIdInfoRoute
   '/_authenticated/admin/finance/accounts/$accountId/transactions': typeof AuthenticatedAdminFinanceAccountsAccountIdTransactionsRoute
+  '/_authenticated/admin/finance/accounts/create/aggregate': typeof AuthenticatedAdminFinanceAccountsCreateAggregateRoute
+  '/_authenticated/admin/finance/accounts/create/nix': typeof AuthenticatedAdminFinanceAccountsCreateNixRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/about': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/details': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdDetailsRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/features': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesRouteWithChildren
@@ -956,6 +984,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/real-estate/properties/$propertyId/tags': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdTagsRoute
   '/_authenticated/admin/real-estate/properties/listing-profiles/$listingProfileId': typeof AuthenticatedAdminRealEstatePropertiesListingProfilesListingProfileIdRoute
   '/_authenticated/admin/finance/accounts/$accountId/': typeof AuthenticatedAdminFinanceAccountsAccountIdIndexRoute
+  '/_authenticated/admin/finance/accounts/create/': typeof AuthenticatedAdminFinanceAccountsCreateIndexRoute
   '/_authenticated/admin/real-estate/properties/$propertyId/': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRoute
   '/_authenticated/admin/real-estate/properties/listing-profiles/': typeof AuthenticatedAdminRealEstatePropertiesListingProfilesIndexRoute
   '/_authenticated/admin/real-estate/properties/locations/': typeof AuthenticatedAdminRealEstatePropertiesLocationsIndexRoute
@@ -1002,6 +1031,7 @@ export interface FileRouteTypes {
     | '/admin/tags/'
     | '/self/organizations/'
     | '/admin/finance/accounts/$accountId'
+    | '/admin/finance/accounts/create'
     | '/admin/real-estate/properties/$propertyId'
     | '/admin/customers/$customerId/details'
     | '/admin/customers/$customerId/summary'
@@ -1013,7 +1043,6 @@ export interface FileRouteTypes {
     | '/admin/customers/create/personal'
     | '/admin/customers/create/preferences'
     | '/admin/customers/create/review'
-    | '/admin/finance/accounts/create'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -1038,6 +1067,8 @@ export interface FileRouteTypes {
     | '/admin/finance/accounts/$accountId/dashboard'
     | '/admin/finance/accounts/$accountId/info'
     | '/admin/finance/accounts/$accountId/transactions'
+    | '/admin/finance/accounts/create/aggregate'
+    | '/admin/finance/accounts/create/nix'
     | '/admin/real-estate/properties/$propertyId/about'
     | '/admin/real-estate/properties/$propertyId/details'
     | '/admin/real-estate/properties/$propertyId/features'
@@ -1051,6 +1082,7 @@ export interface FileRouteTypes {
     | '/admin/real-estate/properties/$propertyId/tags'
     | '/admin/real-estate/properties/listing-profiles/$listingProfileId'
     | '/admin/finance/accounts/$accountId/'
+    | '/admin/finance/accounts/create/'
     | '/admin/real-estate/properties/$propertyId/'
     | '/admin/real-estate/properties/listing-profiles/'
     | '/admin/real-estate/properties/locations/'
@@ -1096,7 +1128,6 @@ export interface FileRouteTypes {
     | '/admin/customers/create/personal'
     | '/admin/customers/create/preferences'
     | '/admin/customers/create/review'
-    | '/admin/finance/accounts/create'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -1120,6 +1151,8 @@ export interface FileRouteTypes {
     | '/admin/finance/accounts/$accountId/dashboard'
     | '/admin/finance/accounts/$accountId/info'
     | '/admin/finance/accounts/$accountId/transactions'
+    | '/admin/finance/accounts/create/aggregate'
+    | '/admin/finance/accounts/create/nix'
     | '/admin/real-estate/properties/$propertyId/about'
     | '/admin/real-estate/properties/$propertyId/details'
     | '/admin/real-estate/properties/$propertyId/features'
@@ -1133,6 +1166,7 @@ export interface FileRouteTypes {
     | '/admin/real-estate/properties/$propertyId/tags'
     | '/admin/real-estate/properties/listing-profiles/$listingProfileId'
     | '/admin/finance/accounts/$accountId'
+    | '/admin/finance/accounts/create'
     | '/admin/real-estate/properties/$propertyId'
     | '/admin/real-estate/properties/listing-profiles'
     | '/admin/real-estate/properties/locations'
@@ -1179,6 +1213,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/tags/'
     | '/_authenticated/self/organizations/'
     | '/_authenticated/admin/finance/accounts/$accountId'
+    | '/_authenticated/admin/finance/accounts/create'
     | '/_authenticated/admin/real-estate/properties/$propertyId'
     | '/_authenticated/admin/customers/$customerId/details'
     | '/_authenticated/admin/customers/$customerId/summary'
@@ -1190,7 +1225,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/customers/create/personal'
     | '/_authenticated/admin/customers/create/preferences'
     | '/_authenticated/admin/customers/create/review'
-    | '/_authenticated/admin/finance/accounts/create'
     | '/_authenticated/self/organizations/register/address'
     | '/_authenticated/self/organizations/register/avatar'
     | '/_authenticated/self/organizations/register/bio'
@@ -1215,6 +1249,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/finance/accounts/$accountId/dashboard'
     | '/_authenticated/admin/finance/accounts/$accountId/info'
     | '/_authenticated/admin/finance/accounts/$accountId/transactions'
+    | '/_authenticated/admin/finance/accounts/create/aggregate'
+    | '/_authenticated/admin/finance/accounts/create/nix'
     | '/_authenticated/admin/real-estate/properties/$propertyId/about'
     | '/_authenticated/admin/real-estate/properties/$propertyId/details'
     | '/_authenticated/admin/real-estate/properties/$propertyId/features'
@@ -1228,6 +1264,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/real-estate/properties/$propertyId/tags'
     | '/_authenticated/admin/real-estate/properties/listing-profiles/$listingProfileId'
     | '/_authenticated/admin/finance/accounts/$accountId/'
+    | '/_authenticated/admin/finance/accounts/create/'
     | '/_authenticated/admin/real-estate/properties/$propertyId/'
     | '/_authenticated/admin/real-estate/properties/listing-profiles/'
     | '/_authenticated/admin/real-estate/properties/locations/'
@@ -1578,13 +1615,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterAddressRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
     }
-    '/_authenticated/admin/finance/accounts/create': {
-      id: '/_authenticated/admin/finance/accounts/create'
-      path: '/accounts/create'
-      fullPath: '/admin/finance/accounts/create'
-      preLoaderRoute: typeof AuthenticatedAdminFinanceAccountsCreateRouteImport
-      parentRoute: typeof AuthenticatedAdminFinanceRouteRoute
-    }
     '/_authenticated/admin/customers/create/review': {
       id: '/_authenticated/admin/customers/create/review'
       path: '/review'
@@ -1662,6 +1692,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
     }
+    '/_authenticated/admin/finance/accounts/create': {
+      id: '/_authenticated/admin/finance/accounts/create'
+      path: '/accounts/create'
+      fullPath: '/admin/finance/accounts/create'
+      preLoaderRoute: typeof AuthenticatedAdminFinanceAccountsCreateRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminFinanceRouteRoute
+    }
     '/_authenticated/admin/finance/accounts/$accountId': {
       id: '/_authenticated/admin/finance/accounts/$accountId'
       path: '/accounts/$accountId'
@@ -1696,6 +1733,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/real-estate/properties/$propertyId/'
       preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute
+    }
+    '/_authenticated/admin/finance/accounts/create/': {
+      id: '/_authenticated/admin/finance/accounts/create/'
+      path: '/'
+      fullPath: '/admin/finance/accounts/create/'
+      preLoaderRoute: typeof AuthenticatedAdminFinanceAccountsCreateIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminFinanceAccountsCreateRouteRoute
     }
     '/_authenticated/admin/finance/accounts/$accountId/': {
       id: '/_authenticated/admin/finance/accounts/$accountId/'
@@ -1787,6 +1831,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/real-estate/properties/$propertyId/about'
       preLoaderRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdAboutRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute
+    }
+    '/_authenticated/admin/finance/accounts/create/nix': {
+      id: '/_authenticated/admin/finance/accounts/create/nix'
+      path: '/nix'
+      fullPath: '/admin/finance/accounts/create/nix'
+      preLoaderRoute: typeof AuthenticatedAdminFinanceAccountsCreateNixRouteImport
+      parentRoute: typeof AuthenticatedAdminFinanceAccountsCreateRouteRoute
+    }
+    '/_authenticated/admin/finance/accounts/create/aggregate': {
+      id: '/_authenticated/admin/finance/accounts/create/aggregate'
+      path: '/aggregate'
+      fullPath: '/admin/finance/accounts/create/aggregate'
+      preLoaderRoute: typeof AuthenticatedAdminFinanceAccountsCreateAggregateRouteImport
+      parentRoute: typeof AuthenticatedAdminFinanceAccountsCreateRouteRoute
     }
     '/_authenticated/admin/finance/accounts/$accountId/transactions': {
       id: '/_authenticated/admin/finance/accounts/$accountId/transactions'
@@ -2015,10 +2073,31 @@ const AuthenticatedAdminFinanceAccountsAccountIdRouteRouteWithChildren =
     AuthenticatedAdminFinanceAccountsAccountIdRouteRouteChildren,
   )
 
+interface AuthenticatedAdminFinanceAccountsCreateRouteRouteChildren {
+  AuthenticatedAdminFinanceAccountsCreateAggregateRoute: typeof AuthenticatedAdminFinanceAccountsCreateAggregateRoute
+  AuthenticatedAdminFinanceAccountsCreateNixRoute: typeof AuthenticatedAdminFinanceAccountsCreateNixRoute
+  AuthenticatedAdminFinanceAccountsCreateIndexRoute: typeof AuthenticatedAdminFinanceAccountsCreateIndexRoute
+}
+
+const AuthenticatedAdminFinanceAccountsCreateRouteRouteChildren: AuthenticatedAdminFinanceAccountsCreateRouteRouteChildren =
+  {
+    AuthenticatedAdminFinanceAccountsCreateAggregateRoute:
+      AuthenticatedAdminFinanceAccountsCreateAggregateRoute,
+    AuthenticatedAdminFinanceAccountsCreateNixRoute:
+      AuthenticatedAdminFinanceAccountsCreateNixRoute,
+    AuthenticatedAdminFinanceAccountsCreateIndexRoute:
+      AuthenticatedAdminFinanceAccountsCreateIndexRoute,
+  }
+
+const AuthenticatedAdminFinanceAccountsCreateRouteRouteWithChildren =
+  AuthenticatedAdminFinanceAccountsCreateRouteRoute._addFileChildren(
+    AuthenticatedAdminFinanceAccountsCreateRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminFinanceRouteRouteChildren {
   AuthenticatedAdminFinanceIndexRoute: typeof AuthenticatedAdminFinanceIndexRoute
   AuthenticatedAdminFinanceAccountsAccountIdRouteRoute: typeof AuthenticatedAdminFinanceAccountsAccountIdRouteRouteWithChildren
-  AuthenticatedAdminFinanceAccountsCreateRoute: typeof AuthenticatedAdminFinanceAccountsCreateRoute
+  AuthenticatedAdminFinanceAccountsCreateRouteRoute: typeof AuthenticatedAdminFinanceAccountsCreateRouteRouteWithChildren
   AuthenticatedAdminFinanceAccountsIndexRoute: typeof AuthenticatedAdminFinanceAccountsIndexRoute
   AuthenticatedAdminFinanceDashboardIndexRoute: typeof AuthenticatedAdminFinanceDashboardIndexRoute
   AuthenticatedAdminFinanceTransactionsIndexRoute: typeof AuthenticatedAdminFinanceTransactionsIndexRoute
@@ -2029,8 +2108,8 @@ const AuthenticatedAdminFinanceRouteRouteChildren: AuthenticatedAdminFinanceRout
     AuthenticatedAdminFinanceIndexRoute: AuthenticatedAdminFinanceIndexRoute,
     AuthenticatedAdminFinanceAccountsAccountIdRouteRoute:
       AuthenticatedAdminFinanceAccountsAccountIdRouteRouteWithChildren,
-    AuthenticatedAdminFinanceAccountsCreateRoute:
-      AuthenticatedAdminFinanceAccountsCreateRoute,
+    AuthenticatedAdminFinanceAccountsCreateRouteRoute:
+      AuthenticatedAdminFinanceAccountsCreateRouteRouteWithChildren,
     AuthenticatedAdminFinanceAccountsIndexRoute:
       AuthenticatedAdminFinanceAccountsIndexRoute,
     AuthenticatedAdminFinanceDashboardIndexRoute:
