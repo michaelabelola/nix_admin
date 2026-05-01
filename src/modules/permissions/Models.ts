@@ -16,4 +16,10 @@ export namespace PermissionModel {
     }
 
     export type Detailed = Permission & Auditable & Ownable
+
+    export type GrantSystemPermission = {
+        permissionDefinitionId: string
+        actions: string[]
+        entityID?: NixID | null
+    }
 }
