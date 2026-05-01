@@ -146,14 +146,14 @@ export function CreateAppIntroPage() {
                         at creation time. Copy the token after submission because it should not be exposed again.
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-                    <div className="grid gap-3">
+                <CardContent className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+                    <div className="grid min-w-0 gap-3">
                         {INTRO_ITEMS.map((item, index) => (
-                            <div key={item.title} className="flex items-start gap-3 rounded-lg border bg-background/70 p-4">
-                                <div className="rounded-lg border bg-muted p-2 text-primary">
+                            <div key={item.title} className="flex min-w-0 items-start gap-3 rounded-lg border bg-background/70 p-4">
+                                <div className="shrink-0 rounded-lg border bg-muted p-2 text-primary">
                                     <item.icon className="size-4"/>
                                 </div>
-                                <div>
+                                <div className="min-w-0">
                                     <div className="font-medium">
                                         {index + 1}. {item.title}
                                     </div>
@@ -165,8 +165,8 @@ export function CreateAppIntroPage() {
                         ))}
                     </div>
 
-                    <div className="grid gap-4 rounded-xl border bg-background/70 p-5">
-                        <div>
+                    <div className="grid min-w-0 gap-4 rounded-xl border bg-background/70 p-5">
+                        <div className="min-w-0">
                             <h2 className="text-lg font-semibold">Before you proceed</h2>
                             <p className="mt-1 text-sm leading-6 text-muted-foreground">
                                 Prepare the app name, optional webhook URL, optional tag IDs, and any system permission
@@ -238,8 +238,8 @@ export function CreateAppPage() {
                 ),
             }}
         >
-            <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
-                <Card>
+            <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
+                <Card className="min-w-0">
                     <CardHeader>
                         <CardTitle>App Details</CardTitle>
                         <CardDescription>
@@ -304,8 +304,8 @@ export function CreateAppPage() {
                     </CardContent>
                 </Card>
 
-                <div className="grid gap-6 bg-green-400">
-                    <Card>
+                <div className="grid min-w-0 gap-6">
+                    <Card className="min-w-0">
                         <CardHeader>
                             <CardTitle>Initial Token</CardTitle>
                             <CardDescription>
@@ -345,7 +345,7 @@ export function CreateAppPage() {
                         </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="min-w-0">
                         <CardHeader>
                             <CardTitle>Permission Grants</CardTitle>
                             <CardDescription>
@@ -367,7 +367,7 @@ export function CreateAppPage() {
                     </Card>
                 </div>
 
-                <Card className="xl:col-span-2">
+                <Card className="min-w-0 xl:col-span-2">
                     <CardHeader>
                         <CardTitle>Review & Create</CardTitle>
                         <CardDescription>
@@ -396,7 +396,7 @@ export function CreateAppPage() {
                             <CardTitle>Generated token</CardTitle>
                             <CardDescription>Copy this token now. It may not be shown again.</CardDescription>
                         </CardHeader>
-                        <CardContent className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                    <CardContent className="flex min-w-0 flex-col gap-3 md:flex-row md:items-center md:justify-between">
                             <code className="break-all rounded-md bg-muted px-3 py-2 text-xs">{createdToken}</code>
                             <ButtonGroup>
                                 <Button
