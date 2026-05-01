@@ -16,7 +16,6 @@ import {
 } from "@tabler/icons-react"
 
 import {NavSection} from "#/modules/admin/components/side-nav/nav-section.tsx"
-import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx"
 import {NavSecondary} from "#/modules/admin/components/side-nav/nav-secondary.tsx"
 import {NavUser} from "#/modules/admin/components/side-nav/nav-user.tsx"
 import {
@@ -195,7 +194,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain}/>
+                {/*<NavMain items={data.navMain}/>*/}
                 {[realEstateNavItems, customerNavItems, financeNavItems, tagsNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
                 ))}
