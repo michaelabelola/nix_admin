@@ -1,0 +1,425 @@
+import {type ReactNode, useMemo, useState} from "react";
+import {Link} from "@tanstack/react-router";
+import {ArrowRight, KeyRound, ShieldCheck, Webhook} from "lucide-react";
+import {toast} from "sonner";
+
+import Page from "#/components/Page.tsx";
+import {Badge} from "#/components/ui/badge.tsx";
+import {Button} from "#/components/ui/button.tsx";
+import {ButtonGroup} from "#/components/ui/button-group.tsx";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "#/components/ui/card.tsx";
+import {Input} from "#/components/ui/input.tsx";
+import {Label} from "#/components/ui/label.tsx";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "#/components/ui/select.tsx";
+import {Textarea} from "#/components/ui/textarea.tsx";
+import {AccessTokenModel} from "#/modules/access-token/model.ts";
+import type {AppModel} from "#/modules/app/model.ts";
+import {AppRequest} from "#/modules/app/request.hook.ts";
+import type {PermissionModel} from "#/modules/permissions/Models.ts";
+
+const INTRO_ITEMS = [
+    {
+        title: "Create the app identity",
+        description: "Set the name, description, avatar URL, and optional tags used by admin workflows.",
+        icon: ShieldCheck,
+    },
+    {
+        title: "Generate the first token",
+        description: "The backend returns the raw app token only once after creation, so copy it immediately.",
+        icon: KeyRound,
+    },
+    {
+        title: "Attach permissions and webhooks",
+        description: "Optionally grant system permissions and configure a webhook endpoint during creation.",
+        icon: Webhook,
+    },
+] as const
+
+type AppCreateDraft = {
+    name: string
+    about: string
+    description: string
+    avatar: string
+    webhookUrl: string
+    tagIds: string
+    tokenDescription: string
+    tokenEnvironment: AccessTokenModel.TokenEnvironment
+    tokenExpiresAt: string
+    permissionGrantsJson: string
+}
+
+const DEFAULT_DRAFT: AppCreateDraft = {
+    name: "",
+    about: "",
+    description: "",
+    avatar: "",
+    webhookUrl: "",
+    tagIds: "",
+    tokenDescription: "",
+    tokenEnvironment: AccessTokenModel.TokenEnvironment.LIVE,
+    tokenExpiresAt: "",
+    permissionGrantsJson: "",
+}
+
+function FormField({
+    label,
+    description,
+    children,
+}: {
+    label: string
+    description?: string
+    children: ReactNode
+}) {
+    return (
+        <label className="grid gap-2">
+            <Label className="text-sm font-medium">{label}</Label>
+            {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
+            {children}
+        </label>
+    )
+}
+
+function parseDelimitedIds(value: string) {
+    return value
+        .split(/[\s,]+/)
+        .map((item) => item.trim())
+        .filter(Boolean)
+}
+
+function parsePermissionGrants(value: string): PermissionModel.GrantSystemPermission[] {
+    if (!value.trim()) return []
+
+    const parsed = JSON.parse(value) as PermissionModel.GrantSystemPermission[]
+    if (!Array.isArray(parsed)) {
+        throw new Error("Permission grants must be a JSON array.")
+    }
+    return parsed
+}
+
+function toPayload(draft: AppCreateDraft): AppModel.Create {
+    return {
+        name: draft.name.trim(),
+        about: draft.about.trim() || null,
+        description: draft.description.trim() || null,
+        avatar: draft.avatar.trim() || null,
+        webhook: draft.webhookUrl.trim() ? {value: draft.webhookUrl.trim()} : null,
+        tags: parseDelimitedIds(draft.tagIds),
+        tokenDescription: draft.tokenDescription.trim() || null,
+        tokenEnvironment: draft.tokenEnvironment,
+        tokenExpiresAt: draft.tokenExpiresAt ? new Date(draft.tokenExpiresAt).toISOString() : null,
+        permissions: parsePermissionGrants(draft.permissionGrantsJson),
+    }
+}
+
+export function CreateAppIntroPage() {
+    return (
+        <Page
+            header={{
+                title: "Create App",
+                description: "Start with the integration shape before generating an app token.",
+                actionView: (
+                    <ButtonGroup>
+                        <Button variant="outline" asChild>
+                            <Link to="/admin/apps">Back to apps</Link>
+                        </Button>
+                    </ButtonGroup>
+                ),
+            }}
+        >
+            <Card className="overflow-hidden border-primary/15 bg-gradient-to-br from-primary/10 via-background to-background">
+                <CardHeader className="space-y-3">
+                    <CardTitle className="text-3xl">Create an app integration</CardTitle>
+                    <CardDescription className="max-w-3xl text-sm leading-7">
+                        Apps receive their own app ID, optional system permissions, and an access token generated
+                        at creation time. Copy the token after submission because it should not be exposed again.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+                    <div className="grid gap-3">
+                        {INTRO_ITEMS.map((item, index) => (
+                            <div key={item.title} className="flex items-start gap-3 rounded-lg border bg-background/70 p-4">
+                                <div className="rounded-lg border bg-muted p-2 text-primary">
+                                    <item.icon className="size-4"/>
+                                </div>
+                                <div>
+                                    <div className="font-medium">
+                                        {index + 1}. {item.title}
+                                    </div>
+                                    <div className="text-sm text-muted-foreground">
+                                        {item.description}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="grid gap-4 rounded-xl border bg-background/70 p-5">
+                        <div>
+                            <h2 className="text-lg font-semibold">Before you proceed</h2>
+                            <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                                Prepare the app name, optional webhook URL, optional tag IDs, and any system permission
+                                grants that should be applied to the app immediately.
+                            </p>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                            <Badge variant="secondary">Token returned once</Badge>
+                            <Badge variant="outline">Optional expiry</Badge>
+                            <Badge variant="outline">Optional grants</Badge>
+                        </div>
+                        <div className="pt-2">
+                            <Button asChild size="lg">
+                                <Link to="/admin/apps/create/setup">
+                                    Start app setup
+                                    <ArrowRight className="size-4"/>
+                                </Link>
+                            </Button>
+                        </div>
+                    </div>
+                </CardContent>
+            </Card>
+        </Page>
+    )
+}
+
+export function CreateAppPage() {
+    const [draft, setDraft] = useState<AppCreateDraft>(DEFAULT_DRAFT)
+    const [createdAppId, setCreatedAppId] = useState<AppModel.AppID | null>(null)
+    const [createdToken, setCreatedToken] = useState<string | null>(null)
+    const createApp = AppRequest.useCreateApp((data) => {
+        setCreatedAppId(data.app.id)
+        setCreatedToken(data.accessToken)
+        toast.success("App created. Copy the generated token before leaving this page.")
+    })
+
+    const canSubmit = draft.name.trim().length > 0 && !createApp.isPending
+    const tagPreview = useMemo(() => parseDelimitedIds(draft.tagIds), [draft.tagIds])
+
+    const updateDraft = (patch: Partial<AppCreateDraft>) => {
+        setDraft((previous) => ({...previous, ...patch}))
+    }
+
+    const submit = async () => {
+        if (!canSubmit) return
+        try {
+            await createApp.mutateAsync(toPayload(draft))
+        } catch (error) {
+            if (error instanceof SyntaxError || error instanceof Error) {
+                toast.error(error.message)
+            }
+        }
+    }
+
+    return (
+        <Page
+            header={{
+                title: "App Setup",
+                description: "Create the app record, generate its first token, and optionally attach grants.",
+                actionView: (
+                    <ButtonGroup>
+                        <Button variant="outline" asChild>
+                            <Link to="/admin/apps/create">Intro</Link>
+                        </Button>
+                        <Button variant="outline" asChild>
+                            <Link to="/admin/apps">Back to apps</Link>
+                        </Button>
+                    </ButtonGroup>
+                ),
+            }}
+        >
+            <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>App Details</CardTitle>
+                        <CardDescription>
+                            The app name is required. Other fields can be added after creation.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <FormField label="App name" description="Required. This becomes the app display name.">
+                                <Input
+                                    value={draft.name}
+                                    placeholder="Partner Sync"
+                                    aria-invalid={createApp.errHandler.hasError("name")}
+                                    onChange={(event) => updateDraft({name: event.target.value})}
+                                />
+                            </FormField>
+                            <FormField label="Avatar URL" description="Optional image URL.">
+                                <Input
+                                    value={draft.avatar}
+                                    placeholder="https://example.com/app.png"
+                                    onChange={(event) => updateDraft({avatar: event.target.value})}
+                                />
+                            </FormField>
+                        </div>
+
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <FormField label="About" description="Short summary displayed in admin lists.">
+                                <Textarea
+                                    value={draft.about}
+                                    rows={4}
+                                    placeholder="Syncs external property inventory into Suiteonix."
+                                    onChange={(event) => updateDraft({about: event.target.value})}
+                                />
+                            </FormField>
+                            <FormField label="Description" description="Longer operational note for admins.">
+                                <Textarea
+                                    value={draft.description}
+                                    rows={4}
+                                    placeholder="Used by the partner integration service..."
+                                    onChange={(event) => updateDraft({description: event.target.value})}
+                                />
+                            </FormField>
+                        </div>
+
+                        <div className="grid gap-4 md:grid-cols-2">
+                            <FormField label="Webhook URL" description="Optional callback endpoint.">
+                                <Input
+                                    value={draft.webhookUrl}
+                                    placeholder="https://example.com/webhooks/suiteonix"
+                                    onChange={(event) => updateDraft({webhookUrl: event.target.value})}
+                                />
+                            </FormField>
+                            <FormField label="Tag IDs" description="Separate ids with commas, spaces, or line breaks.">
+                                <Textarea
+                                    value={draft.tagIds}
+                                    rows={3}
+                                    placeholder="12345&#10;67890"
+                                    onChange={(event) => updateDraft({tagIds: event.target.value})}
+                                />
+                            </FormField>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <div className="grid gap-6 bg-green-400">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Initial Token</CardTitle>
+                            <CardDescription>
+                                The backend generates an app token when the app is created.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <FormField label="Token description">
+                                <Input
+                                    value={draft.tokenDescription}
+                                    placeholder="Initial production token"
+                                    onChange={(event) => updateDraft({tokenDescription: event.target.value})}
+                                />
+                            </FormField>
+                            <FormField label="Environment">
+                                <Select
+                                    value={draft.tokenEnvironment}
+                                    onValueChange={(value) => updateDraft({tokenEnvironment: value as AccessTokenModel.TokenEnvironment})}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue/>
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {Object.values(AccessTokenModel.TokenEnvironment).map((environment) => (
+                                            <SelectItem key={environment} value={environment}>{environment}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                            </FormField>
+                            <FormField label="Expiry date" description="Optional. Stored in the generated JWT.">
+                                <Input
+                                    type="datetime-local"
+                                    value={draft.tokenExpiresAt}
+                                    onChange={(event) => updateDraft({tokenExpiresAt: event.target.value})}
+                                />
+                            </FormField>
+                        </CardContent>
+                    </Card>
+
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Permission Grants</CardTitle>
+                            <CardDescription>
+                                Optional JSON array of system permission grants for the new app.
+                            </CardDescription>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                            <Textarea
+                                value={draft.permissionGrantsJson}
+                                rows={8}
+                                className="font-mono text-xs"
+                                placeholder={'[{"permissionDefinitionId":"product:create","actions":["create"]}]'}
+                                onChange={(event) => updateDraft({permissionGrantsJson: event.target.value})}
+                            />
+                            <p className="text-xs text-muted-foreground">
+                                Each grant accepts `permissionDefinitionId`, `actions`, and optional `entityID`.
+                            </p>
+                        </CardContent>
+                    </Card>
+                </div>
+
+                <Card className="xl:col-span-2">
+                    <CardHeader>
+                        <CardTitle>Review & Create</CardTitle>
+                        <CardDescription>
+                            Submit once. The raw token should be copied immediately after creation.
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                        <div className="flex flex-wrap gap-2">
+                            <Badge variant={draft.name.trim() ? "success" : "warning"}>
+                                {draft.name.trim() ? "Name ready" : "Name required"}
+                            </Badge>
+                            <Badge variant="outline">{tagPreview.length} tags</Badge>
+                            <Badge variant="outline">{draft.tokenEnvironment}</Badge>
+                            {draft.tokenExpiresAt ? <Badge variant="outline">Expires set</Badge> : <Badge variant="secondary">No expiry</Badge>}
+                        </div>
+                        <Button disabled={!canSubmit} onClick={() => void submit()}>
+                            {createApp.isPending ? "Creating..." : "Create app"}
+                            <ArrowRight className="size-4"/>
+                        </Button>
+                    </CardContent>
+                </Card>
+
+                {createdToken ? (
+                    <Card className="border-success/40 xl:col-span-2">
+                        <CardHeader>
+                            <CardTitle>Generated token</CardTitle>
+                            <CardDescription>Copy this token now. It may not be shown again.</CardDescription>
+                        </CardHeader>
+                        <CardContent className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                            <code className="break-all rounded-md bg-muted px-3 py-2 text-xs">{createdToken}</code>
+                            <ButtonGroup>
+                                <Button
+                                    variant="outline"
+                                    onClick={() => {
+                                        void navigator.clipboard.writeText(createdToken)
+                                        toast.success("Token copied.")
+                                    }}
+                                >
+                                    Copy token
+                                </Button>
+                                {createdAppId ? (
+                                    <Button asChild>
+                                        <Link to="/admin/apps/$appId" params={{appId: createdAppId}}>
+                                            Open app
+                                        </Link>
+                                    </Button>
+                                ) : null}
+                            </ButtonGroup>
+                        </CardContent>
+                    </Card>
+                ) : null}
+            </div>
+        </Page>
+    )
+}
