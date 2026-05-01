@@ -38,6 +38,7 @@ import { Route as AuthenticatedAdminAppsAppIdRouteImport } from './routes/_authe
 import { Route as AuthenticatedSelfOrganizationsRegisterRouteRouteImport } from './routes/_authenticated/self/organizations/register/route'
 import { Route as AuthenticatedAdminCustomersCreateRouteRouteImport } from './routes/_authenticated/admin/customers/create/route'
 import { Route as AuthenticatedAdminCustomersCustomerIdRouteRouteImport } from './routes/_authenticated/admin/customers/$customerId/route'
+import { Route as AuthenticatedAdminAppsCreateRouteRouteImport } from './routes/_authenticated/admin/apps/create/route'
 import { Route as AuthenticatedSelfOrganizationsRegisterIndexRouteImport } from './routes/_authenticated/self/organizations/register/index'
 import { Route as AuthenticatedAdminTagsDashboardIndexRouteImport } from './routes/_authenticated/admin/tags/dashboard/index'
 import { Route as AuthenticatedAdminRealEstatePropertiesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/index'
@@ -49,6 +50,7 @@ import { Route as AuthenticatedAdminFinanceAccountsIndexRouteImport } from './ro
 import { Route as AuthenticatedAdminCustomersCreateIndexRouteImport } from './routes/_authenticated/admin/customers/create/index'
 import { Route as AuthenticatedAdminCustomersCustomerIdIndexRouteImport } from './routes/_authenticated/admin/customers/$customerId/index'
 import { Route as AuthenticatedAdminAppsDashboardIndexRouteImport } from './routes/_authenticated/admin/apps/dashboard/index'
+import { Route as AuthenticatedAdminAppsCreateIndexRouteImport } from './routes/_authenticated/admin/apps/create/index'
 import { Route as AuthenticatedSelfOrganizationsRegisterSocialsRouteImport } from './routes/_authenticated/self/organizations/register/socials'
 import { Route as AuthenticatedSelfOrganizationsRegisterOrgUserRouteImport } from './routes/_authenticated/self/organizations/register/org-user'
 import { Route as AuthenticatedSelfOrganizationsRegisterOrgNameRouteImport } from './routes/_authenticated/self/organizations/register/org-name'
@@ -69,6 +71,7 @@ import { Route as AuthenticatedAdminCustomersCreateAddressesRouteImport } from '
 import { Route as AuthenticatedAdminCustomersCustomerIdTagsRouteImport } from './routes/_authenticated/admin/customers/$customerId/tags'
 import { Route as AuthenticatedAdminCustomersCustomerIdSummaryRouteImport } from './routes/_authenticated/admin/customers/$customerId/summary'
 import { Route as AuthenticatedAdminCustomersCustomerIdDetailsRouteImport } from './routes/_authenticated/admin/customers/$customerId/details'
+import { Route as AuthenticatedAdminAppsCreateSetupRouteImport } from './routes/_authenticated/admin/apps/create/setup'
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/route'
 import { Route as AuthenticatedAdminFinanceAccountsCreateRouteRouteImport } from './routes/_authenticated/admin/finance/accounts/create/route'
 import { Route as AuthenticatedAdminFinanceAccountsAccountIdRouteRouteImport } from './routes/_authenticated/admin/finance/accounts/$accountId/route'
@@ -270,6 +273,12 @@ const AuthenticatedAdminCustomersCustomerIdRouteRoute =
     path: '/$customerId',
     getParentRoute: () => AuthenticatedAdminCustomersRouteRoute,
   } as any)
+const AuthenticatedAdminAppsCreateRouteRoute =
+  AuthenticatedAdminAppsCreateRouteRouteImport.update({
+    id: '/create',
+    path: '/create',
+    getParentRoute: () => AuthenticatedAdminAppsRouteRoute,
+  } as any)
 const AuthenticatedSelfOrganizationsRegisterIndexRoute =
   AuthenticatedSelfOrganizationsRegisterIndexRouteImport.update({
     id: '/',
@@ -335,6 +344,12 @@ const AuthenticatedAdminAppsDashboardIndexRoute =
     id: '/dashboard/',
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedAdminAppsRouteRoute,
+  } as any)
+const AuthenticatedAdminAppsCreateIndexRoute =
+  AuthenticatedAdminAppsCreateIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminAppsCreateRouteRoute,
   } as any)
 const AuthenticatedSelfOrganizationsRegisterSocialsRoute =
   AuthenticatedSelfOrganizationsRegisterSocialsRouteImport.update({
@@ -455,6 +470,12 @@ const AuthenticatedAdminCustomersCustomerIdDetailsRoute =
     id: '/details',
     path: '/details',
     getParentRoute: () => AuthenticatedAdminCustomersCustomerIdRouteRoute,
+  } as any)
+const AuthenticatedAdminAppsCreateSetupRoute =
+  AuthenticatedAdminAppsCreateSetupRouteImport.update({
+    id: '/setup',
+    path: '/setup',
+    getParentRoute: () => AuthenticatedAdminAppsCreateRouteRoute,
   } as any)
 const AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRoute =
   AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteImport.update({
@@ -770,6 +791,7 @@ export interface FileRoutesByFullPath {
   '/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
   '/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
   '/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
@@ -783,6 +805,7 @@ export interface FileRoutesByFullPath {
   '/admin/finance/accounts/$accountId': typeof AuthenticatedAdminFinanceAccountsAccountIdRouteRouteWithChildren
   '/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateRouteRouteWithChildren
   '/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren
+  '/admin/apps/create/setup': typeof AuthenticatedAdminAppsCreateSetupRoute
   '/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
   '/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
   '/admin/customers/$customerId/tags': typeof AuthenticatedAdminCustomersCustomerIdTagsRoute
@@ -803,6 +826,7 @@ export interface FileRoutesByFullPath {
   '/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
   '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
+  '/admin/apps/create/': typeof AuthenticatedAdminAppsCreateIndexRoute
   '/admin/apps/dashboard/': typeof AuthenticatedAdminAppsDashboardIndexRoute
   '/admin/customers/$customerId/': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
   '/admin/customers/create/': typeof AuthenticatedAdminCustomersCreateIndexRoute
@@ -871,6 +895,7 @@ export interface FileRoutesByTo {
   '/admin/finance': typeof AuthenticatedAdminFinanceIndexRoute
   '/admin/tags': typeof AuthenticatedAdminTagsIndexRoute
   '/self/organizations': typeof AuthenticatedSelfOrganizationsIndexRoute
+  '/admin/apps/create/setup': typeof AuthenticatedAdminAppsCreateSetupRoute
   '/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
   '/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
   '/admin/customers/$customerId/tags': typeof AuthenticatedAdminCustomersCustomerIdTagsRoute
@@ -891,6 +916,7 @@ export interface FileRoutesByTo {
   '/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
   '/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
+  '/admin/apps/create': typeof AuthenticatedAdminAppsCreateIndexRoute
   '/admin/apps/dashboard': typeof AuthenticatedAdminAppsDashboardIndexRoute
   '/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
   '/admin/customers/create': typeof AuthenticatedAdminCustomersCreateIndexRoute
@@ -960,6 +986,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/_authenticated/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
   '/_authenticated/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
   '/_authenticated/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
   '/_authenticated/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
@@ -973,6 +1000,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/finance/accounts/$accountId': typeof AuthenticatedAdminFinanceAccountsAccountIdRouteRouteWithChildren
   '/_authenticated/admin/finance/accounts/create': typeof AuthenticatedAdminFinanceAccountsCreateRouteRouteWithChildren
   '/_authenticated/admin/real-estate/properties/$propertyId': typeof AuthenticatedAdminRealEstatePropertiesPropertyIdRouteRouteWithChildren
+  '/_authenticated/admin/apps/create/setup': typeof AuthenticatedAdminAppsCreateSetupRoute
   '/_authenticated/admin/customers/$customerId/details': typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
   '/_authenticated/admin/customers/$customerId/summary': typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
   '/_authenticated/admin/customers/$customerId/tags': typeof AuthenticatedAdminCustomersCustomerIdTagsRoute
@@ -993,6 +1021,7 @@ export interface FileRoutesById {
   '/_authenticated/self/organizations/register/org-name': typeof AuthenticatedSelfOrganizationsRegisterOrgNameRoute
   '/_authenticated/self/organizations/register/org-user': typeof AuthenticatedSelfOrganizationsRegisterOrgUserRoute
   '/_authenticated/self/organizations/register/socials': typeof AuthenticatedSelfOrganizationsRegisterSocialsRoute
+  '/_authenticated/admin/apps/create/': typeof AuthenticatedAdminAppsCreateIndexRoute
   '/_authenticated/admin/apps/dashboard/': typeof AuthenticatedAdminAppsDashboardIndexRoute
   '/_authenticated/admin/customers/$customerId/': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
   '/_authenticated/admin/customers/create/': typeof AuthenticatedAdminCustomersCreateIndexRoute
@@ -1062,6 +1091,7 @@ export interface FileRouteTypes {
     | '/admin/tags'
     | '/self/organizations'
     | '/admin/'
+    | '/admin/apps/create'
     | '/admin/customers/$customerId'
     | '/admin/customers/create'
     | '/self/organizations/register'
@@ -1075,6 +1105,7 @@ export interface FileRouteTypes {
     | '/admin/finance/accounts/$accountId'
     | '/admin/finance/accounts/create'
     | '/admin/real-estate/properties/$propertyId'
+    | '/admin/apps/create/setup'
     | '/admin/customers/$customerId/details'
     | '/admin/customers/$customerId/summary'
     | '/admin/customers/$customerId/tags'
@@ -1095,6 +1126,7 @@ export interface FileRouteTypes {
     | '/self/organizations/register/org-name'
     | '/self/organizations/register/org-user'
     | '/self/organizations/register/socials'
+    | '/admin/apps/create/'
     | '/admin/apps/dashboard/'
     | '/admin/customers/$customerId/'
     | '/admin/customers/create/'
@@ -1163,6 +1195,7 @@ export interface FileRouteTypes {
     | '/admin/finance'
     | '/admin/tags'
     | '/self/organizations'
+    | '/admin/apps/create/setup'
     | '/admin/customers/$customerId/details'
     | '/admin/customers/$customerId/summary'
     | '/admin/customers/$customerId/tags'
@@ -1183,6 +1216,7 @@ export interface FileRouteTypes {
     | '/self/organizations/register/org-name'
     | '/self/organizations/register/org-user'
     | '/self/organizations/register/socials'
+    | '/admin/apps/create'
     | '/admin/apps/dashboard'
     | '/admin/customers/$customerId'
     | '/admin/customers/create'
@@ -1251,6 +1285,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/tags'
     | '/_authenticated/self/organizations'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/apps/create'
     | '/_authenticated/admin/customers/$customerId'
     | '/_authenticated/admin/customers/create'
     | '/_authenticated/self/organizations/register'
@@ -1264,6 +1299,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/finance/accounts/$accountId'
     | '/_authenticated/admin/finance/accounts/create'
     | '/_authenticated/admin/real-estate/properties/$propertyId'
+    | '/_authenticated/admin/apps/create/setup'
     | '/_authenticated/admin/customers/$customerId/details'
     | '/_authenticated/admin/customers/$customerId/summary'
     | '/_authenticated/admin/customers/$customerId/tags'
@@ -1284,6 +1320,7 @@ export interface FileRouteTypes {
     | '/_authenticated/self/organizations/register/org-name'
     | '/_authenticated/self/organizations/register/org-user'
     | '/_authenticated/self/organizations/register/socials'
+    | '/_authenticated/admin/apps/create/'
     | '/_authenticated/admin/apps/dashboard/'
     | '/_authenticated/admin/customers/$customerId/'
     | '/_authenticated/admin/customers/create/'
@@ -1546,6 +1583,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRouteImport
       parentRoute: typeof AuthenticatedAdminCustomersRouteRoute
     }
+    '/_authenticated/admin/apps/create': {
+      id: '/_authenticated/admin/apps/create'
+      path: '/create'
+      fullPath: '/admin/apps/create'
+      preLoaderRoute: typeof AuthenticatedAdminAppsCreateRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminAppsRouteRoute
+    }
     '/_authenticated/self/organizations/register/': {
       id: '/_authenticated/self/organizations/register/'
       path: '/'
@@ -1622,6 +1666,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/apps/dashboard/'
       preLoaderRoute: typeof AuthenticatedAdminAppsDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedAdminAppsRouteRoute
+    }
+    '/_authenticated/admin/apps/create/': {
+      id: '/_authenticated/admin/apps/create/'
+      path: '/'
+      fullPath: '/admin/apps/create/'
+      preLoaderRoute: typeof AuthenticatedAdminAppsCreateIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminAppsCreateRouteRoute
     }
     '/_authenticated/self/organizations/register/socials': {
       id: '/_authenticated/self/organizations/register/socials'
@@ -1762,6 +1813,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/customers/$customerId/details'
       preLoaderRoute: typeof AuthenticatedAdminCustomersCustomerIdDetailsRouteImport
       parentRoute: typeof AuthenticatedAdminCustomersCustomerIdRouteRoute
+    }
+    '/_authenticated/admin/apps/create/setup': {
+      id: '/_authenticated/admin/apps/create/setup'
+      path: '/setup'
+      fullPath: '/admin/apps/create/setup'
+      preLoaderRoute: typeof AuthenticatedAdminAppsCreateSetupRouteImport
+      parentRoute: typeof AuthenticatedAdminAppsCreateRouteRoute
     }
     '/_authenticated/admin/real-estate/properties/$propertyId': {
       id: '/_authenticated/admin/real-estate/properties/$propertyId'
@@ -2046,7 +2104,26 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedAdminAppsCreateRouteRouteChildren {
+  AuthenticatedAdminAppsCreateSetupRoute: typeof AuthenticatedAdminAppsCreateSetupRoute
+  AuthenticatedAdminAppsCreateIndexRoute: typeof AuthenticatedAdminAppsCreateIndexRoute
+}
+
+const AuthenticatedAdminAppsCreateRouteRouteChildren: AuthenticatedAdminAppsCreateRouteRouteChildren =
+  {
+    AuthenticatedAdminAppsCreateSetupRoute:
+      AuthenticatedAdminAppsCreateSetupRoute,
+    AuthenticatedAdminAppsCreateIndexRoute:
+      AuthenticatedAdminAppsCreateIndexRoute,
+  }
+
+const AuthenticatedAdminAppsCreateRouteRouteWithChildren =
+  AuthenticatedAdminAppsCreateRouteRoute._addFileChildren(
+    AuthenticatedAdminAppsCreateRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminAppsRouteRouteChildren {
+  AuthenticatedAdminAppsCreateRouteRoute: typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
   AuthenticatedAdminAppsAppIdRoute: typeof AuthenticatedAdminAppsAppIdRoute
   AuthenticatedAdminAppsIndexRoute: typeof AuthenticatedAdminAppsIndexRoute
   AuthenticatedAdminAppsDashboardIndexRoute: typeof AuthenticatedAdminAppsDashboardIndexRoute
@@ -2054,6 +2131,8 @@ interface AuthenticatedAdminAppsRouteRouteChildren {
 
 const AuthenticatedAdminAppsRouteRouteChildren: AuthenticatedAdminAppsRouteRouteChildren =
   {
+    AuthenticatedAdminAppsCreateRouteRoute:
+      AuthenticatedAdminAppsCreateRouteRouteWithChildren,
     AuthenticatedAdminAppsAppIdRoute: AuthenticatedAdminAppsAppIdRoute,
     AuthenticatedAdminAppsIndexRoute: AuthenticatedAdminAppsIndexRoute,
     AuthenticatedAdminAppsDashboardIndexRoute:

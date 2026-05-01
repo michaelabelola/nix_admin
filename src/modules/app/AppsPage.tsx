@@ -1,7 +1,7 @@
 import {useMemo} from "react";
 import type {ColumnDef} from "@tanstack/react-table";
 import {Link} from "@tanstack/react-router";
-import {ArrowRight, Copy} from "lucide-react";
+import {ArrowRight, Copy, PlusCircle} from "lucide-react";
 import {toast} from "sonner";
 
 import DataTable from "#/components/data-table/data-table.tsx";
@@ -167,9 +167,10 @@ export function AppsPage({
                         <Button variant="outline" asChild>
                             <Link to="/admin/apps/dashboard">Dashboard</Link>
                         </Button>
-                        <Button variant="outline" asChild>
-                            <Link to="/admin/apps">
-                                Apps
+                        <Button asChild>
+                            <Link to="/admin/apps/create">
+                                Create app
+                                <PlusCircle className="size-4"/>
                             </Link>
                         </Button>
                     </ButtonGroup>
