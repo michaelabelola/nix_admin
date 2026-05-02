@@ -17,6 +17,7 @@ export enum NixRole {
 
 export enum NixModule {
     AUTH = "AUTH",
+    APP = "APP",
     USER = "USER",
     CUSTOMER = "CUSTOMER",
     MAIL = "MAIL",
