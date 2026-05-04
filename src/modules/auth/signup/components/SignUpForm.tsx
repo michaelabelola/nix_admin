@@ -216,7 +216,7 @@ export function SignUpForm() {
                         search: {
                             email: value1.auth.email,
                             token: ''
-                        }
+                        } as any
                     })
                 }, 2000)
             })

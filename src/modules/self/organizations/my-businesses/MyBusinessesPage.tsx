@@ -68,7 +68,7 @@ export function MyBusinessesPage() {
             actionView: <ButtonGroup>
                 <Link to={"/self/organizations/register"}>
                     <Button variant={"outline"} size={"sm"}>
-                        Register Org
+                        Register Organization/Business
                     </Button>
                 </Link>
             </ButtonGroup>

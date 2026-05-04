@@ -11,6 +11,7 @@ import {Input} from '#/components/ui/input'
 import {Label} from '#/components/ui/label'
 import {useEntityStore} from '#/lib/entity.store'
 import {SignInHook} from '#/modules/auth/signin/request.hook'
+import {InputOTP, InputOTPGroup, InputOTPSlot} from "#/components/ui/input-otp.tsx";
 
 const benefits = [
     {
@@ -236,15 +237,30 @@ export function VerifyEmailPage({
                                     {(field) => (
                                         <div className="grid gap-2">
                                             <Label htmlFor={field.name}>Verification token</Label>
-                                            <Input
-                                                id={field.name}
-                                                name={field.name}
-                                                inputMode="numeric"
-                                                value={field.state.value}
-                                                placeholder="Enter the token from your email"
-                                                onBlur={field.handleBlur}
-                                                onChange={(event) => field.handleChange(event.target.value)}
-                                            />
+                                            <InputOTP maxLength={6}
+                                                      defaultValue={field.state.value}
+                                                      onBlur={field.handleBlur}
+                                                      onChange={(event) => field.handleChange(event)}
+                                            >
+                                                <InputOTPGroup>
+                                                    <InputOTPSlot index={0}/>
+                                                    <InputOTPSlot index={1}/>
+                                                    <InputOTPSlot index={2}/>
+                                                    <InputOTPSlot index={3}/>
+                                                    <InputOTPSlot index={4}/>
+                                                    <InputOTPSlot index={5}/>
+                                                </InputOTPGroup>
+                                            </InputOTP>
+
+                                            {/*<Input*/}
+                                            {/*    id={field.name}*/}
+                                            {/*    name={field.name}*/}
+                                            {/*    inputMode="numeric"*/}
+                                            {/*    value={field.state.value}*/}
+                                            {/*    placeholder="Enter the token from your email"*/}
+                                            {/*    onBlur={field.handleBlur}*/}
+                                            {/*    onChange={(event) => field.handleChange(event.target.value)}*/}
+                                            {/*/>*/}
                                             {field.state.meta.isTouched && field.state.meta.errors.length > 0 ? (
                                                 <div className="space-y-1 text-sm text-destructive">
                                                     {field.state.meta.errors.map((error) => (
