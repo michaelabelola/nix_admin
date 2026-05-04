@@ -43,7 +43,7 @@ export function RegistrationStepLayout({
     if (!step) return null
 
     return (
-        <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+        <div className="lg:grid gap-6 lg:grid-cols-[280px_1fr] flex flex-col-reverse">
             <Card className="h-fit">
                 <CardHeader>
                     <CardTitle>Registration Progress</CardTitle>

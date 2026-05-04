@@ -32,7 +32,7 @@ export function IndustryStepSection() {
                         <SelectValue placeholder={isLoading ? "Loading industries..." : "Select industry"}/>
                     </SelectTrigger>
                     <SelectContent>
-                        {data.map((industry) => (
+                        {data.filter(industry => industry.id === "REAL_ESTATE").map((industry) => (
                             <SelectItem key={industry.id} value={industry.name}>
                                 {industry.name}
                             </SelectItem>
