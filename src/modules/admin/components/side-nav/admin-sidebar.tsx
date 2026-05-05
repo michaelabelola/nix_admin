@@ -1,18 +1,13 @@
 import {
     IconCamera,
-    IconChartBar,
-    IconDashboard,
     IconDatabase,
     IconFileAi,
     IconFileDescription,
     IconFileWord,
-    IconFolder,
     IconHelp,
-    IconListDetails,
     IconReport,
     IconSearch,
     IconSettings,
-    IconUsers,
 } from "@tabler/icons-react"
 
 import {NavSection} from "#/modules/admin/components/side-nav/nav-section.tsx"
@@ -40,6 +35,7 @@ import {tagsNavItems} from "#/modules/tags/nav.tsx";
 import {customerNavItems} from "#/modules/customer/nav.tsx";
 import {financeNavItems} from "#/modules/finance/nav.tsx";
 import {appNavItems} from "#/modules/app/nav.tsx";
+import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx";
 
 const data = {
     user: {
@@ -48,31 +44,31 @@ const data = {
         avatar: "/avatars/shadcn.jpg",
     },
     navMain: [
-        {
-            title: "Dashboard",
-            url: "",
-            icon: IconDashboard,
-        },
-        {
-            title: "Lifecycle",
-            url: "/",
-            icon: IconListDetails,
-        },
-        {
-            title: "Analytics",
-            url: "#",
-            icon: IconChartBar,
-        },
-        {
-            title: "Projects",
-            url: "#",
-            icon: IconFolder,
-        },
-        {
-            title: "Team",
-            url: "#",
-            icon: IconUsers,
-        },
+        // {
+        //     title: "Dashboard",
+        //     url: "",
+        //     icon: IconDashboard,
+        // },
+        // {
+        //     title: "Lifecycle",
+        //     url: "/",
+        //     icon: IconListDetails,
+        // },
+        // {
+        //     title: "Analytics",
+        //     url: "#",
+        //     icon: IconChartBar,
+        // },
+        // {
+        //     title: "Projects",
+        //     url: "#",
+        //     icon: IconFolder,
+        // },
+        // {
+        //     title: "Team",
+        //     url: "#",
+        //     icon: IconUsers,
+        // },
     ],
     navClouds: [
         {
@@ -184,10 +180,10 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                             </a>
                         </SidebarMenuButton>
                         <QuickToolTip content={"User Page"}>
-                            <Button asChild variant={"ghost"} onClick={() => navigate({
+                            <Button variant={"ghost"} onClick={() => navigate({
                                 to: "/self"
                             })} className="ml-auto">
-                                <User2Icon className="size-5! text-foreground"/>
+                                <User2Icon className="size-7!"/>
                             </Button>
                         </QuickToolTip>
 
@@ -195,7 +191,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                {/*<NavMain items={data.navMain}/>*/}
+            <NavMain items={data.navMain}/>
                 {[realEstateNavItems, customerNavItems, financeNavItems, appNavItems, tagsNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
                 ))}

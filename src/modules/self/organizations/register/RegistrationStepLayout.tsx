@@ -21,13 +21,13 @@ import {
 } from "./constants.ts"
 
 export function RegistrationStepLayout({
-    stepId,
-    children,
-    nextLabel = "Continue",
-    disableNext = false,
-    isBusy = false,
-    onNext,
-}: {
+                                           stepId,
+                                           children,
+                                           nextLabel = "Continue",
+                                           disableNext = false,
+                                           isBusy = false,
+                                           onNext,
+                                       }: {
     stepId: string
     children: ReactNode
     nextLabel?: string
@@ -43,7 +43,7 @@ export function RegistrationStepLayout({
     if (!step) return null
 
     return (
-        <div className="lg:grid gap-6 lg:grid-cols-[280px_1fr] flex flex-col-reverse">
+        <div className="gap-6  flex flex-col-reverse lg:flex-row w-full">
             <Card className="h-fit">
                 <CardHeader>
                     <CardTitle>Registration Progress</CardTitle>
@@ -77,8 +77,10 @@ export function RegistrationStepLayout({
                                     isActive ? "border-primary bg-primary/5" : ""
                                 }`}
                             >
-                                <div className={`mt-0.5 rounded-full border p-1 ${isActive ? "text-warning" : "text-muted-foreground"}`}>
-                                    {isComplete ? <CheckCircle2 className="size-3.5 text-success"/> : <item.icon className="size-3.5"/>}
+                                <div
+                                    className={`mt-0.5 rounded-full border p-1 ${isActive ? "text-warning" : "text-muted-foreground"}`}>
+                                    {isComplete ? <CheckCircle2 className="size-3.5 text-success"/> :
+                                        <item.icon className="size-3.5"/>}
                                 </div>
                                 <div>
                                     <div className="font-medium">{item.label}</div>
@@ -89,66 +91,68 @@ export function RegistrationStepLayout({
                     })}
                 </CardContent>
             </Card>
-
-            <Card>
-                <CardHeader>
-                    <div className="flex items-center justify-between gap-3">
-                        <div className="space-y-1">
-                            <div className="flex items-center gap-2">
-                                <Badge variant="outline">
-                                    Step {REGISTRATION_STEPS.findIndex((entry) => entry.id === stepId) + 1} of {REGISTRATION_STEPS.length}
-                                </Badge>
-                                <Badge variant="secondary">{step.shortLabel}</Badge>
+            <div className={"w-full flex justify-center"}>
+                <Card className={"h-fit w-full md:min-w-7/12"}>
+                    <CardHeader>
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="space-y-1">
+                                <div className="flex items-center gap-2">
+                                    <Badge variant="outline">
+                                        Step {REGISTRATION_STEPS.findIndex((entry) => entry.id === stepId) + 1} of {REGISTRATION_STEPS.length}
+                                    </Badge>
+                                    <Badge variant="secondary">{step.shortLabel}</Badge>
+                                </div>
+                                <CardTitle>{step.label}</CardTitle>
+                                <CardDescription>{step.description}</CardDescription>
                             </div>
-                            <CardTitle>{step.label}</CardTitle>
-                            <CardDescription>{step.description}</CardDescription>
                         </div>
-                    </div>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                    {children}
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                        {children}
 
-                    <div className="flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
-                        <div>
-                            {previousStep ? (
-                                <Button variant="outline" asChild>
-                                    <Link to={previousStep.path}>
-                                        <ArrowLeft className="size-4"/>
-                                        Back
-                                    </Link>
+                        <div
+                            className="flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                                {previousStep ? (
+                                    <Button variant="outline" asChild>
+                                        <Link to={previousStep.path}>
+                                            <ArrowLeft className="size-4"/>
+                                            Back
+                                        </Link>
+                                    </Button>
+                                ) : (
+                                    <Button variant="outline" asChild>
+                                        <Link to={REGISTRATION_INTRO_PATH}>
+                                            <ArrowLeft className="size-4"/>
+                                            Back
+                                        </Link>
+                                    </Button>
+                                )}
+                            </div>
+
+                            {onNext ? (
+                                <Button
+                                    type="button"
+                                    onClick={() => void onNext()}
+                                    disabled={disableNext || isBusy}
+                                >
+                                    {nextLabel}
+                                    <ArrowRight className="size-4"/>
                                 </Button>
-                            ) : (
-                                <Button variant="outline" asChild>
-                                    <Link to={REGISTRATION_INTRO_PATH}>
-                                        <ArrowLeft className="size-4"/>
-                                        Back
-                                    </Link>
+                            ) : nextStep ? (
+                                <Button
+                                    type="button"
+                                    disabled={disableNext}
+                                    onClick={() => void navigate({to: nextStep.path as any})}
+                                >
+                                    {nextLabel}
+                                    <ArrowRight className="size-4"/>
                                 </Button>
-                            )}
+                            ) : null}
                         </div>
-
-                        {onNext ? (
-                            <Button
-                                type="button"
-                                onClick={() => void onNext()}
-                                disabled={disableNext || isBusy}
-                            >
-                                {nextLabel}
-                                <ArrowRight className="size-4"/>
-                            </Button>
-                        ) : nextStep ? (
-                            <Button
-                                type="button"
-                                disabled={disableNext}
-                                onClick={() => void navigate({to: nextStep.path as any})}
-                            >
-                                {nextLabel}
-                                <ArrowRight className="size-4"/>
-                            </Button>
-                        ) : null}
-                    </div>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     )
 }

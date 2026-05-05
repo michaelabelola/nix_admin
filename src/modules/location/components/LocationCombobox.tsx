@@ -1,11 +1,10 @@
 import {
-    Combobox,
-    ComboboxContent,
-    ComboboxEmpty,
-    ComboboxInput,
-    ComboboxItem,
-    ComboboxList,
-} from "#/components/ui/combobox.tsx"
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "#/components/ui/select.tsx"
 
 export type LocationComboboxOption = {
     label: string
@@ -29,35 +28,33 @@ export function LocationCombobox({
     disabled?: boolean
     onValueChange: (value: string) => void
 }) {
-    const selectedOption = options.find((option) => option.value === value) ?? null
+    const selectedValue = options.some((option) => option.value === value) ? value : undefined
 
     return (
         <label className="grid gap-2">
             {label ? <span className="text-sm font-medium">{label}</span> : null}
-            <Combobox<LocationComboboxOption>
-                items={options}
-                value={selectedOption}
-                itemToStringLabel={(item) => item.label}
-                itemToStringValue={(item) => item.value}
-                onValueChange={(nextValue) => onValueChange(nextValue?.value ?? "")}
+            <Select
+                value={selectedValue}
+                disabled={disabled}
+                onValueChange={onValueChange}
             >
-                <ComboboxInput
-                    disabled={disabled}
-                    placeholder={placeholder}
-                    showClear={Boolean(selectedOption)}
-                    className="w-full"
-                />
-                <ComboboxContent>
-                    <ComboboxEmpty>{emptyLabel}</ComboboxEmpty>
-                    <ComboboxList>
-                        {options.map((option) => (
-                            <ComboboxItem key={option.value} value={option}>
+                <SelectTrigger className="w-full">
+                    <SelectValue placeholder={placeholder}/>
+                </SelectTrigger>
+                <SelectContent className="bg-background text-foreground">
+                    {options.length > 0 ? (
+                        options.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
                                 {option.label}
-                            </ComboboxItem>
-                        ))}
-                    </ComboboxList>
-                </ComboboxContent>
-            </Combobox>
+                            </SelectItem>
+                        ))
+                    ) : (
+                        <SelectItem value="__empty__" disabled>
+                            {emptyLabel}
+                        </SelectItem>
+                    )}
+                </SelectContent>
+            </Select>
         </label>
     )
 }

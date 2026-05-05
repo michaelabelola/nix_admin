@@ -84,7 +84,7 @@ export default function ThemeToggle(init: { type?: number }) {
         return (
             <Button
                 size="icon"
-                className="size-8 group-data-[collapsible=icon]:opacity-0"
+                className="group-data-[collapsible=icon]:opacity-0"
                 variant="outline"
                 onClick={toggleMode}
                 aria-label={label}

@@ -1,4 +1,4 @@
-import {IconCirclePlusFilled, type Icon} from "@tabler/icons-react"
+import {type Icon} from "@tabler/icons-react"
 
 import {
     SidebarGroup,
@@ -8,6 +8,8 @@ import {
     SidebarMenuItem,
 } from "#/components/ui/sidebar.tsx"
 import ThemeToggle from "#/components/ThemeToggle.tsx";
+import {Button} from "#/components/ui/button.tsx";
+import {Grid3X3Icon, Navigation2} from "lucide-react";
 
 export function NavMain({
                             items,
@@ -22,16 +24,15 @@ export function NavMain({
         <SidebarGroup>
             <SidebarGroupContent className="flex flex-col gap-2">
                 <SidebarMenu>
-                    <SidebarMenuItem className="flex items-center gap-2">
-                        <SidebarMenuButton
-                            tooltip="Quick Create"
-                            className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
-                        >
-                            <IconCirclePlusFilled/>
-                            <span>Quick Create</span>
-                        </SidebarMenuButton>
+                    <div className="flex flex-row gap-2">
+                            <Button variant={"outline"}>
+                                <Grid3X3Icon/>
+                            </Button>
+                            <Button variant={"outline"}>
+                                <Navigation2/>
+                            </Button>
                         <ThemeToggle type={1}/>
-                    </SidebarMenuItem>
+                    </div>
                 </SidebarMenu>
                 <SidebarMenu>
                     {items.map((item) => (

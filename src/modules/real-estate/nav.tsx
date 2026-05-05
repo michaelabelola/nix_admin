@@ -1,6 +1,6 @@
 import type {NavSectionType} from "#/modules/self/components/app-sidebar.tsx";
 import {IconDashboard} from "@tabler/icons-react";
-import {MapPin, BedDouble, Home, Scale, ListIcon} from "lucide-react"
+import {BedDouble, Scale, ListIcon} from "lucide-react"
 
 export const realEstateNavItems: NavSectionType = {
     title: 'Real Estate',
@@ -15,26 +15,26 @@ export const realEstateNavItems: NavSectionType = {
             icon: BedDouble,
             to: "/admin/real-estate/properties",
         },
-        {
-            name: "Property Locations",
-            icon: MapPin,
-            to: "/admin/real-estate/properties/locations",
-        },
-        {
-            name: "Spaces",
-            icon: Home,
-            to: "/admin/real-estate/spaces",
-        },
+        // {
+        //     name: "Property Locations",
+        //     icon: MapPin,
+        //     to: "/admin/real-estate/properties/locations",
+        // },
+        // {
+        //     name: "Spaces",
+        //     icon: Home,
+        //     to: "/admin/real-estate/spaces",
+        // },
         {
             name: "Listing",
             icon: ListIcon,
             to: "/admin/real-estate/properties/listing-profiles",
         },
-        {
-            name: "Space Types",
-            icon: Scale,
-            to: "/admin/real-estate/space-types",
-        },
+        // {
+        //     name: "Space Types",
+        //     icon: Scale,
+        //     to: "/admin/real-estate/space-types",
+        // },
         {
             name: "Feature Rules",
             icon: Scale,
