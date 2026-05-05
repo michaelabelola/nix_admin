@@ -1,0 +1,45 @@
+import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
+import type {ResponseDto} from "#/models/Models.ts"
+import type {Paged} from "#/models/PagedModel.ts"
+
+import type {ListingModel} from "./model.ts"
+
+class ListingApi {
+    query(params?: ListingModel.Query, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<Paged<ListingModel.Listing>>("/listings", {
+            query: params,
+            ...init,
+        })
+    }
+
+    getById(listingId: ListingModel.ListingID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<ListingModel.Detailed>(`/listing/${listingId}`, init)
+    }
+
+    create(body: ListingModel.Create, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<ListingModel.Listing>("/listing", {
+            method: "POST",
+            body,
+            ...init,
+        })
+    }
+
+    update(listingId: ListingModel.ListingID, body: ListingModel.Update, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<ListingModel.Listing>(`/listing/${listingId}`, {
+            method: "PATCH",
+            body,
+            ...init,
+        })
+    }
+
+    delete(listingId: ListingModel.ListingID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<ResponseDto<void>>(`/listing/${listingId}`, {
+            method: "DELETE",
+            ...init,
+        })
+    }
+}
+
+const listingApi = new ListingApi()
+
+export default listingApi

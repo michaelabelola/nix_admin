@@ -36,6 +36,7 @@ import {customerNavItems} from "#/modules/customer/nav.tsx";
 import {financeNavItems} from "#/modules/finance/nav.tsx";
 import {appNavItems} from "#/modules/app/nav.tsx";
 import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx";
+import {listingNavItems} from "#/modules/listing/nav.tsx";
 
 const data = {
     user: {
@@ -192,7 +193,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
             <NavMain items={data.navMain}/>
-                {[realEstateNavItems, customerNavItems, financeNavItems, appNavItems, tagsNavItems].map((item, index) => (
+                {[realEstateNavItems, customerNavItems,listingNavItems, financeNavItems, appNavItems, tagsNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
                 ))}
                 <NavSecondary items={data.navSecondary} className="mt-auto"/>
