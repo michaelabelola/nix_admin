@@ -25,6 +25,7 @@ import {
 } from "#/components/ui/select.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
 import {AccessTokenModel} from "#/modules/access-token/model.ts";
+import {AppCredentialRevealCard} from "#/modules/app/components/AppCredentialRevealCard.tsx";
 import type {AppModel} from "#/modules/app/model.ts";
 import {AppRequest} from "#/modules/app/request.hook.ts";
 import type {PermissionModel} from "#/modules/permissions/Models.ts";
@@ -195,11 +196,17 @@ export function CreateAppIntroPage() {
 
 export function CreateAppPage() {
     const [draft, setDraft] = useState<AppCreateDraft>(DEFAULT_DRAFT)
-    const [createdAppId, setCreatedAppId] = useState<AppModel.AppID | null>(null)
-    const [createdToken, setCreatedToken] = useState<string | null>(null)
+    const [createdCredentials, setCreatedCredentials] = useState<{
+        appId: AppModel.AppID
+        entityId: string
+        token: string
+    } | null>(null)
     const createApp = AppRequest.useCreateApp((data) => {
-        setCreatedAppId(data.app.id)
-        setCreatedToken(data.accessToken)
+        setCreatedCredentials({
+            appId: data.app.id,
+            entityId: data.app.entityID,
+            token: data.accessToken,
+        })
         toast.success("App created. Copy the generated token before leaving this page.")
     })
 
@@ -390,34 +397,22 @@ export function CreateAppPage() {
                     </CardContent>
                 </Card>
 
-                {createdToken ? (
-                    <Card className="border-success/40 xl:col-span-2">
-                        <CardHeader>
-                            <CardTitle>Generated token</CardTitle>
-                            <CardDescription>Copy this token now. It may not be shown again.</CardDescription>
-                        </CardHeader>
-                    <CardContent className="flex min-w-0 flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                            <code className="break-all rounded-md bg-muted px-3 py-2 text-xs">{createdToken}</code>
-                            <ButtonGroup>
-                                <Button
-                                    variant="outline"
-                                    onClick={() => {
-                                        void navigator.clipboard.writeText(createdToken)
-                                        toast.success("Token copied.")
-                                    }}
-                                >
-                                    Copy token
-                                </Button>
-                                {createdAppId ? (
-                                    <Button asChild>
-                                        <Link to="/admin/apps/$appId" params={{appId: createdAppId}}>
-                                            Open app
-                                        </Link>
-                                    </Button>
-                                ) : null}
-                            </ButtonGroup>
-                        </CardContent>
-                    </Card>
+                {createdCredentials ? (
+                    <div className="xl:col-span-2">
+                        <AppCredentialRevealCard
+                            appId={createdCredentials.appId}
+                            entityId={createdCredentials.entityId}
+                            token={createdCredentials.token}
+                            title="App created"
+                        />
+                        <div className="mt-3 flex justify-end">
+                            <Button asChild>
+                                <Link to="/admin/apps/$appId" params={{appId: createdCredentials.appId}}>
+                                    Open app
+                                </Link>
+                            </Button>
+                        </div>
+                    </div>
                 ) : null}
             </div>
         </Page>

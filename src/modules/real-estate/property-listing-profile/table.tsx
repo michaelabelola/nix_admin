@@ -2,6 +2,7 @@ import {Link} from "@tanstack/react-router"
 import type {ColumnDef} from "@tanstack/react-table"
 import {ArrowRight} from "lucide-react"
 
+import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {formatDuration, formatMoney} from "#/modules/real-estate/property/details/property-details.utils.ts"
@@ -10,6 +11,22 @@ import type {PropertyListingProfileModel} from "./model.ts"
 
 export function createPropertyListingProfileColumns(): Array<ColumnDef<PropertyListingProfileModel.PropertyListingProfile>> {
     return [
+        {
+            id: "avatar",
+            header: "Avatar",
+            cell: ({row}) => (
+                <Avatar className="size-8 rounded-md">
+                    <AvatarImage
+                        src={row.original.avatar || undefined}
+                        alt={row.original.name || "Listing profile avatar"}
+                        className="object-cover"
+                    />
+                    <AvatarFallback className="rounded-md">
+                        {(row.original.name || "NX").slice(0, 2).toUpperCase()}
+                    </AvatarFallback>
+                </Avatar>
+            ),
+        },
         {
             accessorKey: "name",
             header: "Name",

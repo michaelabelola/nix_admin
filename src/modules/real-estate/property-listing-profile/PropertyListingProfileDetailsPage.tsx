@@ -1,12 +1,12 @@
-import {Link} from "@tanstack/react-router"
-import {FileIcon, ImageIcon} from "lucide-react"
+import {Link, useNavigate} from "@tanstack/react-router"
+import {EyeIcon, FileIcon, ImageIcon} from "lucide-react"
 
 import Page from "#/components/Page.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
+import {Tabs, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
 import {
     DefinitionCard,
     EmptyState,
@@ -78,7 +78,7 @@ function ListingProfileGalleryTab({profile}: { profile: PropertyListingProfileMo
     }
 
     return (
-        <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-4 2xl:grid-cols-5">
             {profile.gallery.map((item) => (
                 <Card key={item.id} className="gap-4">
                     <CardHeader className="px-4">
@@ -97,15 +97,23 @@ function ListingProfileGalleryTab({profile}: { profile: PropertyListingProfileMo
                             </CardDescription>
                         </div>
 
-                        <div className="grid gap-3">
-                            <KeyValue label="File ID" value={item.id}/>
-                        </div>
+                        {/*<div className="grid gap-3">*/}
+                        {/*    <KeyValue label="File ID" value={item.id}/>*/}
+                        {/*</div>*/}
 
                         <div className="flex flex-wrap gap-2">
                             {item.file ? (
                                 <Button asChild variant="outline" size="sm">
                                     <a href={item.file} target="_blank" rel="noreferrer">
                                         <FileIcon className="size-4"/>
+                                        Open file
+                                    </a>
+                                </Button>
+                            ) : null}
+                            {item.file ? (
+                                <Button asChild variant="outline" size="sm">
+                                    <a href={item.file} target="_blank" rel="noreferrer">
+                                        <EyeIcon className="size-4"/>
                                         Open file
                                     </a>
                                 </Button>
@@ -253,10 +261,13 @@ function ListingProfileDetailsTab({profile}: { profile: PropertyListingProfileMo
 }
 
 export function PropertyListingProfileDetailsPage({
+                                                      activeTab = "details",
                                                       listingProfileId,
                                                   }: {
+    activeTab?: "details" | "gallery"
     listingProfileId: PropertyListingProfileModel.ListingProfileID
 }) {
+    const navigate = useNavigate()
     const query = PropertyListingProfileApiHook.useGetDetailedPropertyListingProfile(listingProfileId)
     const data = query.data
     return (
@@ -298,7 +309,18 @@ export function PropertyListingProfileDetailsPage({
                     description="The requested listing profile could not be loaded."
                 />
             ) : (
-                <Tabs defaultValue="details" className="gap-6 min-h-full">
+                <Tabs
+                    value={activeTab}
+                    onValueChange={(value) => {
+                        void navigate({
+                            to: value === "gallery"
+                                ? "/admin/real-estate/properties/listing-profiles/$listingProfileId/gallery"
+                                : "/admin/real-estate/properties/listing-profiles/$listingProfileId",
+                            params: {listingProfileId},
+                        })
+                    }}
+                    className="gap-6 min-h-full"
+                >
                     <TabsList variant="line" className="h-auto w-full flex-wrap justify-start rounded-none p-0">
                         <TabsTrigger value="details" className="flex-none px-1.5 py-2">
                             Details
@@ -308,13 +330,13 @@ export function PropertyListingProfileDetailsPage({
                         </TabsTrigger>
                     </TabsList>
 
-                    <TabsContent value="details" className="mt-6">
-                        <ListingProfileDetailsTab profile={data}/>
-                    </TabsContent>
-                    <TabsContent value="gallery" className="mt-6">
-
-                        <ListingProfileGalleryTab profile={data}/>
-                    </TabsContent>
+                    <div className="mt-6">
+                        {activeTab === "gallery" ? (
+                            <ListingProfileGalleryTab profile={data}/>
+                        ) : (
+                            <ListingProfileDetailsTab profile={data}/>
+                        )}
+                    </div>
                 </Tabs>
             )}
         </Page>

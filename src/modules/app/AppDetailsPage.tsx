@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {Link} from "@tanstack/react-router";
 import {ArrowLeft, Copy, ExternalLink, KeyRound} from "lucide-react";
 import {toast} from "sonner";
@@ -14,7 +15,18 @@ import {
     CardHeader,
     CardTitle,
 } from "#/components/ui/card.tsx";
+import {Input} from "#/components/ui/input.tsx";
+import {Label} from "#/components/ui/label.tsx";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "#/components/ui/select.tsx";
+import {AccessTokenModel} from "#/modules/access-token/model.ts";
 import {AccessTokenRequest} from "#/modules/access-token/request.hook.ts";
+import {AppCredentialRevealCard} from "#/modules/app/components/AppCredentialRevealCard.tsx";
 import type {AppModel} from "#/modules/app/model.ts";
 import {AppRequest} from "#/modules/app/request.hook.ts";
 import {
@@ -39,7 +51,25 @@ function DetailRow({label, value}: { label: string; value?: string | null }) {
     )
 }
 
+type TokenCreateDraft = {
+    description: string
+    environment: AccessTokenModel.TokenEnvironment
+    expiresAt: string
+}
+
+const DEFAULT_TOKEN_DRAFT: TokenCreateDraft = {
+    description: "",
+    environment: AccessTokenModel.TokenEnvironment.LIVE,
+    expiresAt: "",
+}
+
 export function AppDetailsPage({appId}: { appId: AppModel.AppID }) {
+    const [tokenDraft, setTokenDraft] = useState<TokenCreateDraft>(DEFAULT_TOKEN_DRAFT)
+    const [generatedCredentials, setGeneratedCredentials] = useState<{
+        appId: AppModel.AppID
+        entityId: string
+        token: string
+    } | null>(null)
     const appQuery = AppRequest.useGetApp(appId)
     const tokenQuery = AccessTokenRequest.useQueryAccessTokens({
         page: 0,
@@ -47,7 +77,30 @@ export function AppDetailsPage({appId}: { appId: AppModel.AppID }) {
         sort: [{field: "audit.createdDate", direction: "DESC"}],
         granteeID: appId,
     })
+    const createToken = AccessTokenRequest.useCreateAccessToken((data) => {
+        setGeneratedCredentials({
+            appId,
+            entityId: data.accessToken.entityID,
+            token: data.token,
+        })
+        setTokenDraft(DEFAULT_TOKEN_DRAFT)
+        toast.success("Token generated. Copy it before leaving this page.")
+    })
     const app = appQuery.data
+
+    function updateTokenDraft(patch: Partial<TokenCreateDraft>) {
+        setTokenDraft((previous) => ({...previous, ...patch}))
+    }
+
+    function generateToken() {
+        void createToken.mutateAsync({
+            granteeID: appId,
+            description: tokenDraft.description.trim() || null,
+            environment: tokenDraft.environment,
+            expiresAt: tokenDraft.expiresAt ? new Date(tokenDraft.expiresAt).toISOString() : null,
+            permissions: [],
+        })
+    }
 
     return (
         <Page
@@ -138,6 +191,79 @@ export function AppDetailsPage({appId}: { appId: AppModel.AppID }) {
                         </CardContent>
                     </Card>
 
+                    <div className="grid gap-4">
+                        <Card>
+                            <CardHeader>
+                                <div className="flex items-center justify-between gap-3">
+                                    <div>
+                                        <CardTitle>Generate Token</CardTitle>
+                                        <CardDescription>Create a new app token for API access.</CardDescription>
+                                    </div>
+                                    <KeyRound className="size-5 text-muted-foreground"/>
+                                </div>
+                            </CardHeader>
+                            <CardContent className="grid gap-4">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="token-description">Description</Label>
+                                    <Input
+                                        id="token-description"
+                                        value={tokenDraft.description}
+                                        placeholder="Production sync token"
+                                        onChange={(event) => updateTokenDraft({description: event.target.value})}
+                                    />
+                                </div>
+                                <div className="grid gap-2 md:grid-cols-2">
+                                    <div className="grid gap-2">
+                                        <Label>Environment</Label>
+                                        <Select
+                                            value={tokenDraft.environment}
+                                            onValueChange={(value) => updateTokenDraft({environment: value as AccessTokenModel.TokenEnvironment})}
+                                        >
+                                            <SelectTrigger className="w-full">
+                                                <SelectValue/>
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {Object.values(AccessTokenModel.TokenEnvironment).map((environment) => (
+                                                    <SelectItem key={environment} value={environment}>
+                                                        {environment}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="token-expires-at">Expiry date</Label>
+                                        <Input
+                                            id="token-expires-at"
+                                            type="datetime-local"
+                                            value={tokenDraft.expiresAt}
+                                            onChange={(event) => updateTokenDraft({expiresAt: event.target.value})}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex justify-end">
+                                    <Button
+                                        disabled={createToken.isPending}
+                                        onClick={generateToken}
+                                    >
+                                        {createToken.isPending ? "Generating..." : "Generate token"}
+                                        <KeyRound className="size-4"/>
+                                    </Button>
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        {generatedCredentials ? (
+                            <AppCredentialRevealCard
+                                appId={generatedCredentials.appId}
+                                entityId={generatedCredentials.entityId}
+                                token={generatedCredentials.token}
+                            />
+                        ) : null}
+                    </div>
+                </div>
+
+                <div className="grid gap-4">
                     <Card>
                         <CardHeader>
                             <div className="flex items-center justify-between gap-3">
