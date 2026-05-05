@@ -81,7 +81,7 @@ export function PropertyListingProfileMediaCard({
                     </div>
                 ) : (
                     <RadioGroup value={avatarId ?? ""} onValueChange={(value) => onAvatarChange(value || null)}>
-                        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
                             {items.map((item) => {
                                 const selectedForGallery = galleryIds.includes(item.id)
                                 const selectedForAvatar = avatarId === item.id
