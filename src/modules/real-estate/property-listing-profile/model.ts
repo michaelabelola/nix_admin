@@ -85,7 +85,6 @@ export namespace PropertyListingProfileModel {
         name: string | null
         description: string | null
         avatar: NixFile.NixImage
-        gallery: GalleryItem[]
         location: Location | null
         type: PropertyModel.PropertyType | null
         tags: Tag[]
@@ -97,6 +96,7 @@ export namespace PropertyListingProfileModel {
     }
 
     export type Detailed = PropertyListingProfile & {
+        gallery: GalleryItem[]
         about: string | null
         entityID: NixID
         audit: AuditSection

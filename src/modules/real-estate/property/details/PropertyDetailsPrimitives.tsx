@@ -29,7 +29,7 @@ export function KeyValue({label, value}: { label: string; value?: string | React
 export function EmptyState({title, description}: { title: string; description: string }) {
     return (
         <div
-            className="flex min-h-[240px] flex-col items-center justify-center rounded-lg border border-dashed px-6 text-center">
+            className="flex min-h-60 flex-col items-center justify-center rounded-lg border border-dashed px-6 text-center">
             <div className="font-medium">{title}</div>
             <p className="mt-1 max-w-md text-sm text-muted-foreground">{description}</p>
         </div>
