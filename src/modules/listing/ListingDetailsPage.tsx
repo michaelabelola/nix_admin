@@ -131,7 +131,7 @@ export function ListingDetailsPage({listingId}: { listingId: ListingModel.Listin
                 actionView: (
                     <ButtonGroup>
                         <Button variant="outline" asChild>
-                            <Link to="/admin/real-estate/listings">
+                            <Link to="/admin/listings">
                                 Back to listings
                             </Link>
                         </Button>

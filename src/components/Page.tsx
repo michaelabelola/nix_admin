@@ -4,6 +4,7 @@ import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "#/compon
 import {Spinner} from "#/components/ui/spinner.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
+import {cn} from "#/lib/utils.ts";
 
 type HeaderProp = {
     avatar?: string | null;
@@ -93,7 +94,7 @@ function Page({
 
             {
                 props.children ?
-                    <section className={"py-2 h-full"}>
+                    <section className={cn("py-2 h-full", props.className)}>
                         {props.children}
                     </section> :
                     <Page404 message={"No Content Found for this page"}/>

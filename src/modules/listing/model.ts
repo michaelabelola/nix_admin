@@ -30,7 +30,7 @@ export namespace ListingModel {
         audit?: AuditSection | null
     }
 
-    export type Query = PagedRequest<Record<string, never>>
+    export type Query = PagedRequest<object>
 
     export type Create = {
         title: string

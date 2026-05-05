@@ -25,7 +25,6 @@ import {
 import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 import OrganizationRequest from "#/modules/organization/organization.request.ts";
-import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 import {useNavigate} from "@tanstack/react-router";
 import {realEstateNavItems} from "#/modules/real-estate/nav.tsx";
 import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";
@@ -180,13 +179,13 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                                 <span className="text-base font-semibold">{org?.shortName?.toUpperCase()}</span>
                             </a>
                         </SidebarMenuButton>
-                        <QuickToolTip content={"User Page"}>
+                        {/*<QuickToolTip content={"User Page"}>*/}
                             <Button variant={"ghost"} onClick={() => navigate({
                                 to: "/self"
                             })} className="ml-auto">
                                 <User2Icon className="size-7!"/>
                             </Button>
-                        </QuickToolTip>
+                        {/*</QuickToolTip>*/}
 
                     </SidebarMenuItem>
                 </SidebarMenu>

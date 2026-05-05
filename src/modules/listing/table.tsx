@@ -80,7 +80,7 @@ export function createListingColumns(): Array<ColumnDef<ListingModel.Listing>> {
                 <ButtonGroup>
                     <Button variant="outline" size="sm" asChild>
                         <Link
-                            to="/admin/real-estate/listings/$listingId"
+                            to="/admin/listings/$listingId"
                             params={{listingId: row.original.id}}
                         >
                             View
