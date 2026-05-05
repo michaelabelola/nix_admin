@@ -155,7 +155,8 @@ export namespace PropertyModel {
         rentId?: RentDefinitionModel.RentDefinitionID | null
         leaseId?: LeaseDefinitionModel.LeaseDefinitionID | null
         location?: CreateListingProfileLocation | null
-        media?: FileID[]
+        gallery?: FileID[]
+        avatar?: FileID | null
         isDefault?: boolean | null
     }
 }

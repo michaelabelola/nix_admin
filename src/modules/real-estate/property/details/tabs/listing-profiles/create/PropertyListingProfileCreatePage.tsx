@@ -3,6 +3,7 @@ import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
 import {PropertyListingProfileCreateHeader} from "./PropertyListingProfileCreateHeader.tsx"
 import {PropertyListingProfileFeaturesCard} from "./PropertyListingProfileFeaturesCard.tsx"
 import {PropertyListingProfileLocationFieldsCard} from "./PropertyListingProfileLocationFieldsCard.tsx"
+import {PropertyListingProfileMediaCard} from "./PropertyListingProfileMediaCard.tsx"
 import {PropertyListingProfileSnapshotSourcesCard} from "./PropertyListingProfileSnapshotSourcesCard.tsx"
 import {PropertyListingProfileTagsCard} from "./PropertyListingProfileTagsCard.tsx"
 import {usePropertyListingProfileCreateForm} from "./usePropertyListingProfileCreateForm.ts"
@@ -40,6 +41,17 @@ export function PropertyListingProfileCreatePage({
                 pricingOptions={form.pricingOptions}
                 rentId={form.formState.rentId}
                 rentOptions={form.rentOptions}
+            />
+
+            <PropertyListingProfileMediaCard
+                avatarId={form.formState.avatarId}
+                galleryIds={form.formState.galleryIds}
+                isError={form.mediaIsError}
+                isLoading={form.mediaIsLoading}
+                items={form.mediaItems}
+                property={property}
+                onAvatarChange={form.setAvatarId}
+                onGalleryItemChange={form.toggleGalleryItem}
             />
 
             <PropertyListingProfileTagsCard

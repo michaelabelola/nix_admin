@@ -9,6 +9,8 @@ export type ListingProfileCreateFormState = {
     pricingId: string
     rentId: string
     leaseId: string
+    galleryIds: PropertyModel.FileID[]
+    avatarId: PropertyModel.FileID | null
     location: ListingProfileCreateLocationState
     isDefault: boolean
 }
@@ -91,8 +93,9 @@ export function buildInitialFormState(property?: PropertyModel.Detailed): Listin
         pricingId: property?.defaultPriceDefinition?.id != null ? String(property.defaultPriceDefinition.id) : EMPTY_OPTION,
         rentId: property?.defaultRentDefinition?.id != null ? String(property.defaultRentDefinition.id) : EMPTY_OPTION,
         leaseId: property?.defaultLeaseDefinition?.id != null ? String(property.defaultLeaseDefinition.id) : EMPTY_OPTION,
+        galleryIds: [],
+        avatarId: null,
         location: buildInitialLocationState(property),
         isDefault: false,
     }
 }
-

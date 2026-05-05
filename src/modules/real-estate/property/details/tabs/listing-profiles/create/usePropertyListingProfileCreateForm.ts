@@ -10,6 +10,8 @@ import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
 import {PricingApiHook} from "#/modules/real-estate/pricing/api.hook.ts"
 import {RentDefinitionRequest} from "#/modules/real-estate/rent-definition/api.hook.ts"
+import {FilesStorageRequest} from "#/modules/files-storage/request.hook.ts"
+import type {FilesStorageModel} from "#/modules/files-storage/model.ts"
 
 import {
     buildInitialFormState,
@@ -51,6 +53,11 @@ export function usePropertyListingProfileCreateForm({
         page: 0,
         size: 100,
     })
+    const mediaQuery = FilesStorageRequest.useQueryStorageFiles(property?.storageID ?? undefined, {
+        page: 0,
+        size: 100,
+        sort: [{field: "audit.createdDate", direction: "DESC"}],
+    })
     const createListingProfile = PropertyApiHook.useCreatePropertyListingProfile(() => {
         toast.success("Listing profile created.")
         void navigate({
@@ -62,6 +69,17 @@ export function usePropertyListingProfileCreateForm({
     useEffect(() => {
         setFormState(buildInitialFormState(property))
     }, [property?.id])
+
+    useEffect(() => {
+        const items = mediaQuery.data?.content ?? []
+        if (!property?.id || formState.galleryIds.length > 0 || formState.avatarId || items.length === 0) return
+
+        setFormState((prev) => ({
+            ...prev,
+            galleryIds: items.map((item) => item.id),
+            avatarId: items[0]?.id ?? null,
+        }))
+    }, [formState.avatarId, formState.galleryIds.length, mediaQuery.data?.content, property?.id])
 
     const assignedTags = useMemo(() => {
         const lookup = new Map((tagDetailsQuery.data ?? []).map((tag) => [tag.id, tag] as const))
@@ -115,6 +133,10 @@ export function usePropertyListingProfileCreateForm({
         setFormState((prev) => ({...prev, isDefault}))
     }
 
+    function setAvatarId(avatarId: PropertyModel.FileID | null) {
+        setFormState((prev) => ({...prev, avatarId}))
+    }
+
     function toggleTag(tagId: PropertyModel.TagID, checked: boolean) {
         setFormState((prev) => ({
             ...prev,
@@ -126,6 +148,13 @@ export function usePropertyListingProfileCreateForm({
         setFormState((prev) => ({
             ...prev,
             featureIds: updateSelection(prev.featureIds, featureId, checked),
+        }))
+    }
+
+    function toggleGalleryItem(fileId: FilesStorageModel.FileID, checked: boolean) {
+        setFormState((prev) => ({
+            ...prev,
+            galleryIds: updateSelection(prev.galleryIds, fileId, checked),
         }))
     }
 
@@ -148,6 +177,8 @@ export function usePropertyListingProfileCreateForm({
                 pricingId: formState.pricingId !== EMPTY_OPTION ? formState.pricingId : undefined,
                 rentId: formState.rentId !== EMPTY_OPTION ? formState.rentId : undefined,
                 leaseId: formState.leaseId !== EMPTY_OPTION ? formState.leaseId : undefined,
+                gallery: formState.galleryIds,
+                avatar: formState.avatarId,
                 location: availableLocationFields.length > 0 ? formState.location : undefined,
                 isDefault: formState.isDefault,
             },
@@ -170,17 +201,21 @@ export function usePropertyListingProfileCreateForm({
         hasLocation: Boolean(property?.location),
         isSubmitting: createListingProfile.isPending,
         leaseOptions,
+        mediaItems: mediaQuery.data?.content ?? [],
+        mediaIsLoading: mediaQuery.isLoading || mediaQuery.isFetching,
+        mediaIsError: mediaQuery.isError,
         navigateBack,
         pricingOptions,
         rentOptions,
+        setAvatarId,
         setIsDefault,
         setLeaseId,
         setPricingId,
         setRentId,
         toggleFeature,
+        toggleGalleryItem,
         toggleLocationField,
         toggleTag,
         unresolvedTagIds,
     }
 }
-
