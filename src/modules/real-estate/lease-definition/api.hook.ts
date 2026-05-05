@@ -41,6 +41,8 @@ export namespace LeaseDefinitionApiHook {
             ...useMutation({
                 mutationFn: ({propertyId, body}: { propertyId: PropertyModel.PropertyID, body: LeaseDefinitionModel.Create }) =>
                     leaseDefinitionApi.createForProperty(propertyId, body, {errHandler}),
+
+
                 onSuccess: async (data, variables) => {
                     await Promise.all([
                         queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)}),
