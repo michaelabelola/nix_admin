@@ -1,12 +1,29 @@
+import {useMemo, useState} from "react"
+import {useQueryClient} from "@tanstack/react-query"
 import {Link, useNavigate} from "@tanstack/react-router"
-import {EyeIcon, FileIcon, ImageIcon} from "lucide-react"
+import {ArrowRight, CheckIcon, EyeIcon, FileIcon, ImageIcon, PlusIcon} from "lucide-react"
+import {toast} from "sonner"
 
 import Page from "#/components/Page.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "#/components/ui/dialog.tsx"
+import {Input} from "#/components/ui/input.tsx"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
 import {Tabs, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
+import {NixModule} from "#/models/Models.ts"
+import {ListingModel} from "#/modules/listing/model.ts"
+import {ListingRequest, ListingQueryKeys} from "#/modules/listing/request.hook.ts"
+import {getListingStatusVariant} from "#/modules/listing/table.tsx"
 import {
     DefinitionCard,
     EmptyState,
@@ -14,6 +31,7 @@ import {
     SummaryMetric
 } from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 import {formatMoney} from "#/modules/real-estate/property/details/property-details.utils.ts"
+import {RealEstateQueryKeys} from "#/modules/real-estate/query-keys.ts"
 import {PropertyListingProfileApiHook} from "#/modules/real-estate/property-listing-profile/api.hook.ts"
 import type {PropertyListingProfileModel} from "#/modules/real-estate/property-listing-profile/model.ts"
 
@@ -130,6 +148,222 @@ function ListingProfileGalleryTab({profile}: { profile: PropertyListingProfileMo
                 </Card>
             ))}
         </div>
+    )
+}
+
+function ListingProfileListingsTab({listingProfileId}: { listingProfileId: PropertyListingProfileModel.ListingProfileID }) {
+    const listingIdsQuery = PropertyListingProfileApiHook.useGetPropertyListingProfileListingIds(listingProfileId)
+    const listingIds = useMemo(() => listingIdsQuery.data ?? [], [listingIdsQuery.data])
+    const listingsQuery = ListingRequest.useGetListingsByIds(listingIds)
+    const listingsById = useMemo(
+        () => new Map(listingsQuery.data.map((listing) => [listing.id, listing])),
+        [listingsQuery.data],
+    )
+
+    if (listingIdsQuery.isLoading || listingsQuery.isLoading) {
+        return (
+            <EmptyState
+                title="Loading listings"
+                description="Fetching listings attached to this listing profile."
+            />
+        )
+    }
+
+    if (listingIds.length === 0) {
+        return (
+            <EmptyState
+                title="No listings"
+                description="This listing profile has not been added to any listing."
+            />
+        )
+    }
+
+    return (
+        <DefinitionCard
+            title="Listings"
+            description="Listings this property listing profile is part of."
+        >
+            <Table>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>Listing</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Type</TableHead>
+                        <TableHead>Module</TableHead>
+                        <TableHead className="text-right">Action</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {listingIds.map((listingId) => {
+                        const listing = listingsById.get(listingId)
+
+                        return (
+                            <TableRow key={listingId}>
+                                <TableCell>
+                                    <div className="space-y-1">
+                                        <div className="font-medium">{listing?.title || listingId}</div>
+                                        <div className="line-clamp-2 text-muted-foreground">
+                                            {listing?.description || "Listing details unavailable"}
+                                        </div>
+                                    </div>
+                                </TableCell>
+                                <TableCell>
+                                    <Badge variant={getListingStatusVariant(listing?.status)}>
+                                        {listing?.status || "STATUS_UNSET"}
+                                    </Badge>
+                                </TableCell>
+                                <TableCell>{listing?.type || "Not set"}</TableCell>
+                                <TableCell>{listing?.module || "Not set"}</TableCell>
+                                <TableCell className="text-right">
+                                    <Button size="sm" variant="outline" asChild>
+                                        <Link to="/admin/listings/$listingId" params={{listingId}}>
+                                            View
+                                            <ArrowRight className="size-4"/>
+                                        </Link>
+                                    </Button>
+                                </TableCell>
+                            </TableRow>
+                        )
+                    })}
+                </TableBody>
+            </Table>
+        </DefinitionCard>
+    )
+}
+
+function ListingProfileAddListingDialog({
+                                            listingProfileId,
+                                        }: {
+    listingProfileId: PropertyListingProfileModel.ListingProfileID
+}) {
+    const navigate = useNavigate()
+    const queryClient = useQueryClient()
+    const [search, setSearch] = useState("")
+    const listingIdsQuery = PropertyListingProfileApiHook.useGetPropertyListingProfileListingIds(listingProfileId)
+    const attachedListingIds = useMemo(() => new Set(listingIdsQuery.data ?? []), [listingIdsQuery.data])
+    const listingsQuery: ReturnType<typeof ListingRequest.useQueryListings> = ListingRequest.useQueryListings({
+        page: 0,
+        size: 10,
+        query: search.trim() || undefined,
+        module: NixModule.REAL_ESTATE,
+        type: "property",
+    })
+    const addItemToListing = ListingRequest.useAddItemToListing()
+
+    function closeDialog() {
+        void navigate({
+            to: "/admin/real-estate/properties/listing-profiles/$listingProfileId/listings",
+            params: {listingProfileId},
+        })
+    }
+
+    async function handleAddListing(listing: ListingModel.Listing) {
+        await addItemToListing.mutateAsync({
+            listingId: listing.id,
+            listingProfileId,
+        })
+        await Promise.all([
+            queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertyListingProfileListings(listingProfileId)}),
+            queryClient.invalidateQueries({queryKey: ListingQueryKeys.detail(listing.id)}),
+        ])
+        toast.success("Listing profile added to listing.")
+        closeDialog()
+    }
+
+    return (
+        <Dialog open onOpenChange={(open) => {
+            if (!open) closeDialog()
+        }}>
+            <DialogContent className="sm:max-w-3xl">
+                <DialogHeader>
+                    <DialogTitle>Add Listing Profile to Listing</DialogTitle>
+                    <DialogDescription>
+                        Choose a real estate property listing to attach this listing profile to.
+                    </DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-4">
+                    <Input
+                        value={search}
+                        onChange={(event) => setSearch(event.target.value)}
+                        placeholder="Search listings..."
+                    />
+
+                    <div className="max-h-[55vh] overflow-auto rounded-md border">
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Listing</TableHead>
+                                    <TableHead>Status</TableHead>
+                                    <TableHead>Module</TableHead>
+                                    <TableHead className="text-right">Action</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {listingsQuery.data.content.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={4}>
+                                            <EmptyState
+                                                title={listingsQuery.isLoading ? "Loading listings" : "No listings found"}
+                                                description="Only real estate property listings are shown here."
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                ) : (
+                                    listingsQuery.data.content.map((listing) => {
+                                        const isAttached = attachedListingIds.has(listing.id)
+
+                                        return (
+                                            <TableRow key={listing.id}>
+                                                <TableCell>
+                                                    <div className="space-y-1">
+                                                        <div className="font-medium">{listing.title || "Untitled listing"}</div>
+                                                        <div className="line-clamp-2 text-muted-foreground">
+                                                            {listing.description || "No description"}
+                                                        </div>
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <Badge variant={getListingStatusVariant(listing.status)}>
+                                                        {listing.status || "STATUS_UNSET"}
+                                                    </Badge>
+                                                </TableCell>
+                                                <TableCell>{listing.module || "Not set"}</TableCell>
+                                                <TableCell className="text-right">
+                                                    <Button
+                                                        size="sm"
+                                                        disabled={listingIdsQuery.isLoading || isAttached || addItemToListing.isPending}
+                                                        onClick={() => void handleAddListing(listing)}
+                                                    >
+                                                        {isAttached ? (
+                                                            <>
+                                                                <CheckIcon className="size-4"/>
+                                                                Added
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <PlusIcon className="size-4"/>
+                                                                Add
+                                                            </>
+                                                        )}
+                                                    </Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        )
+                                    })
+                                )}
+                            </TableBody>
+                        </Table>
+                    </div>
+                </div>
+
+                <DialogFooter>
+                    <Button variant="outline" onClick={closeDialog}>
+                        Cancel
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     )
 }
 
@@ -263,9 +497,11 @@ function ListingProfileDetailsTab({profile}: { profile: PropertyListingProfileMo
 export function PropertyListingProfileDetailsPage({
                                                       activeTab = "details",
                                                       listingProfileId,
+                                                      isAddListingOpen = false,
                                                   }: {
-    activeTab?: "details" | "gallery"
+    activeTab?: "details" | "gallery" | "listings"
     listingProfileId: PropertyListingProfileModel.ListingProfileID
+    isAddListingOpen?: boolean
 }) {
     const navigate = useNavigate()
     const query = PropertyListingProfileApiHook.useGetDetailedPropertyListingProfile(listingProfileId)
@@ -289,6 +525,17 @@ export function PropertyListingProfileDetailsPage({
                                 Back to list
                             </Link>
                         </Button>
+                        {data ? (
+                            <Button variant="outline" asChild>
+                                <Link
+                                    to="/admin/real-estate/properties/listing-profiles/$listingProfileId/listings/add"
+                                    params={{listingProfileId}}
+                                >
+                                    <PlusIcon className="size-4"/>
+                                    Add Listing Profile to Listing
+                                </Link>
+                            </Button>
+                        ) : null}
                         {data?.propertyID ? (
                             <Button asChild>
                                 <Link
@@ -315,7 +562,9 @@ export function PropertyListingProfileDetailsPage({
                         void navigate({
                             to: value === "gallery"
                                 ? "/admin/real-estate/properties/listing-profiles/$listingProfileId/gallery"
-                                : "/admin/real-estate/properties/listing-profiles/$listingProfileId",
+                                : value === "listings"
+                                    ? "/admin/real-estate/properties/listing-profiles/$listingProfileId/listings"
+                                    : "/admin/real-estate/properties/listing-profiles/$listingProfileId",
                             params: {listingProfileId},
                         })
                     }}
@@ -328,15 +577,23 @@ export function PropertyListingProfileDetailsPage({
                         <TabsTrigger value="gallery" className="flex-none px-1.5 py-2">
                             Gallery
                         </TabsTrigger>
+                        <TabsTrigger value="listings" className="flex-none px-1.5 py-2">
+                            Listings
+                        </TabsTrigger>
                     </TabsList>
 
                     <div className="mt-6">
                         {activeTab === "gallery" ? (
                             <ListingProfileGalleryTab profile={data}/>
+                        ) : activeTab === "listings" ? (
+                            <ListingProfileListingsTab listingProfileId={listingProfileId}/>
                         ) : (
                             <ListingProfileDetailsTab profile={data}/>
                         )}
                     </div>
+                    {isAddListingOpen ? (
+                        <ListingProfileAddListingDialog listingProfileId={listingProfileId}/>
+                    ) : null}
                 </Tabs>
             )}
         </Page>

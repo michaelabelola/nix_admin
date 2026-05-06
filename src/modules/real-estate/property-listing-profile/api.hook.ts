@@ -47,4 +47,17 @@ export namespace PropertyListingProfileApiHook {
             errHandler,
         }
     }
+
+    export const useGetPropertyListingProfileListingIds = (listingProfileId: PropertyListingProfileModel.ListingProfileID) => {
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useQuery({
+                queryKey: RealEstateQueryKeys.propertyListingProfileListings(listingProfileId),
+                queryFn: () => propertyListingProfileApi.getListingIds(listingProfileId, {errHandler}),
+                enabled: Boolean(listingProfileId),
+            }),
+            errHandler,
+        }
+    }
 }

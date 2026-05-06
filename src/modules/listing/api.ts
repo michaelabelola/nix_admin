@@ -38,6 +38,17 @@ class ListingApi {
             ...init,
         })
     }
+
+    addItemToListing(
+        listingId: ListingModel.ListingID,
+        listingProfileId: ListingModel.ListingProfileID,
+        init?: Partial<RequestHelperInit>,
+    ) {
+        return Backend.authRequest<{ id: ListingModel.ListingProfileID }>(`/listing/${listingId}/items/${listingProfileId}`, {
+            method: "POST",
+            ...init,
+        })
+    }
 }
 
 const listingApi = new ListingApi()

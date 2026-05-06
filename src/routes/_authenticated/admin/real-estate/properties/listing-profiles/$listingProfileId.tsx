@@ -11,7 +11,7 @@ export const Route = createFileRoute(
 function RouteComponent() {
     const {listingProfileId} = Route.useParams()
     const {pathname} = useLocation()
-    const activeTab = pathname.endsWith("/gallery") ? "gallery" : "details"
+    const activeTab = pathname.includes("/listings") ? "listings" : pathname.endsWith("/gallery") ? "gallery" : "details"
 
     return <PropertyListingProfileDetailsPage activeTab={activeTab} listingProfileId={listingProfileId}/>
 }

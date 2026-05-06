@@ -27,6 +27,13 @@ class PropertyListingProfileApi {
             init,
         )
     }
+
+    getListingIds(listingProfileId: PropertyListingProfileModel.ListingProfileID, init?: Partial<RequestHelperInit>) {
+        return Backend.authRequest<PropertyListingProfileModel.ListingID[]>(
+            `/property-listing-profile/${listingProfileId}/listings`,
+            init,
+        )
+    }
 }
 
 const propertyListingProfileApi = new PropertyListingProfileApi()

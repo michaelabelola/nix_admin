@@ -9,6 +9,7 @@ import type {RentDefinitionModel} from "#/modules/real-estate/rent-definition/mo
 
 export namespace PropertyListingProfileModel {
     export type ListingProfileID = string
+    export type ListingID = string
     export type PriceID = string | number
     export type TagID = string
     export type FileID = string

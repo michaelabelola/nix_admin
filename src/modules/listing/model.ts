@@ -3,6 +3,7 @@ import type {PagedRequest} from "#/models/PagedModel.ts"
 
 export namespace ListingModel {
     export type ListingID = string
+    export type ListingProfileID = string
     export type TagID = string
 
     export enum ListingStatus {
@@ -30,7 +31,14 @@ export namespace ListingModel {
         audit?: AuditSection | null
     }
 
-    export type Query = PagedRequest<object>
+    export type Query = PagedRequest<{
+        id?: ListingID
+        title?: string
+        description?: string
+        type?: string
+        status?: string
+        module?: NixModule
+    }>
 
     export type Create = {
         title: string

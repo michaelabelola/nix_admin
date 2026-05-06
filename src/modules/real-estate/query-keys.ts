@@ -18,6 +18,7 @@ export namespace RealEstateQueryKeys {
     export const listingProfiles = (params?: PageRequest) => [...propertyListingProfilesRoot, 'list', params] as const
     export const propertyListingProfile = (listingProfileId: string) => ['listing-profile', listingProfileId] as const
     export const propertyListingProfileDetailed = (listingProfileId: string) => [...propertyListingProfile(listingProfileId), 'detailed'] as const
+    export const propertyListingProfileListings = (listingProfileId: string) => [...propertyListingProfile(listingProfileId), 'listings'] as const
     export const propertyFeatures = (propertyId: PropertyModel.PropertyID) => [...property(propertyId), 'features'] as const
     export const propertyFeature = (propertyId: PropertyModel.PropertyID, featureId: PropertyFeatureModel.PropertyFeatureID) => [...propertyFeatures(propertyId), featureId] as const
     export const propertyPricings = (propertyId: PropertyModel.PropertyID) => [...property(propertyId), 'pricings'] as const
