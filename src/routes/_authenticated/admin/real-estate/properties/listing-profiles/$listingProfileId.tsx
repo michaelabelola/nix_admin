@@ -12,6 +12,13 @@ function RouteComponent() {
     const {listingProfileId} = Route.useParams()
     const {pathname} = useLocation()
     const activeTab = pathname.includes("/listings") ? "listings" : pathname.endsWith("/gallery") ? "gallery" : "details"
+    const isAddListingOpen = pathname.endsWith("/listings/add")
 
-    return <PropertyListingProfileDetailsPage activeTab={activeTab} listingProfileId={listingProfileId}/>
+    return (
+        <PropertyListingProfileDetailsPage
+            activeTab={activeTab}
+            listingProfileId={listingProfileId}
+            isAddListingOpen={isAddListingOpen}
+        />
+    )
 }

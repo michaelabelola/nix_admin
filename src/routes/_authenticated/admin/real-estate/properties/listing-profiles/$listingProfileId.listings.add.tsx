@@ -1,7 +1,5 @@
 import {createFileRoute} from "@tanstack/react-router"
 
-import {PropertyListingProfileDetailsPage} from "#/modules/real-estate/property-listing-profile/PropertyListingProfileDetailsPage.tsx"
-
 export const Route = createFileRoute(
     "/_authenticated/admin/real-estate/properties/listing-profiles/$listingProfileId/listings/add",
 )({
@@ -9,13 +7,5 @@ export const Route = createFileRoute(
 })
 
 function RouteComponent() {
-    const {listingProfileId} = Route.useParams()
-
-    return (
-        <PropertyListingProfileDetailsPage
-            activeTab="listings"
-            listingProfileId={listingProfileId}
-            isAddListingOpen
-        />
-    )
+    return null
 }

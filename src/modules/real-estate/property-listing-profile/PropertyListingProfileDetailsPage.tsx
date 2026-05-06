@@ -10,13 +10,13 @@ import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "#/components/ui/dialog.tsx"
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetFooter,
+    SheetHeader,
+    SheetTitle,
+} from "#/components/ui/sheet.tsx"
 import {Input} from "#/components/ui/input.tsx"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
 import {Tabs, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
@@ -231,9 +231,9 @@ function ListingProfileListingsTab({listingProfileId}: { listingProfileId: Prope
     )
 }
 
-function ListingProfileAddListingDialog({
-                                            listingProfileId,
-                                        }: {
+function ListingProfileAddListingSheet({
+                                           listingProfileId,
+                                       }: {
     listingProfileId: PropertyListingProfileModel.ListingProfileID
 }) {
     const navigate = useNavigate()
@@ -250,11 +250,15 @@ function ListingProfileAddListingDialog({
     })
     const addItemToListing = ListingRequest.useAddItemToListing()
 
-    function closeDialog() {
+    function closeSheet() {
         void navigate({
             to: "/admin/real-estate/properties/listing-profiles/$listingProfileId/listings",
             params: {listingProfileId},
         })
+    }
+
+    function handleOpenChange(open: boolean) {
+        if (!open) closeSheet()
     }
 
     async function handleAddListing(listing: ListingModel.Listing) {
@@ -267,29 +271,27 @@ function ListingProfileAddListingDialog({
             queryClient.invalidateQueries({queryKey: ListingQueryKeys.detail(listing.id)}),
         ])
         toast.success("Listing profile added to listing.")
-        closeDialog()
+        closeSheet()
     }
 
     return (
-        <Dialog open onOpenChange={(open) => {
-            if (!open) closeDialog()
-        }}>
-            <DialogContent className="sm:max-w-3xl">
-                <DialogHeader>
-                    <DialogTitle>Add Listing Profile to Listing</DialogTitle>
-                    <DialogDescription>
+        <Sheet open onOpenChange={handleOpenChange}>
+            <SheetContent className="sm:max-w-3xl">
+                <SheetHeader>
+                    <SheetTitle>Add Listing Profile to Listing</SheetTitle>
+                    <SheetDescription>
                         Choose a real estate property listing to attach this listing profile to.
-                    </DialogDescription>
-                </DialogHeader>
+                    </SheetDescription>
+                </SheetHeader>
 
-                <div className="space-y-4">
+                <div className="grid gap-4 overflow-hidden px-4 pb-4">
                     <Input
                         value={search}
                         onChange={(event) => setSearch(event.target.value)}
                         placeholder="Search listings..."
                     />
 
-                    <div className="max-h-[55vh] overflow-auto rounded-md border">
+                    <div className="overflow-auto rounded-md border">
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -357,13 +359,13 @@ function ListingProfileAddListingDialog({
                     </div>
                 </div>
 
-                <DialogFooter>
-                    <Button variant="outline" onClick={closeDialog}>
+                <SheetFooter>
+                    <Button variant="outline" onClick={closeSheet}>
                         Cancel
                     </Button>
-                </DialogFooter>
-            </DialogContent>
-        </Dialog>
+                </SheetFooter>
+            </SheetContent>
+        </Sheet>
     )
 }
 
@@ -508,7 +510,7 @@ export function PropertyListingProfileDetailsPage({
     const data = query.data
     return (
         <Page
-            isLoading={query.isLoading}
+            isLoading={query.isLoading && !isAddListingOpen}
             isFetching={query.isFetching}
             loading={{
                 title: "Loading listing profile",
@@ -593,11 +595,11 @@ export function PropertyListingProfileDetailsPage({
                             <ListingProfileDetailsTab profile={data}/>
                         )}
                     </div>
-                    {isAddListingOpen ? (
-                        <ListingProfileAddListingDialog listingProfileId={listingProfileId}/>
-                    ) : null}
                 </Tabs>
             )}
+            {isAddListingOpen ? (
+                <ListingProfileAddListingSheet listingProfileId={listingProfileId}/>
+            ) : null}
         </Page>
     )
 }
