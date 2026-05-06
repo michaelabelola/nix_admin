@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as LandingRouteRouteImport } from './routes/_landing/route'
+import { Route as DocsRouteRouteImport } from './routes/_docs/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LandingIndexRouteImport } from './routes/_landing/index'
 import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
@@ -21,6 +22,7 @@ import { Route as LandingResendVerificationEmailRouteImport } from './routes/_la
 import { Route as LandingLoginRouteImport } from './routes/_landing/login'
 import { Route as AuthenticatedSelfRouteRouteImport } from './routes/_authenticated/self/route'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
+import { Route as DocsApi_docsIndexRouteImport } from './routes/_docs/api_docs/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedSelfOrganizationsRouteRouteImport } from './routes/_authenticated/self/organizations/route'
 import { Route as AuthenticatedAdminTagsRouteRouteImport } from './routes/_authenticated/admin/tags/route'
@@ -128,6 +130,10 @@ const LandingRouteRoute = LandingRouteRouteImport.update({
   id: '/_landing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocsRouteRoute = DocsRouteRouteImport.update({
+  id: '/_docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
@@ -177,6 +183,11 @@ const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const DocsApi_docsIndexRoute = DocsApi_docsIndexRouteImport.update({
+  id: '/api_docs/',
+  path: '/api_docs/',
+  getParentRoute: () => DocsRouteRoute,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
@@ -842,6 +853,7 @@ export interface FileRoutesByFullPath {
   '/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/api_docs/': typeof DocsApi_docsIndexRoute
   '/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
   '/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
   '/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
@@ -945,6 +957,7 @@ export interface FileRoutesByTo {
   '/demo/i18n': typeof DemoI18nRoute
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/api_docs': typeof DocsApi_docsIndexRoute
   '/admin/apps/$appId': typeof AuthenticatedAdminAppsAppIdRoute
   '/admin/listings/$listingId': typeof AuthenticatedAdminListingsListingIdRoute
   '/admin/listings/create': typeof AuthenticatedAdminListingsCreateRoute
@@ -1031,6 +1044,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/_docs': typeof DocsRouteRouteWithChildren
   '/_landing': typeof LandingRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
@@ -1049,6 +1063,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/_authenticated/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_docs/api_docs/': typeof DocsApi_docsIndexRoute
   '/_authenticated/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
   '/_authenticated/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
   '/_authenticated/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
@@ -1160,6 +1175,7 @@ export interface FileRouteTypes {
     | '/admin/tags'
     | '/self/organizations'
     | '/admin/'
+    | '/api_docs/'
     | '/admin/apps/create'
     | '/admin/customers/$customerId'
     | '/admin/customers/create'
@@ -1263,6 +1279,7 @@ export interface FileRouteTypes {
     | '/demo/i18n'
     | '/admin/real-estate'
     | '/admin'
+    | '/api_docs'
     | '/admin/apps/$appId'
     | '/admin/listings/$listingId'
     | '/admin/listings/create'
@@ -1348,6 +1365,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_authenticated'
+    | '/_docs'
     | '/_landing'
     | '/about'
     | '/_authenticated/admin'
@@ -1366,6 +1384,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/tags'
     | '/_authenticated/self/organizations'
     | '/_authenticated/admin/'
+    | '/_docs/api_docs/'
     | '/_authenticated/admin/apps/create'
     | '/_authenticated/admin/customers/$customerId'
     | '/_authenticated/admin/customers/create'
@@ -1460,6 +1479,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  DocsRouteRoute: typeof DocsRouteRouteWithChildren
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   DemoI18nRoute: typeof DemoI18nRoute
@@ -1479,6 +1499,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof LandingRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_docs': {
+      id: '/_docs'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof DocsRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -1550,6 +1577,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_docs/api_docs/': {
+      id: '/_docs/api_docs/'
+      path: '/api_docs'
+      fullPath: '/api_docs/'
+      preLoaderRoute: typeof DocsApi_docsIndexRouteImport
+      parentRoute: typeof DocsRouteRoute
     }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
@@ -2819,6 +2853,18 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface DocsRouteRouteChildren {
+  DocsApi_docsIndexRoute: typeof DocsApi_docsIndexRoute
+}
+
+const DocsRouteRouteChildren: DocsRouteRouteChildren = {
+  DocsApi_docsIndexRoute: DocsApi_docsIndexRoute,
+}
+
+const DocsRouteRouteWithChildren = DocsRouteRoute._addFileChildren(
+  DocsRouteRouteChildren,
+)
+
 interface LandingRouteRouteChildren {
   LandingLoginRoute: typeof LandingLoginRoute
   LandingResendVerificationEmailRoute: typeof LandingResendVerificationEmailRoute
@@ -2843,6 +2889,7 @@ const LandingRouteRouteWithChildren = LandingRouteRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  DocsRouteRoute: DocsRouteRouteWithChildren,
   LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   DemoI18nRoute: DemoI18nRoute,
