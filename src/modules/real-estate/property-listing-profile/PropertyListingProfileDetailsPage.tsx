@@ -1,7 +1,7 @@
 import {useMemo, useState} from "react"
 import {useQueryClient} from "@tanstack/react-query"
 import {Link, useNavigate} from "@tanstack/react-router"
-import {ArrowRight, CheckIcon, EyeIcon, FileIcon, ImageIcon, PlusIcon} from "lucide-react"
+import {ArrowLeft, ArrowRight, CheckIcon, EyeIcon, FileIcon, ImageIcon, PlusIcon} from "lucide-react"
 import {toast} from "sonner"
 
 import Page from "#/components/Page.tsx"
@@ -522,6 +522,8 @@ export function PropertyListingProfileDetailsPage({
                     <ButtonGroup>
                         <Button variant="outline" asChild>
                             <Link to="/admin/real-estate/properties/listing-profiles">
+                                <ArrowLeft className="size-4"/>
+
                                 Back to list
                             </Link>
                         </Button>
@@ -537,7 +539,7 @@ export function PropertyListingProfileDetailsPage({
                             </Button>
                         ) : null}
                         {data?.propertyID ? (
-                            <Button asChild>
+                            <Button variant={"outline"} asChild>
                                 <Link
                                     to="/admin/real-estate/properties/$propertyId/listing-profiles"
                                     params={{propertyId: data.propertyID}}
