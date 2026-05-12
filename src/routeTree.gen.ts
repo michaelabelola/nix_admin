@@ -15,6 +15,7 @@ import { Route as DocsRouteRouteImport } from './routes/_docs/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LandingIndexRouteImport } from './routes/_landing/index'
 import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
+import { Route as CustomerRegisterRouteImport } from './routes/customer/register'
 import { Route as LandingWelcomeRouteImport } from './routes/_landing/welcome'
 import { Route as LandingVerifyEmailRouteImport } from './routes/_landing/verify-email'
 import { Route as LandingSignupRouteImport } from './routes/_landing/signup'
@@ -146,6 +147,11 @@ const LandingIndexRoute = LandingIndexRouteImport.update({
 const DemoI18nRoute = DemoI18nRouteImport.update({
   id: '/demo/i18n',
   path: '/demo/i18n',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerRegisterRoute = CustomerRegisterRouteImport.update({
+  id: '/customer/register',
+  path: '/customer/register',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LandingWelcomeRoute = LandingWelcomeRouteImport.update({
@@ -845,6 +851,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof LandingSignupRoute
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
+  '/customer/register': typeof CustomerRegisterRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
   '/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
@@ -954,6 +961,7 @@ export interface FileRoutesByTo {
   '/signup': typeof LandingSignupRoute
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
+  '/customer/register': typeof CustomerRegisterRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -1054,6 +1062,7 @@ export interface FileRoutesById {
   '/_landing/signup': typeof LandingSignupRoute
   '/_landing/verify-email': typeof LandingVerifyEmailRoute
   '/_landing/welcome': typeof LandingWelcomeRoute
+  '/customer/register': typeof CustomerRegisterRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
   '/_authenticated/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
@@ -1167,6 +1176,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/verify-email'
     | '/welcome'
+    | '/customer/register'
     | '/demo/i18n'
     | '/admin/apps'
     | '/admin/customers'
@@ -1276,6 +1286,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/verify-email'
     | '/welcome'
+    | '/customer/register'
     | '/demo/i18n'
     | '/admin/real-estate'
     | '/admin'
@@ -1375,6 +1386,7 @@ export interface FileRouteTypes {
     | '/_landing/signup'
     | '/_landing/verify-email'
     | '/_landing/welcome'
+    | '/customer/register'
     | '/demo/i18n'
     | '/_landing/'
     | '/_authenticated/admin/apps'
@@ -1482,6 +1494,7 @@ export interface RootRouteChildren {
   DocsRouteRoute: typeof DocsRouteRouteWithChildren
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  CustomerRegisterRoute: typeof CustomerRegisterRoute
   DemoI18nRoute: typeof DemoI18nRoute
 }
 
@@ -1527,6 +1540,13 @@ declare module '@tanstack/react-router' {
       path: '/demo/i18n'
       fullPath: '/demo/i18n'
       preLoaderRoute: typeof DemoI18nRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer/register': {
+      id: '/customer/register'
+      path: '/customer/register'
+      fullPath: '/customer/register'
+      preLoaderRoute: typeof CustomerRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_landing/welcome': {
@@ -2892,6 +2912,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocsRouteRoute: DocsRouteRouteWithChildren,
   LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  CustomerRegisterRoute: CustomerRegisterRoute,
   DemoI18nRoute: DemoI18nRoute,
 }
 export const routeTree = rootRouteImport

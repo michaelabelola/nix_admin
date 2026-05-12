@@ -1,0 +1,35 @@
+import {StepSection, StepSwitch} from "#/modules/customer/create/customer-create.fields.tsx"
+
+import {useCustomerRegister} from "../customer-register.context.tsx"
+import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
+
+export function CustomerRegisterPreferencesStep() {
+    const {draft, updatePreferences} = useCustomerRegister()
+
+    return (
+        <CustomerRegisterStepLayout>
+            <StepSection
+                title="Communication preferences"
+                description="Set the initial consent and notification preferences for this customer."
+            >
+                <div className="grid gap-3">
+                    <StepSwitch
+                        label="Marketing consent"
+                        checked={draft.preferences.marketingConsent}
+                        onCheckedChange={(marketingConsent) => updatePreferences({marketingConsent})}
+                    />
+                    <StepSwitch
+                        label="Email notifications"
+                        checked={draft.preferences.emailNotifications}
+                        onCheckedChange={(emailNotifications) => updatePreferences({emailNotifications})}
+                    />
+                    <StepSwitch
+                        label="SMS notifications"
+                        checked={draft.preferences.smsNotifications}
+                        onCheckedChange={(smsNotifications) => updatePreferences({smsNotifications})}
+                    />
+                </div>
+            </StepSection>
+        </CustomerRegisterStepLayout>
+    )
+}
