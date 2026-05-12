@@ -7,8 +7,14 @@ import type {AppModel} from "#/modules/app/model.ts"
 
 function getApiDocsUrl() {
     const baseUrl = import.meta.env.VITE_API_BASE_URL
-    if (!baseUrl) return "/docs"
-    return new URL("/docs", baseUrl).toString()
+    if (!baseUrl) return "/api-docs/Api-%3ECustomer"
+    return new URL("/api-docs/Api-%3ECustomer", baseUrl).toString()
+}
+
+function getSwaggerApiDocsUrl() {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL
+    if (!baseUrl) return "/swagger-ui/index.html"
+    return new URL("/swagger-ui/index.html?urls.primaryName=Api->Customer", baseUrl).toString()
 }
 
 function copyValue(value: string, label: string) {
@@ -16,10 +22,7 @@ function copyValue(value: string, label: string) {
     toast.success(`${label} copied.`)
 }
 
-function CredentialValue({
-    label,
-    value,
-}: {
+function CredentialValue({label, value}: {
     label: string
     value: string
 }) {
@@ -32,17 +35,18 @@ function CredentialValue({
 }
 
 export function AppCredentialRevealCard({
-    appId,
-    entityId,
-    token,
-    title = "Generated token",
-}: {
+                                            appId,
+                                            entityId,
+                                            token,
+                                            title = "Generated token",
+                                        }: {
     appId: AppModel.AppID
     entityId: string
     token: string
     title?: string
 }) {
     const docsUrl = getApiDocsUrl()
+    const swaggerDocsUrl = getSwaggerApiDocsUrl()
 
     return (
         <Card className="border-success/40">
@@ -74,13 +78,22 @@ export function AppCredentialRevealCard({
                             Copy entity ID
                         </Button>
                     </div>
-                    <Button asChild>
-                        <a href={docsUrl} target="_blank" rel="noreferrer">
-                            <BookOpen className="size-4"/>
-                            API docs
-                            <ExternalLink className="size-4"/>
-                        </a>
-                    </Button>
+                    <div className={"flex flex-col gap-3"}>
+                        <Button asChild>
+                            <a href={docsUrl} target="_blank" rel="noreferrer">
+                                <BookOpen className="size-4"/>
+                                Raw Open API docs (json)
+                                <ExternalLink className="size-4"/>
+                            </a>
+                        </Button>
+                        <Button asChild>
+                            <a href={swaggerDocsUrl} target="_blank" rel="noreferrer">
+                                <BookOpen className="size-4"/>
+                                Swagger
+                                <ExternalLink className="size-4"/>
+                            </a>
+                        </Button>
+                    </div>
                 </div>
             </CardContent>
         </Card>
