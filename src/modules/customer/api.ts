@@ -29,6 +29,17 @@ class CustomerApi {
         })
     }
 
+    createSelfAccount(body: CustomerModel.SelfCreate, init?: Partial<RequestHelperInit>) {
+        return Backend.request<CustomerModel.Detailed>("/customer/self", {
+            method: "POST",
+            body: {
+                ...body,
+                contact: body.contact ?? {},
+            },
+            ...init,
+        })
+    }
+
     update(customerId: CustomerModel.CustomerID, body: CustomerModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}`, {
             method: "PATCH",
@@ -110,7 +121,7 @@ const appendIfDefined = (query: URLSearchParams, key: string, value: unknown) =>
     query.append(key, String(value))
 }
 
-const appendRange = <T,>(query: URLSearchParams, key: string, range?: CustomerModel.RangedQuery<T>) => {
+const appendRange = <T, >(query: URLSearchParams, key: string, range?: CustomerModel.RangedQuery<T>) => {
     if (!range) return
     appendIfDefined(query, `${key}.start`, range.start)
     appendIfDefined(query, `${key}.end`, range.end)

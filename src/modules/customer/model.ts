@@ -85,6 +85,19 @@ export namespace CustomerModel {
         attributes?: Record<string, string> | null
     }
 
+    export type SelfContact = {
+        secondaryEmail?: string | null
+        phoneNumber?: string | null
+        mobileNumber?: string | null
+        website?: string | null
+    }
+
+    export type SelfPreferences = {
+        marketingConsent?: boolean | null
+        emailNotifications?: boolean | null
+        smsNotifications?: boolean | null
+    }
+
     export type CustomerSegment = {
         id: string
         name?: string | null
@@ -142,6 +155,19 @@ export namespace CustomerModel {
         preferences?: Preferences
         tags?: string[]
         segmentIds?: string[]
+    }
+
+    export type SelfCreate = {
+        displayName?: string
+        personalDetail?: PersonalDetail
+        language?: string
+        contact?: SelfContact
+        billingAddress?: Address
+        sameAsBillingAddress?: boolean
+        shippingAddress?: Address
+        preferences?: SelfPreferences
+        email: string
+        password: string
     }
 
     export type Update = Create & {

@@ -75,6 +75,22 @@ export namespace CustomerRequest {
         }
     }
 
+    export function useCreateCustomerSelfAccount(successHandler?: SuccessHandler<CustomerModel.Detailed>) {
+        const queryClient = useQueryClient()
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useMutation({
+                mutationFn: (body: CustomerModel.SelfCreate) => customerApi.createSelfAccount(body, {errHandler}),
+                onSuccess: async (data) => {
+                    await queryClient.invalidateQueries({queryKey: CustomerQueryKeys.root})
+                    successHandler?.(data)
+                },
+            }),
+            errHandler,
+        }
+    }
+
     export function useUpdateCustomer(successHandler?: SuccessHandler<CustomerModel.Detailed>) {
         const queryClient = useQueryClient()
         const errHandler = useResponseFieldErrorHandler()
