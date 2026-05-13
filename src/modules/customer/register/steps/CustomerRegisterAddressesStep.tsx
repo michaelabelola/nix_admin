@@ -1,3 +1,5 @@
+import {MapPinned} from "lucide-react"
+
 import {
     StepCountryField,
     StepInput,
@@ -8,6 +10,7 @@ import {
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import type {RegisterAddressDraft} from "../customer-register.types.ts"
+import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 
 function AddressFields({
@@ -43,6 +46,10 @@ export function CustomerRegisterAddressesStep() {
 
     return (
         <CustomerRegisterStepLayout>
+            <RegisterStepInsight icon={MapPinned} title="Addresses can be simple">
+                Use only the fields that matter for your account. Location coordinates are optional and can be left blank.
+            </RegisterStepInsight>
+
             <StepSection title="Billing address" description="Optional billing address stored on the customer profile.">
                 <AddressFields address={draft.billingAddress} onChange={updateBillingAddress}/>
             </StepSection>

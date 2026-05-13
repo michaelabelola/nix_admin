@@ -1,15 +1,8 @@
 import type {ReactNode} from "react"
-import {ArrowLeft, ArrowRight, CheckCircle2} from "lucide-react"
+import {ArrowLeft, ArrowRight, CheckCircle2, LockKeyhole, Sparkles} from "lucide-react"
 
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "#/components/ui/card.tsx"
 import {Progress} from "#/components/ui/progress.tsx"
 
 import {useCustomerRegister} from "./customer-register.context.tsx"
@@ -39,16 +32,35 @@ export function CustomerRegisterStepLayout({
     const progress = ((stepIndex + 1) / totalSteps) * 100
 
     return (
-        <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
-            <Card className="h-fit">
-                <CardHeader>
-                    <CardTitle>Registration Progress</CardTitle>
-                    <CardDescription>
-                        Complete the account details, then review the request before creating the customer account.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <Progress value={progress}/>
+        <div className="grid w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[340px_1fr]">
+            <aside className="relative overflow-hidden bg-slate-950 p-6 text-white">
+                <img
+                    src="/customer/portal-hero.png"
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover opacity-28"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.92)_0%,rgba(15,23,42,0.96)_100%)]"/>
+                <div className="relative z-10 grid h-full gap-8">
+                    <div className="grid gap-4">
+                        <div className="flex size-11 items-center justify-center rounded-xl border border-white/15 bg-white/10">
+                            <LockKeyhole className="size-5 text-cyan-200"/>
+                        </div>
+                        <div>
+                            <div className="text-lg font-semibold">Customer setup</div>
+                            <p className="mt-2 text-sm leading-6 text-white/68">
+                                Build the account in short steps, then confirm everything before submission.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="grid gap-3">
+                        <div className="flex items-center justify-between text-xs font-medium uppercase text-white/60">
+                            <span>Progress</span>
+                            <span>{Math.round(progress)}%</span>
+                        </div>
+                        <Progress value={progress} className="bg-white/15 [&_[data-slot=progress-indicator]]:bg-cyan-300"/>
+                    </div>
+
                     <div className="space-y-2">
                         {CUSTOMER_REGISTER_STEPS.map((item, index) => (
                             <StepNavItem
@@ -56,48 +68,59 @@ export function CustomerRegisterStepLayout({
                                 stepId={item.id}
                                 active={item.id === stepId}
                                 complete={index < stepIndex}
+                                number={index + 1}
                                 onClick={goToStep}
                             />
                         ))}
                     </div>
-                </CardContent>
-            </Card>
 
-            <Card>
-                <CardHeader>
+                    <div className="mt-auto rounded-xl border border-white/15 bg-white/10 p-4">
+                        <div className="flex items-center gap-2 text-sm font-medium">
+                            <Sparkles className="size-4 text-cyan-200"/>
+                            Guided registration
+                        </div>
+                        <p className="mt-2 text-xs leading-5 text-white/68">
+                            Required fields are kept to credentials and display name. Everything else can be refined later.
+                        </p>
+                    </div>
+                </div>
+            </aside>
+
+            <section className="grid min-h-[720px] grid-rows-[auto_1fr_auto]">
+                <div className="border-b bg-muted/25 p-6 sm:p-8">
                     <div className="flex flex-wrap gap-2">
                         <Badge variant="outline">Step {stepIndex + 1} of {totalSteps}</Badge>
                         <Badge variant="secondary">{step.label}</Badge>
                     </div>
-                    <CardTitle>{step.label}</CardTitle>
-                    <CardDescription>{step.description}</CardDescription>
-                </CardHeader>
-                <hr/>
-                <CardContent className="space-y-6">
+                    <h1 className="mt-4 text-3xl font-semibold tracking-tight">{step.label}</h1>
+                    <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{step.description}</p>
+                </div>
+
+                <div className="space-y-6 p-6 sm:p-8">
                     {children}
+                </div>
 
-                    <div className="flex flex-col gap-3 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            disabled={stepIndex === 0 || isSubmitting}
-                            onClick={goBack}
-                        >
-                            <ArrowLeft className="size-4"/>
-                            Back
-                        </Button>
+                <div className="flex flex-col gap-3 border-t bg-background p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        disabled={isSubmitting}
+                        onClick={goBack}
+                    >
+                        <ArrowLeft className="size-4"/>
+                        {stepIndex === 0 ? "Intro" : "Back"}
+                    </Button>
 
-                        <Button
-                            type="button"
-                            disabled={isSubmitting || (!isReview && !canGoNext)}
-                            onClick={isReview ? () => void submitDraft() : goNext}
-                        >
-                            {isReview ? "Create account" : nextLabel}
-                            <ArrowRight className="size-4"/>
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
+                    <Button
+                        type="button"
+                        disabled={isSubmitting || (!isReview && !canGoNext)}
+                        onClick={isReview ? () => void submitDraft() : goNext}
+                    >
+                        {isReview ? "Create account" : nextLabel}
+                        <ArrowRight className="size-4"/>
+                    </Button>
+                </div>
+            </section>
         </div>
     )
 }
@@ -106,11 +129,13 @@ function StepNavItem({
     stepId,
     active,
     complete,
+    number,
     onClick,
 }: {
     stepId: CustomerRegisterStepID
     active: boolean
     complete: boolean
+    number: number
     onClick: (stepId: CustomerRegisterStepID) => void
 }) {
     const step = CUSTOMER_REGISTER_STEPS.find((item) => item.id === stepId)!
@@ -118,17 +143,19 @@ function StepNavItem({
     return (
         <button
             type="button"
-            className={`flex w-full items-start gap-3 rounded-lg border p-3 text-left text-sm transition-colors hover:bg-muted/40 ${
-                active ? "border-primary bg-primary/5" : ""
+            className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition-colors hover:bg-white/10 ${
+                active ? "border-cyan-200/60 bg-white/10" : "border-white/10 bg-white/5"
             }`}
             onClick={() => onClick(stepId)}
         >
-            <span className={`mt-0.5 rounded-full border p-1 ${active ? "text-primary" : "text-muted-foreground"}`}>
-                {complete ? <CheckCircle2 className="size-3.5 text-success"/> : <span className="block size-3.5 rounded-full bg-current opacity-40"/>}
+            <span className={`mt-0.5 flex size-7 items-center justify-center rounded-full border text-xs font-semibold ${
+                active ? "border-cyan-200 bg-cyan-200 text-slate-950" : "border-white/20 text-white/70"
+            }`}>
+                {complete ? <CheckCircle2 className="size-4"/> : number}
             </span>
             <span>
-                <span className="block font-medium">{step.label}</span>
-                <span className="block text-muted-foreground">{step.description}</span>
+                <span className="block font-medium text-white">{step.label}</span>
+                <span className="block leading-5 text-white/58">{step.description}</span>
             </span>
         </button>
     )

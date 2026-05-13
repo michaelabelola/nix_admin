@@ -1,7 +1,10 @@
+import {ClipboardCheck} from "lucide-react"
+
 import {Badge} from "#/components/ui/badge.tsx"
 import {Card, CardContent, CardHeader, CardTitle} from "#/components/ui/card.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
+import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 
 type ReviewRow = {
@@ -35,6 +38,10 @@ export function CustomerRegisterReviewStep() {
 
     return (
         <CustomerRegisterStepLayout>
+            <RegisterStepInsight icon={ClipboardCheck} title="Final check before submission">
+                Confirm the information below. The backend will create the customer account and authentication profile when you submit.
+            </RegisterStepInsight>
+
             <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary">Customer self account</Badge>
                 <Badge variant="outline">{draft.email.trim()}</Badge>

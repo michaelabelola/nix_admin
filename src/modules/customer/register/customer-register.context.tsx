@@ -28,7 +28,7 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
     const queryClient = useQueryClient()
     const errHandler = useResponseFieldErrorHandler()
     const [draft, setDraft] = useState<CustomerRegisterDraft>(INITIAL_CUSTOMER_REGISTER_DRAFT)
-    const [stepId, setStepId] = useState<CustomerRegisterStepID>("account")
+    const [stepId, setStepId] = useState<CustomerRegisterStepID>("intro")
     const [successEmail, setSuccessEmail] = useState<string>()
 
     const createAccount = useMutation({
@@ -38,7 +38,7 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
             await queryClient.invalidateQueries({queryKey: CustomerQueryKeys.root})
             setSuccessEmail(submittedDraft.email.trim())
             setDraft(INITIAL_CUSTOMER_REGISTER_DRAFT)
-            setStepId("account")
+            setStepId("intro")
         },
     })
 
@@ -76,8 +76,9 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
             ...previous,
             preferences: {...previous.preferences, ...patch},
         })),
+        startRegistration: () => setStepId("account"),
         goToStep: (nextStepId) => setStepId(nextStepId),
-        goBack: () => setStepId(getStepByIndex(stepIndex - 1).id),
+        goBack: () => setStepId(stepIndex === 0 ? "intro" : getStepByIndex(stepIndex - 1).id),
         goNext: () => {
             if (!canLeaveStep(stepId, draft)) {
                 toast.error("Complete the required account fields before continuing.")

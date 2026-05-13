@@ -1,8 +1,11 @@
+import {KeyRound} from "lucide-react"
+
 import {Alert, AlertDescription} from "#/components/ui/alert.tsx"
 import {StepInput, StepSection} from "#/modules/customer/create/customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {isPasswordConfirmed} from "../customer-register.utils.ts"
+import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 
 export function CustomerRegisterAccountStep() {
@@ -13,6 +16,10 @@ export function CustomerRegisterAccountStep() {
 
     return (
         <CustomerRegisterStepLayout>
+            <RegisterStepInsight icon={KeyRound} title="Start with the account identity">
+                The display name and email become the primary account identifiers. The password is stored by the backend authentication flow.
+            </RegisterStepInsight>
+
             <StepSection
                 title="Account credentials"
                 description="These values create the login profile for the customer account."

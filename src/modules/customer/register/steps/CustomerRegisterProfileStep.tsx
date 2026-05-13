@@ -1,6 +1,9 @@
+import {UserRound} from "lucide-react"
+
 import {StepInput, StepSection} from "#/modules/customer/create/customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
+import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 
 export function CustomerRegisterProfileStep() {
@@ -9,6 +12,10 @@ export function CustomerRegisterProfileStep() {
 
     return (
         <CustomerRegisterStepLayout>
+            <RegisterStepInsight icon={UserRound} title="Build the profile at your pace">
+                Profile fields are optional during registration. Add what is available now and complete the rest after account verification.
+            </RegisterStepInsight>
+
             <StepSection
                 title="Personal details"
                 description="Add identity details that should be stored on the customer profile."

@@ -5,6 +5,8 @@ import type {
     RegisterAddressDraft,
 } from "./customer-register.types.ts"
 
+export type CustomerRegisterFormStepID = Exclude<CustomerRegisterStepID, "intro">
+
 const EMPTY_ADDRESS: RegisterAddressDraft = {
     label: "",
     line1: "",
@@ -19,7 +21,7 @@ const EMPTY_ADDRESS: RegisterAddressDraft = {
 }
 
 export const CUSTOMER_REGISTER_STEPS: Array<{
-    id: CustomerRegisterStepID
+    id: CustomerRegisterFormStepID
     label: string
     description: string
 }> = [
@@ -93,6 +95,7 @@ export const INITIAL_CUSTOMER_REGISTER_DRAFT: CustomerRegisterDraft = {
 }
 
 export function getStepIndex(stepId: CustomerRegisterStepID) {
+    if (stepId === "intro") return 0
     return Math.max(0, CUSTOMER_REGISTER_STEPS.findIndex((step) => step.id === stepId))
 }
 
@@ -142,6 +145,7 @@ export function canSubmitRegistration(draft: CustomerRegisterDraft) {
 }
 
 export function canLeaveStep(stepId: CustomerRegisterStepID, draft: CustomerRegisterDraft) {
+    if (stepId === "intro") return true
     if (stepId === "account") return canSubmitRegistration(draft)
     return true
 }

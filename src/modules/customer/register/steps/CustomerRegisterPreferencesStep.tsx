@@ -1,6 +1,9 @@
+import {Bell} from "lucide-react"
+
 import {StepSection, StepSwitch} from "#/modules/customer/create/customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
+import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 
 export function CustomerRegisterPreferencesStep() {
@@ -8,6 +11,10 @@ export function CustomerRegisterPreferencesStep() {
 
     return (
         <CustomerRegisterStepLayout>
+            <RegisterStepInsight icon={Bell} title="Choose the default communication posture">
+                These preferences are sent with the customer account request and can be updated later from the portal.
+            </RegisterStepInsight>
+
             <StepSection
                 title="Communication preferences"
                 description="Set the initial consent and notification preferences for this customer."

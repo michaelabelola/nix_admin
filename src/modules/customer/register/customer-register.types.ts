@@ -1,6 +1,6 @@
 import type {CustomerModel} from "#/modules/customer/model.ts"
 
-export type CustomerRegisterStepID = "account" | "profile" | "contact" | "addresses" | "preferences" | "review"
+export type CustomerRegisterStepID = "intro" | "account" | "profile" | "contact" | "addresses" | "preferences" | "review"
 
 export type RegisterAddressDraft = {
     label: string
@@ -67,6 +67,7 @@ export type CustomerRegisterContextValue = {
     updateBillingAddress: (patch: Partial<RegisterAddressDraft>) => void
     updateShippingAddress: (patch: Partial<RegisterAddressDraft>) => void
     updatePreferences: (patch: Partial<CustomerRegisterDraft["preferences"]>) => void
+    startRegistration: () => void
     goToStep: (stepId: CustomerRegisterStepID) => void
     goBack: () => void
     goNext: () => void
