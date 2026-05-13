@@ -38,7 +38,7 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: CustomerQueryKeys.root})
             toast.success("Customer account created. Check email for verification.")
-            await navigate({to: "/login"})
+            await navigate({to: "/login"} as any)
         },
     })
 
