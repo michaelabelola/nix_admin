@@ -13,8 +13,8 @@ import {
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {Card, CardContent, CardHeader, CardTitle} from "#/components/ui/card.tsx"
-import HERO_IMAGE from  "/customer/portal-hero.png"
-import LOGO from  "/logo192.png"
+import HERO_IMAGE from "/customer/portal-hero.png"
+import LOGO from "/logo192.png"
 // const HERO_IMAGE = "/customer/portal-hero.png"
 
 const valueProps = [
@@ -44,14 +44,13 @@ const trustItems = [
 export function CustomerLandingPage() {
     return (
         <main className="min-h-screen bg-background">
-            <section className="relative min-h-[88vh] overflow-hidden text-white">
+            <section className="relative min-h-[88vh] overflow-hidden bg-foreground text-background">
                 <img
                     src={HERO_IMAGE}
                     alt="Customer portal displayed on laptop and phone"
                     className="absolute inset-0 h-full w-full object-cover"
                 />
-                <div
-                    className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,16,33,0.92)_0%,rgba(7,16,33,0.72)_36%,rgba(7,16,33,0.18)_72%)]"/>
+                <div className="absolute inset-0 bg-foreground/75"/>
 
                 <div className="relative z-10 mx-auto flex min-h-[88vh] max-w-7xl flex-col px-4 py-6">
                     <header className="flex items-center justify-between gap-4">
@@ -77,7 +76,7 @@ export function CustomerLandingPage() {
                             <h1 className="max-w-3xl text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl">
                                 Customer Portal
                             </h1>
-                            <p className="max-w-xl text-lg leading-8 text-white/82">
+                            <p className="max-w-xl text-lg leading-8 text-background/80">
                                 Access your customer account, keep profile information current, and stay connected to
                                 the services, documents, and updates that matter.
                             </p>
@@ -94,15 +93,11 @@ export function CustomerLandingPage() {
                             </Button>
                         </div>
                     </div>
-                    <Badge variant={"glass"}>
-                        I Am A Badge
-
-                    </Badge>
                     <div className="grid gap-3 pb-2 sm:grid-cols-3 lg:max-w-2xl">
                         {trustItems.map((item) => (
                             <div key={item.label}
-                                 className="flex items-center gap-3 rounded-md border border-white/15 bg-white/10 px-4 py-3 backdrop-blur">
-                                <item.icon className="size-4 text-cyan-200"/>
+                                 className="flex items-center gap-3 rounded-md border border-background/15 bg-background/10 px-4 py-3 backdrop-blur">
+                                <item.icon className="size-4 text-background"/>
                                 <span className="text-sm font-medium">{item.label}</span>
                             </div>
                         ))}

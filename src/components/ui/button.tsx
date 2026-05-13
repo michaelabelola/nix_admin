@@ -11,6 +11,7 @@ const buttonVariants = cva(
             variant: {
                 default: "bg-primary text-primary-foreground hover:bg-foreground/10 hover:backdrop-blur",
                 glass: "bg-foreground/10 hover:bg-primary/90 backdrop-blur border-transparent",
+                inverted_glass: "bg-foreground/10 hover:bg-primary/90 backdrop-blur border-transparent text-gackground",
                 destructive:
                     "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
                 outline:
@@ -44,9 +45,11 @@ function Button({
                     variant = "default",
                     size = "default",
                     asChild = false,
+                    invertible = false,
                     ...props
                 }: React.ComponentProps<"button"> &
     VariantProps<typeof buttonVariants> & {
+    invertible?: boolean
     asChild?: boolean
 }) {
     const Comp = asChild ? Slot.Root : "button"

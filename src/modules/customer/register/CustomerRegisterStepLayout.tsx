@@ -32,33 +32,33 @@ export function CustomerRegisterStepLayout({
     const progress = ((stepIndex + 1) / totalSteps) * 100
 
     return (
-        <div className="grid w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[340px_1fr]">
-            <aside className="relative overflow-hidden bg-slate-950 p-6 text-white">
+        <div className="grid min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[340px_1fr]">
+            <aside className="relative overflow-hidden bg-foreground p-6 text-background">
                 <img
                     src="/customer/portal-hero.png"
                     alt=""
                     className="absolute inset-0 h-full w-full object-cover opacity-28"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.92)_0%,rgba(15,23,42,0.96)_100%)]"/>
+                <div className="absolute inset-0 bg-foreground/90"/>
                 <div className="relative z-10 grid h-full gap-8">
                     <div className="grid gap-4">
-                        <div className="flex size-11 items-center justify-center rounded-xl border border-white/15 bg-white/10">
-                            <LockKeyhole className="size-5 text-cyan-200"/>
+                        <div className="flex size-11 items-center justify-center rounded-xl border border-background/15 bg-background/10">
+                            <LockKeyhole className="size-5 text-background"/>
                         </div>
                         <div>
                             <div className="text-lg font-semibold">Customer setup</div>
-                            <p className="mt-2 text-sm leading-6 text-white/68">
+                            <p className="mt-2 text-sm leading-6 text-background/70">
                                 Build the account in short steps, then confirm everything before submission.
                             </p>
                         </div>
                     </div>
 
                     <div className="grid gap-3">
-                        <div className="flex items-center justify-between text-xs font-medium uppercase text-white/60">
+                        <div className="flex items-center justify-between text-xs font-medium uppercase text-background/60">
                             <span>Progress</span>
                             <span>{Math.round(progress)}%</span>
                         </div>
-                        <Progress value={progress} className="bg-white/15 [&_[data-slot=progress-indicator]]:bg-cyan-300"/>
+                        <Progress value={progress} className="bg-background/15 [&_[data-slot=progress-indicator]]:bg-background"/>
                     </div>
 
                     <div className="space-y-2">
@@ -74,12 +74,12 @@ export function CustomerRegisterStepLayout({
                         ))}
                     </div>
 
-                    <div className="mt-auto rounded-xl border border-white/15 bg-white/10 p-4">
+                    <div className="mt-auto rounded-xl border border-background/15 bg-background/10 p-4">
                         <div className="flex items-center gap-2 text-sm font-medium">
-                            <Sparkles className="size-4 text-cyan-200"/>
+                            <Sparkles className="size-4 text-background"/>
                             Guided registration
                         </div>
-                        <p className="mt-2 text-xs leading-5 text-white/68">
+                        <p className="mt-2 text-xs leading-5 text-background/70">
                             Required fields are kept to credentials and display name. Everything else can be refined later.
                         </p>
                     </div>
@@ -143,19 +143,19 @@ function StepNavItem({
     return (
         <button
             type="button"
-            className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition-colors hover:bg-white/10 ${
-                active ? "border-cyan-200/60 bg-white/10" : "border-white/10 bg-white/5"
+            className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition-colors hover:bg-background/10 ${
+                active ? "border-background/60 bg-background/10" : "border-background/10 bg-background/5"
             }`}
             onClick={() => onClick(stepId)}
         >
             <span className={`mt-0.5 flex size-7 items-center justify-center rounded-full border text-xs font-semibold ${
-                active ? "border-cyan-200 bg-cyan-200 text-slate-950" : "border-white/20 text-white/70"
+                active ? "border-background bg-background text-foreground" : "border-background/20 text-background/70"
             }`}>
                 {complete ? <CheckCircle2 className="size-4"/> : number}
             </span>
             <span>
-                <span className="block font-medium text-white">{step.label}</span>
-                <span className="block leading-5 text-white/58">{step.description}</span>
+                <span className="block font-medium text-background">{step.label}</span>
+                <span className="block leading-5 text-background/60">{step.description}</span>
             </span>
         </button>
     )

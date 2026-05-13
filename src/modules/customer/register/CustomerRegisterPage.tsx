@@ -31,10 +31,10 @@ import {CustomerRegisterReviewStep} from "./steps/CustomerRegisterReviewStep.tsx
 export function CustomerRegisterPage() {
     return (
         <CustomerRegisterProvider>
-            <main className="min-h-screen!">
-                <div className="mx-auto flex min-h-screen! max-w-7xl flex-col px-4 py-6">
+            <main className="min-h-dvh bg-background">
+                <div className="mx-auto flex min-h-dvh max-w-7xl flex-col px-4 py-6">
                     <CustomerRegisterHeader/>
-                    <div className="flex flex-1 items-center py-8">
+                    <div className="flex flex-1 py-8">
                         <CustomerRegisterCurrentStep/>
                     </div>
                     <CustomerRegisterSuccessDialog/>
@@ -110,33 +110,33 @@ function CustomerRegisterIntro() {
     const {startRegistration} = useCustomerRegister()
 
     return (
-        <section className="grid w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="relative min-h-[520px] overflow-hidden bg-slate-950 p-8 text-white sm:p-10">
+        <section className="grid min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[1.02fr_0.98fr]">
+            <div className="relative min-h-140 overflow-hidden bg-foreground p-8 text-background sm:p-10">
                 <img
                     src="/customer/portal-hero.png"
                     alt="Customer portal preview"
                     className="absolute inset-0 h-full w-full object-cover opacity-70"
                 />
-                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.94)_0%,rgba(2,6,23,0.82)_42%,rgba(2,6,23,0.34)_100%)]"/>
+                <div className="absolute inset-0 bg-foreground/80"/>
                 <div className="relative z-10 grid h-full content-between gap-8">
                     <div className="flex flex-wrap gap-2">
-                        <Badge className="border-white/20 bg-white/10 text-white hover:bg-white/10">
+                        <Badge className="border-background/20 bg-background/10 text-background hover:bg-background/10">
                             Customer onboarding
                         </Badge>
-                        <Badge className="border-white/20 bg-white/10 text-white hover:bg-white/10">
+                        <Badge className="border-background/20 bg-background/10 text-background hover:bg-background/10">
                             Self-service access
                         </Badge>
                     </div>
 
                     <div className="grid max-w-xl gap-6">
-                        <div className="flex size-12 items-center justify-center rounded-xl border border-white/20 bg-white/10">
-                            <Sparkles className="size-6 text-cyan-200"/>
+                        <div className="flex size-12 items-center justify-center rounded-xl border border-background/20 bg-background/10">
+                            <Sparkles className="size-6 text-background"/>
                         </div>
                         <div className="grid gap-4">
                             <h1 className="text-5xl font-semibold tracking-tight sm:text-6xl">
                                 Create your customer account.
                             </h1>
-                            <p className="max-w-lg text-base leading-8 text-white/82">
+                            <p className="max-w-lg text-base leading-8 text-background/80">
                                 Set up secure customer portal access, complete your profile, and prepare your account for verification in a guided flow.
                             </p>
                         </div>
@@ -144,13 +144,13 @@ function CustomerRegisterIntro() {
                             <Button
                                 type="button"
                                 size="lg"
-                                className="bg-white text-slate-950 hover:bg-white/90"
+                                className="bg-background text-foreground hover:bg-background/90"
                                 onClick={startRegistration}
                             >
                                 Get started
                                 <ArrowRight className="size-4"/>
                             </Button>
-                            <Button asChild size="lg" variant="outline" className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white">
+                            <Button asChild size="lg" variant="inverted_glass" className="border-background/30 bg-background/10 text-background hover:bg-background/20 hover:text-background">
                                 <Link to="/customer/login">I already have an account</Link>
                             </Button>
                         </div>
@@ -158,10 +158,10 @@ function CustomerRegisterIntro() {
 
                     <div className="grid gap-3 sm:grid-cols-3">
                         {introHighlights.map((item) => (
-                            <div key={item.title} className="rounded-xl border border-white/15 bg-white/10 p-4 backdrop-blur">
-                                <item.icon className="mb-3 size-5 text-cyan-200"/>
+                            <div key={item.title} className="rounded-xl border border-background/15 bg-background/10 p-4 backdrop-blur">
+                                <item.icon className="mb-3 size-5 text-background"/>
                                 <div className="text-sm font-semibold">{item.title}</div>
-                                <div className="mt-1 text-xs leading-5 text-white/70">{item.description}</div>
+                                <div className="mt-1 text-xs leading-5 text-background/70">{item.description}</div>
                             </div>
                         ))}
                     </div>

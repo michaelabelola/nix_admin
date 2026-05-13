@@ -42,7 +42,7 @@ export function StepSection({
     children: ReactNode
 }) {
     return (
-        <section className="grid gap-4 rounded-xl border p-4">
+        <section className="grid gap-4 rounded-xl p-4">
             <div className="space-y-1">
                 <h2 className="font-semibold">{title}</h2>
                 {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
