@@ -58,6 +58,7 @@ export type CustomerRegisterContextValue = {
     stepIndex: number
     totalSteps: number
     isSubmitting: boolean
+    successEmail?: string
     canGoNext: boolean
     canSubmit: boolean
     updateDraft: (patch: Partial<CustomerRegisterDraft>) => void
@@ -70,6 +71,7 @@ export type CustomerRegisterContextValue = {
     goBack: () => void
     goNext: () => void
     submitDraft: () => Promise<void>
+    closeSuccessDialog: () => void
     getFieldError: (field: string) => string | undefined
 }
 

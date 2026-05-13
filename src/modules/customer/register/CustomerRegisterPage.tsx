@@ -1,3 +1,16 @@
+import {Link} from "@tanstack/react-router"
+import {CheckCircle2} from "lucide-react"
+
+import {Button} from "#/components/ui/button.tsx"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from "#/components/ui/dialog.tsx"
+
 import {CustomerRegisterProvider, useCustomerRegister} from "./customer-register.context.tsx"
 import {CustomerRegisterAddressesStep} from "./steps/CustomerRegisterAddressesStep.tsx"
 import {CustomerRegisterAccountStep} from "./steps/CustomerRegisterAccountStep.tsx"
@@ -20,6 +33,7 @@ export function CustomerRegisterPage() {
                     </p>
                 </div>
                 <CustomerRegisterCurrentStep/>
+                <CustomerRegisterSuccessDialog/>
             </main>
         </CustomerRegisterProvider>
     )
@@ -43,4 +57,31 @@ function CustomerRegisterCurrentStep() {
         default:
             return <CustomerRegisterAccountStep/>
     }
+}
+
+function CustomerRegisterSuccessDialog() {
+    const {successEmail, closeSuccessDialog} = useCustomerRegister()
+
+    return (
+        <Dialog open={Boolean(successEmail)} onOpenChange={(open) => {
+            if (!open) closeSuccessDialog()
+        }}>
+            <DialogContent showCloseButton={false}>
+                <DialogHeader className="items-center text-center">
+                    <div className="flex size-14 items-center justify-center rounded-full bg-success/10 text-success">
+                        <CheckCircle2 className="size-8"/>
+                    </div>
+                    <DialogTitle>Registration submitted</DialogTitle>
+                    <DialogDescription>
+                        Your customer account was created for {successEmail}. Check your email for verification, then continue to customer login.
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogFooter className="sm:justify-center">
+                    <Button asChild>
+                        <Link to="/customer/login">Go to customer login</Link>
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
+    )
 }

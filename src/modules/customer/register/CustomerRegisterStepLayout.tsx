@@ -72,6 +72,7 @@ export function CustomerRegisterStepLayout({
                     <CardTitle>{step.label}</CardTitle>
                     <CardDescription>{step.description}</CardDescription>
                 </CardHeader>
+                <hr/>
                 <CardContent className="space-y-6">
                     {children}
 

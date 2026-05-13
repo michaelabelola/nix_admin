@@ -1,6 +1,5 @@
 import React, {createContext, useContext, useMemo, useState} from "react"
 import {useMutation, useQueryClient} from "@tanstack/react-query"
-import {useNavigate} from "@tanstack/react-router"
 import {toast} from "sonner"
 
 import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx"
@@ -26,19 +25,20 @@ import {
 const CustomerRegisterContext = createContext<CustomerRegisterContextValue | null>(null)
 
 export function CustomerRegisterProvider({children}: { children: React.ReactNode }) {
-    const navigate = useNavigate()
     const queryClient = useQueryClient()
     const errHandler = useResponseFieldErrorHandler()
     const [draft, setDraft] = useState<CustomerRegisterDraft>(INITIAL_CUSTOMER_REGISTER_DRAFT)
     const [stepId, setStepId] = useState<CustomerRegisterStepID>("account")
+    const [successEmail, setSuccessEmail] = useState<string>()
 
     const createAccount = useMutation({
         mutationFn: (body: CustomerRegisterDraft) =>
             customerApi.createSelfAccount(buildCustomerSelfAccountPayload(body), {errHandler}),
-        onSuccess: async () => {
+        onSuccess: async (_data, submittedDraft) => {
             await queryClient.invalidateQueries({queryKey: CustomerQueryKeys.root})
-            toast.success("Customer account created. Check email for verification.")
-            await navigate({to: "/login"} as any)
+            setSuccessEmail(submittedDraft.email.trim())
+            setDraft(INITIAL_CUSTOMER_REGISTER_DRAFT)
+            setStepId("account")
         },
     })
 
@@ -52,6 +52,7 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
         stepIndex,
         totalSteps: CUSTOMER_REGISTER_STEPS.length,
         isSubmitting: createAccount.isPending,
+        successEmail,
         canGoNext,
         canSubmit,
         updateDraft: (patch) => setDraft((previous) => ({...previous, ...patch})),
@@ -91,8 +92,9 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
             }
             await createAccount.mutateAsync(draft)
         },
+        closeSuccessDialog: () => setSuccessEmail(undefined),
         getFieldError: errHandler.getErrorMessage,
-    }), [canGoNext, canSubmit, createAccount, draft, errHandler.getErrorMessage, stepId, stepIndex])
+    }), [canGoNext, canSubmit, createAccount, draft, errHandler.getErrorMessage, stepId, stepIndex, successEmail])
 
     return (
         <CustomerRegisterContext.Provider value={value}>

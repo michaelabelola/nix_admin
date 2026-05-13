@@ -13,9 +13,11 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as LandingRouteRouteImport } from './routes/_landing/route'
 import { Route as DocsRouteRouteImport } from './routes/_docs/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as CustomerIndexRouteImport } from './routes/customer/index'
 import { Route as LandingIndexRouteImport } from './routes/_landing/index'
 import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
 import { Route as CustomerRegisterRouteImport } from './routes/customer/register'
+import { Route as CustomerLoginRouteImport } from './routes/customer/login'
 import { Route as LandingWelcomeRouteImport } from './routes/_landing/welcome'
 import { Route as LandingVerifyEmailRouteImport } from './routes/_landing/verify-email'
 import { Route as LandingSignupRouteImport } from './routes/_landing/signup'
@@ -139,6 +141,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CustomerIndexRoute = CustomerIndexRouteImport.update({
+  id: '/customer/',
+  path: '/customer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LandingIndexRoute = LandingIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -152,6 +159,11 @@ const DemoI18nRoute = DemoI18nRouteImport.update({
 const CustomerRegisterRoute = CustomerRegisterRouteImport.update({
   id: '/customer/register',
   path: '/customer/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CustomerLoginRoute = CustomerLoginRouteImport.update({
+  id: '/customer/login',
+  path: '/customer/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LandingWelcomeRoute = LandingWelcomeRouteImport.update({
@@ -851,8 +863,10 @@ export interface FileRoutesByFullPath {
   '/signup': typeof LandingSignupRoute
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
+  '/customer/login': typeof CustomerLoginRoute
   '/customer/register': typeof CustomerRegisterRoute
   '/demo/i18n': typeof DemoI18nRoute
+  '/customer/': typeof CustomerIndexRoute
   '/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
   '/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   '/admin/finance': typeof AuthenticatedAdminFinanceRouteRouteWithChildren
@@ -961,8 +975,10 @@ export interface FileRoutesByTo {
   '/signup': typeof LandingSignupRoute
   '/verify-email': typeof LandingVerifyEmailRoute
   '/welcome': typeof LandingWelcomeRoute
+  '/customer/login': typeof CustomerLoginRoute
   '/customer/register': typeof CustomerRegisterRoute
   '/demo/i18n': typeof DemoI18nRoute
+  '/customer': typeof CustomerIndexRoute
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api_docs': typeof DocsApi_docsIndexRoute
@@ -1062,9 +1078,11 @@ export interface FileRoutesById {
   '/_landing/signup': typeof LandingSignupRoute
   '/_landing/verify-email': typeof LandingVerifyEmailRoute
   '/_landing/welcome': typeof LandingWelcomeRoute
+  '/customer/login': typeof CustomerLoginRoute
   '/customer/register': typeof CustomerRegisterRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
+  '/customer/': typeof CustomerIndexRoute
   '/_authenticated/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
   '/_authenticated/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   '/_authenticated/admin/finance': typeof AuthenticatedAdminFinanceRouteRouteWithChildren
@@ -1176,8 +1194,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/verify-email'
     | '/welcome'
+    | '/customer/login'
     | '/customer/register'
     | '/demo/i18n'
+    | '/customer/'
     | '/admin/apps'
     | '/admin/customers'
     | '/admin/finance'
@@ -1286,8 +1306,10 @@ export interface FileRouteTypes {
     | '/signup'
     | '/verify-email'
     | '/welcome'
+    | '/customer/login'
     | '/customer/register'
     | '/demo/i18n'
+    | '/customer'
     | '/admin/real-estate'
     | '/admin'
     | '/api_docs'
@@ -1386,9 +1408,11 @@ export interface FileRouteTypes {
     | '/_landing/signup'
     | '/_landing/verify-email'
     | '/_landing/welcome'
+    | '/customer/login'
     | '/customer/register'
     | '/demo/i18n'
     | '/_landing/'
+    | '/customer/'
     | '/_authenticated/admin/apps'
     | '/_authenticated/admin/customers'
     | '/_authenticated/admin/finance'
@@ -1494,8 +1518,10 @@ export interface RootRouteChildren {
   DocsRouteRoute: typeof DocsRouteRouteWithChildren
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  CustomerLoginRoute: typeof CustomerLoginRoute
   CustomerRegisterRoute: typeof CustomerRegisterRoute
   DemoI18nRoute: typeof DemoI18nRoute
+  CustomerIndexRoute: typeof CustomerIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1528,6 +1554,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/customer/': {
+      id: '/customer/'
+      path: '/customer'
+      fullPath: '/customer/'
+      preLoaderRoute: typeof CustomerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_landing/': {
       id: '/_landing/'
       path: '/'
@@ -1547,6 +1580,13 @@ declare module '@tanstack/react-router' {
       path: '/customer/register'
       fullPath: '/customer/register'
       preLoaderRoute: typeof CustomerRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/customer/login': {
+      id: '/customer/login'
+      path: '/customer/login'
+      fullPath: '/customer/login'
+      preLoaderRoute: typeof CustomerLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_landing/welcome': {
@@ -2912,8 +2952,10 @@ const rootRouteChildren: RootRouteChildren = {
   DocsRouteRoute: DocsRouteRouteWithChildren,
   LandingRouteRoute: LandingRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  CustomerLoginRoute: CustomerLoginRoute,
   CustomerRegisterRoute: CustomerRegisterRoute,
   DemoI18nRoute: DemoI18nRoute,
+  CustomerIndexRoute: CustomerIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
