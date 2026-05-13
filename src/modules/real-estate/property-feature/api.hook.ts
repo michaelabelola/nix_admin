@@ -1,7 +1,6 @@
 import type {PropertyFeatureModel} from "@/modules/real-estate/property-feature/model.ts";
 import type {PropertyModel} from "@/modules/real-estate/property/model.ts";
 import {RealEstateQueryKeys} from "@/modules/real-estate/query-keys.ts";
-import type {SpaceModel} from "@/modules/real-estate/space/model.ts";
 import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import propertyFeatureApi from "./api.ts";
@@ -71,58 +70,6 @@ export namespace PropertyFeatureApiHook {
                     propertyFeatureApi.unlinkFromProperty(propertyId, featureIds, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
-                    successHandler?.(data)
-                },
-            }),
-            errHandler,
-        }
-    }
-
-    export function useLinkFeaturesToSpace(successHandler?: SuccessHandler<SpaceModel.Detailed>) {
-        const queryClient = useQueryClient()
-        const errHandler = useResponseFieldErrorHandler()
-
-        return {
-            ...useMutation({
-                mutationFn: ({spaceId, featureIds, propertyId}: {
-                    spaceId: SpaceModel.SpaceID,
-                    featureIds: PropertyFeatureModel.PropertyFeatureID[],
-                    propertyId?: PropertyModel.PropertyID
-                }) =>
-                    propertyFeatureApi.linkToSpace(spaceId, featureIds, propertyId, {errHandler}),
-                onSuccess: async (data, variables) => {
-                    await Promise.all([
-                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.space(variables.spaceId)}),
-                        variables.propertyId
-                            ? queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
-                            : Promise.resolve(),
-                    ])
-                    successHandler?.(data)
-                },
-            }),
-            errHandler,
-        }
-    }
-
-    export function useUnlinkFeaturesFromSpace(successHandler?: SuccessHandler<SpaceModel.Detailed>) {
-        const queryClient = useQueryClient()
-        const errHandler = useResponseFieldErrorHandler()
-
-        return {
-            ...useMutation({
-                mutationFn: ({spaceId, featureIds, propertyId}: {
-                    spaceId: SpaceModel.SpaceID,
-                    featureIds: PropertyFeatureModel.PropertyFeatureID[],
-                    propertyId?: PropertyModel.PropertyID
-                }) =>
-                    propertyFeatureApi.unlinkFromSpace(spaceId, featureIds, propertyId, {errHandler}),
-                onSuccess: async (data, variables) => {
-                    await Promise.all([
-                        queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.space(variables.spaceId)}),
-                        variables.propertyId
-                            ? queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.property(variables.propertyId)})
-                            : Promise.resolve(),
-                    ])
                     successHandler?.(data)
                 },
             }),
