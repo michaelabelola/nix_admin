@@ -72,7 +72,7 @@ function createPropertyColumns(): Array<ColumnDef<PropertyModel.Property>> {
             cell: ({row}) => (
                 <div className="flex items-start gap-2 text-sm text-muted-foreground">
                     <MapPin className="mt-0.5 size-4 shrink-0"/>
-                    <span>{formatLocation(row.original.location) || "No location"}</span>
+                    <span>{formatLocation(row?.original?.location) || "No location"}</span>
                 </div>
             ),
         },
@@ -111,11 +111,6 @@ export function PropertiesPage() {
                 description: "Review registered properties and open a property detail workspace.",
                 actionView: (
                     <ButtonGroup>
-                        <Button variant="outline" asChild>
-                            <Link to="/admin/real-estate/properties/locations">
-                                View locations
-                            </Link>
-                        </Button>
                         <Button asChild>
                             <Link to="/admin/real-estate/properties/onboard">
                                 <PlusCircle className="size-4"/>

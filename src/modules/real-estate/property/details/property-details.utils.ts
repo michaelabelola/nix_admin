@@ -4,7 +4,7 @@ import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 import type {RentDefinitionModel} from "#/modules/real-estate/rent-definition/model.ts";
 
-export function formatLocation(location?: PropertyModel.PropertyLocationDetailed | null) {
+export function formatLocation(location?: PropertyModel.PropertyLocation | PropertyModel.PropertyLocationDetailed | null) {
     if (!location) return null
 
     const parts = [
