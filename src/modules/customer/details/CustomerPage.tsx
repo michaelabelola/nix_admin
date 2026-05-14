@@ -6,13 +6,6 @@ import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "#/components/ui/card.tsx"
-import {
     Tabs,
     TabsList,
     TabsTrigger,
@@ -69,14 +62,14 @@ const CustomerPage = ({
                 ),
             }}
         >
-            <Card className="min-h-full">
-                <CardHeader className="gap-4">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+            <div className="min-h-full rounded-xl bg-card p-4 shadow-sm sm:p-6">
+                <div className="space-y-5">
+                    <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-1">
-                            <CardTitle>{getCustomerDisplayName(data)}</CardTitle>
-                            <CardDescription>
+                            <h2 className="text-lg font-semibold">{getCustomerDisplayName(data)}</h2>
+                            <p className="max-w-3xl text-sm text-muted-foreground">
                                 Review customer status, profile details, contact information, and assigned tags.
-                            </CardDescription>
+                            </p>
                         </div>
                         <div className="flex flex-wrap items-center gap-2">
                             {data?.status ? (
@@ -84,13 +77,12 @@ const CustomerPage = ({
                                     {data.status}
                                 </Badge>
                             ) : null}
-                            <Badge variant="outline">{data?.type || "TYPE_UNSET"}</Badge>
-                            <Badge variant="outline">{data?.lifecycleStage || "STAGE_UNSET"}</Badge>
-                            <Badge variant="outline">ID: {customerId}</Badge>
+                            <Badge variant="secondary">{data?.type || "TYPE_UNSET"}</Badge>
+                            <Badge variant="secondary">{data?.lifecycleStage || "STAGE_UNSET"}</Badge>
+                            <Badge variant="ghost" className="font-mono">ID: {customerId}</Badge>
                         </div>
                     </div>
-                </CardHeader>
-                <CardContent>
+
                     <Tabs
                         value={activeTab}
                         onValueChange={(value) => {
@@ -102,20 +94,20 @@ const CustomerPage = ({
                         }}
                         className="gap-6"
                     >
-                        <TabsList variant="line" className="h-auto w-full flex-wrap justify-start rounded-none p-0">
+                        <TabsList variant="line" className="h-auto w-full flex-wrap justify-start rounded-none bg-transparent p-0">
                             {CUSTOMER_DETAILS_TABS.map((tab) => (
-                                <TabsTrigger key={tab} value={tab} className="flex-none px-1.5 py-2">
+                                <TabsTrigger key={tab} value={tab} className="flex-none px-2 py-2">
                                     {CUSTOMER_DETAILS_TAB_LABELS[tab]}
                                 </TabsTrigger>
                             ))}
                         </TabsList>
                     </Tabs>
 
-                    <div className="mt-6">
+                    <div>
                         {children}
                     </div>
-                </CardContent>
-            </Card>
+                </div>
+            </div>
         </Page>
     )
 }

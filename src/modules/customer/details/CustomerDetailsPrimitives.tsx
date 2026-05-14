@@ -19,9 +19,9 @@ export function SummaryMetric({label, value}: { label: string; value?: string | 
 
 export function KeyValue({label, value}: { label: string; value?: string | ReactNode | null }) {
     return (
-        <div className="flex flex-col gap-1 rounded-lg border p-3">
-            <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
-            <div className="break-words text-sm">{value || "Not set"}</div>
+        <div className="grid gap-1 py-2 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-4">
+            <dt className="text-sm text-muted-foreground">{label}</dt>
+            <dd className="min-w-0 break-words text-sm font-medium text-foreground">{value || "Not set"}</dd>
         </div>
     )
 }
