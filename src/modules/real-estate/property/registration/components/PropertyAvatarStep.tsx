@@ -6,8 +6,8 @@ import { PropertyApiHook } from "#/modules/real-estate/property/api.hook.ts"
 import type { PropertyModel } from "#/modules/real-estate/property/model.ts"
 
 import {
-  RegistrationFileField,
   RegistrationForm,
+  RegistrationImageSelectorField,
 } from "./PropertyRegistrationFields.tsx"
 import { PropertyRegistrationLayout } from "./PropertyRegistrationLayout.tsx"
 import { StepMutationError } from "./PropertyRegistrationFormParts.tsx"
@@ -67,22 +67,12 @@ export function PropertyAvatarStep({
       onNext={() => form.handleSubmit()}
     >
       <RegistrationForm form={form}>
-        {property.avatar ? (
-          <div className="grid gap-3 rounded-lg bg-muted/30 p-4">
-            <div className="text-sm font-medium">Current avatar</div>
-            <img
-              src={property.avatar}
-              alt={`${property.name ?? property.id} avatar`}
-              className="h-48 w-full rounded-md object-cover"
-            />
-          </div>
-        ) : null}
-
-        <RegistrationFileField
+        <RegistrationImageSelectorField
           form={form}
           name="file"
           label="Avatar image"
           description="Upload a square or landscape image for the property's primary visual."
+          defaultImageUrl={property.avatar}
           accept="image/*"
         />
 

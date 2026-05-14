@@ -18,7 +18,6 @@ import {
     toNullableString,
 } from "./PropertyRegistrationFormParts.tsx"
 import {getNextPropertyRegistrationStep} from "./property-registration.constants.ts"
-import Page from "#/components/Page.tsx";
 
 const PROPERTY_TYPE_OPTIONS = Object.values(PropertyModel.PropertyType)
 
@@ -51,7 +50,6 @@ export function PropertyCreateStep() {
     const disableNext = !values.name.trim() || !values.type
 
     return (
-        <Page>
             <PropertyRegistrationLayout
                 stepId="create"
                 skipHref="/admin/real-estate/properties"
@@ -98,6 +96,5 @@ export function PropertyCreateStep() {
                     />
                 </RegistrationForm>
             </PropertyRegistrationLayout>
-        </Page>
     )
 }

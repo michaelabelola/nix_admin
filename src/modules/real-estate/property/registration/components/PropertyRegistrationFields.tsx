@@ -1,5 +1,6 @@
 import type {ReactNode} from "react"
 
+import {ImageSelector} from "#/components/ImageSelector.tsx"
 import {Input} from "#/components/ui/input.tsx"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
@@ -188,6 +189,44 @@ export function RegistrationFileField({
                             Selected file: {field.state.value.name}
                         </p>
                     ) : null}
+                </StepField>
+            )}
+        </form.Field>
+    )
+}
+
+export function RegistrationImageSelectorField({
+                                                   form,
+                                                   name,
+                                                   label,
+                                                   description,
+                                                   defaultImageUrl,
+                                                   accept = "image/*",
+                                                   maxSizeBytes,
+                                               }: {
+    form: RegistrationFormLike
+    name: string
+    label: string
+    description?: string
+    defaultImageUrl?: string | null
+    accept?: string
+    maxSizeBytes?: number
+}) {
+    return (
+        <form.Field name={name}>
+            {(field: any) => (
+                <StepField label={label} description={description}>
+                    <div className="flex items-center justify-center w-full min-h-[50dvh]">
+                        <ImageSelector
+                            value={field.state.value ?? null}
+                            defaultImageUrl={defaultImageUrl}
+                            accept={accept}
+                            maxSizeBytes={maxSizeBytes}
+                            onChange={field.handleChange}
+                            className={"w-full relative"}
+                            imageClassName={""}
+                        />
+                    </div>
                 </StepField>
             )}
         </form.Field>
