@@ -29,7 +29,7 @@ export function CustomerCreateStart() {
                                     <step.icon className="size-4"/>
                                 </div>
                                 <div>
-                                    <div className="font-medium">
+                                    <div className="text-sm">
                                         {index + 1}. {step.label}
                                     </div>
                                     <div className="text-sm text-muted-foreground">

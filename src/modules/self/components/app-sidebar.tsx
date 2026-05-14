@@ -203,7 +203,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain}/>
+                <NavMain items={[]}/>
                 {[selfBusinessNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
                 ))}

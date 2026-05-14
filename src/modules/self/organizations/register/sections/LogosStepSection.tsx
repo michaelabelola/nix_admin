@@ -7,7 +7,7 @@ import {useRegistration} from "../registration.context.tsx"
 import {FileField} from "./shared.tsx"
 
 export function LogosStepSection() {
-    const {setFile, submitRegistration, canSubmit, isSubmitting} = useRegistration()
+    const {draft, setFile, submitRegistration, canSubmit, isSubmitting} = useRegistration()
 
     return (
         <RegistrationStepLayout
@@ -22,21 +22,25 @@ export function LogosStepSection() {
                     <FileField
                         label="Organization logo"
                         description="Primary brand logo."
+                        value={draft.logo}
                         onChange={(file) => setFile("logo", file)}
                     />
                     <FileField
                         label="Dark logo"
                         description="Alternative logo for dark surfaces."
+                        value={draft.logoDark}
                         onChange={(file) => setFile("logoDark", file)}
                     />
                     <FileField
                         label="Cover image"
                         description="Optional cover image for organization pages."
+                        value={draft.coverImage}
                         onChange={(file) => setFile("coverImage", file)}
                     />
                     <FileField
                         label="Dark cover image"
                         description="Optional dark-mode cover variant."
+                        value={draft.coverImageDark}
                         onChange={(file) => setFile("coverImageDark", file)}
                     />
                 </div>

@@ -1,6 +1,9 @@
+import {useEffect, useRef} from "react"
+
 import {Textarea} from "#/components/ui/textarea.tsx"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
+import {UserRequest} from "#/modules/user/api.hook.tsx"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"
@@ -8,8 +11,34 @@ import {dateInputValue, TextField} from "./shared.tsx"
 
 export function OrgUserStepSection() {
     const {draft, updateUser, updateUserAddress} = useRegistration()
+    const {data: authenticatedUser} = UserRequest.useGetAuthenticatedUser()
+    const didPrefill = useRef(false)
     const address = draft.user.address
     const isDisabled = !draft.user.firstname.trim() || !draft.user.lastname.trim() || !draft.user.email.trim() || !draft.user.phone.trim() || !address.street.trim() || !address.city.trim() || !address.state.trim() || !address.country.trim() || !address.zipcode.trim()
+
+    useEffect(() => {
+        if (didPrefill.current || !authenticatedUser?.id) return
+
+        didPrefill.current = true
+        updateUser({
+            firstname: authenticatedUser.firstname ?? "",
+            lastname: authenticatedUser.lastname ?? "",
+            email: authenticatedUser.email ?? "",
+            phone: authenticatedUser.phone ?? "",
+            dateOfBirth: authenticatedUser.dateOfBirth ?? "",
+            bio: authenticatedUser.bio ?? "",
+        })
+        updateUserAddress({
+            apt_number: authenticatedUser.address?.apt_number ?? "",
+            street: authenticatedUser.address?.street ?? "",
+            city: authenticatedUser.address?.city ?? "",
+            state: authenticatedUser.address?.state ?? "",
+            country: authenticatedUser.address?.country ?? "",
+            zipcode: authenticatedUser.address?.zipcode ?? "",
+            latitude: authenticatedUser.address?.latitude ?? 0,
+            longitude: authenticatedUser.address?.longitude ?? 0,
+        })
+    }, [authenticatedUser, updateUser, updateUserAddress])
 
     return (
         <RegistrationStepLayout stepId="org-user" disableNext={isDisabled}>
