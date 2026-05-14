@@ -1,6 +1,6 @@
 import {useCustomerCreate} from "../customer-create.context.tsx"
 import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"
-import {StepInput, StepSection} from "../customer-create.fields.tsx"
+import {StepCountryField, StepInput, StepSection} from "../customer-create.fields.tsx"
 
 export function CustomerCreatePersonalStep() {
     const {draft, updatePersonalDetail} = useCustomerCreate()
@@ -23,7 +23,7 @@ export function CustomerCreatePersonalStep() {
                     <StepInput label="National ID" value={draft.personalDetail.nationalID} onChange={(value) => updatePersonalDetail({nationalID: value})}/>
                     <StepInput label="Marital status" value={draft.personalDetail.maritalStatus} onChange={(value) => updatePersonalDetail({maritalStatus: value})}/>
                     <StepInput label="Mother's maiden name" value={draft.personalDetail.mothersMaidenName} onChange={(value) => updatePersonalDetail({mothersMaidenName: value})}/>
-                    <StepInput label="Country of birth" value={draft.personalDetail.countryOfBirth} onChange={(value) => updatePersonalDetail({countryOfBirth: value})}/>
+                    <StepCountryField label="Country of birth" value={draft.personalDetail.countryOfBirth} onChange={(value) => updatePersonalDetail({countryOfBirth: value})}/>
                     <StepInput label="Profession" value={draft.personalDetail.profession} onChange={(value) => updatePersonalDetail({profession: value})}/>
                 </div>
             </StepSection>
