@@ -38,7 +38,7 @@ export function PropertyDetailsListingProfilesTab({
                 toolbarActions={
                     <Button
                         size="xs"
-                        variant="outline"
+                        variant="success"
                         disabled={!property?.id}
                         onClick={() => {
                             if (!property?.id) return
@@ -50,7 +50,7 @@ export function PropertyDetailsListingProfilesTab({
                         }}
                     >
                         <PlusCircle className="size-4"/>
-                        Create Listing Profile
+                        Create Profile
                     </Button>
                 }
             />

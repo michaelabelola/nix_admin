@@ -63,7 +63,7 @@ const PropertyPage = ({
                 ),
             }}
         >
-            <Card className="min-h-full">
+            <Card className="min-h-full bg-transparent">
                 <CardHeader className="gap-4">
                     <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-1">

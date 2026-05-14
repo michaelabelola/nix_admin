@@ -95,7 +95,7 @@ const CustomerPage = ({
                         className="gap-6"
                     >
                         <TabsList variant="line"
-                                  className="h-auto w-full flex-wrap justify-start rounded-none bg-transparent p-0">
+                                  className="h-auto w-full flex-wrap justify-start rounded-none bg-transparent p-">
                             {CUSTOMER_DETAILS_TABS.map((tab) => (
                                 <TabsTrigger key={tab} value={tab} className="flex-none px-2 py-2">
                                     {CUSTOMER_DETAILS_TAB_LABELS[tab]}
