@@ -10,7 +10,7 @@ export function UserAdminPage() {
 
     if (!isHydrated) {
         return (
-            <main className="px-4 py-10 min-h-screen flex w-full items-center bg-background/70">
+            <main className="px-4 py-10 h-screen flex w-full items-center bg-background/70">
                 <Card className="mx-auto max-w-xl shadow-sm h-fit w-12/12 md:w-5/12">
                     <CardHeader>
                         <CardTitle
@@ -31,10 +31,8 @@ export function UserAdminPage() {
     return (
         <SidebarProvider>
             <AppSidebar/>
-            <main className={"w-full"}>
                 {/*<SiteHeader/>*/}
                 <Outlet/>
-            </main>
         </SidebarProvider>
     )
 }

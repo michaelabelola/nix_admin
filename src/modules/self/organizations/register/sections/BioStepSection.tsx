@@ -24,7 +24,7 @@ export function BioStepSection() {
                         value={draft.data.detail.about ?? ""}
                         onChange={(event) => updateDataDetail({about: event.target.value})}
                         placeholder="A longer narrative about your services, mission, or experience."
-                        rows={7}
+                        rows={15}
                     />
                 </label>
             </div>

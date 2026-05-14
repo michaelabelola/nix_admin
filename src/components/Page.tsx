@@ -20,12 +20,21 @@ function Page({
                   isFetching,
                   loading,
                   showBack,
+                  parentClasses,
+                  fixed = false,
+                  clearPadding = false,
+                  contentScroll = false,
+                  className,
                   ...props
               }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
     header?: HeaderProp
+    parentClasses?: Parameters<typeof cn>[0]
     isLoading?: boolean
     isFetching?: boolean
     showBack?: boolean
+    fixed?: boolean
+    contentScroll?: boolean
+    clearPadding?: boolean
     loading?: {
         title?: string
         description?: string
@@ -56,7 +65,13 @@ function Page({
             </Card>
         </main>;
     return (
-        <main className={"h-full w-full flex flex-col p-4 gap-4 lg:px-6"}>
+        <main className={cn(
+            "min-h-dvh w-full flex flex-col p-4 gap-4 lg:px-6",
+            fixed ? "h-dvh overflow-y-hidden" : "",
+            contentScroll ? "overflow-y-auto py-0 lg:px-0" : "",
+            clearPadding ? "px-0 py-0" : "",
+            parentClasses
+        )}>
             {header && (
                 <section className="py-2 flex gap-2 items-center">
                     {header?.avatar &&
@@ -94,7 +109,9 @@ function Page({
 
             {
                 props.children ?
-                    <section className={cn("py-2 h-full", props.className)}>
+                    <section className={cn("h-full",
+                        clearPadding ? "px-0 py-0" : "",
+                        className)}>
                         {props.children}
                     </section> :
                     <Page404 message={"No Content Found for this page"}/>

@@ -52,7 +52,7 @@ export function Dropdown({
             disabled={disabled || !hasOptions}
             onValueChange={onValueChange}
         >
-            <SelectTrigger className={cn('w-full', triggerClassName)}>
+            <SelectTrigger className={cn('w-full h-12', triggerClassName)}>
                 <SelectValue placeholder={placeholder}/>
             </SelectTrigger>
             <SelectContent className={cn('bg-background text-foreground', contentClassName)}>
