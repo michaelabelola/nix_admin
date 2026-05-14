@@ -159,7 +159,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
     const navigate = useNavigate()
     return (
-        <Sidebar collapsible="offcanvas" {...props}>
+        <Sidebar collapsible="offcanvas" {...props} className={"bg-background/80 backdrop-blur-sm border-r"}>
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem className={"flex "}>

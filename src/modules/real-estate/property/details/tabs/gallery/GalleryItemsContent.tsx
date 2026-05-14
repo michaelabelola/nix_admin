@@ -21,22 +21,22 @@ import {
 import {Spinner} from "#/components/ui/spinner.tsx";
 import {FilesStorageModel} from "#/modules/files-storage/model.ts";
 
-import {EmptyState, KeyValue} from "../../PropertyDetailsPrimitives.tsx";
-import {formatDateTime, getStatusVariant} from "./gallery.utils.ts";
+import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";
+import {getStatusVariant} from "./gallery.utils.ts";
 
 function FilePreview({item}: { item: FilesStorageModel.FileItem }) {
     const previewSrc = item.thumbnail || item.file;
 
     if (!previewSrc) {
         return (
-            <div className="flex aspect-[4/3] items-center justify-center rounded-lg bg-muted text-muted-foreground">
+            <div className="flex aspect-4/3 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                 <FileIcon className="size-10"/>
             </div>
         );
     }
 
     return (
-        <div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted">
+        <div className="aspect-4/3 overflow-hidden rounded-lg bg-muted">
             <img
                 src={previewSrc}
                 alt={item.name?.trim() || "Gallery item preview"}
@@ -70,28 +70,20 @@ function GalleryItemCard({item}: { item: FilesStorageModel.FileItem }) {
                     </CardDescription>
                 </div>
 
-                <div className="grid gap-3">
-                    <KeyValue label="File ID" value={item.id}/>
-                    <KeyValue
-                        label="Status updated"
-                        value={formatDateTime(item.listableStatus?.lastUpdated)}
-                    />
-                </div>
-
                 <div className="flex flex-wrap gap-2">
                     {item.file ? (
-                       <div className={"flex gap-4"}>
-                           {/*<Button asChild variant="outline" size="sm">*/}
-                           {/*    <a href={item.file} target="_blank" rel="noreferrer">*/}
-                           {/*        Open file*/}
-                           {/*    </a>*/}
-                           {/*</Button>*/}
-                           <Button asChild variant="outline" size="sm">
-                               <a href={item.file} target="_blank" rel="noreferrer">
-                                   Download file
-                               </a>
-                           </Button>
-                       </div>
+                        <div className={"flex gap-4"}>
+                            <Button asChild variant="outline" size="sm">
+                                <a href={item.file} target="_blank" rel="noreferrer">
+                                    Open file
+                                </a>
+                            </Button>
+                            <Button asChild variant="outline" size="sm">
+                                <a href={item.file} target="_blank" rel="noreferrer">
+                                    Download file
+                                </a>
+                            </Button>
+                        </div>
                     ) : null}
                     {item.thumbnail && item.thumbnail !== item.file ? (
                         <Button asChild variant="ghost" size="sm">
@@ -107,11 +99,11 @@ function GalleryItemCard({item}: { item: FilesStorageModel.FileItem }) {
 }
 
 function GalleryPaginationControls({
-    currentPage,
-    pageItems,
-    totalPages,
-    onPageChange,
-}: {
+                                       currentPage,
+                                       pageItems,
+                                       totalPages,
+                                       onPageChange,
+                                   }: {
     currentPage: number
     pageItems: Array<number | "ellipsis">
     totalPages: number
@@ -174,13 +166,13 @@ function GalleryPaginationControls({
 }
 
 export function GalleryItemsContent({
-    currentPage,
-    isLoading,
-    items,
-    pageItems,
-    totalPages,
-    onPageChange,
-}: {
+                                        currentPage,
+                                        isLoading,
+                                        items,
+                                        pageItems,
+                                        totalPages,
+                                        onPageChange,
+                                    }: {
     currentPage: number
     isLoading: boolean
     items: FilesStorageModel.FileItem[]

@@ -63,7 +63,7 @@ const PropertyPage = ({
                 ),
             }}
         >
-            <Card className="min-h-full bg-transparent">
+            <Card className="min-h-full w-full overflow-x-hidden shadow-none bg-transparent! backdrop-blur-none">
                 <CardHeader className="gap-4">
                     <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-1">
@@ -89,7 +89,7 @@ const PropertyPage = ({
                                 replace: true,
                             })
                         }}
-                        className="gap-6"
+                        className="gap-6 backdrop-blur-2xl"
                     >
                         <TabsList variant="line" className="h-auto w-full flex-wrap justify-start rounded-none p-0">
                             {PROPERTY_DETAILS_TABS.map((tab) => (

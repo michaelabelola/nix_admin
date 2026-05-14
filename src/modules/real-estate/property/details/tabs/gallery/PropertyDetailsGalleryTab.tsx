@@ -12,6 +12,7 @@ import {GalleryOverview} from "./GalleryOverview.tsx";
 import {GalleryUploadForm} from "./GalleryUploadForm.tsx";
 import {buildPageItems, PAGE_SIZE} from "./gallery.utils.ts";
 import {useGalleryUpload} from "./useGalleryUpload.ts";
+import {Card, CardContent} from "#/components/ui/card.tsx";
 
 export function PropertyDetailsGalleryTab({
     property,
@@ -104,39 +105,41 @@ export function PropertyDetailsGalleryTab({
                 totalPages={totalPages}
             />
 
-            <section className="rounded-lg border p-6">
-                <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                        <h3 className="font-semibold">Gallery items</h3>
-                        <p className="text-sm text-muted-foreground">
-                            Files attached to this property gallery, newest first.
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                        {isRefreshing ? (
-                            <>
-                                <Spinner className="size-4"/>
-                                Refreshing
-                            </>
-                        ) : (
-                            <>
-                                <ImageIcon className="size-4"/>
-                                {totalElements} item{totalElements === 1 ? "" : "s"}
-                            </>
-                        )}
-                    </div>
-                </div>
+            <section className="rounded-lg border p-6 flex flex-col gap-4">
+                <Card>
+                   <CardContent className={"flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"}>
+                       <div>
+                           <h3 className="font-semibold">Gallery items</h3>
+                           <p className="text-sm text-muted-foreground">
+                               Files attached to this property gallery, newest first.
+                           </p>
+                       </div>
+                       <div className="flex flex-col justify-end gap-4">
+                           <div className="flex items-center gap-2 text-sm text-muted-foreground self-end">
+                               {isRefreshing ? (
+                                   <>
+                                       <Spinner className="size-4"/>
+                                       Refreshing
+                                   </>
+                               ) : (
+                                   <>
+                                       <ImageIcon className="size-4"/>
+                                       {totalElements} item{totalElements === 1 ? "" : "s"}
+                                   </>
+                               )}
+                           </div>
+                           <Button
+                               type="button"
+                               variant="outline"
+                               onClick={() => onCreateOpenChange(true)}
+                           >
+                               <Upload className="size-4"/>
+                               Upload file
+                           </Button>
+                       </div>
+                   </CardContent>
+                </Card>
 
-                <div className="mb-6 flex justify-end">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => onCreateOpenChange(true)}
-                    >
-                        <Upload className="size-4"/>
-                        Upload gallery file
-                    </Button>
-                </div>
 
                 <GalleryUploadForm
                     {...upload}

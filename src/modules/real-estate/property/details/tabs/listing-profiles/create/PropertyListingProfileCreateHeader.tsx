@@ -27,7 +27,7 @@ export function PropertyListingProfileCreateHeader({
                         </CardDescription>
                     </div>
 
-                    <ButtonGroup className="flex flex-wrap gap-2">
+                    <ButtonGroup className="flex flex-nowrap gap-2">
                         <Button variant="outline" onClick={onBack}>
                             <ArrowLeft className="size-4"/>
                         </Button>

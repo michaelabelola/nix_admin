@@ -14,6 +14,7 @@ import {cn} from "#/lib/utils.ts"
 import {defaultParseValue, defaultSerializeValue} from "./search-state.ts"
 import type {DataTableRequestBase, DataTableToolbarProps} from "./types.ts"
 import {getFilterValue} from "./types.ts"
+import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 
 export function DataTableToolbar<TRequest extends DataTableRequestBase>({
                                                                             filterFields,
@@ -86,23 +87,25 @@ export function DataTableToolbar<TRequest extends DataTableRequestBase>({
             </div>
             <div className="flex items-center justify-end gap-2">
                 {toolbarActions}
-                <Button
-                    type="button"
-                    variant="ghost"
-                    size="xs"
-                    onClick={onRefresh}
-                    disabled={isFetching}
-                    className={cn(isFetching && "text-warning border-warning cursor-not-allowed")}
-                >
-                    <RefreshCw className={cn("size-4", isFetching && "animate-spin text-warning")}/>
-                    {isFetching ? ("Refreshing...") : "Refresh"}
-                </Button>
-                <Button type="button" variant="ghost" size="xs"
-                        className={"text-destructive hover:bg-destructive hover:text-destructive-foreground"}
-                        onClick={onClear}>
-                    <X className="size-4"/>
-                    Clear
-                </Button>
+                <QuickToolTip asChild content="Refresh">
+                    <Button
+                        type="button"
+                        variant="ghost"
+                        size="xs"
+                        onClick={onRefresh}
+                        disabled={isFetching}
+                        className={cn(isFetching && "text-warning border-warning cursor-not-allowed bg-transparent")}
+                    >
+                        <RefreshCw className={cn("size-4", isFetching && "animate-spin text-warning")}/>
+                    </Button>
+                </QuickToolTip>
+                <QuickToolTip asChild content="Clear filters and search">
+                    <Button type="button" variant="ghost" size="xs"
+                            className={"text-destructive hover:bg-destructive hover:text-destructive-foreground"}
+                            onClick={onClear}>
+                        <X className="size-4"/>
+                    </Button>
+                </QuickToolTip>
             </div>
         </div>
     )

@@ -51,7 +51,7 @@ function ListingProfileAvatarPreview({profile}: { profile: PropertyListingProfil
 
     return (
         <div className="mb-4 overflow-hidden rounded-lg border bg-muted">
-            <div className="aspect-[16/9]">
+            <div className="aspect-video">
                 <img
                     src={profile.avatar}
                     alt={profile.name?.trim() || "Listing profile avatar"}
@@ -278,7 +278,7 @@ function ListingProfileAddListingSheet({
         <Sheet open onOpenChange={handleOpenChange}>
             <SheetContent className="sm:max-w-3xl">
                 <SheetHeader>
-                    <SheetTitle>Add Listing Profile to Listing</SheetTitle>
+                    <SheetTitle>Add Listing</SheetTitle>
                     <SheetDescription>
                         Choose a real estate property listing to attach this listing profile to.
                     </SheetDescription>
@@ -536,7 +536,7 @@ export function PropertyListingProfileDetailsPage({
                                     params={{listingProfileId}}
                                 >
                                     <PlusIcon className="size-4"/>
-                                    Add Listing Profile to Listing
+                                    Add to Listing
                                 </Link>
                             </Button>
                         ) : null}

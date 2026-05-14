@@ -19,6 +19,7 @@ import type {QueryClient} from '@tanstack/react-query'
 import {TooltipProvider} from "#/components/ui/tooltip.tsx";
 import {Toaster} from "#/components/ui/sonner.tsx";
 import Page404 from "#/components/pages/Page404.tsx";
+import type {ReactNode} from "react";
 
 interface MyRouterContext {
     queryClient: QueryClient
@@ -81,7 +82,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     shellComponent: RootDocument,
 })
 
-function RootDocument({children}: { children: React.ReactNode }) {
+function RootDocument({children}: { children: ReactNode }) {
     return (
         <html lang={getLocale()} suppressHydrationWarning>
         <head>
@@ -89,6 +90,7 @@ function RootDocument({children}: { children: React.ReactNode }) {
             <HeadContent/>
         </head>
         <body className="font-sans antialiased wrap-anywhere">
+        <div className={"fixed top-0 right-0 left-0 bottom-0 bg-background/90 backdrop-blur-xl -z-1"}></div>
         <TooltipProvider>
             <EntityBootstrap/>
             {children}
