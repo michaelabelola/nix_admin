@@ -1,12 +1,15 @@
+import {useEffect} from "react"
 import type {ReactNode} from "react"
+import {useNavigate} from "@tanstack/react-router"
 
 import {RegistrationStepLayout} from "#/components/registration/RegistrationLayouts.tsx"
 
 import {
     CUSTOMER_CREATE_INTRO_PATH,
-    CUSTOMER_CREATE_STEPS,
     type CustomerCreateStepID,
+    getCustomerCreateStepsForType,
 } from "./customer-create.constants.ts"
+import {useCustomerCreate} from "./customer-create.context.tsx"
 
 export function CustomerCreateStepLayout({
     stepId,
@@ -23,9 +26,25 @@ export function CustomerCreateStepLayout({
     isBusy?: boolean
     onNext?: () => void | Promise<void>
 }) {
+    const navigate = useNavigate()
+    const {draft} = useCustomerCreate()
+    const steps = getCustomerCreateStepsForType(draft.type)
+    const isVisibleStep = steps.some((step) => step.id === stepId)
+
+    useEffect(() => {
+        if (isVisibleStep) return
+
+        const fallbackStep = steps.find((step) => step.id === "business") ?? steps.find((step) => step.id === "personal") ?? steps[0]
+        if (fallbackStep) {
+            void navigate({to: fallbackStep.path as any, replace: true})
+        }
+    }, [isVisibleStep, navigate, steps])
+
+    if (!isVisibleStep) return null
+
     return (
         <RegistrationStepLayout
-            steps={CUSTOMER_CREATE_STEPS}
+            steps={steps}
             stepId={stepId}
             introPath={CUSTOMER_CREATE_INTRO_PATH}
             sidebarTitle="Customer setup"

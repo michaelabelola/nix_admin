@@ -9,6 +9,8 @@ import {
     type LucideIcon,
 } from "lucide-react"
 
+import {CustomerModel} from "#/modules/customer/model.ts"
+
 export const CUSTOMER_CREATE_INTRO_PATH = "/admin/customers/create"
 
 export type CustomerCreateStepID =
@@ -36,7 +38,7 @@ export const CUSTOMER_CREATE_STEPS: CustomerCreateStep[] = [
         shortLabel: "Basics",
         path: "/admin/customers/create/basics",
         icon: Building2,
-        description: "Set the customer type, display name, lifecycle stage, and core admin metadata.",
+        description: "Set the customer type, lifecycle stage, and core admin metadata.",
     },
     {
         id: "personal",
@@ -87,6 +89,16 @@ export const CUSTOMER_CREATE_STEPS: CustomerCreateStep[] = [
         description: "Review the full draft and submit everything to the backend in a single request.",
     },
 ]
+
+export function getCustomerCreateStepsForType(type?: CustomerModel.CustomerType) {
+    return CUSTOMER_CREATE_STEPS.filter((step) => {
+        if (type === CustomerModel.CustomerType.INDIVIDUAL) {
+            return step.id !== "business"
+        }
+
+        return step.id !== "personal"
+    })
+}
 
 export function getCustomerCreateStep(stepId: CustomerCreateStepID) {
     return CUSTOMER_CREATE_STEPS.find((step) => step.id === stepId)

@@ -65,8 +65,6 @@ export type CustomerCreateDraft = {
     displayName: string
     type: CustomerModel.CustomerType
     lifecycleStage: CustomerModel.CustomerLifecycleStage
-    language: string
-    timezone: string
     personalDetail: DraftPersonalDetail
     businessDetail: DraftBusinessDetail
     contact: DraftContact
@@ -113,8 +111,6 @@ const INITIAL_DRAFT: CustomerCreateDraft = {
     displayName: "",
     type: CustomerModel.CustomerType.INDIVIDUAL,
     lifecycleStage: CustomerModel.CustomerLifecycleStage.LEAD,
-    language: "",
-    timezone: "",
     personalDetail: {
         firstName: "",
         middleName: "",
@@ -190,14 +186,14 @@ function compactObject<T extends Record<string, unknown>>(value: T) {
 }
 
 function buildRequestBody(draft: CustomerCreateDraft): CustomerModel.Create {
+    const isIndividual = draft.type === CustomerModel.CustomerType.INDIVIDUAL
+
     return {
         externalId: optionalString(draft.externalId),
-        displayName: trimString(draft.displayName),
+        displayName: optionalString(draft.displayName),
         type: draft.type,
         lifecycleStage: draft.lifecycleStage,
-        language: optionalString(draft.language),
-        timezone: optionalString(draft.timezone),
-        personalDetail: compactObject({
+        personalDetail: isIndividual ? compactObject({
             firstName: optionalString(draft.personalDetail.firstName),
             middleName: optionalString(draft.personalDetail.middleName),
             lastName: optionalString(draft.personalDetail.lastName),
@@ -211,8 +207,8 @@ function buildRequestBody(draft: CustomerCreateDraft): CustomerModel.Create {
             mothersMaidenName: optionalString(draft.personalDetail.mothersMaidenName),
             countryOfBirth: optionalString(draft.personalDetail.countryOfBirth),
             profession: optionalString(draft.personalDetail.profession),
-        }),
-        businessDetail: compactObject({
+        }) : undefined,
+        businessDetail: !isIndividual ? compactObject({
             companyName: optionalString(draft.businessDetail.companyName),
             registrationNumber: optionalString(draft.businessDetail.registrationNumber),
             taxID: optionalString(draft.businessDetail.taxID),
@@ -221,7 +217,7 @@ function buildRequestBody(draft: CustomerCreateDraft): CustomerModel.Create {
             businessType: optionalString(draft.businessDetail.businessType),
             legalForm: optionalString(draft.businessDetail.legalForm),
             registrationDate: optionalString(draft.businessDetail.registrationDate),
-        }),
+        }) : undefined,
         contact: compactObject({
             email: optionalString(draft.contact.email),
             secondaryEmail: optionalString(draft.contact.secondaryEmail),
@@ -265,7 +261,7 @@ function buildRequestBody(draft: CustomerCreateDraft): CustomerModel.Create {
 }
 
 function canSubmitDraft(draft: CustomerCreateDraft) {
-    return Boolean(trimString(draft.displayName) && draft.type && draft.lifecycleStage)
+    return Boolean(draft.type && draft.lifecycleStage)
 }
 
 export function CustomerCreateProvider({children}: { children: React.ReactNode }) {
@@ -339,7 +335,7 @@ export function CustomerCreateProvider({children}: { children: React.ReactNode }
         })),
         submitDraft: async () => {
             if (!canSubmitDraft(draft)) {
-                toast.error("Display name, type, and lifecycle stage are required before submitting.")
+                toast.error("Customer type and lifecycle stage are required before submitting.")
                 return
             }
 

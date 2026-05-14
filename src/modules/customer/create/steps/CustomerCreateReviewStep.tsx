@@ -1,5 +1,6 @@
 import {Badge} from "#/components/ui/badge.tsx"
 import {Card, CardContent, CardHeader, CardTitle} from "#/components/ui/card.tsx"
+import {CustomerModel} from "#/modules/customer/model.ts"
 
 import {useCustomerCreate} from "../customer-create.context.tsx"
 import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"
@@ -31,6 +32,7 @@ function ReviewRows({
 
 export function CustomerCreateReviewStep() {
     const {draft, canSubmit, isSubmitting, submitDraft} = useCustomerCreate()
+    const isIndividual = draft.type === CustomerModel.CustomerType.INDIVIDUAL
 
     return (
         <CustomerCreateStepLayout
@@ -43,8 +45,6 @@ export function CustomerCreateReviewStep() {
             <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary">{draft.type}</Badge>
                 <Badge variant="outline">{draft.lifecycleStage}</Badge>
-                {draft.language.trim() ? <Badge variant="outline">Language: {draft.language.trim()}</Badge> : null}
-                {draft.timezone.trim() ? <Badge variant="outline">Timezone: {draft.timezone.trim()}</Badge> : null}
             </div>
 
             <div className="grid gap-4 xl:grid-cols-2">
@@ -58,52 +58,52 @@ export function CustomerCreateReviewStep() {
                             {label: "External ID", value: draft.externalId.trim()},
                             {label: "Customer type", value: draft.type},
                             {label: "Lifecycle stage", value: draft.lifecycleStage},
-                            {label: "Language", value: draft.language.trim()},
-                            {label: "Timezone", value: draft.timezone.trim()},
                         ]}/>
                     </CardContent>
                 </Card>
 
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-base">Personal Details</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ReviewRows rows={[
-                            {label: "First name", value: draft.personalDetail.firstName.trim()},
-                            {label: "Middle name", value: draft.personalDetail.middleName.trim()},
-                            {label: "Last name", value: draft.personalDetail.lastName.trim()},
-                            {label: "Title", value: draft.personalDetail.title.trim()},
-                            {label: "Gender", value: draft.personalDetail.gender.trim()},
-                            {label: "Date of birth", value: draft.personalDetail.dateOfBirth.trim()},
-                            {label: "Nationality", value: draft.personalDetail.nationality.trim()},
-                            {label: "Passport number", value: draft.personalDetail.passportNumber.trim()},
-                            {label: "National ID", value: draft.personalDetail.nationalID.trim()},
-                            {label: "Marital status", value: draft.personalDetail.maritalStatus.trim()},
-                            {label: "Mother's maiden name", value: draft.personalDetail.mothersMaidenName.trim()},
-                            {label: "Country of birth", value: draft.personalDetail.countryOfBirth.trim()},
-                            {label: "Profession", value: draft.personalDetail.profession.trim()},
-                        ]}/>
-                    </CardContent>
-                </Card>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle className="text-base">Business Details</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ReviewRows rows={[
-                            {label: "Company name", value: draft.businessDetail.companyName.trim()},
-                            {label: "Registration number", value: draft.businessDetail.registrationNumber.trim()},
-                            {label: "Tax ID", value: draft.businessDetail.taxID.trim()},
-                            {label: "Industry", value: draft.businessDetail.industry.trim()},
-                            {label: "Company size", value: draft.businessDetail.companySize.trim()},
-                            {label: "Business type", value: draft.businessDetail.businessType.trim()},
-                            {label: "Legal form", value: draft.businessDetail.legalForm.trim()},
-                            {label: "Registration date", value: draft.businessDetail.registrationDate.trim()},
-                        ]}/>
-                    </CardContent>
-                </Card>
+                {isIndividual ? (
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="text-base">Personal Details</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ReviewRows rows={[
+                                {label: "First name", value: draft.personalDetail.firstName.trim()},
+                                {label: "Middle name", value: draft.personalDetail.middleName.trim()},
+                                {label: "Last name", value: draft.personalDetail.lastName.trim()},
+                                {label: "Title", value: draft.personalDetail.title.trim()},
+                                {label: "Gender", value: draft.personalDetail.gender.trim()},
+                                {label: "Date of birth", value: draft.personalDetail.dateOfBirth.trim()},
+                                {label: "Nationality", value: draft.personalDetail.nationality.trim()},
+                                {label: "Passport number", value: draft.personalDetail.passportNumber.trim()},
+                                {label: "National ID", value: draft.personalDetail.nationalID.trim()},
+                                {label: "Marital status", value: draft.personalDetail.maritalStatus.trim()},
+                                {label: "Mother's maiden name", value: draft.personalDetail.mothersMaidenName.trim()},
+                                {label: "Country of birth", value: draft.personalDetail.countryOfBirth.trim()},
+                                {label: "Profession", value: draft.personalDetail.profession.trim()},
+                            ]}/>
+                        </CardContent>
+                    </Card>
+                ) : (
+                    <Card>
+                        <CardHeader>
+                            <CardTitle className="text-base">Business Details</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <ReviewRows rows={[
+                                {label: "Company name", value: draft.businessDetail.companyName.trim()},
+                                {label: "Registration number", value: draft.businessDetail.registrationNumber.trim()},
+                                {label: "Tax ID", value: draft.businessDetail.taxID.trim()},
+                                {label: "Industry", value: draft.businessDetail.industry.trim()},
+                                {label: "Company size", value: draft.businessDetail.companySize.trim()},
+                                {label: "Business type", value: draft.businessDetail.businessType.trim()},
+                                {label: "Legal form", value: draft.businessDetail.legalForm.trim()},
+                                {label: "Registration date", value: draft.businessDetail.registrationDate.trim()},
+                            ]}/>
+                        </CardContent>
+                    </Card>
+                )}
 
                 <Card>
                     <CardHeader>

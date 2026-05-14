@@ -13,7 +13,7 @@ const introHighlights = [
     {
         icon: UserRound,
         title: "Customer identity",
-        description: "Set the customer type, display name, stage, and core profile information.",
+        description: "Set the customer type, stage, and core profile information.",
     },
     {
         icon: ClipboardCheck,
@@ -46,7 +46,7 @@ export function CustomerCreateStart() {
             beforeTitle="A guided setup that keeps the customer draft easy to review."
             beforeDescription="The flow uses route-based steps so administrators can move through the record naturally and submit only after the final review."
             checklist={[
-                "Start with the required display name, type, and lifecycle stage.",
+                "Start with the required customer type and lifecycle stage.",
                 "Add optional personal, business, contact, and address details as needed.",
                 "Review the complete draft before sending the create request.",
             ]}

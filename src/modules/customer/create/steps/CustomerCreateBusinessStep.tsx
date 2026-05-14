@@ -3,7 +3,7 @@ import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"
 import {StepInput, StepSection} from "../customer-create.fields.tsx"
 
 export function CustomerCreateBusinessStep() {
-    const {draft, updateBusinessDetail} = useCustomerCreate()
+    const {draft, updateDraft, updateBusinessDetail} = useCustomerCreate()
 
     return (
         <CustomerCreateStepLayout stepId="business">
@@ -12,6 +12,13 @@ export function CustomerCreateBusinessStep() {
                 description="Use these values when the customer represents a company, partner, government body, or internal organization."
             >
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    <StepInput
+                        label="Display name"
+                        value={draft.displayName}
+                        placeholder="Acme Holdings"
+                        description="Optional. This is the primary name shown across admin screens."
+                        onChange={(value) => updateDraft({displayName: value})}
+                    />
                     <StepInput label="Company name" value={draft.businessDetail.companyName} onChange={(value) => updateBusinessDetail({companyName: value})}/>
                     <StepInput label="Registration number" value={draft.businessDetail.registrationNumber} onChange={(value) => updateBusinessDetail({registrationNumber: value})}/>
                     <StepInput label="Tax ID" value={draft.businessDetail.taxID} onChange={(value) => updateBusinessDetail({taxID: value})}/>

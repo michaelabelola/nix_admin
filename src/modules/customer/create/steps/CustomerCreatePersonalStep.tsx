@@ -3,7 +3,7 @@ import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"
 import {StepCountryField, StepInput, StepSection} from "../customer-create.fields.tsx"
 
 export function CustomerCreatePersonalStep() {
-    const {draft, updatePersonalDetail} = useCustomerCreate()
+    const {draft, updateDraft, updatePersonalDetail} = useCustomerCreate()
 
     return (
         <CustomerCreateStepLayout stepId="personal">
@@ -12,6 +12,13 @@ export function CustomerCreatePersonalStep() {
                 description="Use these fields when the customer is an individual, or when a contact identity should be stored on the record."
             >
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    <StepInput
+                        label="Display name"
+                        value={draft.displayName}
+                        placeholder="Jane Smith"
+                        description="Optional. This is the primary name shown across admin screens."
+                        onChange={(value) => updateDraft({displayName: value})}
+                    />
                     <StepInput label="First name" value={draft.personalDetail.firstName} onChange={(value) => updatePersonalDetail({firstName: value})}/>
                     <StepInput label="Middle name" value={draft.personalDetail.middleName} onChange={(value) => updatePersonalDetail({middleName: value})}/>
                     <StepInput label="Last name" value={draft.personalDetail.lastName} onChange={(value) => updatePersonalDetail({lastName: value})}/>
