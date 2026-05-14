@@ -176,7 +176,7 @@ export function CustomersPage() {
                     page: 0,
                     size: 10,
                     sort: [{field: "audit.createdDate", direction: "DESC"}],
-                }}
+                } as any}
                 filterFields={CUSTOMER_FILTER_FIELDS}
                 searchPlaceholder="Search customers..."
                 emptyMessage="No customers found."

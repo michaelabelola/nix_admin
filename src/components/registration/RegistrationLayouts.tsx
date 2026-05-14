@@ -207,7 +207,7 @@ export function RegistrationStepLayout<TStepID extends string>({
 
     return (
         <div
-            className="grid min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[340px_1fr]">
+            className="min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl flex flex-col-reverse lg:grid lg:grid-cols-[340px_1fr]">
             <aside className="relative overflow-hidden bg-foreground p-6 text-background">
                 <img
                     src={heroImageSrc}
@@ -215,7 +215,7 @@ export function RegistrationStepLayout<TStepID extends string>({
                     className="absolute inset-0 h-full w-full object-cover opacity-24"
                 />
                 <div className="absolute inset-0 bg-foreground/90"/>
-                <div className="relative z-10 grid h-full gap-8">
+                <div className="relative z-10 grid h-fit gap-8">
                     <div className="grid gap-4">
                         <div
                             className="flex size-11 items-center justify-center rounded-xl border border-background/15 bg-background/10">
@@ -233,8 +233,7 @@ export function RegistrationStepLayout<TStepID extends string>({
                             <span>Progress</span>
                             <span>{Math.round(progress)}%</span>
                         </div>
-                        <Progress value={progress}
-                                  className="bg-background/15 [&_[data-slot=progress-indicator]]:bg-background"/>
+                        <Progress value={progress} className="bg-background/15 **:data-[slot=progress-indicator]:bg-background"/>
                     </div>
 
                     <div className="flex flex-col gap-4 overflow-y-auto">

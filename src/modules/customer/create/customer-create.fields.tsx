@@ -1,7 +1,13 @@
 import type {ReactNode} from "react"
+import {useState} from "react"
+import {format} from "date-fns"
+import {CalendarIcon} from "lucide-react"
 
+import {Button} from "#/components/ui/button.tsx"
+import {Calendar} from "#/components/ui/calendar.tsx"
 import {Input} from "#/components/ui/input.tsx"
 import {Label} from "#/components/ui/label.tsx"
+import {Popover, PopoverContent, PopoverTrigger} from "#/components/ui/popover.tsx"
 import {
     Select,
     SelectContent,
@@ -11,8 +17,29 @@ import {
 } from "#/components/ui/select.tsx"
 import {Switch} from "#/components/ui/switch.tsx"
 import {Textarea} from "#/components/ui/textarea.tsx"
+import {cn} from "#/lib/utils.ts"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
+
+const BIRTH_DATE_START = new Date(1900, 0, 1)
+
+function parseDateInput(value: string) {
+    if (!value) {
+        return undefined
+    }
+
+    const [year, month, day] = value.split("-").map(Number)
+
+    if (!year || !month || !day) {
+        return undefined
+    }
+
+    return new Date(year, month - 1, day)
+}
+
+function toDateInputValue(date: Date) {
+    return format(date, "yyyy-MM-dd")
+}
 
 export function StepField({
     label,
@@ -75,6 +102,64 @@ export function StepInput({
                 placeholder={placeholder}
                 onChange={(event) => onChange(event.target.value)}
             />
+        </StepField>
+    )
+}
+
+export function StepDatePicker({
+    label,
+    value,
+    onChange,
+    description,
+    placeholder = "Pick a date",
+    disabled,
+}: {
+    label: string
+    value: string
+    onChange: (value: string) => void
+    description?: string
+    placeholder?: string
+    disabled?: (date: Date) => boolean
+}) {
+    const [open, setOpen] = useState(false)
+    const selectedDate = parseDateInput(value)
+    const today = new Date()
+
+    return (
+        <StepField label={label} description={description}>
+            <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !selectedDate && "text-muted-foreground",
+                        )}
+                    >
+                        <CalendarIcon className="size-4"/>
+                        {selectedDate ? format(selectedDate, "PPP") : placeholder}
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto overflow-hidden p-0" align="start">
+                    <Calendar
+                        mode="single"
+                        selected={selectedDate}
+                        captionLayout="dropdown"
+                        startMonth={BIRTH_DATE_START}
+                        endMonth={today}
+                        disabled={disabled}
+                        onSelect={(date) => {
+                            if (!date) {
+                                return
+                            }
+
+                            onChange(toDateInputValue(date))
+                            setOpen(false)
+                        }}
+                    />
+                </PopoverContent>
+            </Popover>
         </StepField>
     )
 }

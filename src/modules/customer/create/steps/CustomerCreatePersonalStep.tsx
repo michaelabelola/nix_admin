@@ -1,7 +1,7 @@
 import {useCustomerCreate} from "../customer-create.context.tsx"
 import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"
-import {StepCountryField, StepInput, StepSection} from "../customer-create.fields.tsx"
-
+import {StepCountryField, StepDatePicker, StepInput, StepSection, StepSelect} from "../customer-create.fields.tsx"
+const GENDER_OPTIONS = ["Female", "Male", "Non-binary", "Prefer not to say"]
 export function CustomerCreatePersonalStep() {
     const {draft, updateDraft, updatePersonalDetail} = useCustomerCreate()
 
@@ -23,8 +23,9 @@ export function CustomerCreatePersonalStep() {
                     <StepInput label="Middle name" value={draft.personalDetail.middleName} onChange={(value) => updatePersonalDetail({middleName: value})}/>
                     <StepInput label="Last name" value={draft.personalDetail.lastName} onChange={(value) => updatePersonalDetail({lastName: value})}/>
                     <StepInput label="Title" value={draft.personalDetail.title} onChange={(value) => updatePersonalDetail({title: value})}/>
-                    <StepInput label="Gender" value={draft.personalDetail.gender} onChange={(value) => updatePersonalDetail({gender: value})}/>
-                    <StepInput label="Date of birth" type="date" value={draft.personalDetail.dateOfBirth} onChange={(value) => updatePersonalDetail({dateOfBirth: value})}/>
+                    <StepSelect label="Gender" value={draft.personalDetail.gender} placeholder="Select gender" options={GENDER_OPTIONS} onChange={(value) => updatePersonalDetail({gender: value})}/>
+                    <StepDatePicker label="Date of birth" value={draft.personalDetail.dateOfBirth} onChange={(value) => updatePersonalDetail({dateOfBirth: value})} disabled={(date) => date > new Date()}/>
+
                     <StepInput label="Nationality" value={draft.personalDetail.nationality} onChange={(value) => updatePersonalDetail({nationality: value})}/>
                     <StepInput label="Passport number" value={draft.personalDetail.passportNumber} onChange={(value) => updatePersonalDetail({passportNumber: value})}/>
                     <StepInput label="National ID" value={draft.personalDetail.nationalID} onChange={(value) => updatePersonalDetail({nationalID: value})}/>
