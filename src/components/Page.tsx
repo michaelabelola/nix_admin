@@ -8,7 +8,7 @@ import {cn} from "#/lib/utils.ts";
 
 type HeaderProp = {
     avatar?: string | null;
-    title?: string | null;
+    title?: string | null | ReactNode;
     description?: string | ReactNode | null;
     actionView?: ReactNode;
 }
@@ -77,7 +77,7 @@ function Page({
                     {header?.avatar &&
                         <Avatar className={"h-8 w-8 rounded-lg grayscale"}>
                             <AvatarImage src={header.avatar} className={"object-cover aspect-square border"}/>
-                            <AvatarFallback>{header?.title?.substring(0, 1).toUpperCase()}</AvatarFallback>
+                            <AvatarFallback>{(header?.title as any)?.substring(0, 1).toUpperCase()}</AvatarFallback>
                         </Avatar>
                     }
                     <div className="space-y-1 w-full">

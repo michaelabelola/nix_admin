@@ -10,9 +10,9 @@ import {
 
 export function SummaryMetric({label, value}: { label: string; value?: string | null }) {
     return (
-        <div className="rounded-lg border p-4">
+        <div className="rounded-md bg-background/70 p-3">
             <div className="text-sm text-muted-foreground">{label}</div>
-            <div className="mt-2 break-words text-base font-medium">{value || "Not set"}</div>
+            <div className="mt-1 break-words text-base font-medium">{value}</div>
         </div>
     )
 }

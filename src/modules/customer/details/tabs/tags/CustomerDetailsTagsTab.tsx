@@ -19,7 +19,7 @@ import {TagQuickViewPopover} from "#/modules/tags/components/TagQuickViewPopover
 import type {TagModel} from "#/modules/tags/model.ts"
 import {TagRequest} from "#/modules/tags/request.hook.ts"
 
-import {DefinitionCard, EmptyState} from "../../CustomerDetailsPrimitives.tsx"
+import {EmptyState} from "../../CustomerDetailsPrimitives.tsx"
 
 type TagOption = {
     id: TagModel.TagID
@@ -71,12 +71,21 @@ export function CustomerDetailsTagsTab({customer}: { customer?: CustomerModel.De
     const selectedOption = availableOptions.find((option) => option.id === selectedTagId) ?? null
 
     return (
-        <DefinitionCard
-            title="Customer Tags"
-            description="Manage the tags assigned to this customer."
-        >
-            <div className="space-y-6">
-                <div className="grid gap-3 rounded-lg border p-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div className="space-y-5">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                    <h2 className="font-semibold">Customer tags</h2>
+                    <p className="text-sm text-muted-foreground">Manage labels used to classify and organize this customer.</p>
+                </div>
+                <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
+                    <span>{assignedTags.length} assigned</span>
+                    <span>&bull;</span>
+                    <span>{availableOptions.length} available</span>
+                </div>
+            </div>
+
+            <section className="rounded-lg bg-muted/20 p-4">
+                <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
                     <label className="grid gap-2">
                         <span className="text-sm font-medium">Add tag</span>
                         <Combobox<TagOption>
@@ -122,64 +131,64 @@ export function CustomerDetailsTagsTab({customer}: { customer?: CustomerModel.De
                         Add tag
                     </Button>
                 </div>
+            </section>
 
-                {assignedTags.length ? (
-                    <div className="grid gap-3">
-                        {assignedTags.map((tag) => (
-                            <div key={tag.id} className="rounded-lg border p-4">
-                                <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                                    <div className="min-w-0 space-y-2">
-                                        <TagQuickViewPopover tag={tag}>
-                                            <button
-                                                type="button"
-                                                className="flex items-center gap-2 text-left"
-                                                style={tag.colorHex ? {color: tag.colorHex} : undefined}
-                                            >
-                                                <TagIcon className="size-4 text-muted-foreground" style={tag.colorHex ? {color: tag.colorHex} : undefined}/>
-                                                <div className="truncate font-medium">
-                                                    {tag.name?.trim() || tag.id}
-                                                </div>
-                                            </button>
-                                        </TagQuickViewPopover>
+            {assignedTags.length ? (
+                <div className="grid gap-2">
+                    {assignedTags.map((tag) => (
+                        <div key={tag.id} className="rounded-lg bg-muted/20 p-4 transition-colors hover:bg-muted/30">
+                            <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                                <div className="min-w-0 space-y-2">
+                                    <TagQuickViewPopover tag={tag}>
+                                        <button
+                                            type="button"
+                                            className="flex max-w-full items-center gap-2 text-left"
+                                            style={tag.colorHex ? {color: tag.colorHex} : undefined}
+                                        >
+                                            <span
+                                                className="size-2.5 shrink-0 rounded-full bg-muted-foreground"
+                                                style={tag.colorHex ? {backgroundColor: tag.colorHex} : undefined}
+                                            />
+                                            <TagIcon className="size-4 text-muted-foreground" style={tag.colorHex ? {color: tag.colorHex} : undefined}/>
+                                            <span className="truncate font-medium">
+                                                {tag.name?.trim() || tag.id}
+                                            </span>
+                                        </button>
+                                    </TagQuickViewPopover>
+                                    {tag.description?.trim() ? (
                                         <p className="text-sm text-muted-foreground">
-                                            {tag.description?.trim() || "No description"}
+                                            {tag.description.trim()}
                                         </p>
-                                        <div className="flex flex-wrap gap-2">
-                                            <Badge variant="outline">{tag.module || "ALL"}</Badge>
-                                            <Badge variant="secondary">{tag.type || "UNKNOWN"}</Badge>
-                                            <Badge variant="outline">ID: {tag.id}</Badge>
-                                        </div>
+                                    ) : null}
+                                    <div className="flex flex-wrap gap-2">
+                                        {tag.module ? <Badge variant="secondary">{tag.module}</Badge> : null}
+                                        {tag.type ? <Badge variant="ghost">{tag.type}</Badge> : null}
+                                        <Badge variant="ghost" className="font-mono">ID: {tag.id}</Badge>
                                     </div>
-
-                                    <Button
-                                        variant="ghost"
-                                        size="xs"
-                                        className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
-                                        disabled={!customerId || removeTag.isPending}
-                                        onClick={() => {
-                                            if (!customerId) return
-                                            void removeTag.mutateAsync({customerId, tagId: tag.id})
-                                        }}
-                                    >
-                                        <Trash2 className="size-4"/>
-                                    </Button>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                ) : (
-                    <EmptyState
-                        title="No customer tags"
-                        description="Assign tags to classify this customer and make it easier to organize."
-                    />
-                )}
 
-                <div className="flex flex-wrap gap-2 text-sm text-muted-foreground">
-                    <span>{assignedTags.length} assigned</span>
-                    <span>&bull;</span>
-                    <span>{availableOptions.length} available to add</span>
+                                <Button
+                                    variant="ghost"
+                                    size="xs"
+                                    className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                                    disabled={!customerId || removeTag.isPending}
+                                    onClick={() => {
+                                        if (!customerId) return
+                                        void removeTag.mutateAsync({customerId, tagId: tag.id})
+                                    }}
+                                >
+                                    <Trash2 className="size-4"/>
+                                </Button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            </div>
-        </DefinitionCard>
+            ) : (
+                <EmptyState
+                    title="No customer tags"
+                    description="Assign tags to classify this customer and make it easier to organize."
+                />
+            )}
+        </div>
     )
 }

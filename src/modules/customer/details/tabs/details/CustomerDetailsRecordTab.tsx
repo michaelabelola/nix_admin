@@ -10,25 +10,49 @@ import {
 } from "#/modules/customer/details/customer-details.utils.ts"
 
 import {KeyValue} from "../../CustomerDetailsPrimitives.tsx"
+import {Card} from "#/components/ui/card.tsx";
+
+type DetailItem = {
+    label: string
+    value?: string | ReactNode | null
+}
+
+function hasDetailValue(value: DetailItem["value"]) {
+    if (value == null) {
+        return false
+    }
+
+    return typeof value !== "string" || value.trim().length > 0
+}
 
 function DetailGroup({
     title,
     description,
-    children,
+    items,
 }: {
     title: string
     description?: string
-    children: ReactNode
+    items: DetailItem[]
 }) {
+    const visibleItems = items.filter((item) => hasDetailValue(item.value))
+
+    if (!visibleItems.length) {
+        return null
+    }
+
     return (
-        <section className="rounded-lg bg-muted/20 p-4">
+        <section>
+        <Card className={"rounded-lg p-4"} variant={"glass"}>
             <div className="mb-3">
                 <h3 className="font-medium">{title}</h3>
                 {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
             </div>
             <dl className="grid gap-1">
-                {children}
+                {visibleItems.map((item) => (
+                    <KeyValue key={item.label} label={item.label} value={item.value}/>
+                ))}
             </dl>
+        </Card>
         </section>
     )
 }
@@ -47,77 +71,104 @@ export function CustomerDetailsRecordTab({customer}: { customer?: CustomerModel.
             </div>
 
             <div className="grid gap-4 xl:grid-cols-2">
-                <DetailGroup title="Record" description="Identifiers and lifecycle metadata.">
-                    <KeyValue label="Customer ID" value={customer?.id}/>
-                    <KeyValue label="Customer Number" value={customer?.customerNumber}/>
-                    <KeyValue label="Display Name" value={customer?.displayName}/>
-                    <KeyValue label="External ID" value={customer?.externalId}/>
-                    <KeyValue label="Type" value={customer?.type}/>
-                    <KeyValue label="Lifecycle Stage" value={customer?.lifecycleStage}/>
-                    <KeyValue label="Status" value={customer?.status}/>
-                    <KeyValue label="Storage ID" value={customer?.storageID != null ? String(customer.storageID) : null}/>
-                </DetailGroup>
+                <DetailGroup
+                    title="Record"
+                    description="Identifiers and lifecycle metadata."
+                    items={[
+                        {label: "Customer ID", value: customer?.id},
+                        {label: "Customer Number", value: customer?.customerNumber},
+                        {label: "Display Name", value: customer?.displayName},
+                        {label: "External ID", value: customer?.externalId},
+                        {label: "Type", value: customer?.type},
+                        {label: "Lifecycle Stage", value: customer?.lifecycleStage},
+                        {label: "Status", value: customer?.status},
+                        {label: "Storage ID", value: customer?.storageID != null ? String(customer.storageID) : null},
+                    ]}
+                />
 
-                <DetailGroup title="Organization" description="Owning organization and regional preferences.">
-                    <KeyValue
-                        label="Organization"
-                        value={
+                <DetailGroup
+                    title="Organization"
+                    description="Owning organization and regional preferences."
+                    items={[
+                        {
+                            label: "Organization",
+                            value:
                             isLoadingOrg
                                 ? <Spinner className="size-4"/>
-                                : org?.shortName || org?.name || customer?.entityID
-                        }
-                    />
-                    <KeyValue label="Language" value={customer?.language}/>
-                    <KeyValue label="Timezone" value={customer?.timezone}/>
-                    <KeyValue label="Tags" value={tags.length ? String(tags.length) : null}/>
-                    <KeyValue label="Segments" value={customer?.segments?.length != null ? String(customer.segments.length) : null}/>
-                </DetailGroup>
+                                : org?.shortName || org?.name || customer?.entityID,
+                        },
+                        {label: "Language", value: customer?.language},
+                        {label: "Timezone", value: customer?.timezone},
+                        {label: "Tags", value: tags.length ? String(tags.length) : null},
+                        {label: "Segments", value: customer?.segments?.length ? String(customer.segments.length) : null},
+                    ]}
+                />
 
-                <DetailGroup title="Personal" description="Identity details captured for individual profiles.">
-                    <KeyValue label="Title" value={personal?.title}/>
-                    <KeyValue label="First Name" value={personal?.firstName}/>
-                    <KeyValue label="Middle Name" value={personal?.middleName}/>
-                    <KeyValue label="Last Name" value={personal?.lastName}/>
-                    <KeyValue label="Gender" value={personal?.gender}/>
-                    <KeyValue label="Date of Birth" value={personal?.dateOfBirth}/>
-                    <KeyValue label="Nationality" value={personal?.nationality}/>
-                    <KeyValue label="Country of Birth" value={personal?.countryOfBirth}/>
-                    <KeyValue label="Profession" value={personal?.profession}/>
-                    <KeyValue label="Marital Status" value={personal?.maritalStatus}/>
-                    <KeyValue label="Passport Number" value={personal?.passportNumber}/>
-                    <KeyValue label="National ID" value={personal?.nationalID}/>
-                    <KeyValue label="Mother's Maiden Name" value={personal?.mothersMaidenName}/>
-                </DetailGroup>
+                <DetailGroup
+                    title="Personal"
+                    description="Identity details captured for individual profiles."
+                    items={[
+                        {label: "Title", value: personal?.title},
+                        {label: "First Name", value: personal?.firstName},
+                        {label: "Middle Name", value: personal?.middleName},
+                        {label: "Last Name", value: personal?.lastName},
+                        {label: "Gender", value: personal?.gender},
+                        {label: "Date of Birth", value: personal?.dateOfBirth},
+                        {label: "Nationality", value: personal?.nationality},
+                        {label: "Country of Birth", value: personal?.countryOfBirth},
+                        {label: "Profession", value: personal?.profession},
+                        {label: "Marital Status", value: personal?.maritalStatus},
+                        {label: "Passport Number", value: personal?.passportNumber},
+                        {label: "National ID", value: personal?.nationalID},
+                        {label: "Mother's Maiden Name", value: personal?.mothersMaidenName},
+                    ]}
+                />
 
-                <DetailGroup title="Business" description="Company details used when the customer represents an organization.">
-                    <KeyValue label="Company Name" value={business?.companyName}/>
-                    <KeyValue label="Registration Number" value={business?.registrationNumber}/>
-                    <KeyValue label="Tax ID" value={business?.taxID}/>
-                    <KeyValue label="Industry" value={business?.industry}/>
-                    <KeyValue label="Company Size" value={business?.companySize != null ? String(business.companySize) : null}/>
-                    <KeyValue label="Business Type" value={business?.businessType}/>
-                    <KeyValue label="Legal Form" value={business?.legalForm}/>
-                    <KeyValue label="Registration Date" value={business?.registrationDate}/>
-                </DetailGroup>
+                <DetailGroup
+                    title="Business"
+                    description="Company details used when the customer represents an organization."
+                    items={[
+                        {label: "Company Name", value: business?.companyName},
+                        {label: "Registration Number", value: business?.registrationNumber},
+                        {label: "Tax ID", value: business?.taxID},
+                        {label: "Industry", value: business?.industry},
+                        {label: "Company Size", value: business?.companySize != null ? String(business.companySize) : null},
+                        {label: "Business Type", value: business?.businessType},
+                        {label: "Legal Form", value: business?.legalForm},
+                        {label: "Registration Date", value: business?.registrationDate},
+                    ]}
+                />
 
-                <DetailGroup title="Contact" description="Primary communication channels.">
-                    <KeyValue label="Primary Email" value={customer?.contact?.email}/>
-                    <KeyValue label="Secondary Email" value={customer?.contact?.secondaryEmail}/>
-                    <KeyValue label="Phone Number" value={customer?.contact?.phoneNumber}/>
-                    <KeyValue label="Mobile Number" value={customer?.contact?.mobileNumber}/>
-                    <KeyValue label="Fax Number" value={customer?.contact?.faxNumber}/>
-                    <KeyValue label="Website" value={customer?.contact?.website}/>
-                </DetailGroup>
+                <DetailGroup
+                    title="Contact"
+                    description="Primary communication channels."
+                    items={[
+                        {label: "Primary Email", value: customer?.contact?.email},
+                        {label: "Secondary Email", value: customer?.contact?.secondaryEmail},
+                        {label: "Phone Number", value: customer?.contact?.phoneNumber},
+                        {label: "Mobile Number", value: customer?.contact?.mobileNumber},
+                        {label: "Fax Number", value: customer?.contact?.faxNumber},
+                        {label: "Website", value: customer?.contact?.website},
+                    ]}
+                />
 
-                <DetailGroup title="Addresses" description="Billing and shipping destinations.">
-                    <KeyValue label="Billing Address" value={formatCustomerAddress(customer?.billingAddress)}/>
-                    <KeyValue label="Shipping Address" value={formatCustomerAddress(customer?.shippingAddress)}/>
-                </DetailGroup>
+                <DetailGroup
+                    title="Addresses"
+                    description="Billing and shipping destinations."
+                    items={[
+                        {label: "Billing Address", value: formatCustomerAddress(customer?.billingAddress)},
+                        {label: "Shipping Address", value: formatCustomerAddress(customer?.shippingAddress)},
+                    ]}
+                />
 
-                <DetailGroup title="Audit" description="Record creation and update timestamps.">
-                    <KeyValue label="Created" value={formatAuditDate(customer?.audit?.createdDate)}/>
-                    <KeyValue label="Modified" value={formatAuditDate(customer?.audit?.modifiedDate)}/>
-                </DetailGroup>
+                <DetailGroup
+                    title="Audit"
+                    description="Record creation and update timestamps."
+                    items={[
+                        {label: "Created", value: formatAuditDate(customer?.audit?.createdDate)},
+                        {label: "Modified", value: formatAuditDate(customer?.audit?.modifiedDate)},
+                    ]}
+                />
             </div>
         </div>
     )

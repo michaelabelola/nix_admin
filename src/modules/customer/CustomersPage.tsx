@@ -77,8 +77,8 @@ function createCustomerColumns(): Array<ColumnDef<CustomerModel.Customer>> {
             header: "Customer",
             cell: ({row}) => (
                 <div className="space-y-1">
-                    <div className="font-medium">{getCustomerDisplayName(row.original)}</div>
-                    <div className="text-sm text-muted-foreground">ID: {row.original.id}</div>
+                    <div>{getCustomerDisplayName(row.original)}</div>
+                    <div className=" text-[0.5rem] text-muted-foreground">ID: {row.original.id}</div>
                 </div>
             ),
             meta: {

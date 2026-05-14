@@ -32,9 +32,9 @@ type CustomerDetailsPageProps = {
 }
 
 const CustomerPage = ({
-    activeTab,
-    children,
-}: CustomerDetailsPageProps) => {
+                          activeTab,
+                          children,
+                      }: CustomerDetailsPageProps) => {
     const navigate = useNavigate()
     const {customerId} = CustomerDetailsRoute.useParams()
     const {data, isLoading, isFetching} = CustomerRequest.useGetCustomerDetailed(customerId)
@@ -49,7 +49,7 @@ const CustomerPage = ({
             }}
             header={{
                 avatar: getCustomerAvatarUrl(data?.avatar),
-                title: getCustomerDisplayName(data),
+                title: <span>Name: {getCustomerDisplayName(data)}</span>,
                 description: data?.customerNumber
                     ? `Customer #${data.customerNumber}`
                     : "Customer overview and relationship details",
@@ -62,7 +62,7 @@ const CustomerPage = ({
                 ),
             }}
         >
-            <div className="min-h-full rounded-xl bg-card p-4 shadow-sm sm:p-6">
+            <div className="min-h-full rounded-xl p-4 sm:p-6">
                 <div className="space-y-5">
                     <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-1">
@@ -94,7 +94,8 @@ const CustomerPage = ({
                         }}
                         className="gap-6"
                     >
-                        <TabsList variant="line" className="h-auto w-full flex-wrap justify-start rounded-none bg-transparent p-0">
+                        <TabsList variant="line"
+                                  className="h-auto w-full flex-wrap justify-start rounded-none bg-transparent p-0">
                             {CUSTOMER_DETAILS_TABS.map((tab) => (
                                 <TabsTrigger key={tab} value={tab} className="flex-none px-2 py-2">
                                     {CUSTOMER_DETAILS_TAB_LABELS[tab]}

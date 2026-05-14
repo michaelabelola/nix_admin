@@ -7,7 +7,7 @@ export function getCustomerAvatarUrl(avatar?: CustomerModel.CustomerAvatar) {
 }
 
 export function getCustomerDisplayName(customer?: Pick<CustomerModel.Detailed, "displayName" | "customerNumber" | "id"> | Pick<CustomerModel.Customer, "displayName" | "id">) {
-    return customer?.displayName?.trim() || ("customerNumber" in (customer || {}) ? customer?.customerNumber : null) || customer?.id || "Unnamed customer"
+    return customer?.displayName?.trim() || ("customerNumber" in (customer || {}) ? (customer as any)?.customerNumber : null) || customer?.id || "Unnamed customer"
 }
 
 export function formatCustomerAddress(address?: CustomerModel.Address | null) {

@@ -63,16 +63,16 @@ export function createListingColumns(): Array<ColumnDef<ListingModel.Listing>> {
                 sortField: "module",
             },
         },
-        {
-            id: "tags",
-            header: "Tags",
-            cell: ({row}) => String(row.original.tags?.length ?? 0),
-        },
-        {
-            accessorKey: "entityID",
-            header: "Entity",
-            cell: ({row}) => row.original.entityID,
-        },
+        // {
+        //     id: "tags",
+        //     header: "Tags",
+        //     cell: ({row}) => String(row.original.tags?.length ?? 0),
+        // },
+        // {
+        //     accessorKey: "entityID",
+        //     header: "Entity",
+        //     cell: ({row}) => row.original.entityID,
+        // },
         {
             id: "actions",
             header: "Actions",
