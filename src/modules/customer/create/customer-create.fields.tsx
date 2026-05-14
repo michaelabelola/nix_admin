@@ -44,7 +44,7 @@ export function StepSection({
     return (
         <section className="grid gap-4 rounded-xl p-4">
             <div className="space-y-1">
-                <h2 className="font-semibold">{title}</h2>
+                <h5 className="font-semibold">{title}</h5>
                 {description ? <p className="text-sm text-muted-foreground">{description}</p> : null}
             </div>
             {children}
