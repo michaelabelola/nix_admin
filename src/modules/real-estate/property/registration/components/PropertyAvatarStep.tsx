@@ -25,6 +25,7 @@ export function PropertyAvatarStep({
   const navigate = useNavigate()
   const uploadAvatar = PropertyApiHook.useUploadPropertyAvatar()
 
+  // @ts-ignore
   const form = useForm<AvatarFormValues>({
     defaultValues: {
       file: null,
@@ -67,7 +68,7 @@ export function PropertyAvatarStep({
     >
       <RegistrationForm form={form}>
         {property.avatar ? (
-          <div className="grid gap-3 rounded-lg border p-4">
+          <div className="grid gap-3 rounded-lg bg-muted/30 p-4">
             <div className="text-sm font-medium">Current avatar</div>
             <img
               src={property.avatar}

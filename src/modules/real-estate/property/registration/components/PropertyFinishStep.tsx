@@ -33,7 +33,7 @@ export function PropertyFinishStep({
       onNext={() => void handleFinish()}
     >
       <div className="grid gap-6">
-        <div className="rounded-lg border p-5">
+        <div className="rounded-lg bg-muted/30 p-5">
           <div className="grid gap-3">
             <div className="text-base font-medium">Ready to finish</div>
             <p className="text-sm text-muted-foreground">

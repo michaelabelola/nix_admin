@@ -66,7 +66,7 @@ const CustomerPage = ({
                 <div className="space-y-5">
                     <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                         <div className="space-y-1">
-                            <h2 className="text-lg font-semibold">{getCustomerDisplayName(data)}</h2>
+                            {/*<h2 className="text-lg font-semibold">{getCustomerDisplayName(data)}</h2>*/}
                             <p className="max-w-3xl text-sm text-muted-foreground">
                                 Review customer status, profile details, contact information, and assigned tags.
                             </p>

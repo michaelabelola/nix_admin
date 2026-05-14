@@ -58,7 +58,7 @@ export function PropertyTagsStep({
     >
       <RegistrationForm form={form}>
         {property.tags.length > 0 ? (
-          <div className="grid gap-3 rounded-lg border p-4">
+          <div className="grid gap-3 rounded-lg bg-muted/30 p-4">
             <div className="text-sm font-medium">Existing tags</div>
             <div className="flex flex-wrap gap-2">
               {property.tags.map((tagId) => (

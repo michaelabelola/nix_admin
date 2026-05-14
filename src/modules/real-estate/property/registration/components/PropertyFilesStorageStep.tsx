@@ -48,7 +48,7 @@ export function PropertyFilesStorageStep({
       onNext={() => void handleNext()}
     >
       <div className="grid gap-6">
-        <div className="rounded-lg border p-5">
+        <div className="rounded-lg bg-muted/30 p-5">
           <div className="flex flex-wrap items-center gap-3">
             <div className="text-base font-medium">Files storage activation</div>
             <Badge variant={isInitialized ? "secondary" : "outline"}>
