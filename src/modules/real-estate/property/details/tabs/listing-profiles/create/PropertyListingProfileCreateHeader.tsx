@@ -1,7 +1,8 @@
-import {ArrowLeft, PlusCircle} from "lucide-react"
+import {ArrowLeft, Check} from "lucide-react"
 
 import {Button} from "#/components/ui/button.tsx"
 import {Card, CardHeader, CardDescription, CardTitle} from "#/components/ui/card.tsx"
+import {ButtonGroup} from "#/components/ui/button-group.tsx";
 
 export function PropertyListingProfileCreateHeader({
     disabled,
@@ -26,16 +27,15 @@ export function PropertyListingProfileCreateHeader({
                         </CardDescription>
                     </div>
 
-                    <div className="flex flex-wrap gap-2">
+                    <ButtonGroup className="flex flex-wrap gap-2">
                         <Button variant="outline" onClick={onBack}>
                             <ArrowLeft className="size-4"/>
-                            Back
                         </Button>
-                        <Button onClick={onCreate} disabled={disabled}>
-                            <PlusCircle className="size-4"/>
-                            {isSubmitting ? "Creating..." : "Create Listing Profile"}
+                        <Button variant={"success"} onClick={onCreate} disabled={disabled}>
+                            <Check className="size-4"/>
+                            {isSubmitting ? "Creating..." : "Create Profile"}
                         </Button>
-                    </div>
+                    </ButtonGroup>
                 </div>
             </CardHeader>
         </Card>

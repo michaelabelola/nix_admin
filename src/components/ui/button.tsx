@@ -14,6 +14,8 @@ const buttonVariants = cva(
                 inverted_glass: "bg-foreground/10 hover:bg-primary/90 backdrop-blur border-transparent text-gackground",
                 destructive:
                     "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40",
+               success:
+                    "bg-success text-white hover:bg-success/30! focus-visible:ring-success/20 dark:bg-success/60 dark:focus-visible:ring-success/40",
                 outline:
                     "border bg-transparent shadow-xs hover:bg-accent dark:hover:border-transparent hover:text-background dark:hover:text-foreground dark:hover:bg-foreground/10 hover:backdrop-blur",
                 secondary:

@@ -51,36 +51,37 @@ export function NavSection({section}: {
                             {/*    <span>{item.name}</span>*/}
                             {/*</a>*/}
                         </SidebarMenuButton>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <SidebarMenuAction
-                                    showOnHover
-                                    className="rounded-sm data-[state=open]:bg-accent"
+                        {item.overflowMenu &&
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <SidebarMenuAction
+                                        showOnHover
+                                        className="rounded-sm data-[state=open]:bg-accent"
+                                    >
+                                        <IconDots/>
+                                        <span className="sr-only">More</span>
+                                    </SidebarMenuAction>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent
+                                    className="w-24 rounded-lg"
+                                    side={isMobile ? "bottom" : "right"}
+                                    align={isMobile ? "end" : "start"}
                                 >
-                                    <IconDots/>
-                                    <span className="sr-only">More</span>
-                                </SidebarMenuAction>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent
-                                className="w-24 rounded-lg"
-                                side={isMobile ? "bottom" : "right"}
-                                align={isMobile ? "end" : "start"}
-                            >
-                                <DropdownMenuItem>
-                                    <IconFolder/>
-                                    <span>Open</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuItem>
-                                    <IconShare3/>
-                                    <span>Share</span>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator/>
-                                <DropdownMenuItem variant="destructive">
-                                    <IconTrash/>
-                                    <span>Delete</span>
-                                </DropdownMenuItem>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                                    <DropdownMenuItem>
+                                        <IconFolder/>
+                                        <span>Open</span>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem>
+                                        <IconShare3/>
+                                        <span>Share</span>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator/>
+                                    <DropdownMenuItem variant="destructive">
+                                        <IconTrash/>
+                                        <span>Delete</span>
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>}
                     </SidebarMenuItem>
                 ))}
                 {/*<SidebarMenuItem>*/}

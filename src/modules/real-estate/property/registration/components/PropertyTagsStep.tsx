@@ -5,17 +5,17 @@ import { toast } from "sonner"
 import { Badge } from "#/components/ui/badge.tsx"
 import { PropertyApiHook } from "#/modules/real-estate/property/api.hook.ts"
 import type { PropertyModel } from "#/modules/real-estate/property/model.ts"
+import {TagSelector} from "#/modules/tags/components/TagSelector.tsx"
 
 import {
   RegistrationForm,
-  RegistrationTextareaField,
 } from "./PropertyRegistrationFields.tsx"
 import { PropertyRegistrationLayout } from "./PropertyRegistrationLayout.tsx"
-import { StepMutationError, splitTagIds } from "./PropertyRegistrationFormParts.tsx"
+import { StepField, StepMutationError } from "./PropertyRegistrationFormParts.tsx"
 import { getNextPropertyRegistrationStep } from "./property-registration.constants.ts"
 
 type TagsFormValues = {
-  tagIds: string
+  tagIds: string[]
 }
 
 export function PropertyTagsStep({
@@ -26,14 +26,15 @@ export function PropertyTagsStep({
   const navigate = useNavigate()
   const addTags = PropertyApiHook.useAddPropertyTags()
 
+  // @ts-ignore
   const form = useForm<TagsFormValues>({
     defaultValues: {
-      tagIds: property.tags.join(", "),
+      tagIds: property.tags,
     },
     onSubmit: async ({ value }) => {
       await addTags.mutateAsync({
         propertyId: property.id,
-        tagIds: splitTagIds(value.tagIds),
+        tagIds: value.tagIds,
       })
 
       toast.success("Property tags saved.")
@@ -70,14 +71,20 @@ export function PropertyTagsStep({
           </div>
         ) : null}
 
-        <RegistrationTextareaField
-          form={form}
-          name="tagIds"
-          label="Tag ids"
-          description="Enter one or more tag ids separated by commas, spaces, or line breaks."
-          placeholder="tag-id-one, tag-id-two"
-          rows={8}
-        />
+        <form.Field name="tagIds">
+          {(field: any) => (
+            <StepField
+              label="Tags"
+              description="Search by name or id, narrow results by module and type, then select the tags that should classify this property."
+            >
+              <TagSelector
+                value={field.state.value ?? []}
+                onChange={field.handleChange}
+                disabled={isSubmitting || addTags.isPending}
+              />
+            </StepField>
+          )}
+        </form.Field>
 
         <StepMutationError
           title="Unable to add property tags"
