@@ -30,6 +30,7 @@ type LeaseFormState = {
     description: string
     amount: string
     currencyCode: string
+    negotiable: boolean
     duration: string
     durationUnit: LeaseDefinitionModel.LeaseDurationUnit
     defaultLease: boolean
@@ -40,6 +41,7 @@ const INITIAL_FORM_STATE: LeaseFormState = {
     description: "",
     amount: "",
     currencyCode: "USD",
+    negotiable: false,
     duration: "",
     durationUnit: LeaseDefinitionModel.LeaseDurationUnit.MONTH,
     defaultLease: false,
@@ -62,8 +64,10 @@ export function PropertyLeaseDefinitionCreateSheet({
 
     const isCreateDisabled =
         !property?.id ||
+        !formState.name.trim() ||
         !formState.amount.trim() ||
         !formState.currencyCode.trim() ||
+        !formState.duration.trim() ||
         createLease.isPending
 
     function resetForm() {
@@ -93,12 +97,13 @@ export function PropertyLeaseDefinitionCreateSheet({
         void createLease.mutateAsync({
             propertyId: property.id,
             body: {
-                name: formState.name.trim() || undefined,
+                name: formState.name.trim(),
                 description: formState.description.trim() || undefined,
                 amount: {
                     amount: Number(formState.amount),
                     currencyCode: formState.currencyCode.trim().toUpperCase(),
                 },
+                negotiable: formState.negotiable,
                 duration: formState.duration ? Number(formState.duration) : undefined,
                 durationUnit: formState.durationUnit,
                 defaultLease: formState.defaultLease,
@@ -153,6 +158,14 @@ export function PropertyLeaseDefinitionCreateSheet({
                             />
                         </Field>
                     </div>
+
+                    <label className="flex items-center gap-3 rounded-lg border p-3 text-sm">
+                        <Checkbox
+                            checked={formState.negotiable}
+                            onCheckedChange={(checked) => updateField("negotiable", checked === true)}
+                        />
+                        <span>Lease is negotiable</span>
+                    </label>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                         <Field label="Duration">

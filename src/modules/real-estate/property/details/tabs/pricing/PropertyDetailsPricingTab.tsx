@@ -99,18 +99,35 @@ function createPricingDefinitionColumns({
 }): ColumnDef<RealEstatePricingModel.RealEstatePricing>[] {
     return [
         {
+            accessorKey: "name",
+            header: "Name",
+            cell: ({row}) => (
+                <span>
+                    {row.original.name || "Untitled"}
+                    {property?.defaultPriceDefinition?.id === row.original.id && (
+                        <Badge variant="default" className="ml-2">Default</Badge>
+                    )}
+                </span>
+            ),
+        },
+        {
+            accessorKey: "description",
+            header: "Description",
+            cell: ({row}) => row.original.description || "No description",
+        },
+        {
             accessorKey: "amount",
             header: "Amount",
-            cell: ({row}) => {
-                return <span>
-                {formatMoney(row.original.amount) ?? "Not set"}
-                    {property?.defaultPriceDefinition?.id === row.original.id && <Badge variant={"default"} className={"ml-2"}>Default</Badge>}
-                </span>
-            },
+            cell: ({row}) => formatMoney(row.original.amount) ?? "Not set",
+        },
+        {
+            accessorKey: "negotiable",
+            header: "Negotiable",
+            cell: ({row}) => row.original.negotiable ? "Yes" : "No",
         },
         {
             accessorKey: "id",
-            header: "Pricing ID",
+            header: "ID",
             cell: ({row}) => String(row.original.id),
         },
         {

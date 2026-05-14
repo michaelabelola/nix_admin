@@ -5,6 +5,7 @@ import {Button} from "#/components/ui/button.tsx";
 import {Checkbox} from "#/components/ui/checkbox.tsx";
 import {CurrencyDropdown} from "#/lib/currency/CurrencyDropdown.tsx";
 import {Input} from "#/components/ui/input.tsx";
+import {Textarea} from "#/components/ui/textarea.tsx";
 import {
     Sheet,
     SheetContent,
@@ -17,14 +18,20 @@ import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 import {PricingApiHook} from "#/modules/real-estate/pricing/api.hook.ts";
 
 type PricingFormState = {
+    name: string
+    description: string
     amount: string
     currencyCode: string
+    negotiable: boolean
     defaultPricing: boolean
 }
 
 const INITIAL_FORM_STATE: PricingFormState = {
+    name: "",
+    description: "",
     amount: "",
-    currencyCode: "USD",
+    currencyCode: "CAD",
+    negotiable: false,
     defaultPricing: false,
 }
 
@@ -57,6 +64,7 @@ export function PropertyPricingDefinitionCreateSheet({
 
     const isCreateDisabled =
         !property?.id ||
+        !formState.name.trim() ||
         !formState.amount.trim() ||
         !formState.currencyCode.trim() ||
         createPricing.isPending ||
@@ -89,6 +97,9 @@ export function PropertyPricingDefinitionCreateSheet({
         void createPricing.mutateAsync({
             propertyId: property.id,
             body: {
+                name: formState.name.trim(),
+                description: formState.description.trim() || undefined,
+                negotiable: formState.negotiable,
                 amount: {
                     amount: Number(formState.amount),
                     currencyCode: formState.currencyCode.trim().toUpperCase(),
@@ -103,15 +114,32 @@ export function PropertyPricingDefinitionCreateSheet({
                 <SheetHeader>
                     <SheetTitle>Create Pricing Definition</SheetTitle>
                     <SheetDescription>
-                        Add a pricing definition for this property and optionally make it the default.
+                        Add a pricing definition for this property.
                     </SheetDescription>
                 </SheetHeader>
 
                 <div className="grid gap-4 px-4 pb-4">
+                    <Field label="Name">
+                        <Input
+                            value={formState.name}
+                            onChange={(event) => updateField("name", event.target.value)}
+                            placeholder="Market asking price"
+                        />
+                    </Field>
+
+                    <Field label="Description">
+                        <Textarea
+                            value={formState.description}
+                            onChange={(event) => updateField("description", event.target.value)}
+                            placeholder="Optional pricing notes"
+                        />
+                    </Field>
+
                     <div className="grid gap-4 sm:grid-cols-2">
                         <Field label="Amount">
                             <Input
-                                type="number"
+                                type="text"
+                                inputMode={"decimal"}
                                 min="0"
                                 step="0.01"
                                 value={formState.amount}
@@ -123,11 +151,20 @@ export function PropertyPricingDefinitionCreateSheet({
                         <Field label="Currency code">
                             <CurrencyDropdown
                                 value={formState.currencyCode}
+                                full={true}
                                 onValueChange={(value) => updateField("currencyCode", value)}
                                 placeholder="Select currency"
                             />
                         </Field>
                     </div>
+
+                    <label className="flex items-center gap-3 rounded-lg border p-3 text-sm">
+                        <Checkbox
+                            checked={formState.negotiable}
+                            onCheckedChange={(checked) => updateField("negotiable", checked === true)}
+                        />
+                        <span>Price is negotiable</span>
+                    </label>
 
                     <label className="flex items-center gap-3 rounded-lg border p-3 text-sm">
                         <Checkbox

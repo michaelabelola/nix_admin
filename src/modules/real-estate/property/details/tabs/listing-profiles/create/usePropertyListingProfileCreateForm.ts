@@ -97,7 +97,7 @@ export function usePropertyListingProfileCreateForm({
     )
 
     const pricingOptions = useMemo<SelectOption[]>(
-        () => (pricingQuery.data?.content ?? []).map((pricing) => ({value: String(pricing.id), label: String(pricing.id)})),
+        () => (pricingQuery.data?.content ?? []).map((pricing) => ({value: String(pricing.id), label: pricing.name || String(pricing.id)})),
         [pricingQuery.data?.content],
     )
     const rentOptions = useMemo<SelectOption[]>(

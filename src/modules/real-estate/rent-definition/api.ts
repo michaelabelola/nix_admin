@@ -5,7 +5,7 @@ import type {ResponseDto} from "#/models/Models.ts"
 import type {Paged, PagedRequest} from "#/models/PagedModel.ts";
 
 class RentDefinitionApi {
-    listByProperty({propertyId, ...query}: PagedRequest<{
+    listByProperty({propertyId, ...query}: PagedRequest<RentDefinitionModel.Query & {
         propertyId: PropertyModel.PropertyID
     }>, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<Paged<RentDefinitionModel.RentDefinition>>(

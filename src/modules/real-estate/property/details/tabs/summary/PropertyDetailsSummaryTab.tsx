@@ -2,7 +2,7 @@ import {Separator} from "#/components/ui/separator.tsx";
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
 
 import {SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";
-import {formatDefinitionAmount, formatLocation, formatMoney} from "../../property-details.utils.ts";
+import {formatDefinitionAmount, formatLocation, formatPricingDefinition} from "../../property-details.utils.ts";
 
 export function PropertyDetailsSummaryTab({property}: { property?: PropertyModel.Detailed }) {
     const locationLabel = formatLocation(property?.location)
@@ -23,7 +23,7 @@ export function PropertyDetailsSummaryTab({property}: { property?: PropertyModel
                     </div>
                     <Separator/>
                     <div className="grid gap-4 sm:grid-cols-2">
-                        <SummaryMetric label="Default pricing" value={formatMoney(property?.defaultPriceDefinition?.amount)}/>
+                        <SummaryMetric label="Default pricing" value={formatPricingDefinition(property?.defaultPriceDefinition)}/>
                         <SummaryMetric label="Default rent" value={formatDefinitionAmount(property?.defaultRentDefinition)}/>
                         <SummaryMetric label="Default lease" value={formatDefinitionAmount(property?.defaultLeaseDefinition)}/>
                         <SummaryMetric label="Location" value={locationLabel ?? "No location assigned"}/>

@@ -30,6 +30,7 @@ type RentFormState = {
     description: string
     amount: string
     currencyCode: string
+    negotiable: boolean
     duration: string
     durationUnit: RentDefinitionModel.RentDurationUnit
     defaultRent: boolean
@@ -40,6 +41,7 @@ const INITIAL_FORM_STATE: RentFormState = {
     description: "",
     amount: "",
     currencyCode: "USD",
+    negotiable: false,
     duration: "",
     durationUnit: RentDefinitionModel.RentDurationUnit.MONTH,
     defaultRent: false,
@@ -62,8 +64,10 @@ export function PropertyRentDefinitionCreateSheet({
 
     const isCreateDisabled =
         !property?.id ||
+        !formState.name.trim() ||
         !formState.amount.trim() ||
         !formState.currencyCode.trim() ||
+        !formState.duration.trim() ||
         createRent.isPending
 
     function resetForm() {
@@ -99,6 +103,7 @@ export function PropertyRentDefinitionCreateSheet({
                     amount: Number(formState.amount),
                     currencyCode: formState.currencyCode.trim().toUpperCase(),
                 },
+                negotiable: formState.negotiable,
                 duration: formState.duration ? Number(formState.duration) : undefined,
                 durationUnit: formState.durationUnit,
                 defaultRent: formState.defaultRent,
@@ -153,6 +158,14 @@ export function PropertyRentDefinitionCreateSheet({
                             />
                         </Field>
                     </div>
+
+                    <label className="flex items-center gap-3 rounded-lg border p-3 text-sm">
+                        <Checkbox
+                            checked={formState.negotiable}
+                            onCheckedChange={(checked) => updateField("negotiable", checked === true)}
+                        />
+                        <span>Rent is negotiable</span>
+                    </label>
 
                     <div className="grid gap-4 sm:grid-cols-2">
                         <Field label="Duration">

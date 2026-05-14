@@ -62,9 +62,21 @@ export function formatDefinitionAmount(
 
     const amount = formatMoney(definition.amount)
     const duration = formatDuration(definition.duration, definition.durationUnit)
+    const negotiable = definition.negotiable ? "negotiable" : null
 
-    if (amount && duration !== "Not set") return `${amount} / ${duration}`
-    return amount ?? duration
+    const value = amount && duration !== "Not set" ? `${amount} / ${duration}` : amount ?? duration
+    return [value, negotiable].filter(Boolean).join(" · ")
+}
+
+export function formatPricingDefinition(
+    definition?: RealEstatePricingModel.RealEstatePricing | null,
+) {
+    if (!definition) return null
+
+    const amount = formatMoney(definition.amount)
+    const negotiable = definition.negotiable ? "negotiable" : null
+
+    return [amount, negotiable].filter(Boolean).join(" · ") || null
 }
 
 export function formatFeatureValue(feature: PropertyFeatureModel.PropertyFeature) {

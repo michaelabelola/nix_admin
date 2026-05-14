@@ -7,6 +7,7 @@ import {useMemo} from "react";
 type CurrencyDropdownProps = Omit<DropdownProps, "options" | "label" | "emptyLabel"> & {
     label?: string
     emptyLabel?: string
+    full?: boolean
 }
 
 function groupByCurrency(values: CurrencyModel.CurrencyValue[]) {
@@ -24,6 +25,7 @@ export function CurrencyDropdown({
                                      placeholder = "Select a currency",
                                      emptyLabel,
                                      disabled,
+                                     full = false,
                                      ...props
                                  }: CurrencyDropdownProps) {
     const currenciesQuery = CurrencyRequest.useGetAllCurrencies()
@@ -35,10 +37,9 @@ export function CurrencyDropdown({
             .sort(([a], [b]) => a.localeCompare(b))
             .map(([currency, obj]) => {
                 return ({
-                    label: `${obj[0].symbol} - ${currency}`,
+                    label: full ? `${currency} - ${obj[0].symbol} (${obj[0].name})` : `${currency} - ${obj[0].symbol}`,
                     value: currency,
                 })
-
             })
 
     const resolvedEmptyLabel = currenciesQuery.isPending

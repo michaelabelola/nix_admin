@@ -5,7 +5,7 @@ import type {ResponseDto} from "#/models/Models.ts"
 import type {Paged, PagedRequest} from "#/models/PagedModel.ts"
 
 class PricingApi {
-    listByProperty({propertyId, ...query}: PagedRequest<{
+    listByProperty({propertyId, ...query}: PagedRequest<RealEstatePricingModel.Query & {
         propertyId: PropertyModel.PropertyID
     }>, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<Paged<RealEstatePricingModel.RealEstatePricing>>(

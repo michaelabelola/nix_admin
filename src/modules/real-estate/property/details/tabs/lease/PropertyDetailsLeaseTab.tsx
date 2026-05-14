@@ -115,6 +115,11 @@ function createLeaseDefinitionColumns({
             cell: ({row}) => formatMoney(row.original.amount) ?? "Not set",
         },
         {
+            accessorKey: "negotiable",
+            header: "Negotiable",
+            cell: ({row}) => row.original.negotiable ? "Yes" : "No",
+        },
+        {
             accessorKey: "duration",
             header: "Duration",
             cell: ({row}) => formatDuration(row.original.duration, row.original.durationUnit),
