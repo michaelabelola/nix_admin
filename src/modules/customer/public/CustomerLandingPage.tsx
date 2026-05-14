@@ -43,14 +43,14 @@ const trustItems = [
 
 export function CustomerLandingPage() {
     return (
-        <main className="min-h-screen bg-background">
+        <main className="min-h-screen">
             <section className="relative min-h-[88vh] overflow-hidden bg-foreground text-background">
                 <img
                     src={HERO_IMAGE}
                     alt="Customer portal displayed on laptop and phone"
                     className="absolute inset-0 h-full w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-foreground/75"/>
+                <div className="absolute inset-0 bg-background/20 dark:bg-background/75"/>
 
                 <div className="relative z-10 mx-auto flex min-h-[88vh] max-w-7xl flex-col px-4 py-6">
                     <header className="flex items-center justify-between gap-4">

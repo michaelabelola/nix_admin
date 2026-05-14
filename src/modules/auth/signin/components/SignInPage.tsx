@@ -5,6 +5,7 @@ import {Badge} from '#/components/ui/badge'
 import {Button} from '#/components/ui/button'
 
 import {SignInForm} from './SignInForm'
+import {ButtonGroup} from "#/components/ui/button-group.tsx";
 
 const benefits = [
     {
@@ -41,12 +42,14 @@ export function SignInPage({initialEmail}: { initialEmail?: string }) {
                         and sales moving.
                     </p>
                     <div>
-                        <Button asChild variant="outline">
-                            <Link to="/signup">Register account</Link>
-                        </Button>
-                        <Button asChild variant="outline">
-                            <Link to="/resend-verification-email">Forgot Password?</Link>
-                        </Button>
+                        <ButtonGroup>
+                            <Button asChild variant="outline">
+                                <Link to="/signup">Register account</Link>
+                            </Button>
+                            <Button asChild variant="outline">
+                                <Link to="/resend-verification-email">Forgot Password?</Link>
+                            </Button>
+                        </ButtonGroup>
                     </div>
                 </div>
 

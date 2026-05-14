@@ -9,11 +9,9 @@ import {
     IconFileDescription,
     IconFileWord,
     IconFolder,
-    IconHelp,
     IconInnerShadowTop,
     IconListDetails,
     IconReport,
-    IconSearch,
     IconSettings,
     IconUsers,
 } from "@tabler/icons-react"
@@ -46,6 +44,10 @@ export type NavSectionType = {
         name?: string
         to?: keyof FileRoutesByTo
         icon?: Icon | any
+        overflowMenu?:{
+            to?: keyof FileRoutesByTo
+            icon?: Icon | any
+        }[]
     }[]
 }
 
@@ -136,16 +138,16 @@ const data = {
             url: "#",
             icon: IconSettings,
         },
-        {
-            title: "Get Help",
-            url: "#",
-            icon: IconHelp,
-        },
-        {
-            title: "Search",
-            url: "#",
-            icon: IconSearch,
-        },
+        // {
+        //     title: "Get Help",
+        //     url: "#",
+        //     icon: IconHelp,
+        // },
+        // {
+        //     title: "Search",
+        //     url: "#",
+        //     icon: IconSearch,
+        // },
     ],
     documents: [
         {
@@ -204,7 +206,6 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain}/>
                 {[selfBusinessNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
-
                 ))}
                 <NavSecondary items={data.navSecondary} className="mt-auto"/>
             </SidebarContent>

@@ -53,7 +53,7 @@ export function MyBusinessesPage() {
                 navigate({
                     to: "/admin"
                 })
-            },1700)
+            }, 1700)
         } catch (error: any) {
             toast.error(error?.message || "Failed to sign in to organization.")
         } finally {
@@ -67,8 +67,8 @@ export function MyBusinessesPage() {
             description: "Review organizations linked to your admin workspace.",
             actionView: <ButtonGroup>
                 <Link to={"/self/organizations/register"}>
-                    <Button variant={"outline"} size={"sm"}>
-                        Register Organization/Business
+                    <Button variant={"outline"} size={"lg"}>
+                        Register Organization
                     </Button>
                 </Link>
             </ButtonGroup>
