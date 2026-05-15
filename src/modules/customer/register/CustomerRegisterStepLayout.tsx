@@ -32,7 +32,7 @@ export function CustomerRegisterStepLayout({
     const progress = ((stepIndex + 1) / totalSteps) * 100
 
     return (
-        <div className="grid min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[340px_1fr]">
+        <div className="grid min-h-full w-full overflow-hidden border rounded-2xl bg-background shadow-sm lg:grid-cols-[320px_1fr]">
             <aside className="relative overflow-hidden bg-foreground p-6 text-background">
                 <img
                     src="/customer/portal-hero.png"
@@ -42,7 +42,7 @@ export function CustomerRegisterStepLayout({
                 <div className="absolute inset-0 bg-foreground/90"/>
                 <div className="relative z-10 grid h-full gap-8">
                     <div className="grid gap-4">
-                        <div className="flex size-11 items-center justify-center rounded-xl border border-background/15 bg-background/10">
+                        <div className="flex size-11 items-center justify-center border border-background/15 bg-background/10">
                             <LockKeyhole className="size-5 text-background"/>
                         </div>
                         <div>
@@ -74,7 +74,7 @@ export function CustomerRegisterStepLayout({
                         ))}
                     </div>
 
-                    <div className="mt-auto rounded-xl border border-background/15 bg-background/10 p-4">
+                    <div className="mt-auto border border-background/15 bg-background/10 p-4">
                         <div className="flex items-center gap-2 text-sm font-medium">
                             <Sparkles className="size-4 text-background"/>
                             Guided registration
@@ -87,7 +87,7 @@ export function CustomerRegisterStepLayout({
             </aside>
 
             <section className="grid min-h-[720px] grid-rows-[auto_1fr_auto]">
-                <div className="border-b bg-muted/25 p-6 sm:p-8">
+                <div className="border-b bg-muted/20 p-5 sm:p-7">
                     <div className="flex flex-wrap gap-2">
                         <Badge variant="outline">Step {stepIndex + 1} of {totalSteps}</Badge>
                         <Badge variant="secondary">{step.label}</Badge>
@@ -96,11 +96,11 @@ export function CustomerRegisterStepLayout({
                     <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">{step.description}</p>
                 </div>
 
-                <div className="space-y-6 p-6 sm:p-8">
+                <div className="space-y-6 p-5 sm:p-7">
                     {children}
                 </div>
 
-                <div className="flex flex-col gap-3 border-t bg-background p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+                <div className="flex flex-col gap-3 border-t bg-background p-5 sm:flex-row sm:items-center sm:justify-between sm:p-7">
                     <Button
                         type="button"
                         variant="outline"
@@ -143,12 +143,12 @@ function StepNavItem({
     return (
         <button
             type="button"
-            className={`flex w-full items-start gap-3 rounded-xl border p-3 text-left text-sm transition-colors hover:bg-background/10 ${
+            className={`flex w-full items-start gap-3 border p-3 text-left text-sm transition-colors hover:bg-background/10 ${
                 active ? "border-background/60 bg-background/10" : "border-background/10 bg-background/5"
             }`}
             onClick={() => onClick(stepId)}
         >
-            <span className={`mt-0.5 flex size-7 items-center justify-center rounded-full border text-xs font-semibold ${
+            <span className={`mt-0.5 flex size-7 items-center justify-center border text-xs font-semibold ${
                 active ? "border-background bg-background text-foreground" : "border-background/20 text-background/70"
             }`}>
                 {complete ? <CheckCircle2 className="size-4"/> : number}

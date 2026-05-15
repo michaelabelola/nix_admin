@@ -6,7 +6,6 @@ import {toast} from "sonner"
 import {Alert, AlertDescription, AlertTitle} from "#/components/ui/alert.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
 import {Input} from "#/components/ui/input.tsx"
 import {Label} from "#/components/ui/label.tsx"
 
@@ -15,55 +14,64 @@ export function CustomerLoginPage() {
     const [password, setPassword] = useState("")
 
     return (
-        <main className="min-h-screen bg-muted/30">
-            <section className="mx-auto grid min-h-screen max-w-7xl gap-10 px-4 py-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-                <div className="grid gap-6">
-                    <Button asChild variant="ghost" className="w-fit">
-                        <Link to="/customer">
-                            <ArrowLeft className="size-4"/>
-                            Customer home
+        <main className="min-h-dvh bg-background">
+            <section className="grid min-h-dvh lg:grid-cols-[0.92fr_1.08fr]">
+                <div
+                    className="relative hidden min-h-dvh overflow-hidden bg-cover bg-center text-white lg:block"
+                    style={{backgroundImage: "url('/customer/portal-hero.png')"}}
+                >
+                    <div className="absolute inset-0 bg-black/68"/>
+                    <div className="relative z-10 flex h-full flex-col justify-between p-10">
+                        <Link to="/customer" className="flex w-fit items-center gap-3">
+                            <img src="/logo192.png" alt="Suiteonix" className="size-9 rounded-md"/>
+                            <span className="text-sm font-semibold uppercase tracking-[0.16em]">Suiteonix Customer</span>
                         </Link>
-                    </Button>
-
-                    <Badge variant="outline" className="w-fit">Customer Login</Badge>
-                    <div className="grid gap-4">
-                        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
-                            Access your customer portal.
-                        </h1>
-                        <p className="max-w-xl text-base leading-8 text-muted-foreground">
-                            Customer login will connect to the dedicated backend endpoint once it is available. The page is ready for the API integration layer.
-                        </p>
-                    </div>
-
-                    <div className="grid gap-3 sm:grid-cols-3">
-                        <Feature icon={Mail} title="Email access"/>
-                        <Feature icon={LockKeyhole} title="Password sign in"/>
-                        <Feature icon={ShieldCheck} title="Verified accounts"/>
+                        <div className="max-w-xl pb-6">
+                            <Badge className="mb-5 bg-white/15 text-white hover:bg-white/15">Customer access</Badge>
+                            <h1 className="text-5xl font-semibold leading-tight">Return to your customer portal.</h1>
+                            <p className="mt-5 text-base leading-8 text-white/78">
+                                Sign in to manage profile details, service updates, and customer account records from one secure workspace.
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <Card className="shadow-sm">
-                    <CardHeader>
-                        <CardTitle className="text-2xl">Customer login</CardTitle>
-                        <CardDescription>
+                <div className="flex min-h-dvh flex-col px-4 py-6 sm:px-8 lg:px-12">
+                    <header className="flex items-center justify-between">
+                        <Button asChild variant="ghost" className="px-0">
+                            <Link to="/customer">
+                                <ArrowLeft className="size-4"/>
+                                Customer home
+                            </Link>
+                        </Button>
+                        <Button asChild variant="outline" size="sm">
+                            <Link to="/customer/register">Register</Link>
+                        </Button>
+                    </header>
+
+                    <div className="mx-auto grid w-full max-w-md flex-1 content-center py-10">
+                        <Badge variant="outline" className="mb-5 w-fit">Customer Login</Badge>
+                        <h1 className="text-3xl font-semibold tracking-tight">Access your account</h1>
+                        <p className="mt-3 text-sm leading-7 text-muted-foreground">
                             Enter the email and password used during customer registration.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
+                        </p>
+
                         <form
-                            className="grid gap-5"
+                            className="mt-8 grid gap-5"
                             onSubmit={(event) => {
                                 event.preventDefault()
                                 toast.info("Customer login backend endpoint is not available yet.")
                             }}
                         >
-                            <Alert>
+                            <Alert className="rounded-none">
                                 <ShieldCheck className="size-4"/>
                                 <AlertTitle>Endpoint pending</AlertTitle>
                                 <AlertDescription>
                                     The backend customer login endpoint will be connected here when it is created.
                                 </AlertDescription>
                             </Alert>
+
+                            <LoginFeature icon={Mail} title="Email access"/>
 
                             <div className="grid gap-2">
                                 <Label htmlFor="customer-email">Email</Label>
@@ -98,17 +106,17 @@ export function CustomerLoginPage() {
                                 </Link>
                             </div>
                         </form>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </section>
         </main>
     )
 }
 
-function Feature({icon: Icon, title}: { icon: typeof Mail; title: string }) {
+function LoginFeature({icon: Icon, title}: { icon: typeof LockKeyhole; title: string }) {
     return (
-        <div className="flex items-center gap-3 rounded-md border bg-background p-3">
-            <span className="flex size-9 items-center justify-center rounded-md bg-primary/10 text-primary">
+        <div className="flex items-center gap-3 border bg-muted/35 p-3">
+            <span className="grid size-9 place-items-center bg-background text-primary">
                 <Icon className="size-4"/>
             </span>
             <span className="text-sm font-medium">{title}</span>

@@ -31,10 +31,10 @@ import {CustomerRegisterReviewStep} from "./steps/CustomerRegisterReviewStep.tsx
 export function CustomerRegisterPage() {
     return (
         <CustomerRegisterProvider>
-            <main className="min-h-dvh bg-background">
-                <div className="mx-auto flex min-h-dvh max-w-7xl flex-col px-4 py-6">
+            <main className="min-h-dvh bg-muted/25">
+                <div className="mx-auto flex min-h-dvh max-w-7xl flex-col px-4 py-5">
                     <CustomerRegisterHeader/>
-                    <div className="flex flex-1 py-8">
+                    <div className="flex flex-1 py-5 sm:py-8">
                         <CustomerRegisterCurrentStep/>
                     </div>
                     <CustomerRegisterSuccessDialog/>
@@ -48,9 +48,9 @@ function CustomerRegisterHeader() {
     return (
         <header className="flex items-center justify-between gap-4">
             <Link to="/customer" className="flex items-center gap-3">
-                <img src="/logo192.png" alt="Suiteonix" className="size-10 rounded-md shadow-sm"/>
+                <img src="/logo192.png" alt="Suiteonix" className="size-9 rounded-md shadow-sm"/>
                 <div>
-                    <div className="font-semibold tracking-tight">Suiteonix Customer</div>
+                    <div className="text-sm font-semibold uppercase tracking-[0.16em]">Suiteonix Customer</div>
                     <div className="text-xs text-muted-foreground">Account registration</div>
                 </div>
             </Link>
@@ -110,26 +110,26 @@ function CustomerRegisterIntro() {
     const {startRegistration} = useCustomerRegister()
 
     return (
-        <section className="grid min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[1.02fr_0.98fr]">
-            <div className="relative min-h-140 overflow-hidden bg-foreground p-8 text-background sm:p-10">
+        <section className="grid min-h-full w-full overflow-hidden border rounded-2xl bg-background shadow-sm lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="relative min-h-140 overflow-hidden bg-foreground p-7 text-background sm:p-10">
                 <img
                     src="/customer/portal-hero.png"
                     alt="Customer portal preview"
-                    className="absolute inset-0 h-full w-full object-cover opacity-70"
+                    className="absolute inset-0 h-full w-full object-cover opacity-75"
                 />
-                <div className="absolute inset-0 bg-foreground/80"/>
+                <div className="absolute inset-0 bg-black/70"/>
                 <div className="relative z-10 grid h-full content-between gap-8">
                     <div className="flex flex-wrap gap-2">
-                        <Badge className="border-background/20 bg-background/10 text-background hover:bg-background/10">
+                        <Badge className="border-background/20 bg-background/15 text-background hover:bg-background/15">
                             Customer onboarding
                         </Badge>
-                        <Badge className="border-background/20 bg-background/10 text-background hover:bg-background/10">
+                        <Badge className="border-background/20 bg-background/15 text-background hover:bg-background/15">
                             Self-service access
                         </Badge>
                     </div>
 
                     <div className="grid max-w-xl gap-6">
-                        <div className="flex size-12 items-center justify-center rounded-xl border border-background/20 bg-background/10">
+                        <div className="flex size-12 items-center justify-center border border-background/20 bg-background/10">
                             <Sparkles className="size-6 text-background"/>
                         </div>
                         <div className="grid gap-4">
@@ -158,7 +158,7 @@ function CustomerRegisterIntro() {
 
                     <div className="grid gap-3 sm:grid-cols-3">
                         {introHighlights.map((item) => (
-                            <div key={item.title} className="rounded-xl border border-background/15 bg-background/10 p-4 backdrop-blur">
+                            <div key={item.title} className="border border-background/15 bg-background/10 p-4 backdrop-blur">
                                 <item.icon className="mb-3 size-5 text-background"/>
                                 <div className="text-sm font-semibold">{item.title}</div>
                                 <div className="mt-1 text-xs leading-5 text-background/70">{item.description}</div>
@@ -168,7 +168,7 @@ function CustomerRegisterIntro() {
                 </div>
             </div>
 
-            <div className="grid content-center gap-8 p-8 sm:p-10">
+            <div className="grid content-center gap-8 p-7 sm:p-10">
                 <div className="grid gap-3">
                     <Badge variant="outline" className="w-fit">Before you start</Badge>
                     <h2 className="text-3xl font-semibold tracking-tight">A focused setup that only asks for what the customer account needs.</h2>
@@ -183,7 +183,7 @@ function CustomerRegisterIntro() {
                     <IntroChecklistItem label="Add optional profile and address details now or leave them blank."/>
                 </div>
 
-                <div className="rounded-xl border bg-muted/40 p-5">
+                <div className="border bg-muted/40 p-5">
                     <div className="flex items-start gap-3">
                         <ShieldCheck className="mt-0.5 size-5 text-primary"/>
                         <div>
@@ -201,7 +201,7 @@ function CustomerRegisterIntro() {
 
 function IntroChecklistItem({label}: { label: string }) {
     return (
-        <div className="flex items-center gap-3 rounded-lg border bg-background p-3">
+        <div className="flex items-center gap-3 border bg-background p-3">
             <CheckCircle2 className="size-5 text-primary"/>
             <span className="text-sm font-medium">{label}</span>
         </div>
