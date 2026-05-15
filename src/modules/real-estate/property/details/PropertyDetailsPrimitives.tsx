@@ -1,7 +1,6 @@
 import type {PropsWithChildren, ReactNode} from "react";
 
 import {
-    Card,
     CardContent,
     CardDescription,
     CardHeader,
@@ -12,7 +11,7 @@ export function SummaryMetric({label, value}: { label: string; value?: string | 
     return (
         <div className="rounded-lg border p-4">
             <div className="text-sm text-muted-foreground">{label}</div>
-            <div className="mt-2 text-base font-medium break-words">{value || "Not set"}</div>
+            <div className="mt-2 text-base font-medium wrap-break-word">{value || "Not set"}</div>
         </div>
     )
 }
@@ -21,7 +20,7 @@ export function KeyValue({label, value}: { label: string; value?: string | React
     return (
         <div className="flex flex-col gap-1 rounded-lg border p-3">
             <div className="text-xs uppercase tracking-wide text-muted-foreground">{label}</div>
-            <div className="text-sm break-words">{value || "Not set"}</div>
+            <div className="text-sm wrap-break-word">{value || "Not set"}</div>
         </div>
     )
 }
