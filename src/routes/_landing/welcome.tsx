@@ -1,564 +1,412 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import {createFileRoute, Link} from "@tanstack/react-router"
 import {
-  ArrowRight,
-  BadgeCheck,
-  Building2,
-  Check,
-  CircleDollarSign,
-  Handshake,
-  House,
-  KeyRound,
-  MessageSquareQuote,
-  ShieldCheck,
-  Sparkles,
-  Users,
-} from 'lucide-react'
+    ArrowRight,
+    BarChart3,
+    Building2,
+    Check,
+    CircleDollarSign,
+    ClipboardList,
+    HomeIcon,
+    KeyRound,
+    LayoutDashboard,
+    MapPin,
+    MessageSquareText,
+    ShieldCheck,
+    Users,
+} from "lucide-react"
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '#/components/ui/accordion'
-import { Avatar, AvatarFallback, AvatarImage } from '#/components/ui/avatar'
-import { Badge } from '#/components/ui/badge'
-import { Button } from '#/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '#/components/ui/card'
-import { Separator } from '#/components/ui/separator'
-import { cn } from '#/lib/utils'
-import ThemeToggle from "#/components/ThemeToggle.tsx";
+import ThemeToggle from "#/components/ThemeToggle.tsx"
+import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx"
+import {Badge} from "#/components/ui/badge.tsx"
+import {Button} from "#/components/ui/button.tsx"
+import {Progress} from "#/components/ui/progress.tsx"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
 import logo from "public/logo512.png"
 
-export const Route = createFileRoute('/_landing/welcome')({ component: App })
+export const Route = createFileRoute("/_landing/welcome")({component: App})
 
-const stats = [
-  { label: 'Agencies launched', value: '1,200+' },
-  { label: 'Properties listed', value: '48k+' },
-  { label: 'Monthly inquiries', value: '96k+' },
+const heroStats = [
+    {label: "Active listings", value: "48k+"},
+    {label: "Monthly inquiries", value: "96k+"},
+    {label: "Agency workspaces", value: "1.2k+"},
 ]
 
-const steps = [
-  {
-    icon: Building2,
-    title: 'Register your business',
-    description:
-      'Create your company workspace, onboard agents, and set up the structure you need to begin operating immediately.',
-  },
-  {
-    icon: House,
-    title: 'List and organize properties',
-    description:
-      'Publish residential and commercial listings, add pricing, media, and availability, then keep every property organized in one place.',
-  },
-  {
-    icon: KeyRound,
-    title: 'Manage rent, lease, or sales',
-    description:
-      'Track offers, move tenants through lease workflows, and manage sale activity without switching between disconnected tools.',
-  },
+const workflows = [
+    {
+        icon: Building2,
+        title: "Launch the business",
+        description: "Register your agency, configure roles, and get a shared workspace ready for real estate operations.",
+    },
+    {
+        icon: HomeIcon,
+        title: "Publish inventory",
+        description: "Create properties, attach listing snapshots, add media, and keep availability clear for every team member.",
+    },
+    {
+        icon: KeyRound,
+        title: "Run deals",
+        description: "Move prospects through rent, lease, and sale workflows without losing ownership or context.",
+    },
 ]
 
-const pricingPlans = [
-  {
-    name: 'Starter',
-    price: '$29',
-    note: 'per month',
-    description: 'For solo real estate agents getting their business online.',
-    features: ['Business registration profile', 'Up to 20 active listings', 'Lead capture and inbox', 'Basic property management'],
-  },
-  {
-    name: 'Growth',
-    price: '$79',
-    note: 'per month',
-    description: 'For teams that need more listings, more coordination, and better follow-up.',
-    featured: true,
-    features: ['Unlimited active listings', 'Multi-agent workspace', 'Lease, rent, and sales workflow tracking', 'Performance dashboard and reporting'],
-  },
-  {
-    name: 'Scale',
-    price: '$149',
-    note: 'per month',
-    description: 'For agencies handling high-volume inventory and multiple operators.',
-    features: ['Role-based access control', 'Custom onboarding support', 'Priority support', 'Advanced portfolio management'],
-  },
+const liveRows = [
+    {property: "Harbor View Duplex", stage: "Lease review", owner: "Ada", value: "$3,400"},
+    {property: "Cedar Peak Studio", stage: "New inquiry", owner: "Marcus", value: "$1,850"},
+    {property: "Northline Townhouse", stage: "Offer sent", owner: "Leila", value: "$612k"},
 ]
 
-const testimonials = [
-  {
-    quote:
-      'Suiteonix gave us a clean way to launch our agency, upload listings, and stay on top of tenant conversations without building anything from scratch.',
-    name: 'Adaeze Cole',
-    role: 'Founder, Harbor Nest Realty',
-  },
-  {
-    quote:
-      'We moved from spreadsheets to a real operating system. Listing properties, handling lease requests, and tracking sales now happens in one workflow.',
-    name: 'Marcus Lane',
-    role: 'Operations Lead, Cedar Peak Homes',
-  },
-  {
-    quote:
-      'The speed matters. New agents can sign in, list a property, and start managing inquiries on day one with almost no training.',
-    name: 'Leila Morrison',
-    role: 'Managing Broker, Northline Estates',
-  },
+const plans = [
+    {
+        name: "Starter",
+        price: "$29",
+        description: "For solo agents getting online quickly.",
+        features: ["Business profile", "20 active listings", "Lead inbox", "Property records"],
+    },
+    {
+        name: "Growth",
+        price: "$79",
+        featured: true,
+        description: "For teams coordinating listings and follow-up.",
+        features: ["Unlimited listings", "Multi-agent workspace", "Rent and lease tracking", "Performance dashboard"],
+    },
+    {
+        name: "Scale",
+        price: "$149",
+        description: "For agencies managing high-volume inventory.",
+        features: ["Role-based access", "Portfolio views", "Priority support", "Advanced reporting"],
+    },
 ]
 
-const teamMembers = [
-  {
-    name: 'Michael Abel',
-    role: 'Founder/CTO',
-    summary: 'Sets product direction and keeps Suiteonix focused on helping new agencies launch faster.',
-  },
-  {
-    name: 'Tara Benson',
-    role: 'CTO',
-    summary: 'Leads platform engineering, reliability, and the systems behind listing and property operations.',
-  },
-  {
-    name: 'Michael Fraser',
-    role: 'CFO',
-    summary: 'Oversees financial planning, growth strategy, and sustainable expansion across the business.',
-  },
-  {
-    name: 'Nina Solis',
-    role: 'Social Media Admin',
-    summary: 'Runs brand campaigns, community engagement, and the content that keeps Suiteonix visible online.',
-  },
+const team = [
+    {name: "Michael Abel", role: "Founder/CTO"},
+    {name: "Tara Benson", role: "Platform Engineering"},
+    {name: "Michael Fraser", role: "Finance and Growth"},
+    {name: "Nina Solis", role: "Brand and Community"},
 ]
 
 const faqs = [
-  {
-    question: 'Who is Suiteonix built for?',
-    answer:
-      'Suiteonix is designed for real estate agents and growing agencies that want a simpler way to register their business, list properties, and manage rent, lease, or sale activity.',
-  },
-  {
-    question: 'Can I manage both rentals and property sales?',
-    answer:
-      'Yes. The platform supports rental, lease, and property sale workflows so teams can manage different property types from the same workspace.',
-  },
-  {
-    question: 'Do I need technical experience to get started?',
-    answer:
-      'No. The onboarding flow is meant for operators, not developers. You can create your profile, add listings, and start managing inquiries without technical setup.',
-  },
-  {
-    question: 'Can I invite my team?',
-    answer:
-      'Yes. Growth and Scale plans are built for multiple users, so brokers, admins, and agents can work together with a shared view of listings and activity.',
-  },
+    {
+        question: "Who is Suiteonix for?",
+        answer: "Real estate agents and growing agencies that need one place to launch their business, manage listings, and coordinate rent, lease, or sales activity.",
+    },
+    {
+        question: "Can my team work from the same account?",
+        answer: "Yes. Suiteonix supports team workspaces, agent ownership, and shared operational views for listings and inquiries.",
+    },
+    {
+        question: "Does it support rentals and sales?",
+        answer: "Yes. You can track rental, lease, and sale workflows from the same property operating system.",
+    },
 ]
 
 function App() {
-  return (
-    <div className="relative overflow-hidden text-foreground">
-      <header className="sticky top-0 z-30 border-b  backdrop-blur-xl check-bg">
-        <div className="page-wrap flex items-center justify-between py-4">
-          <a href="#top" className="flex items-center gap-3 text-sm font-semibold tracking-[0.24em] uppercase">
-            <span className="flex size-10 items-center justify-center rounded-md border text-primary-foreground">
-              <Avatar className="size-8">
-                <AvatarImage src={logo} alt="Suiteonix" />
-                <AvatarFallback className="bg-transparent text-lg font-bold text-foreground">
-                  NIX
-                </AvatarFallback>
-              </Avatar>
-            </span>
-            Suiteonix
-          </a>
+    return (
+        <div className="min-h-dvh bg-background text-foreground">
+            <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-background/75 backdrop-blur-xl">
+                <div className="page-wrap flex items-center justify-between py-3">
+                    <a href="#top" className="flex items-center gap-3">
+                        <Avatar className="size-9 rounded-md">
+                            <AvatarImage src={logo} alt="Suiteonix"/>
+                            <AvatarFallback>NIX</AvatarFallback>
+                        </Avatar>
+                        <span className="text-sm font-semibold uppercase tracking-[0.18em]">Suiteonix</span>
+                    </a>
 
-          <nav className="hidden items-center gap-2 rounded-md border bg-card px-2 py-2 md:flex">
-            {[
-              ['How it works', '#how-it-works'],
-              ['Pricing', '#pricing'],
-              ['Testimonials', '#testimonials'],
-              ['FAQ', '#faqs'],
-              ['Team', '#team'],
-            ].map(([label, href]) => (
-              <a
-                key={label}
-                href={href}
-                className="rounded-md px-4 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground"
-              >
-                {label}
-              </a>
-            ))}
-            <ThemeToggle />
-          </nav>
-        </div>
-      </header>
+                    <nav className="hidden items-center gap-6 text-sm font-medium text-muted-foreground md:flex">
+                        <a href="#workflow" className="hover:text-foreground">Workflow</a>
+                        <a href="#operations" className="hover:text-foreground">Operations</a>
+                        <a href="#pricing" className="hover:text-foreground">Pricing</a>
+                        <a href="#team" className="hover:text-foreground">Team</a>
+                    </nav>
 
-      <main id="top">
-        <section className="page-wrap rise-in grid gap-10 py-8 sm:py-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:py-20">
-          <Card className="relative overflow-hidden px-6 py-8 shadow-sm sm:px-10 sm:py-12">
-            <div className="relative">
-              <Badge
-                variant="outline"
-                className="mb-6 px-4 py-2 text-xs font-semibold tracking-[0.24em] uppercase"
-              >
-                <Sparkles className="size-4" />
-                Start and run your property business
-              </Badge>
-
-              <h1 className="max-w-3xl font-['Fraunces',serif] text-4xl leading-tight font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                Launch your real estate business and manage every property from one platform.
-              </h1>
-
-              <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-                Suiteonix helps real estate agents get started easily. Register your business, list properties, manage inventory,
-                and handle rent, lease, or sales activity with workflows built for teams that move fast.
-              </p>
-
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <Button
-                  asChild
-                  size="lg"
-                  className="h-12 px-7"
-                >
-                  <a href="#pricing">
-                    Get Started
-                    <ArrowRight className="size-4" />
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="h-12 px-7"
-                >
-                  <Link to="/login" search={{email: ""}}>Login</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="secondary"
-                  size="lg"
-                  className="h-12 px-7"
-                >
-                  <Link to="/signup">Register account</Link>
-                </Button>
-              </div>
-
-              <Separator className="mt-10" />
-              <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                {stats.map((stat) => (
-                  <div key={stat.label}>
-                    <div className="text-2xl font-extrabold">{stat.value}</div>
-                    <div className="mt-1 text-sm text-muted-foreground">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Card>
-
-          <div className="grid gap-5">
-            <Card className="p-0 shadow-sm">
-              <CardHeader className="mb-0 flex flex-row items-center justify-between gap-4 px-6 pt-6">
-                <div>
-                  <p className="text-sm font-semibold text-muted-foreground">Operations Snapshot</p>
-                  <h2 className="mt-1 text-2xl font-bold">Built for daily property work</h2>
+                    <div className="flex items-center gap-2">
+                        <ThemeToggle/>
+                        <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex">
+                            <Link to="/login" search={{email: ""}}>Login</Link>
+                        </Button>
+                        <Button asChild size="sm">
+                            <Link to="/signup">Start</Link>
+                        </Button>
+                    </div>
                 </div>
-                <BadgeCheck className="size-10 text-primary" />
-              </CardHeader>
-              <CardContent className="space-y-4 px-6 pb-6">
-                {[
-                  ['New business setup', 'Create your brand profile, invite your team, and publish your first listings.'],
-                  ['Property management', 'Track vacant units, active leases, open offers, and recent tenant or buyer activity.'],
-                  ['Revenue visibility', 'Monitor rent collection, deal flow, and portfolio performance with one clear view.'],
-                ].map(([title, text]) => (
-                  <Card key={title} className="gap-2 bg-muted/30 py-4 shadow-none">
-                    <CardHeader className="gap-1 px-4 pb-0">
-                      <CardTitle className="text-sm font-semibold">{title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="px-4 pt-0">
-                      <CardDescription className="mt-0 text-sm leading-7">{text}</CardDescription>
-                    </CardContent>
-                  </Card>
-                ))}
-              </CardContent>
-            </Card>
+            </header>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <FeatureCard
-                icon={Handshake}
-                title="Faster deal handling"
-                text="Capture leads and move them into rent, lease, or sales workflows without manual follow-up chaos."
-              />
-              <FeatureCard
-                icon={ShieldCheck}
-                title="Confident team ops"
-                text="Keep agents, admins, and managers aligned with a shared view of listings and property activity."
-              />
-            </div>
-          </div>
-        </section>
-
-        <section id="how-it-works" className="page-wrap py-8 sm:py-12 lg:py-16">
-          <SectionHeading
-            eyebrow="How it works"
-              title="A simple operating system for new and growing real estate teams."
-              description="From first registration to active listings and signed deals, Suiteonix keeps the core flow straightforward."
-          />
-
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {steps.map((step, index) => (
-              <Card
-                key={step.title}
-                className="p-0 shadow-sm"
-              >
-                <CardHeader className="flex flex-row items-center justify-between px-6 pt-6">
-                  <span className="flex size-12 items-center justify-center rounded-md border bg-muted text-primary">
-                    <step.icon className="size-5" />
-                  </span>
-                  <Badge variant="outline" className="text-muted-foreground">
-                    0{index + 1}
-                  </Badge>
-                </CardHeader>
-                <CardContent className="px-6 pb-6 pt-0">
-                  <CardTitle className="mt-2 text-xl font-bold">{step.title}</CardTitle>
-                  <CardDescription className="mt-3 text-sm leading-7">{step.description}</CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section id="pricing" className="page-wrap py-8 sm:py-12 lg:py-16">
-          <Card className="p-6 shadow-sm sm:p-8 lg:p-10">
-            <SectionHeading
-              eyebrow="Pricing"
-              title="Choose the plan that matches your current stage."
-              description="Start lean, expand when your listing volume and team operations demand more structure."
-            />
-
-            <div className="mt-8 grid gap-5 lg:grid-cols-3">
-              {pricingPlans.map((plan) => (
-                <Card
-                  key={plan.name}
-                  className={cn(
-                    'p-0 shadow-sm',
-                    plan.featured && 'border-primary',
-                  )}
+            <main id="top">
+                <section
+                    className="relative min-h-[92dvh] overflow-hidden bg-cover bg-center pt-24 text-white"
+                    style={{backgroundImage: "url('/customer/portal-hero.png')"}}
                 >
-                  <CardHeader className="flex flex-row items-start justify-between gap-4 px-6 pt-6">
-                    <div>
-                      <CardTitle className="text-xl font-bold">{plan.name}</CardTitle>
-                      <CardDescription className="mt-2 text-sm leading-7">{plan.description}</CardDescription>
+                    <div className="absolute inset-0 bg-black/65"/>
+                    <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.75),rgba(0,0,0,0.42),rgba(0,0,0,0.2))]"/>
+
+                    <div className="page-wrap relative grid min-h-[calc(92dvh-6rem)] content-end gap-10 pb-10 lg:grid-cols-[1fr_420px] lg:items-end">
+                        <div className="max-w-3xl pb-4">
+                            <Badge className="mb-6 bg-white/15 text-white hover:bg-white/15">
+                                Real estate operating system
+                            </Badge>
+                            <h1 className="text-4xl font-semibold leading-tight sm:text-6xl lg:text-7xl">
+                                Suiteonix
+                            </h1>
+                            <p className="mt-5 max-w-2xl text-lg leading-8 text-white/82">
+                                Launch your agency, publish property inventory, and manage rent, lease, or sales workflows from one focused workspace.
+                            </p>
+                            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                                <Button asChild size="lg" className="h-12 px-6">
+                                    <Link to="/signup">
+                                        Create account
+                                        <ArrowRight className="size-4"/>
+                                    </Link>
+                                </Button>
+                                <Button asChild size="lg" variant="secondary" className="h-12 px-6">
+                                    <Link to="/login" search={{email: ""}}>Login</Link>
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div className="mb-4 border border-white/15 bg-black/35 p-4 backdrop-blur-md">
+                            <div className="flex items-center justify-between">
+                                <div>
+                                    <p className="text-sm text-white/65">Today</p>
+                                    <h2 className="mt-1 text-xl font-semibold">Agency activity</h2>
+                                </div>
+                                <LayoutDashboard className="size-6 text-white/70"/>
+                            </div>
+                            <div className="mt-5 space-y-4">
+                                {heroStats.map((stat) => (
+                                    <div key={stat.label} className="flex items-center justify-between gap-4 border-t border-white/10 pt-4">
+                                        <span className="text-sm text-white/70">{stat.label}</span>
+                                        <span className="text-2xl font-semibold">{stat.value}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
-                    {plan.featured ? (
-                      <Badge className="px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em]">
-                        Popular
-                      </Badge>
-                    ) : null}
-                  </CardHeader>
+                </section>
 
-                  <CardContent className="px-6">
-                    <div className="mt-0 flex items-end gap-2">
-                      <span className="text-4xl font-black">{plan.price}</span>
-                      <span className="pb-1 text-sm text-muted-foreground">{plan.note}</span>
+                <section id="workflow" className="border-b bg-background py-16 sm:py-20">
+                    <div className="page-wrap">
+                        <SectionIntro
+                            eyebrow="Workflow"
+                            title="Start with the work your agency does every day."
+                            description="Suiteonix keeps setup, inventory, and deal movement close together so teams can act without switching systems."
+                        />
+                        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+                            {workflows.map((item) => (
+                                <article key={item.title} className="border bg-card p-6">
+                                    <item.icon className="size-7 text-primary"/>
+                                    <h3 className="mt-5 text-xl font-semibold">{item.title}</h3>
+                                    <p className="mt-3 text-sm leading-7 text-muted-foreground">{item.description}</p>
+                                </article>
+                            ))}
+                        </div>
                     </div>
+                </section>
 
-                    <ul className="mt-6 space-y-3">
-                      {plan.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3 text-sm text-muted-foreground">
-                          <Check className="mt-0.5 size-4 text-primary" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
+                <section id="operations" className="bg-muted/35 py-16 sm:py-20">
+                    <div className="page-wrap grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+                        <div>
+                            <SectionIntro
+                                eyebrow="Operations"
+                                title="A live desk for listings, leads, and revenue."
+                                description="Track what is available, what needs attention, and which deals are moving without hiding the operational details."
+                            />
+                            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+                                <Metric icon={MessageSquareText} label="Inquiry response" value="14 min" progress={78}/>
+                                <Metric icon={CircleDollarSign} label="Rent collection" value="92%" progress={92}/>
+                                <Metric icon={BarChart3} label="Listing health" value="84%" progress={84}/>
+                            </div>
+                        </div>
 
-                  <CardFooter className="px-6 pb-6 pt-2">
-                    <Button
-                      asChild
-                      size="lg"
-                      variant={plan.featured ? 'default' : 'outline'}
-                      className="h-11 w-full"
-                    >
-                      <a href="#top">Get Started</a>
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </Card>
-        </section>
-
-        <section id="testimonials" className="page-wrap py-8 sm:py-12 lg:py-16">
-          <SectionHeading
-            eyebrow="Loved by teams that move fast"
-            title="Operators choose Suiteonix when they need speed without operational mess."
-            description="These teams use the platform to launch faster, manage properties cleanly, and keep deals moving."
-          />
-
-          <div className="mt-8 grid gap-5 lg:grid-cols-3">
-            {testimonials.map((testimonial) => (
-              <Card
-                key={testimonial.name}
-                className="p-0 shadow-sm"
-              >
-                <CardHeader className="px-6 pt-6">
-                  <MessageSquareQuote className="size-8 text-primary" />
-                </CardHeader>
-                <CardContent className="px-6 pt-0">
-                  <p className="text-base leading-8">“{testimonial.quote}”</p>
-                </CardContent>
-                <CardFooter className="flex-col items-start px-6 pb-6">
-                  <Separator className="mb-4" />
-                  <p className="font-semibold">{testimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-        </section>
-
-        <section id="team" className="page-wrap py-8 sm:py-12 lg:py-16">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-            <div>
-              <SectionHeading
-                eyebrow="Company members"
-                title="The team behind the Suiteonix platform."
-                description="A practical product needs a practical team. These are the roles shaping the business, product, and market presence."
-              />
-            </div>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              {teamMembers.map((member) => (
-                <Card
-                  key={member.name}
-                  className="p-0 shadow-sm"
-                >
-                  <CardHeader className="flex flex-row items-center gap-4 px-6 pt-6">
-                    <Avatar className="size-14 border bg-muted text-lg font-bold text-foreground">
-                      <AvatarFallback className="bg-transparent text-lg font-bold text-foreground">
-                        {member.name
-                          .split(' ')
-                          .map((part) => part[0])
-                          .join('')}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <CardTitle className="text-lg font-bold">{member.name}</CardTitle>
-                      <CardDescription className="text-sm font-medium">{member.role}</CardDescription>
+                        <div className="border bg-background p-4 shadow-sm">
+                            <div className="mb-4 flex items-center justify-between">
+                                <div>
+                                    <p className="text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">Pipeline</p>
+                                    <h3 className="mt-1 text-lg font-semibold">Active property work</h3>
+                                </div>
+                                <Badge variant="outline">Live</Badge>
+                            </div>
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Property</TableHead>
+                                        <TableHead>Stage</TableHead>
+                                        <TableHead>Owner</TableHead>
+                                        <TableHead className="text-right">Value</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                    {liveRows.map((row) => (
+                                        <TableRow key={row.property}>
+                                            <TableCell className="font-medium">{row.property}</TableCell>
+                                            <TableCell>{row.stage}</TableCell>
+                                            <TableCell>{row.owner}</TableCell>
+                                            <TableCell className="text-right">{row.value}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </div>
-                  </CardHeader>
-                  <CardContent className="px-6 pb-6 pt-0">
-                    <p className="text-sm leading-7 text-muted-foreground">{member.summary}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
+                </section>
 
-        <section id="faqs" className="page-wrap py-8 sm:py-12 lg:py-16">
-          <Card className="grid gap-8 p-6 shadow-sm sm:p-8 lg:grid-cols-[0.75fr_1.25fr]">
-            <div>
-              <SectionHeading
-                eyebrow="FAQs"
-                title="Answers for teams preparing to launch."
-                description="If your agency is evaluating the platform, these are the questions that usually come up first."
-              />
-            </div>
+                <section id="pricing" className="border-y py-16 sm:py-20">
+                    <div className="page-wrap">
+                        <SectionIntro
+                            eyebrow="Pricing"
+                            title="Plans that match the stage of the agency."
+                            description="Start lean, then add team coordination and reporting when your inventory grows."
+                        />
+                        <div className="mt-10 grid gap-5 lg:grid-cols-3">
+                            {plans.map((plan) => (
+                                <article
+                                    key={plan.name}
+                                    className={`border bg-card p-6 ${plan.featured ? "border-primary shadow-sm" : ""}`}
+                                >
+                                    <div className="flex items-start justify-between gap-4">
+                                        <div>
+                                            <h3 className="text-xl font-semibold">{plan.name}</h3>
+                                            <p className="mt-2 text-sm leading-6 text-muted-foreground">{plan.description}</p>
+                                        </div>
+                                        {plan.featured ? <Badge>Popular</Badge> : null}
+                                    </div>
+                                    <div className="mt-6 flex items-end gap-2">
+                                        <span className="text-4xl font-semibold">{plan.price}</span>
+                                        <span className="pb-1 text-sm text-muted-foreground">/ month</span>
+                                    </div>
+                                    <ul className="mt-6 space-y-3">
+                                        {plan.features.map((feature) => (
+                                            <li key={feature} className="flex items-start gap-3 text-sm">
+                                                <Check className="mt-0.5 size-4 text-primary"/>
+                                                <span>{feature}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <Button asChild className="mt-7 w-full" variant={plan.featured ? "default" : "outline"}>
+                                        <Link to="/signup">Choose {plan.name}</Link>
+                                    </Button>
+                                </article>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq) => (
-                <AccordionItem key={faq.question} value={faq.question}>
-                  <AccordionTrigger className="text-base font-semibold hover:no-underline">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-sm leading-7 text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </Card>
-        </section>
+                <section id="team" className="bg-background py-16 sm:py-20">
+                    <div className="page-wrap grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+                        <SectionIntro
+                            eyebrow="Team"
+                            title="Built by operators for practical property teams."
+                            description="The platform is shaped around real estate workflows: listing, follow-up, agreements, and revenue visibility."
+                        />
+                        <div className="grid gap-4 sm:grid-cols-2">
+                            {team.map((member) => (
+                                <article key={member.name} className="flex items-center gap-4 border bg-card p-4">
+                                    <Avatar className="size-12">
+                                        <AvatarFallback>
+                                            {member.name.split(" ").map((part) => part[0]).join("")}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <h3 className="font-semibold">{member.name}</h3>
+                                        <p className="text-sm text-muted-foreground">{member.role}</p>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
-        <section className="page-wrap pb-14 pt-8 sm:pb-20">
-          <Card className="px-6 py-10 shadow-sm sm:px-10">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-              <div className="max-w-2xl">
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">Ready to launch</p>
-                <h2 className="mt-3 font-['Fraunces',serif] text-3xl font-bold sm:text-4xl">
-                  Put your agency, listings, and deal flow on one system.
-                </h2>
-                <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base">
-                  Suiteonix gives new real estate businesses a cleaner way to start, manage properties, and scale operations with less friction.
-                </p>
-              </div>
+                <section className="bg-muted/35 py-16 sm:py-20">
+                    <div className="page-wrap grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+                        <SectionIntro
+                            eyebrow="Questions"
+                            title="What teams usually ask before getting started."
+                            description="A quick view of fit, team setup, and workflow coverage."
+                        />
+                        <div className="divide-y border bg-background">
+                            {faqs.map((faq) => (
+                                <div key={faq.question} className="p-5">
+                                    <h3 className="font-semibold">{faq.question}</h3>
+                                    <p className="mt-2 text-sm leading-7 text-muted-foreground">{faq.answer}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
 
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <Button asChild size="lg" className="h-12 px-7">
-                  <a href="#pricing">Get Started</a>
-                </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="h-12 px-7"
-                >
-                  <a href="/login">Login</a>
-                </Button>
-              </div>
-            </div>
-          </Card>
-        </section>
-      </main>
+                <section className="py-16 sm:py-20">
+                    <div className="page-wrap border bg-foreground p-8 text-background sm:p-10">
+                        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                            <div className="max-w-2xl">
+                                <p className="text-sm font-medium uppercase tracking-[0.18em] text-background/70">Ready to launch</p>
+                                <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Put your agency and property pipeline on one system.</h2>
+                            </div>
+                            <div className="flex flex-col gap-3 sm:flex-row">
+                                <Button asChild size="lg" variant="secondary">
+                                    <Link to="/signup">Create account</Link>
+                                </Button>
+                                <Button asChild size="lg" variant="outline" className="border-background/30 bg-transparent text-background hover:bg-background hover:text-foreground">
+                                    <Link to="/login" search={{email: ""}}>Login</Link>
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
 
-      <footer className="border-t bg-background">
-        <div className="page-wrap flex flex-col gap-3 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>Suiteonix helps real estate teams start easily and manage properties with less friction.</p>
-          <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-2">
-              <Users className="size-4" />
-              Team-ready workflows
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <CircleDollarSign className="size-4" />
-              Rent, lease, or sell
-            </span>
-          </div>
+            <footer className="border-t">
+                <div className="page-wrap flex flex-col gap-3 py-6 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+                    <span>Suiteonix helps real estate teams manage property operations with less friction.</span>
+                    <span className="inline-flex items-center gap-4">
+                        <span className="inline-flex items-center gap-1.5"><Users className="size-4"/> Team-ready</span>
+                        <span className="inline-flex items-center gap-1.5"><ShieldCheck className="size-4"/> Role-aware</span>
+                    </span>
+                </div>
+            </footer>
         </div>
-      </footer>
-    </div>
-  )
+    )
 }
 
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-}: {
-  eyebrow: string
-  title: string
-  description: string
+function SectionIntro({
+                          eyebrow,
+                          title,
+                          description,
+                      }: {
+    eyebrow: string
+    title: string
+    description: string
 }) {
-  return (
-    <div className="max-w-2xl">
-      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-muted-foreground">{eyebrow}</p>
-      <h2 className="mt-3 font-['Space Grotesk'] text-3xl font-bold leading-tight sm:text-4xl">{title}</h2>
-      <p className="mt-4 font-['IBM Plex Mono'] text-sm leading-7 text-muted-foreground sm:text-base">{description}</p>
-    </div>
-  )
+    return (
+        <div className="max-w-2xl">
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">{eyebrow}</p>
+            <h2 className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">{title}</h2>
+            <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base">{description}</p>
+        </div>
+    )
 }
 
-function FeatureCard({
-  icon: Icon,
-  title,
-  text,
-}: {
-  icon: typeof Handshake
-  title: string
-  text: string
+function Metric({
+                    icon: Icon,
+                    label,
+                    value,
+                    progress,
+                }: {
+    icon: typeof ClipboardList
+    label: string
+    value: string
+    progress: number
 }) {
-  return (
-    <Card className="p-0 shadow-sm">
-      <CardHeader className="px-5 pt-5">
-        <div className="flex size-11 items-center justify-center rounded-md border bg-muted text-primary">
-          <Icon className="size-5" />
+    return (
+        <div className="border bg-background p-4">
+            <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                    <span className="grid size-10 place-items-center bg-muted">
+                        <Icon className="size-5 text-primary"/>
+                    </span>
+                    <span className="text-sm font-medium">{label}</span>
+                </div>
+                <span className="text-xl font-semibold">{value}</span>
+            </div>
+            <Progress value={progress} className="mt-4"/>
         </div>
-        <CardTitle className="mt-1 text-lg font-bold">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="px-5 pb-5 pt-0">
-        <CardDescription className="text-sm leading-7">{text}</CardDescription>
-      </CardContent>
-    </Card>
-  )
+    )
 }

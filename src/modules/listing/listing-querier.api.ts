@@ -1,5 +1,5 @@
 import {Backend, type RequestHelperInit} from "#/lib/fetch.ts"
-import {PageUtil} from "#/models/PagedModel.ts"
+import {type PageSlice, PageUtil} from "#/models/PagedModel.ts"
 
 import type {ListingModel} from "./model.ts"
 import type {ListingQuerierModel} from "./listing-querier.model.ts"
@@ -12,8 +12,8 @@ class ListingQuerierApi {
     ) {
         const query = buildListingPropertiesQuery(params)
 
-        return Backend.authRequest<ListingQuerierModel.PageSlice<ListingQuerierModel.Response>>(
-            `/${listingId}/query/real-estate/properties?${query.toString()}`,
+        return Backend.authRequest<PageSlice<ListingQuerierModel.Response>>(
+            `/listing/${listingId}/query/real-estate/properties?${query.toString()}`,
             init,
         )
     }

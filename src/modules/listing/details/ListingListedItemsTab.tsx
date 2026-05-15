@@ -11,9 +11,9 @@ import {ListingQuerierRequest} from "../listing-querier.request.hook.ts"
 import {ListingPropertyCard} from "./ListingPropertyCard.tsx"
 
 export function ListingListedItemsTab({listingId}: { listingId: ListingModel.ListingID }) {
-    const query = ListingQuerierRequest.useQueryListingProperties(listingId, {
+    const query = ListingQuerierRequest.useInfiniteQueryListingProperties(listingId, {
         page: 0,
-        size: 24,
+        size: 12,
     })
     const items = query.data.content
 
@@ -45,10 +45,25 @@ export function ListingListedItemsTab({listingId}: { listingId: ListingModel.Lis
                     description="This listing does not have any real estate property items yet."
                 />
             ) : (
-                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                    {items.map((item) => (
-                        <ListingPropertyCard key={item.id} item={item}/>
-                    ))}
+                <div className="space-y-5">
+                    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+                        {items.map((item) => (
+                            <ListingPropertyCard key={item.id} item={item}/>
+                        ))}
+                    </div>
+
+                    {query.data.hasNext ? (
+                        <div className="flex justify-center border-t pt-5">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                disabled={query.isFetchingNextPage}
+                                onClick={() => void query.fetchNextPage()}
+                            >
+                                {query.isFetchingNextPage ? "Loading..." : "Load more"}
+                            </Button>
+                        </div>
+                    ) : null}
                 </div>
             )}
         </DefinitionCard>

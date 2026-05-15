@@ -1,5 +1,5 @@
 import type {Money, Money_RangedQuery} from "#/models/Money.model.ts"
-import type {AuditSection, NixID} from "#/models/Models.ts"
+import type {NixID} from "#/models/Models.ts"
 import type {NixFile} from "#/models/NixFile.ts"
 import type {PagedRequest} from "#/models/PagedModel.ts"
 import type {LeaseDefinitionModel} from "#/modules/real-estate/lease-definition/model.ts"
@@ -10,23 +10,7 @@ import type {RentDefinitionModel} from "#/modules/real-estate/rent-definition/mo
 import type {ListingModel} from "./model.ts"
 
 export namespace ListingQuerierModel {
-    export type PageSlice<T> = {
-        content: T[]
-        numberOfElements: number
-        size: number
-        number: number
-        hasNext: boolean
-        nextPage: number | null
-    }
 
-    export const PageSlice_EMPTY: PageSlice<never> = {
-        content: [],
-        numberOfElements: 0,
-        size: 0,
-        number: 0,
-        hasNext: false,
-        nextPage: null,
-    }
 
     export type RangeQuery<T> = {
         start?: T

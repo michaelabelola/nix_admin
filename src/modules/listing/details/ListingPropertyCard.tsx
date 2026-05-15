@@ -16,14 +16,14 @@ import {
 function ListingPropertyPreview({item}: { item: ListingQuerierModel.Response }) {
     if (!item.avatar) {
         return (
-            <div className="grid aspect-[16/10] place-items-center bg-muted text-muted-foreground">
-                <HomeIcon className="size-12"/>
+            <div className="grid aspect-[16/9] place-items-center bg-muted text-muted-foreground">
+                <HomeIcon className="size-9"/>
             </div>
         )
     }
 
     return (
-        <div className="aspect-[16/10] overflow-hidden bg-muted">
+        <div className="aspect-[16/9] overflow-hidden bg-muted">
             <img
                 src={item.avatar}
                 alt={item.name?.trim() || "Listed property"}
@@ -35,7 +35,7 @@ function ListingPropertyPreview({item}: { item: ListingQuerierModel.Response }) 
 }
 
 function ListingPropertyFeatureList({features}: { features?: ListingQuerierModel.ResponseFeature[] }) {
-    const visibleFeatures = (features ?? []).slice(0, 4)
+    const visibleFeatures = (features ?? []).slice(0, 3)
 
     if (visibleFeatures.length === 0) return null
 
@@ -44,7 +44,7 @@ function ListingPropertyFeatureList({features}: { features?: ListingQuerierModel
             {visibleFeatures.map((feature, index) => (
                 <span
                     key={`${feature.name}-${index}`}
-                    className="rounded-md bg-muted px-2 py-1 text-xs font-medium text-muted-foreground"
+                    className="rounded bg-muted px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground"
                 >
                     {[feature.name, feature.value, feature.unit].filter(Boolean).join(": ")}
                 </span>
@@ -63,7 +63,7 @@ function ListingPropertyMeta({
     return (
         <div className="min-w-0">
             <div className="text-xs text-muted-foreground">{label}</div>
-            <div className="truncate text-sm font-medium">{value || "Not set"}</div>
+            <div className="truncate text-xs font-medium">{value || "Not set"}</div>
         </div>
     )
 }
@@ -77,52 +77,49 @@ export function ListingPropertyCard({item}: { item: ListingQuerierModel.Response
             <div className="relative">
                 <ListingPropertyPreview item={item}/>
                 {item.type ? (
-                    <Badge className="absolute left-3 top-3 bg-background/95 text-foreground shadow-sm hover:bg-background">
+                    <Badge className="absolute left-2 top-2 bg-background/95 px-1.5 py-0.5 text-[11px] text-foreground shadow-sm hover:bg-background">
                         {item.type}
                     </Badge>
                 ) : null}
             </div>
 
-            <CardHeader className="gap-3 p-4 pb-3">
+            <CardHeader className="gap-2 p-3 pb-2">
                 <div className="space-y-1">
-                    <div className="text-lg font-semibold">
+                    <div className="text-base font-semibold">
                         {price || "Price not set"}
                     </div>
-                    <CardTitle className="line-clamp-1 text-base">
+                    <CardTitle className="line-clamp-1 text-sm">
                         {item.name?.trim() || item.id}
                     </CardTitle>
                     {location ? (
-                        <div className="flex min-w-0 items-center gap-1 text-sm text-muted-foreground">
-                            <MapPinIcon className="size-4 shrink-0"/>
+                        <div className="flex min-w-0 items-center gap-1 text-xs text-muted-foreground">
+                            <MapPinIcon className="size-3.5 shrink-0"/>
                             <span className="truncate">{location}</span>
                         </div>
                     ) : null}
                 </div>
-                <CardDescription className="line-clamp-2 min-h-10">
+                <CardDescription className="line-clamp-1 text-xs">
                     {item.description?.trim() || "No description"}
                 </CardDescription>
             </CardHeader>
 
-            <CardContent className="grid gap-4 p-4 pt-0">
+            <CardContent className="grid gap-3 p-3 pt-0">
                 <ListingPropertyFeatureList features={item.features}/>
 
-                <div className="grid grid-cols-3 gap-3 border-t pt-4">
+                <div className="grid grid-cols-3 gap-2 border-t pt-3">
                     <ListingPropertyMeta label="Rent" value={formatListingItemDefinition(item.rent)}/>
                     <ListingPropertyMeta label="Lease" value={formatListingItemDefinition(item.lease)}/>
                     <ListingPropertyMeta label="Listed" value={formatDate(item.listedOn)}/>
                 </div>
 
-                <div className="flex items-center justify-between gap-3">
-                    <div className="min-w-0 text-xs text-muted-foreground">
-                        <span className="truncate">Profile {item.id}</span>
-                    </div>
-                    <Button size="sm" variant="outline" asChild>
+                <div className="flex justify-end">
+                    <Button size="sm" variant="outline" className="h-8 px-2" asChild>
                         <Link
                             to="/admin/real-estate/properties/listing-profiles/$listingProfileId"
                             params={{listingProfileId: item.id}}
                         >
                             View
-                            <ArrowRight className="size-4"/>
+                            <ArrowRight className="size-3.5"/>
                         </Link>
                     </Button>
                 </div>

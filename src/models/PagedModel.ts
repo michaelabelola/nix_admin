@@ -55,6 +55,25 @@ export type SortParam = {
     direction: "ASC" | "DESC";
 };
 
+export type PageSlice<T> = {
+    content: T[]
+    numberOfElements: number
+    size: number
+    number: number
+    hasNext: boolean
+    nextPage: number | null
+}
+
+export const PageSlice_EMPTY: PageSlice<never> = {
+    content: [],
+    numberOfElements: 0,
+    size: 0,
+    number: 0,
+    hasNext: false,
+    nextPage: null,
+}
+
+
 
 export namespace PageUtil {
     export const appendRequestToParam = (req?: PagedRequest<any>, params?: URLSearchParams) => {
