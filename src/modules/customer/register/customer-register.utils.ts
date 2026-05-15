@@ -28,7 +28,7 @@ export const CUSTOMER_REGISTER_STEPS: Array<{
     {
         id: "account",
         label: "Account",
-        description: "Email, password, and display name.",
+        description: "Email and password credentials.",
     },
     {
         id: "profile",
@@ -71,10 +71,6 @@ export const INITIAL_CUSTOMER_REGISTER_DRAFT: CustomerRegisterDraft = {
         gender: "",
         dateOfBirth: "",
         nationality: "",
-        passportNumber: "",
-        nationalID: "",
-        maritalStatus: "",
-        mothersMaidenName: "",
         countryOfBirth: "",
         profession: "",
     },
@@ -141,7 +137,7 @@ export function isPasswordConfirmed(draft: CustomerRegisterDraft) {
 }
 
 export function canSubmitRegistration(draft: CustomerRegisterDraft) {
-    return Boolean(optionalString(draft.displayName) && optionalString(draft.email) && isPasswordConfirmed(draft))
+    return Boolean(optionalString(draft.email) && isPasswordConfirmed(draft))
 }
 
 export function canLeaveStep(stepId: CustomerRegisterStepID, draft: CustomerRegisterDraft) {
@@ -164,10 +160,6 @@ export function buildCustomerSelfAccountPayload(draft: CustomerRegisterDraft): C
             gender: optionalString(draft.personalDetail.gender),
             dateOfBirth: optionalString(draft.personalDetail.dateOfBirth),
             nationality: optionalString(draft.personalDetail.nationality),
-            passportNumber: optionalString(draft.personalDetail.passportNumber),
-            nationalID: optionalString(draft.personalDetail.nationalID),
-            maritalStatus: optionalString(draft.personalDetail.maritalStatus),
-            mothersMaidenName: optionalString(draft.personalDetail.mothersMaidenName),
             countryOfBirth: optionalString(draft.personalDetail.countryOfBirth),
             profession: optionalString(draft.personalDetail.profession),
         }),

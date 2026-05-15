@@ -18,7 +18,7 @@ import {
 import {Switch} from "#/components/ui/switch.tsx"
 import {Textarea} from "#/components/ui/textarea.tsx"
 import {cn} from "#/lib/utils.ts"
-import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
+import {CountrySelector} from "#/modules/location/components/CountrySelector.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
 
 const BIRTH_DATE_START = new Date(1900, 0, 1)
@@ -259,7 +259,7 @@ export function StepCountryField({
 }) {
     return (
         <StepField label={label} description={description}>
-            <CountryCombobox label={false} value={value} onValueChange={onChange}/>
+            <CountrySelector label={false} value={value} onValueChange={onChange}/>
         </StepField>
     )
 }

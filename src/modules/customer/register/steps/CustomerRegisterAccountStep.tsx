@@ -17,7 +17,7 @@ export function CustomerRegisterAccountStep() {
     return (
         <CustomerRegisterStepLayout>
             <RegisterStepInsight icon={KeyRound} title="Start with the account identity">
-                The display name and email become the primary account identifiers. The password is stored by the backend authentication flow.
+                The email and password create the customer login profile. Display name can be added on the profile step or left blank.
             </RegisterStepInsight>
 
             <StepSection
@@ -25,12 +25,6 @@ export function CustomerRegisterAccountStep() {
                 description="These values create the login profile for the customer account."
             >
                 <div className="grid gap-4 md:grid-cols-2">
-                    <StepInput
-                        label="Display name"
-                        value={draft.displayName}
-                        placeholder="Jane Smith"
-                        onChange={(value) => updateDraft({displayName: value})}
-                    />
                     <StepInput
                         label="Email"
                         type="email"

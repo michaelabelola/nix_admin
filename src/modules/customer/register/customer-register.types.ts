@@ -29,10 +29,6 @@ export type CustomerRegisterDraft = {
         gender: string
         dateOfBirth: string
         nationality: string
-        passportNumber: string
-        nationalID: string
-        maritalStatus: string
-        mothersMaidenName: string
         countryOfBirth: string
         profession: string
     }

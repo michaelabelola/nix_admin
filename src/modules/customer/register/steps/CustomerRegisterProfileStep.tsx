@@ -1,6 +1,6 @@
 import {UserRound} from "lucide-react"
 
-import {StepDatePicker, StepInput, StepSection, StepSelect} from "#/modules/customer/create/customer-create.fields.tsx"
+import {StepCountryField, StepDatePicker, StepInput, StepSection, StepSelect} from "#/modules/customer/create/customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
@@ -9,7 +9,7 @@ import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 const GENDER_OPTIONS = ["Female", "Male", "Non-binary", "Prefer not to say"]
 
 export function CustomerRegisterProfileStep() {
-    const {draft, updatePersonalDetail} = useCustomerRegister()
+    const {draft, updateDraft, updatePersonalDetail} = useCustomerRegister()
     const personal = draft.personalDetail
 
     return (
@@ -26,15 +26,18 @@ export function CustomerRegisterProfileStep() {
                     <StepInput label="First name" value={personal.firstName} onChange={(value) => updatePersonalDetail({firstName: value})}/>
                     <StepInput label="Middle name" value={personal.middleName} onChange={(value) => updatePersonalDetail({middleName: value})}/>
                     <StepInput label="Last name" value={personal.lastName} onChange={(value) => updatePersonalDetail({lastName: value})}/>
+                    <StepInput
+                        label="Display name"
+                        description="Optional public name for the customer account."
+                        value={draft.displayName}
+                        placeholder="Jane Smith"
+                        onChange={(value) => updateDraft({displayName: value})}
+                    />
                     <StepInput label="Title" value={personal.title} placeholder="Ms." onChange={(value) => updatePersonalDetail({title: value})}/>
                     <StepSelect label="Gender" value={personal.gender} placeholder="Select gender" options={GENDER_OPTIONS} onChange={(value) => updatePersonalDetail({gender: value})}/>
                     <StepDatePicker label="Date of birth" value={personal.dateOfBirth} onChange={(value) => updatePersonalDetail({dateOfBirth: value})} disabled={(date) => date > new Date()}/>
                     <StepInput label="Nationality" value={personal.nationality} onChange={(value) => updatePersonalDetail({nationality: value})}/>
-                    <StepInput label="Passport number" value={personal.passportNumber} onChange={(value) => updatePersonalDetail({passportNumber: value})}/>
-                    <StepInput label="National ID" value={personal.nationalID} onChange={(value) => updatePersonalDetail({nationalID: value})}/>
-                    <StepInput label="Marital status" value={personal.maritalStatus} onChange={(value) => updatePersonalDetail({maritalStatus: value})}/>
-                    <StepInput label="Mother's maiden name" value={personal.mothersMaidenName} onChange={(value) => updatePersonalDetail({mothersMaidenName: value})}/>
-                    <StepInput label="Country of birth" value={personal.countryOfBirth} onChange={(value) => updatePersonalDetail({countryOfBirth: value})}/>
+                    <StepCountryField label="Country of birth" value={personal.countryOfBirth} onChange={(value) => updatePersonalDetail({countryOfBirth: value})}/>
                     <StepInput label="Profession" value={personal.profession} onChange={(value) => updatePersonalDetail({profession: value})}/>
                 </div>
             </StepSection>

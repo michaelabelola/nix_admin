@@ -55,7 +55,6 @@ export function CustomerRegisterReviewStep() {
                     </CardHeader>
                     <CardContent>
                         <ReviewRows rows={[
-                            {label: "Display name", value: draft.displayName.trim()},
                             {label: "Email", value: draft.email.trim()},
                             {label: "Language", value: draft.language.trim()},
                         ]}/>
@@ -75,10 +74,7 @@ export function CustomerRegisterReviewStep() {
                             {label: "Gender", value: draft.personalDetail.gender.trim()},
                             {label: "Date of birth", value: draft.personalDetail.dateOfBirth.trim()},
                             {label: "Nationality", value: draft.personalDetail.nationality.trim()},
-                            {label: "Passport number", value: draft.personalDetail.passportNumber.trim()},
-                            {label: "National ID", value: draft.personalDetail.nationalID.trim()},
-                            {label: "Marital status", value: draft.personalDetail.maritalStatus.trim()},
-                            {label: "Mother's maiden name", value: draft.personalDetail.mothersMaidenName.trim()},
+                            {label: "Display name", value: draft.displayName.trim()},
                             {label: "Country of birth", value: draft.personalDetail.countryOfBirth.trim()},
                             {label: "Profession", value: draft.personalDetail.profession.trim()},
                         ]}/>

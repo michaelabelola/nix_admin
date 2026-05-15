@@ -88,7 +88,7 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
         },
         submitDraft: async () => {
             if (!canSubmitRegistration(draft)) {
-                toast.error("Display name, email, and matching password are required.")
+                toast.error("Email and matching password are required.")
                 return
             }
             await createAccount.mutateAsync(draft)
