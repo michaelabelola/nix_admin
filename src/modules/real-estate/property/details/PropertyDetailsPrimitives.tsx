@@ -45,12 +45,12 @@ export function DefinitionCard({
     description: string
 }>) {
     return (
-        <Card>
+        <div className={""}>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{description}</CardDescription>
             </CardHeader>
             <CardContent>{children}</CardContent>
-        </Card>
+        </div>
     )
 }
