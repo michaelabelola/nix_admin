@@ -4,11 +4,11 @@ import {IconBrandOffice} from "@tabler/icons-react";
 export const selfBusinessNavItems: NavSectionType = {
     title: 'Business',
     navs: [
-        {
-            name: "Home",
-            icon: IconBrandOffice,
-            to: "/self/organizations/dashboard",
-        },
+        // {
+        //     name: "Home",
+        //     icon: IconBrandOffice,
+        //     to: "/self/organizations/dashboard",
+        // },
         {
             name: "My Organizations",
             icon: IconBrandOffice,
