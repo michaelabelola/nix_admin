@@ -4,6 +4,7 @@ import {useForm, useStore} from '@tanstack/react-form'
 import {Alert, AlertDescription, AlertTitle} from '#/components/ui/alert'
 import {Button} from '#/components/ui/button'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card'
+import {DatePicker, parseDateInput, toDateInputValue} from '#/components/ui/date-picker'
 import {Input} from '#/components/ui/input'
 import {Label} from '#/components/ui/label'
 import {Textarea} from '#/components/ui/textarea'
@@ -63,7 +64,7 @@ function SignUpTextField({
     field: any
     label: string
     placeholder?: string
-    type?: 'text' | 'email' | 'password' | 'date' | 'tel'
+    type?: 'text' | 'email' | 'password' | 'tel'
 }) {
     const errors = useStore(field.store, (state: any) => state.meta.errors as FieldError[])
 
@@ -78,6 +79,49 @@ function SignUpTextField({
                 placeholder={placeholder}
                 onBlur={field.handleBlur}
                 onChange={(event) => field.handleChange(event.target.value)}
+            />
+            {field.state.meta.isTouched && errors.length > 0 ? (
+                <div className="space-y-1 text-sm text-destructive">
+                    {errors.map((error) => {
+                        const message = getErrorMessage(error)
+                        return <small key={message}>{message}</small>
+                    })}
+                </div>
+            ) : null}
+        </div>
+    )
+}
+
+function SignUpDateField({
+                             field,
+                             label,
+                             placeholder,
+                         }: {
+    field: any
+    label: string
+    placeholder?: string
+}) {
+    const errors = useStore(field.store, (state: any) => state.meta.errors as FieldError[])
+    const selectedDate = parseDateInput(field.state.value)
+    const today = new Date()
+
+    return (
+        <div className="grid gap-2">
+            <Label>{label}</Label>
+            <DatePicker
+                value={selectedDate}
+                placeholder={placeholder}
+                captionLayout="dropdown"
+                startMonth={new Date(1900, 0, 1)}
+                endMonth={today}
+                disabled={(date) => date > today || date < new Date(1900, 0, 1)}
+                onChange={(date) => {
+                    if (!date) {
+                        return
+                    }
+
+                    field.handleChange(toDateInputValue(date))
+                }}
             />
             {field.state.meta.isTouched && errors.length > 0 ? (
                 <div className="space-y-1 text-sm text-destructive">
@@ -299,7 +343,11 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => required(value, 'Date of birth')}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="Date of birth" type="date"/>
+                                <SignUpDateField
+                                    field={field}
+                                    label="Date of birth"
+                                    placeholder="Select your date of birth"
+                                />
                             )}
                         </form.Field>
                     </div>
