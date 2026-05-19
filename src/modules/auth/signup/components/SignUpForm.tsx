@@ -9,6 +9,7 @@ import {Input} from '#/components/ui/input'
 import {Label} from '#/components/ui/label'
 import {Textarea} from '#/components/ui/textarea'
 import {CountryDropdown} from '#/modules/location/components/CountryDropdown'
+import {PhoneNumberInput} from '#/modules/location/components/PhoneNumberInput'
 import {StatesDropdown} from '#/modules/location/components/StatesDropdown'
 import {SignupHook} from '#/modules/auth/signup/request.hook'
 import {useNavigate} from "@tanstack/react-router";
@@ -122,6 +123,40 @@ function SignUpDateField({
 
                     field.handleChange(toDateInputValue(date))
                 }}
+            />
+            {field.state.meta.isTouched && errors.length > 0 ? (
+                <div className="space-y-1 text-sm text-destructive">
+                    {errors.map((error) => {
+                        const message = getErrorMessage(error)
+                        return <small key={message}>{message}</small>
+                    })}
+                </div>
+            ) : null}
+        </div>
+    )
+}
+
+function SignUpPhoneField({
+                              field,
+                              label,
+                              placeholder,
+                          }: {
+    field: any
+    label: string
+    placeholder?: string
+}) {
+    const errors = useStore(field.store, (state: any) => state.meta.errors as FieldError[])
+
+    return (
+        <div className="grid gap-2">
+            <Label htmlFor={field.name}>{label}</Label>
+            <PhoneNumberInput
+                id={field.name}
+                name={field.name}
+                value={field.state.value}
+                placeholder={placeholder}
+                onBlur={field.handleBlur}
+                onValueChange={(value) => field.handleChange(value)}
             />
             {field.state.meta.isTouched && errors.length > 0 ? (
                 <div className="space-y-1 text-sm text-destructive">
@@ -322,7 +357,7 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => required(value, 'Phone')}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="Phone" type="tel" placeholder="+1 555 010 1100"/>
+                                <SignUpPhoneField field={field} label="Phone" placeholder="555 010 1100"/>
                             )}
                         </form.Field>
                     </div>
@@ -489,7 +524,7 @@ export function SignUpForm() {
                         </Alert>
                     ) : null}
 
-                    <Button type="submit" disabled={isSubmitting || signup.isPending}>
+                    <Button type="submit" variant={"default"} disabled={isSubmitting || signup.isPending}>
                         {isSubmitting || signup.isPending ? 'Creating account...' : 'Create account'}
                     </Button>
                 </form>
