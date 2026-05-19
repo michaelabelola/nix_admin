@@ -11,7 +11,6 @@ export namespace AuthProfileModel {
         id: NixID,
         role: NixRole
         email: string
-        phone: string
         entityID: NixID,
         signInOptions: {
             emailAndPassword: ConfigFlag
