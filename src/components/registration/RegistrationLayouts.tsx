@@ -5,6 +5,7 @@ import {ArrowLeft, ArrowRight, CheckCircle2, Sparkles} from "lucide-react"
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {Progress} from "#/components/ui/progress.tsx"
+import Page from "#/components/Page.tsx";
 
 export type RegistrationFlowStep<TStepID extends string = string> = {
     id: TStepID
@@ -34,12 +35,12 @@ type RegistrationCallout = {
 
 export function RegistrationPageShell({children}: { children: ReactNode }) {
     return (
-        <main className="min-h-full">
+        <Page clearPadding fixed className="h-full">
             <div
-                className="mx-auto flex min-h-full items-center justify-center max-w-7xl flex-col px-4 py-6">
+                className="mx-auto flex h-full items-center justify-center max-w-7xl flex-col px-4 py-6">
                 {children}
             </div>
-        </main>
+        </Page>
     )
 }
 
@@ -207,8 +208,8 @@ export function RegistrationStepLayout<TStepID extends string>({
 
     return (
         <div
-            className="min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl flex flex-col-reverse lg:grid lg:grid-cols-[340px_1fr]">
-            <aside className="relative overflow-hidden bg-foreground p-6 text-background">
+            className="min-h-full w-full overflow-hidden rounded-2xl border bg-background  shadow-xl flex flex-col-reverse lg:grid lg:grid-cols-[340px_1fr]">
+            <aside className="relative overflow-hidden bg-foreground p-6 text-background overflow-y-auto">
                 <img
                     src={heroImageSrc}
                     alt=""
@@ -233,7 +234,8 @@ export function RegistrationStepLayout<TStepID extends string>({
                             <span>Progress</span>
                             <span>{Math.round(progress)}%</span>
                         </div>
-                        <Progress value={progress} className="bg-background/15 **:data-[slot=progress-indicator]:bg-background"/>
+                        <Progress value={progress}
+                                  className="bg-background/15 **:data-[slot=progress-indicator]:bg-background"/>
                     </div>
 
                     <div className="flex flex-col gap-4 overflow-y-auto">

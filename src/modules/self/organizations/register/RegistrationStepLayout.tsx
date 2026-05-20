@@ -1,6 +1,7 @@
 import type {ReactNode} from "react"
 
 import {RegistrationStepLayout as SharedRegistrationStepLayout} from "#/components/registration/RegistrationLayouts.tsx"
+import LOGO from "/logo.png"
 
 import {
     REGISTRATION_INTRO_PATH,
@@ -8,13 +9,13 @@ import {
 } from "./constants.ts"
 
 export function RegistrationStepLayout({
-    stepId,
-    children,
-    nextLabel = "Continue",
-    disableNext = false,
-    isBusy = false,
-    onNext,
-}: {
+                                           stepId,
+                                           children,
+                                           nextLabel = "Continue",
+                                           disableNext = false,
+                                           isBusy = false,
+                                           onNext,
+                                       }: {
     stepId: string
     children: ReactNode
     nextLabel?: string
@@ -31,6 +32,7 @@ export function RegistrationStepLayout({
             sidebarDescription="Build the organization profile in short steps, then submit everything from the final section."
             sidebarFooterDescription="Required fields are checked as you move through core steps and again before final submission."
             nextLabel={nextLabel}
+            heroImageSrc={LOGO}
             disableNext={disableNext}
             isBusy={isBusy}
             onNext={onNext}

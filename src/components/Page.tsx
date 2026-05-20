@@ -66,10 +66,10 @@ function Page({
         </main>;
     return (
         <main className={cn(
-            "min-h-dvh w-full flex flex-col p-4 gap-4 lg:px-6",
+            "min-h-dvh w-full flex flex-col p-4 gap-4",
             fixed ? "h-dvh overflow-y-hidden" : "",
+            clearPadding ? "px-0 py-0" : "lg:px-6",
             contentScroll ? "overflow-y-auto py-0 lg:px-0" : "",
-            clearPadding ? "px-0 py-0" : "",
             parentClasses
         )}>
             {header && (
