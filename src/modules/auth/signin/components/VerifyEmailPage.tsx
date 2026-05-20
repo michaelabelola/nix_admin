@@ -84,7 +84,7 @@ export function VerifyEmailPage({
             await verifyEmail.mutateAsync({
                 email: value.email.trim(),
                 token: Number(value.token.trim()),
-                orgID: value.orgID.trim() || undefined,
+                orgID: value.orgID ? value.orgID.trim() : undefined,
             })
         },
     })
@@ -237,7 +237,7 @@ export function VerifyEmailPage({
                                         <div className="grid gap-2">
                                             <Label htmlFor={field.name}>Verification token</Label>
                                             <InputOTP maxLength={6}
-                                                      defaultValue={field.state.value}
+                                                      value={field.state.value}
                                                       onBlur={field.handleBlur}
                                                       onChange={(event) => field.handleChange(event)}
                                             >
