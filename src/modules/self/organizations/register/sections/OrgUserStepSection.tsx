@@ -1,5 +1,6 @@
 import {useEffect, useRef} from "react"
 
+import {DatePicker, parseDateInput, toDateInputValue} from "#/components/ui/date-picker.tsx"
 import {Textarea} from "#/components/ui/textarea.tsx"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
@@ -9,11 +10,15 @@ import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"
 import {dateInputValue, TextField} from "./shared.tsx"
 
+const BIRTH_DATE_START = new Date(1900, 0, 1)
+
 export function OrgUserStepSection() {
     const {draft, updateUser, updateUserAddress} = useRegistration()
     const {data: authenticatedUser} = UserRequest.useGetAuthenticatedUser()
     const didPrefill = useRef(false)
     const address = draft.user.address
+    const today = new Date()
+    const dateOfBirth = parseDateInput(dateInputValue(draft.user.dateOfBirth))
     const isDisabled = !draft.user.firstname.trim() || !draft.user.lastname.trim() || !draft.user.email.trim() || !draft.user.phone.trim() || !address.street.trim() || !address.city.trim() || !address.state.trim() || !address.country.trim() || !address.zipcode.trim()
 
     useEffect(() => {
@@ -48,7 +53,22 @@ export function OrgUserStepSection() {
                     <TextField label="Last name" value={draft.user.lastname} onChange={(value) => updateUser({lastname: value})}/>
                     <TextField label="Email" type="email" value={draft.user.email} onChange={(value) => updateUser({email: value})}/>
                     <TextField label="Phone" type="tel" value={draft.user.phone} onChange={(value) => updateUser({phone: value})}/>
-                    <TextField label="Date of birth" type="date" value={dateInputValue(draft.user.dateOfBirth)} onChange={(value) => updateUser({dateOfBirth: value})}/>
+                    <label className="grid gap-2">
+                        <span className="text-sm font-medium">Date of birth</span>
+                        <DatePicker
+                            value={dateOfBirth}
+                            placeholder="Pick a date"
+                            captionLayout="dropdown"
+                            startMonth={BIRTH_DATE_START}
+                            endMonth={today}
+                            disabled={(date) => date > today || date < BIRTH_DATE_START}
+                            onChange={(date) => {
+                                if (!date) return
+
+                                updateUser({dateOfBirth: toDateInputValue(date)})
+                            }}
+                        />
+                    </label>
                 </div>
 
                 <label className="grid gap-2">
@@ -59,7 +79,6 @@ export function OrgUserStepSection() {
                         rows={5}
                     />
                 </label>
-
                 <div className="grid gap-4 md:grid-cols-2">
                     <TextField label="Apartment / Suite" value={address.apt_number} onChange={(value) => updateUserAddress({apt_number: value})}/>
                     <TextField label="Street" value={address.street} onChange={(value) => updateUserAddress({street: value})}/>
