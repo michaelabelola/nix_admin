@@ -26,7 +26,14 @@ export function LocationPicker({
                 query={picker.query}
                 inputDisabled={picker.inputDisabled}
                 searchDisabled={picker.searchDisabled}
+                predictions={picker.predictions}
+                predictionState={picker.predictionState}
+                isPredictionListOpen={picker.isPredictionListOpen}
+                activePredictionIndex={picker.activePredictionIndex}
                 onQueryChange={picker.setQuery}
+                onClosePredictions={picker.closePredictions}
+                onMoveActivePrediction={picker.moveActivePrediction}
+                onSelectPrediction={picker.selectPrediction}
                 onSearch={picker.searchCurrentQuery}
             />
             <LocationPickerMap

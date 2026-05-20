@@ -9,8 +9,10 @@ export function getGoogleMapsApiKey(apiKey?: string) {
 }
 
 export function loadGoogleMaps(apiKey: string) {
-    if (hasGooglePlaces()) {
-        return Promise.resolve(window.google)
+    const loadedGoogleMaps = getLoadedGoogleMaps()
+
+    if (loadedGoogleMaps) {
+        return Promise.resolve(loadedGoogleMaps)
     }
 
     if (!googleMapsPromise) {
@@ -43,7 +45,7 @@ function createGoogleMapsScript(apiKey: string) {
             libraries: "places",
             v: "weekly",
         })
-        // https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&v=weekly
+
         script.id = GOOGLE_MAPS_SCRIPT_ID
         script.src = `https://maps.googleapis.com/maps/api/js?${searchParams.toString()}`
         script.async = true
@@ -69,16 +71,22 @@ function resolveLoadedGoogleMaps(
     reject: () => void
 ) {
     script.dataset.loaded = "true"
+    const loadedGoogleMaps = getLoadedGoogleMaps()
 
-    if (hasGooglePlaces()) {
-        resolve((window as any).google)
+    if (loadedGoogleMaps) {
+        resolve(loadedGoogleMaps)
         return
     }
 
     reject()
 }
 
-// @ts-ignore
-function hasGooglePlaces(): window is Window & { google: GoogleMapsApi } {
-    return Boolean(window.google?.maps?.places?.Autocomplete)
+function getLoadedGoogleMaps() {
+    const googleMaps = window.google
+
+    if (googleMaps?.maps?.places?.AutocompleteService) {
+        return googleMaps
+    }
+
+    return null
 }

@@ -1,11 +1,11 @@
 import {DEFAULT_CENTER, getSelectedPosition} from "./location-picker.address.ts"
 import type {
     GoogleGeocoder,
+    GoogleAutocompleteService,
     GoogleMapInstance,
     GoogleMapsApi,
     GoogleMapsListener,
     GoogleMarkerInstance,
-    GooglePlaceResult,
     LatLngLiteral,
     LocationPickerAddress,
 } from "./location-picker.types.ts"
@@ -13,9 +13,7 @@ import type {
 type CreateLocationPickerMapOptions = {
     googleMaps: GoogleMapsApi
     mapElement: HTMLDivElement | null
-    inputElement: HTMLInputElement | null
     initialValue: LocationPickerAddress
-    onPlaceSelected: (place: GooglePlaceResult) => void
     onMapClick: (position: LatLngLiteral) => void
 }
 
@@ -23,15 +21,14 @@ type CreatedLocationPickerMap = {
     map: GoogleMapInstance
     marker: GoogleMarkerInstance
     geocoder: GoogleGeocoder
+    autocompleteService: GoogleAutocompleteService
     listeners: GoogleMapsListener[]
 }
 
 export function createLocationPickerMap({
                                             googleMaps,
                                             mapElement,
-                                            inputElement,
                                             initialValue,
-                                            onPlaceSelected,
                                             onMapClick,
                                         }: CreateLocationPickerMapOptions): CreatedLocationPickerMap | null {
     if (!mapElement) return null
@@ -49,10 +46,7 @@ export function createLocationPickerMap({
         position: selectedPosition ?? undefined,
     })
     const listeners = createMapListeners({
-        googleMaps,
-        inputElement,
         map,
-        onPlaceSelected,
         onMapClick,
     })
 
@@ -60,24 +54,19 @@ export function createLocationPickerMap({
         map,
         marker,
         geocoder: new googleMaps.maps.Geocoder(),
+        autocompleteService: new googleMaps.maps.places.AutocompleteService(),
         listeners,
     }
 }
 
 function createMapListeners({
-                                googleMaps,
-                                inputElement,
                                 map,
-                                onPlaceSelected,
                                 onMapClick,
                             }: {
-    googleMaps: GoogleMapsApi
-    inputElement: HTMLInputElement | null
     map: GoogleMapInstance
-    onPlaceSelected: (place: GooglePlaceResult) => void
     onMapClick: (position: LatLngLiteral) => void
 }) {
-    const listeners = [
+    return [
         map.addListener("click", (event) => {
             const position = event.latLng?.toJSON()
 
@@ -86,25 +75,4 @@ function createMapListeners({
             }
         }),
     ]
-
-    if (inputElement) {
-        listeners.push(createAutocompleteListener(googleMaps, inputElement, onPlaceSelected))
-    }
-
-    return listeners
-}
-
-function createAutocompleteListener(
-    googleMaps: GoogleMapsApi,
-    inputElement: HTMLInputElement,
-    onPlaceSelected: (place: GooglePlaceResult) => void
-) {
-    const autocomplete = new googleMaps.maps.places.Autocomplete(inputElement, {
-        fields: ["address_components", "formatted_address", "geometry"],
-        types: ["geocode"],
-    })
-
-    return autocomplete.addListener("place_changed", () => {
-        onPlaceSelected(autocomplete.getPlace())
-    })
 }

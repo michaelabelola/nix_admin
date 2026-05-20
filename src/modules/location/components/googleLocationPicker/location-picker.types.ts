@@ -20,6 +20,14 @@ export type LocationPickerProps = {
 
 export type LocationPickerLoadState = "idle" | "loading" | "ready" | "error" | "missing-key"
 export type LocationPickerLookupState = "idle" | "searching" | "error"
+export type LocationPickerPredictionState = "idle" | "loading" | "empty" | "error"
+
+export type LocationPickerPrediction = {
+    placeId: string
+    description: string
+    mainText: string
+    secondaryText: string
+}
 
 export type LatLngLiteral = {
     lat: number
@@ -32,10 +40,7 @@ export type GoogleMapsApi = {
         Marker: new (options: GoogleMarkerOptions) => GoogleMarkerInstance
         Geocoder: new () => GoogleGeocoder
         places: {
-            Autocomplete: new (
-                input: HTMLInputElement,
-                options: GoogleAutocompleteOptions
-            ) => GoogleAutocomplete
+            AutocompleteService: new () => GoogleAutocompleteService
         }
     }
 }
@@ -74,19 +79,30 @@ export type GoogleMapsListener = {
     remove: () => void
 }
 
-export type GoogleAutocompleteOptions = {
-    fields: string[]
+export type GooglePlacePredictionRequest = {
+    input: string
     types: string[]
 }
 
-export type GoogleAutocomplete = {
-    addListener: (eventName: "place_changed", handler: () => void) => GoogleMapsListener
-    getPlace: () => GooglePlaceResult
+export type GooglePlacePrediction = {
+    description: string
+    place_id: string
+    structured_formatting?: {
+        main_text?: string
+        secondary_text?: string
+    }
+}
+
+export type GoogleAutocompleteService = {
+    getPlacePredictions: (
+        request: GooglePlacePredictionRequest,
+        callback: (predictions: GooglePlacePrediction[] | null, status: string) => void
+    ) => void
 }
 
 export type GoogleGeocoder = {
     geocode: (
-        request: {address?: string; location?: LatLngLiteral},
+        request: {address?: string; location?: LatLngLiteral; placeId?: string},
         callback: (results: GoogleGeocoderResult[] | null, status: string) => void
     ) => void
 }

@@ -7,7 +7,9 @@ import {
 } from "./location-picker.address.ts"
 import {getGoogleMapsApiKey, loadGoogleMaps} from "./location-picker.google.ts"
 import {createLocationPickerMap} from "./location-picker.map.ts"
+import {getLocationPredictions} from "./location-picker.predictions.ts"
 import type {
+    GoogleAutocompleteService,
     GoogleGeocoder,
     GoogleMapInstance,
     GoogleMapsListener,
@@ -18,6 +20,8 @@ import type {
     LocationPickerAddressPatch,
     LocationPickerLoadState,
     LocationPickerLookupState,
+    LocationPickerPrediction,
+    LocationPickerPredictionState,
 } from "./location-picker.types.ts"
 
 type UseLocationPickerOptions = {
@@ -37,12 +41,18 @@ export function useLocationPicker({
     const mapRef = useRef<GoogleMapInstance | null>(null)
     const markerRef = useRef<GoogleMarkerInstance | null>(null)
     const geocoderRef = useRef<GoogleGeocoder | null>(null)
+    const autocompleteServiceRef = useRef<GoogleAutocompleteService | null>(null)
     const listenersRef = useRef<GoogleMapsListener[]>([])
     const initialValueRef = useRef(value)
     const onChangeRef = useRef(onChange)
+    const selectedQueryRef = useRef("")
     const [query, setQuery] = useState("")
     const [loadState, setLoadState] = useState<LocationPickerLoadState>("idle")
     const [lookupState, setLookupState] = useState<LocationPickerLookupState>("idle")
+    const [predictions, setPredictions] = useState<LocationPickerPrediction[]>([])
+    const [predictionState, setPredictionState] = useState<LocationPickerPredictionState>("idle")
+    const [isPredictionListOpen, setIsPredictionListOpen] = useState(false)
+    const [activePredictionIndex, setActivePredictionIndex] = useState(-1)
 
     const resolvedApiKey = getGoogleMapsApiKey(apiKey)
     const canUseGoogleMaps = Boolean(resolvedApiKey)
@@ -67,8 +77,15 @@ export function useLocationPicker({
             return
         }
 
+        const nextQuery = result.formatted_address ?? formatAddressPatch(patch)
+
+        selectedQueryRef.current = nextQuery
         onChangeRef.current(patch)
-        setQuery(result.formatted_address ?? formatAddressPatch(patch))
+        setQuery(nextQuery)
+        setPredictions([])
+        setPredictionState("idle")
+        setIsPredictionListOpen(false)
+        setActivePredictionIndex(-1)
         placeMarker({lat: patch.latitude, lng: patch.longitude})
         setLookupState("idle")
     }, [placeMarker])
@@ -90,6 +107,75 @@ export function useLocationPicker({
             }
         })
     }, [applyAddressResult])
+
+    const geocodePlaceId = useCallback((placeId: string, fallbackAddress: string) => {
+        const geocoder = geocoderRef.current
+
+        if (!geocoder) return
+
+        setLookupState("searching")
+        geocoder.geocode({placeId}, (results, status) => {
+            const result = status === "OK" ? results?.[0] : null
+
+            if (result) {
+                applyAddressResult(result)
+            } else {
+                geocodeAddress(fallbackAddress)
+            }
+        })
+    }, [applyAddressResult, geocodeAddress])
+
+    const closePredictions = useCallback(() => {
+        setIsPredictionListOpen(false)
+        setActivePredictionIndex(-1)
+    }, [])
+
+    const updateQuery = useCallback((nextQuery: string) => {
+        selectedQueryRef.current = ""
+        setQuery(nextQuery)
+        setIsPredictionListOpen(Boolean(nextQuery.trim()))
+        setActivePredictionIndex(-1)
+    }, [])
+
+    const selectPrediction = useCallback((prediction: LocationPickerPrediction) => {
+        selectedQueryRef.current = prediction.description
+        setQuery(prediction.description)
+        setPredictions([])
+        setPredictionState("idle")
+        closePredictions()
+        geocodePlaceId(prediction.placeId, prediction.description)
+    }, [closePredictions, geocodePlaceId])
+
+    const selectActivePrediction = useCallback(() => {
+        const activePrediction = predictions[activePredictionIndex]
+
+        if (isPredictionListOpen && activePrediction) {
+            selectPrediction(activePrediction)
+            return true
+        }
+
+        return false
+    }, [activePredictionIndex, isPredictionListOpen, predictions, selectPrediction])
+
+    const searchCurrentQuery = useCallback(() => {
+        if (selectActivePrediction()) return
+
+        closePredictions()
+        geocodeAddress(query)
+    }, [closePredictions, geocodeAddress, query, selectActivePrediction])
+
+    const moveActivePrediction = useCallback((direction: 1 | -1) => {
+        if (!predictions.length) return
+
+        setIsPredictionListOpen(true)
+        setActivePredictionIndex((currentIndex) => {
+            const nextIndex = currentIndex + direction
+
+            if (nextIndex < 0) return predictions.length - 1
+            if (nextIndex >= predictions.length) return 0
+            return nextIndex
+        })
+    }, [predictions.length])
 
     const reverseGeocodePosition = useCallback((position: LatLngLiteral) => {
         const geocoder = geocoderRef.current
@@ -127,11 +213,9 @@ export function useLocationPicker({
                 if (!isMounted) return
 
                 const createdMap = createLocationPickerMap({
-                    googleMaps: googleMaps as any,
+                    googleMaps,
                     mapElement: mapElementRef.current,
-                    inputElement: inputRef.current,
                     initialValue: initialValueRef.current,
-                    onPlaceSelected: applyAddressResult,
                     onMapClick: reverseGeocodePosition,
                 })
 
@@ -140,6 +224,7 @@ export function useLocationPicker({
                 mapRef.current = createdMap.map
                 markerRef.current = createdMap.marker
                 geocoderRef.current = createdMap.geocoder
+                autocompleteServiceRef.current = createdMap.autocompleteService
                 listenersRef.current = createdMap.listeners
                 setLoadState("ready")
             })
@@ -157,8 +242,47 @@ export function useLocationPicker({
             mapRef.current = null
             markerRef.current = null
             geocoderRef.current = null
+            autocompleteServiceRef.current = null
         }
-    }, [applyAddressResult, canUseGoogleMaps, resolvedApiKey, reverseGeocodePosition])
+    }, [canUseGoogleMaps, resolvedApiKey, reverseGeocodePosition])
+
+    useEffect(() => {
+        const service = autocompleteServiceRef.current
+        const trimmedQuery = query.trim()
+
+        if (!service || !isReady || !trimmedQuery || selectedQueryRef.current === query) {
+            setPredictions([])
+            setPredictionState("idle")
+            return
+        }
+
+        let ignoreResult = false
+        const timeout = window.setTimeout(() => {
+            setPredictionState("loading")
+            getLocationPredictions(service, trimmedQuery)
+                .then((nextPredictions) => {
+                    if (ignoreResult) return
+
+                    setPredictions(nextPredictions)
+                    setPredictionState(nextPredictions.length ? "idle" : "empty")
+                    setIsPredictionListOpen(true)
+                    setActivePredictionIndex(nextPredictions.length ? 0 : -1)
+                })
+                .catch(() => {
+                    if (ignoreResult) return
+
+                    setPredictions([])
+                    setPredictionState("error")
+                    setIsPredictionListOpen(true)
+                    setActivePredictionIndex(-1)
+                })
+        }, 250)
+
+        return () => {
+            ignoreResult = true
+            window.clearTimeout(timeout)
+        }
+    }, [isReady, query])
 
     useEffect(() => {
         const position = getSelectedPosition(value)
@@ -173,11 +297,18 @@ export function useLocationPicker({
         inputRef,
         mapElementRef,
         query,
-        setQuery,
+        setQuery: updateQuery,
         loadState,
         lookupState,
+        predictions,
+        predictionState,
+        isPredictionListOpen,
+        activePredictionIndex,
         inputDisabled: !canUseGoogleMaps || loadState === "loading",
         searchDisabled: !query.trim() || !isReady || isSearching,
-        searchCurrentQuery: () => geocodeAddress(query),
+        closePredictions,
+        moveActivePrediction,
+        searchCurrentQuery,
+        selectPrediction,
     }
 }
