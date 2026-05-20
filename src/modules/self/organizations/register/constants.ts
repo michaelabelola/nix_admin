@@ -61,7 +61,7 @@ export const REGISTRATION_STEPS: RegistrationStep[] = [
         shortLabel: 'Contact',
         path: '/self/organizations/register/contact',
         icon: Phone,
-        description: 'How people can reach your organization.',
+        description: 'How Suiteonix teams can reach your organization.',
     },
     {
         id: 'socials',
