@@ -5,7 +5,7 @@ import {VerifyEmailPage} from '#/modules/auth/signin/components/VerifyEmailPage'
 type VerifyEmailSearch = {
     email?: string
     token?: string
-    success?: boolean
+    autosubmit?: boolean | string
 }
 
 export const Route = createFileRoute('/_landing/verify-email')({
@@ -13,7 +13,7 @@ export const Route = createFileRoute('/_landing/verify-email')({
         return ({
             email: typeof search.email === 'string' ? search.email : '',
             token: typeof search.token === 'string' ? search.token : '',
-            success: (typeof search.success === 'boolean' && search.success)
+            autosubmit: search.autosubmit === true || search.autosubmit === 'true' || search.autosubmit === '',
         })
     },
     component: VerifyEmailRoute,
@@ -22,5 +22,5 @@ export const Route = createFileRoute('/_landing/verify-email')({
 function VerifyEmailRoute() {
     const search = Route.useSearch()
 
-    return <VerifyEmailPage initialEmail={search.email} initialToken={search.token} initialSuccess={search.success}/>
+    return <VerifyEmailPage initialEmail={search.email} initialToken={search.token} autosubmit={search.autosubmit}/>
 }

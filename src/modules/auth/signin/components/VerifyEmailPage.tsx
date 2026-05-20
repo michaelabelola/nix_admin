@@ -1,6 +1,6 @@
 import {Link} from '@tanstack/react-router'
 import {KeyRound, MailCheck, ShieldCheck} from 'lucide-react'
-import {useEffect} from 'react'
+import {useEffect, useRef} from 'react'
 import {useForm, useStore} from '@tanstack/react-form'
 
 import {Alert, AlertDescription, AlertTitle} from '#/components/ui/alert'
@@ -63,14 +63,15 @@ function validateToken(value: string) {
 export function VerifyEmailPage({
                                     initialEmail = '',
                                     initialToken = '',
-                                    initialSuccess = false,
+                                    autosubmit = false,
                                 }: {
     initialEmail?: string
     initialToken?: string
-    initialSuccess?: boolean
+    autosubmit?: boolean
 }) {
     // const entityID = useEntityStore((state) => state.entityID)
     const verifyEmail = SignInHook.useVerifyEmail()
+    const autosubmitKeyRef = useRef<string | null>(null)
 
     // @ts-ignore
     const form = useForm<VerifyEmailFormValues>({
@@ -93,6 +94,18 @@ export function VerifyEmailPage({
         form.setFieldValue('token', initialToken)
     }, [form, initialEmail, initialToken])
 
+    useEffect(() => {
+        const email = initialEmail.trim()
+        const token = initialToken.trim()
+        const autosubmitKey = `${email}:${token}`
+
+        if (!autosubmit || !email || !token || autosubmitKeyRef.current === autosubmitKey) {
+            return
+        }
+
+        autosubmitKeyRef.current = autosubmitKey
+        void form.handleSubmit()
+    }, [autosubmit, form, initialEmail, initialToken])
 
     const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
 
@@ -143,10 +156,10 @@ export function VerifyEmailPage({
                 <Card className="shadow-sm">
                     <CardHeader>
                         <CardTitle className="text-2xl">
-                            {!initialSuccess ? "Verify email" :
+                            {!verifyEmail.isSuccess ? "Verify email" :
                                 <span className={"text-success"}>Email Verified Successfully !!!</span>}
                         </CardTitle>
-                        {!initialSuccess &&
+                        {!verifyEmail.isSuccess &&
                             < CardDescription>
                                 Submit the verification token from your email to activate the account.
                             </CardDescription>
@@ -212,7 +225,7 @@ export function VerifyEmailPage({
                                 )}
                             </form.Field>
                             {
-                                !initialSuccess &&
+                                !verifyEmail.isSuccess &&
 
                                 <form.Field
                                     name="token"
@@ -259,7 +272,7 @@ export function VerifyEmailPage({
                                 </form.Field>
                             }
 
-                            {initialSuccess || verifyEmail.isSuccess ? (
+                            {verifyEmail.isSuccess ? (
                                 <Alert>
                                     <AlertTitle>Email verified</AlertTitle>
                                     <AlertDescription>
@@ -283,7 +296,7 @@ export function VerifyEmailPage({
                                     </AlertDescription>
                                 </Alert>
                             ) : null}
-                            {!initialSuccess &&
+                            {!verifyEmail.isSuccess &&
                                 <Button type="submit" disabled={isSubmitting || verifyEmail.isPending}>
                                     {isSubmitting || verifyEmail.isPending ? 'Verifying...' : 'Verify email'}
                                 </Button>}
