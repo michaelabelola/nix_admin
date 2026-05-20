@@ -43,7 +43,7 @@ function createGoogleMapsScript(apiKey: string) {
             libraries: "places",
             v: "weekly",
         })
-
+        // https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&v=weekly
         script.id = GOOGLE_MAPS_SCRIPT_ID
         script.src = `https://maps.googleapis.com/maps/api/js?${searchParams.toString()}`
         script.async = true
