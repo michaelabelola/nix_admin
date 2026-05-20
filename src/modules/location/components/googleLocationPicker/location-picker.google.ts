@@ -8,7 +8,7 @@ export function getGoogleMapsApiKey(apiKey?: string) {
     return (apiKey ?? import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? "").trim()
 }
 
-export function loadGoogleMaps(apiKey: string) {
+export function loadGoogleMaps(apiKey: string): Promise<GoogleMapsApi> {
     const loadedGoogleMaps = getLoadedGoogleMaps()
 
     if (loadedGoogleMaps) {
@@ -81,7 +81,7 @@ function resolveLoadedGoogleMaps(
     reject()
 }
 
-function getLoadedGoogleMaps() {
+function getLoadedGoogleMaps(): GoogleMapsApi | null {
     const googleMaps = window.google
 
     if (googleMaps?.maps?.places?.AutocompleteService) {

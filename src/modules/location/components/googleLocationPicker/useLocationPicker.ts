@@ -213,7 +213,7 @@ export function useLocationPicker({
                 if (!isMounted) return
 
                 const createdMap = createLocationPickerMap({
-                    googleMaps,
+                    googleMaps:googleMaps as any,
                     mapElement: mapElementRef.current,
                     initialValue: initialValueRef.current,
                     onMapClick: reverseGeocodePosition,
