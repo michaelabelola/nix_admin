@@ -4,15 +4,27 @@ import {VerifyEmailPage} from '#/modules/auth/signin/components/VerifyEmailPage'
 
 type VerifyEmailSearch = {
     email?: string
-    token?: string
+    token?: string | number
     autosubmit?: boolean | string
+}
+
+function stringSearchValue(value: unknown) {
+    if (typeof value === 'string') {
+        return value
+    }
+
+    if (typeof value === 'number') {
+        return String(value)
+    }
+
+    return ''
 }
 
 export const Route = createFileRoute('/_landing/verify-email')({
     validateSearch: (search: VerifyEmailSearch) => {
         return ({
-            email: typeof search.email === 'string' ? search.email : '',
-            token: typeof search.token === 'string' ? search.token : '',
+            email: stringSearchValue(search.email),
+            token: stringSearchValue(search.token),
             autosubmit: search.autosubmit === true || search.autosubmit === 'true' || search.autosubmit === '',
         })
     },
