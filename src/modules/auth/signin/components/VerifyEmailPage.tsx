@@ -9,7 +9,6 @@ import {Button} from '#/components/ui/button'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card'
 import {Input} from '#/components/ui/input'
 import {Label} from '#/components/ui/label'
-import {useEntityStore} from '#/lib/entity.store'
 import {SignInHook} from '#/modules/auth/signin/request.hook'
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "#/components/ui/input-otp.tsx";
 
@@ -35,14 +34,6 @@ type VerifyEmailFormValues = {
     email: string
     token: string
     orgID: string
-}
-
-function required(value: string, label: string) {
-    if (!value.trim()) {
-        return `${label} is required`
-    }
-
-    return undefined
 }
 
 function validateEmail(value: string) {
@@ -78,7 +69,7 @@ export function VerifyEmailPage({
     initialToken?: string
     initialSuccess?: boolean
 }) {
-    const entityID = useEntityStore((state) => state.entityID)
+    // const entityID = useEntityStore((state) => state.entityID)
     const verifyEmail = SignInHook.useVerifyEmail()
 
     // @ts-ignore
@@ -86,7 +77,7 @@ export function VerifyEmailPage({
         defaultValues: {
             email: initialEmail,
             token: initialToken,
-            orgID: entityID ?? '',
+            orgID: undefined,
         },
         onSubmit: async ({value}) => {
             await verifyEmail.mutateAsync({
@@ -102,11 +93,6 @@ export function VerifyEmailPage({
         form.setFieldValue('token', initialToken)
     }, [form, initialEmail, initialToken])
 
-    useEffect(() => {
-        if (entityID) {
-            form.setFieldValue('orgID', entityID)
-        }
-    }, [entityID, form])
 
     const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
 
@@ -173,28 +159,26 @@ export function VerifyEmailPage({
                                 void form.handleSubmit()
                             }}
                         >
-                            {Boolean(entityID) ? (
-                                <form.Field
-                                    name="orgID"
-                                    validators={{
-                                        onChange: ({value}) => required(value, 'Organization ID'),
-                                    }}
-                                >
-                                    {(field) => (
-                                        <div className="grid gap-2">
-                                            <Label htmlFor={field.name}>Organization ID</Label>
-                                            <Input
-                                                id={field.name}
-                                                name={field.name}
-                                                value={field.state.value}
-                                                disabled
-                                                onBlur={field.handleBlur}
-                                                onChange={(event) => field.handleChange(event.target.value)}
-                                            />
-                                        </div>
-                                    )}
-                                </form.Field>
-                            ) : null}
+                            {/*<form.Field*/}
+                            {/*    name="orgID"*/}
+                            {/*    validators={{*/}
+                            {/*        onChange: ({value}) => required(value, 'Organization ID'),*/}
+                            {/*    }}*/}
+                            {/*>*/}
+                            {/*    {(field) => (*/}
+                            {/*        <div className="grid gap-2">*/}
+                            {/*            <Label htmlFor={field.name}>Organization ID</Label>*/}
+                            {/*            <Input*/}
+                            {/*                id={field.name}*/}
+                            {/*                name={field.name}*/}
+                            {/*                value={field.state.value}*/}
+                            {/*                disabled*/}
+                            {/*                onBlur={field.handleBlur}*/}
+                            {/*                onChange={(event) => field.handleChange(event.target.value)}*/}
+                            {/*            />*/}
+                            {/*        </div>*/}
+                            {/*    )}*/}
+                            {/*</form.Field>                           */}
 
                             <form.Field
                                 name="email"
