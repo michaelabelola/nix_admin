@@ -55,14 +55,14 @@ function validateEmail(value: string) {
     return undefined
 }
 
-export function ResendVerificationEmailPage() {
+export function ResendVerificationEmailPage({initialEmail = ''}: { initialEmail?: string }) {
     const entityID = useEntityStore((state) => state.entityID)
     const resendVerification = SignInHook.useResendVerificationEmail()
 
     // @ts-ignore
     const form = useForm<ResendVerificationFormValues>({
         defaultValues: {
-            email: '',
+            email: initialEmail,
             orgID: entityID ?? '',
         },
         onSubmit: async ({value}) => {
@@ -78,6 +78,10 @@ export function ResendVerificationEmailPage() {
             form.setFieldValue('orgID', entityID)
         }
     }, [entityID, form])
+
+    useEffect(() => {
+        form.setFieldValue('email', initialEmail)
+    }, [form, initialEmail])
 
     const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
 

@@ -113,10 +113,12 @@ export function VerifyEmailPage({
                     </p>
                     <div className="flex flex-wrap gap-3">
                         <Button asChild variant="outline">
-                            <Link to="/login" search={{email: ""}}>Back to login</Link>
+                            <Link to="/login" search={{email: form.state.values.email}}>Back to login</Link>
                         </Button>
                         <Button asChild variant="ghost">
-                            <Link to="/resend-verification-email">Resend Verification Mail</Link>
+                            <Link to="/resend-verification-email" search={{email: form.state.values.email}}>Resend
+                                Verification
+                                Mail</Link>
                         </Button>
                     </div>
                 </div>
