@@ -6,6 +6,8 @@ import {tanstackStart} from '@tanstack/react-start/plugin/vite'
 
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import svgr from "vite-plugin-svgr";
+
 
 const storageProxy = {
     '/nix-storage': {
@@ -33,6 +35,7 @@ const config = defineConfig({
         tailwindcss(),
         tanstackStart(),
         viteReact(),
+        svgr()
     ],
 })
 

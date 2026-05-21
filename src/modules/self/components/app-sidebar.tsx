@@ -9,7 +9,6 @@ import {
     IconFileDescription,
     IconFileWord,
     IconFolder,
-    IconInnerShadowTop,
     IconListDetails,
     IconReport,
     IconSettings,
@@ -36,6 +35,9 @@ import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 import OrganizationRequest from "#/modules/organization/organization.request.ts";
 import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 import {useNavigate} from "@tanstack/react-router";
+// @ts-ignore
+import LOGO from "#/assets/logo.svg?react";
+import {Button} from "#/components/ui/button.tsx";
 
 export type NavSectionType = {
     title?: string,
@@ -44,7 +46,7 @@ export type NavSectionType = {
         name?: string
         to?: keyof FileRoutesByTo
         icon?: Icon | any
-        overflowMenu?:{
+        overflowMenu?: {
             to?: keyof FileRoutesByTo
             icon?: Icon | any
         }[]
@@ -176,15 +178,15 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
                 <SidebarMenu>
-                    <SidebarMenuItem className={"flex "}>
+                    <SidebarMenuItem className={"flex"}>
                         <SidebarMenuButton
                             asChild
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
                         >
-                            <a href="#">
-                                <IconInnerShadowTop className="size-5!"/>
-                                <span className="text-base font-semibold">Suiteonix Inc.</span>
-                            </a>
+                            <Button variant={"ghost"} className="w-full flex justify-start gap-2 py-4">
+                                <LOGO className="size-8! aspect-square"/>
+                                <span className="text-lg font-bold">Suiteonix Inc.</span>
+                            </Button>
                         </SidebarMenuButton>
                         {user?.orgID && (
                             <QuickToolTip content={org?.name || "Organization Name"}>

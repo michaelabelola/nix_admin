@@ -74,10 +74,10 @@ export function RegistrationIntroLayout({
     callout: RegistrationCallout
 }) {
     const CalloutIcon = callout.icon ?? CheckCircle2
-
+    // TODO: change class of section from rounded
     return (
         <section
-            className="grid min-h-full w-full overflow-hidden rounded-2xl border bg-background shadow-xl lg:grid-cols-[1.02fr_0.98fr]">
+            className="grid min-h-full w-full overflow-hidden rounded border bg-background shadow-xl lg:grid-cols-[1.02fr_0.98fr]">
             <div className="relative min-h-140 overflow-hidden bg-foreground p-8 text-background sm:p-10">
                 <img
                     src={heroImageSrc}

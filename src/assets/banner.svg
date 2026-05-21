@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 318.53 81.72">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        font-family: Poppins-ExtraBold, Poppins;
+        font-size: 43.13px;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <polygon class="cls-1" points="68.03 8.59 68.03 65.28 40.85 65.28 45.02 41.66 27.55 65.2 13.81 65.2 18.04 41.23 0 41.23 42.91 0 35.82 37.79 53.96 8.59 68.03 8.59"/>
+    <text class="cls-2" transform="translate(71 55.15)"><tspan x="0" y="0">IXHOUSING</tspan></text>
+  </g>
+</svg>

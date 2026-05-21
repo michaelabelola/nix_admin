@@ -9,7 +9,6 @@ import {
     HomeIcon,
     KeyRound,
     LayoutDashboard,
-    MapPin,
     MessageSquareText,
     ShieldCheck,
     Users,
@@ -21,7 +20,7 @@ import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {Progress} from "#/components/ui/progress.tsx"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
-import logo from "public/logo512.png"
+import logo from "#/assets/logo.png"
 
 export const Route = createFileRoute("/_landing/welcome")({component: App})
 
