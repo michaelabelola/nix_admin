@@ -1,11 +1,16 @@
+import {DatePicker, parseDateInput, toDateInputValue} from "#/components/ui/date-picker.tsx"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"
-import {TextField} from "./shared.tsx"
+import {dateInputValue, TextField} from "./shared.tsx"
+
+const ESTABLISHED_DATE_START = new Date(1800, 0, 1)
 
 export function DetailsStepSection() {
     const {draft, updateDataDetail} = useRegistration()
+    const today = new Date()
+    const dateEstablished = parseDateInput(dateInputValue(draft.data.detail.dateEstablished ?? ""))
     const isDisabled = !draft.data.detail.registrationCountry.trim()
 
     return (
@@ -20,12 +25,22 @@ export function DetailsStepSection() {
                     value={draft.data.detail.registrationCountry}
                     onValueChange={(value) => updateDataDetail({registrationCountry: value})}
                 />
-                <TextField
-                    label="Date established"
-                    type="date"
-                    value={draft.data.detail.dateEstablished ?? ""}
-                    onChange={(value) => updateDataDetail({dateEstablished: value})}
-                />
+                <label className="grid gap-2">
+                    <span className="text-sm font-medium">Date established</span>
+                    <DatePicker
+                        value={dateEstablished}
+                        placeholder="Pick a date"
+                        captionLayout="dropdown"
+                        startMonth={ESTABLISHED_DATE_START}
+                        endMonth={today}
+                        disabled={(date) => date > today || date < ESTABLISHED_DATE_START}
+                        onChange={(date) => {
+                            if (!date) return
+
+                            updateDataDetail({dateEstablished: toDateInputValue(date)})
+                        }}
+                    />
+                </label>
             </div>
         </RegistrationStepLayout>
     )
