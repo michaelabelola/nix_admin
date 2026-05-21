@@ -78,7 +78,8 @@ export function DataTableContent<TData, TValue, T>({
                                 :
                                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className={"max-w-40"}>
+                                        <TableCell key={cell.id} className={"max-w-40 overflow-x-scroll whitespace-nowrap"}>
+                                        {/*<TableCell key={cell.id} className={"max-w-40 overflow-x-scroll text-ellipsis whitespace-nowrap"}>*/}
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
