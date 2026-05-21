@@ -5,6 +5,11 @@ import {toast} from "sonner"
 
 import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts"
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import {
+    LocationPicker,
+    type LocationPickerAddress,
+    type LocationPickerAddressPatch,
+} from "#/modules/location/components/googleLocationPicker/LocationPicker.tsx"
 
 import {
     RegistrationCountryComboboxField,
@@ -26,6 +31,10 @@ import {
     getLocationFormDefaults,
     toLocationCreateBody,
 } from "./property-location.form.ts"
+
+type LocationRegistrationForm = RegistrationFormLike & {
+    setFieldValue: (field: keyof LocationFormValues, value: string) => void
+}
 
 export function PropertyLocationStep({
                                          property,
@@ -75,6 +84,7 @@ export function PropertyLocationStep({
 
     const isSubmitting = useStore(form.store, (state) => state.isSubmitting)
     const values = useStore(form.store, (state) => state.values)
+    const locationPickerValue = toLocationPickerAddress(values)
     const disableNext =
         !values.line1.trim() ||
         !values.city.trim() ||
@@ -94,6 +104,11 @@ export function PropertyLocationStep({
         >
             <RegistrationForm form={form}>
                 <div className="grid gap-6 md:grid-cols-2">
+                    <LocationPicker
+                        value={locationPickerValue}
+                        onChange={(patch) => applyLocationPickerPatch(form, patch)}
+                    />
+
                     {LOCATION_FORM_FIELDS.map((field) => (
                         <PropertyLocationInputField key={field.name} form={form} field={field}/>
                     ))}
@@ -106,6 +121,63 @@ export function PropertyLocationStep({
             </RegistrationForm>
         </PropertyRegistrationLayout>
     )
+}
+
+function toLocationPickerAddress(values: LocationFormValues): LocationPickerAddress {
+    return {
+        apt_number: values.apartment,
+        street: values.line1,
+        city: values.city,
+        state: values.state,
+        country: values.country,
+        zipcode: values.postalCode,
+        latitude: toLocationPickerCoordinate(values.latitude),
+        longitude: toLocationPickerCoordinate(values.longitude),
+    }
+}
+
+function toLocationPickerCoordinate(value: string) {
+    const trimmedValue = value.trim()
+    const parsedValue = trimmedValue ? Number(trimmedValue) : 0
+
+    return Number.isFinite(parsedValue) ? parsedValue : 0
+}
+
+function applyLocationPickerPatch(
+    form: LocationRegistrationForm,
+    patch: LocationPickerAddressPatch
+) {
+    if (patch.apt_number !== undefined) {
+        form.setFieldValue("apartment", patch.apt_number)
+    }
+
+    if (patch.street !== undefined) {
+        form.setFieldValue("line1", patch.street)
+    }
+
+    if (patch.city !== undefined) {
+        form.setFieldValue("city", patch.city)
+    }
+
+    if (patch.state !== undefined) {
+        form.setFieldValue("state", patch.state)
+    }
+
+    if (patch.country !== undefined) {
+        form.setFieldValue("country", patch.country)
+    }
+
+    if (patch.zipcode !== undefined) {
+        form.setFieldValue("postalCode", patch.zipcode)
+    }
+
+    if (patch.latitude !== undefined) {
+        form.setFieldValue("latitude", String(patch.latitude))
+    }
+
+    if (patch.longitude !== undefined) {
+        form.setFieldValue("longitude", String(patch.longitude))
+    }
 }
 
 function PropertyLocationInputField({
