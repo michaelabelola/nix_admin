@@ -57,13 +57,13 @@ export function ImageSelector({
     }
 
     return (
-        <div className={cn("grid gap-3 overflow-hidden", className)}>
-            <div className="relative overflow-hidden w-fit rounded-lg bg-muted/30">
+        <div className={cn("gap-3 overflow-hidden flex flex-col-reverse justify-center items-center w-full", className)}>
+            <div className="relative overflow-hidden w-full rounded-lg mx-auto">
                 {previewUrl ? (
                     <img
                         src={previewUrl}
                         alt=""
-                        className={cn("aspect-video object-cover object-center",
+                        className={cn("aspect-video object-contain object-center w-full",
                             aspectRatio === "VIDEO"?"aspect-video":"",
                             aspectRatio === "SQUARE"?"aspect-square":"",
                             imageClassName)}
@@ -101,7 +101,7 @@ export function ImageSelector({
                 }}
             />
 
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center self-start">
                 <Button type="button" variant="outline" asChild disabled={disabled}>
                     <label htmlFor={inputId}>
                         <Upload className="size-4"/>

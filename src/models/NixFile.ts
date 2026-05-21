@@ -1,4 +1,5 @@
 export namespace NixFile {
-    export type NixFile = string | null
-    export type NixImage = string | null
+    export type NixFile = string | undefined
+    export type NixImage = string | undefined
+
 }

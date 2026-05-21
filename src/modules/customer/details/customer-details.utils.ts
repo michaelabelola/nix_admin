@@ -1,9 +1,7 @@
 import type {CustomerModel} from "#/modules/customer/model.ts"
 
 export function getCustomerAvatarUrl(avatar?: CustomerModel.CustomerAvatar) {
-    if (!avatar) return null
-    if (typeof avatar === "string") return avatar
-    return avatar.url ?? null
+    return  avatar
 }
 
 export function getCustomerDisplayName(customer?: Pick<CustomerModel.Detailed, "displayName" | "customerNumber" | "id"> | Pick<CustomerModel.Customer, "displayName" | "id">) {

@@ -2,7 +2,7 @@ import type {NavSectionType} from "#/modules/self/components/app-sidebar.tsx";
 import {IconBrandOffice} from "@tabler/icons-react";
 
 export const selfBusinessNavItems: NavSectionType = {
-    title: 'Business',
+    title: '💼 Organization',
     navs: [
         // {
         //     name: "Home",

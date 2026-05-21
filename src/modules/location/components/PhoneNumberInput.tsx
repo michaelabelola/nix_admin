@@ -108,6 +108,7 @@ export function PhoneNumberInput({
             <Select
                 value={selectedValue}
                 disabled={isDisabled}
+                autoComplete={"tel-area-code"}
                 onValueChange={(iso2) => {
                     const country = countries.find((entry) => entry.iso2 === iso2)
                     const phoneCode = normalizePhoneCode(country?.phoneCode)
@@ -146,6 +147,7 @@ export function PhoneNumberInput({
                 id={id}
                 name={name}
                 type="tel"
+                autoComplete={"tel"}
                 value={nationalNumber}
                 placeholder={placeholder}
                 disabled={isDisabled}

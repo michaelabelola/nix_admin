@@ -5,6 +5,7 @@ import {
 } from "#/modules/customer/details/customer-details.utils.ts"
 
 import {SummaryMetric} from "../../CustomerDetailsPrimitives.tsx"
+import {Card, CardContent, CardHeader} from "#/components/ui/card.tsx";
 
 type SummaryItem = {
     label: string
@@ -43,36 +44,38 @@ export function CustomerDetailsSummaryTab({customer}: { customer?: CustomerModel
 
     return (
         <div className="grid gap-4 lg:grid-cols-[1.45fr_1fr]">
-            <section className="rounded-lg bg-muted/20 p-4 sm:p-5">
-                <div className="mb-4">
+            <Card className="rounded-lg p-4 sm:p-5">
+                <CardHeader className="mb-4">
                     <h2 className="font-semibold">Overview</h2>
                     <p className="text-sm text-muted-foreground">High-level customer summary.</p>
-                </div>
+                </CardHeader>
 
-                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                <CardContent className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                     {overviewItems.map((item) => (
                         <SummaryMetric key={item.label} label={item.label} value={item.value}/>
                     ))}
                     <SummaryMetric label="Tags" value={String(customer?.tags?.length ?? 0)}/>
                     <SummaryMetric label="Segments" value={String(customer?.segments?.length ?? 0)}/>
-                </div>
-            </section>
+                </CardContent>
+            </Card>
 
             {profileItems.length ? (
-                <section className="rounded-lg bg-muted/20 p-4 sm:p-5">
-                    <div className="mb-4">
+                <Card className="rounded-lg p-4 sm:p-5">
+                    <CardHeader className="mb-4">
                         <h2 className="font-semibold">Profile</h2>
                         <p className="text-sm text-muted-foreground">Resolved identity and location details.</p>
-                    </div>
-                    <dl className="space-y-4">
-                        {profileItems.map((item) => (
-                            <div key={item.label}>
-                                <dt className="text-sm text-muted-foreground">{item.label}</dt>
-                                <dd className="mt-1 break-words text-sm font-medium">{item.value}</dd>
-                            </div>
-                        ))}
-                    </dl>
-                </section>
+                    </CardHeader>
+                    <CardContent>
+                        <dl className="space-y-4">
+                            {profileItems.map((item) => (
+                                <div key={item.label}>
+                                    <dt className="text-sm text-muted-foreground">{item.label}</dt>
+                                    <dd className="mt-1 break-words text-sm font-medium">{item.value}</dd>
+                                </div>
+                            ))}
+                        </dl>
+                    </CardContent>
+                </Card>
             ) : null}
         </div>
     )

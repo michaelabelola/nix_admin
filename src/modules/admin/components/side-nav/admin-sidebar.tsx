@@ -29,13 +29,14 @@ import {useNavigate} from "@tanstack/react-router";
 import {realEstateNavItems} from "#/modules/real-estate/nav.tsx";
 import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";
 import {Button} from "#/components/ui/button.tsx";
-import type {ComponentProps} from "react";
+import {type ComponentProps, useMemo} from "react";
 import {tagsNavItems} from "#/modules/tags/nav.tsx";
 import {customerNavItems} from "#/modules/customer/nav.tsx";
 import {financeNavItems} from "#/modules/finance/nav.tsx";
 import {appNavItems} from "#/modules/app/nav.tsx";
 import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx";
 import {listingNavItems} from "#/modules/listing/nav.tsx";
+import {useThemeMode} from "#/components/ThemeToggle.tsx";
 
 const data = {
     user: {
@@ -158,6 +159,15 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
     const {user} = useAuthenticatedUser()
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
     const navigate = useNavigate()
+    const {calculatedMode,mode} = useThemeMode()
+        console.log(mode)
+    const selectedImage = useMemo(() => {
+        if (calculatedMode === "dark")
+            return org?.logoDark ?? org?.logo
+        else
+
+            return org?.logo ?? org?.logoDark
+    }, [calculatedMode, mode])
     return (
         <Sidebar collapsible="offcanvas" {...props} className={"bg-background/80 backdrop-blur-sm border-r"}>
             <SidebarHeader>
@@ -169,7 +179,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                         >
                             <a href="#">
                                 <Avatar className="h-8 w-8 rounded-lg grayscale cursor-pointer">
-                                    <AvatarImage src={org?.logo}
+                                    <AvatarImage src={selectedImage}
                                                  alt={`${org?.shortName}`}
                                                  className={"object-cover border"}/>
                                     <AvatarFallback className="rounded-lg bg-transparent">
@@ -180,19 +190,19 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                             </a>
                         </SidebarMenuButton>
                         {/*<QuickToolTip content={"User Page"}>*/}
-                            <Button variant={"ghost"} onClick={() => navigate({
-                                to: "/self"
-                            })} className="ml-auto">
-                                <User2Icon className="size-7!"/>
-                            </Button>
+                        <Button variant={"ghost"} onClick={() => navigate({
+                            to: "/self"
+                        })} className="ml-auto">
+                            <User2Icon className="size-7!"/>
+                        </Button>
                         {/*</QuickToolTip>*/}
 
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-            <NavMain items={data.navMain}/>
-                {[realEstateNavItems, customerNavItems,listingNavItems, financeNavItems, appNavItems, tagsNavItems].map((item, index) => (
+                <NavMain items={data.navMain}/>
+                {[realEstateNavItems, customerNavItems, listingNavItems, financeNavItems, appNavItems, tagsNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
                 ))}
                 <NavSecondary items={data.navSecondary} className="mt-auto"/>

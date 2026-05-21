@@ -35,15 +35,31 @@ function applyThemeMode(mode: ThemeMode) {
 
 export const useThemeMode = () => {
     const [mode, setMode] = useState<ThemeMode>('auto')
+    const [calculatedMode, setCalculatedMode] = useState<Pick<ThemeMode, "dark" & "light">>('light')
     useEffect(() => {
         const initialMode = getInitialMode()
         setMode(initialMode)
         applyThemeMode(initialMode)
-    }, [])
+
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (mode === "auto") {
+            if (prefersDark) {
+                setCalculatedMode("dark")
+            } else {
+                setCalculatedMode("light")
+            }
+        } else if (mode === "dark") {
+            setCalculatedMode("dark")
+        } else {
+            setCalculatedMode("light")
+        }
+    }, [mode])
+
 
     return ({
         mode,
-        setMode
+        setMode,
+        calculatedMode
     })
 
 }

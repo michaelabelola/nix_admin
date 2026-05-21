@@ -18,10 +18,10 @@ import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
 const BIRTH_DATE_START = new Date(1900, 0, 1)
 
 export function StepField({
-    label,
-    description,
-    children,
-}: {
+                              label,
+                              description,
+                              children,
+                          }: {
     label: string
     description?: string
     children: ReactNode
@@ -36,10 +36,10 @@ export function StepField({
 }
 
 export function StepSection({
-    title,
-    description,
-    children,
-}: {
+                                title,
+                                description,
+                                children,
+                            }: {
     title: string
     description?: string
     children: ReactNode
@@ -56,24 +56,27 @@ export function StepSection({
 }
 
 export function StepInput({
-    label,
-    value,
-    onChange,
-    description,
-    placeholder,
-    type = "text",
-}: {
+                              label,
+                              value,
+                              onChange,
+                              description,
+                              placeholder,
+                              type = "text",
+                              autoComplete
+                          }: {
     label: string
     value: string
     onChange: (value: string) => void
     description?: string
     placeholder?: string
     type?: string
+    autoComplete?: Parameters<typeof Input>[0]["autoComplete"]
 }) {
     return (
         <StepField label={label} description={description}>
             <Input
                 type={type}
+                autoComplete={autoComplete}
                 value={value}
                 placeholder={placeholder}
                 onChange={(event) => onChange(event.target.value)}
@@ -83,13 +86,13 @@ export function StepInput({
 }
 
 export function StepDatePicker({
-    label,
-    value,
-    onChange,
-    description,
-    placeholder = "Pick a date",
-    disabled,
-}: {
+                                   label,
+                                   value,
+                                   onChange,
+                                   description,
+                                   placeholder = "Pick a date",
+                                   disabled,
+                               }: {
     label: string
     value: string
     onChange: (value: string) => void
@@ -122,13 +125,13 @@ export function StepDatePicker({
 }
 
 export function StepTextarea({
-    label,
-    value,
-    onChange,
-    description,
-    placeholder,
-    rows = 5,
-}: {
+                                 label,
+                                 value,
+                                 onChange,
+                                 description,
+                                 placeholder,
+                                 rows = 5,
+                             }: {
     label: string
     value: string
     onChange: (value: string) => void
@@ -149,13 +152,13 @@ export function StepTextarea({
 }
 
 export function StepSelect({
-    label,
-    value,
-    onChange,
-    description,
-    placeholder,
-    options,
-}: {
+                               label,
+                               value,
+                               onChange,
+                               description,
+                               placeholder,
+                               options,
+                           }: {
     label: string
     value: string
     onChange: (value: string) => void
@@ -182,11 +185,11 @@ export function StepSelect({
 }
 
 export function StepSwitch({
-    label,
-    description,
-    checked,
-    onCheckedChange,
-}: {
+                               label,
+                               description,
+                               checked,
+                               onCheckedChange,
+                           }: {
     label: string
     description?: string
     checked: boolean
@@ -204,11 +207,11 @@ export function StepSwitch({
 }
 
 export function StepCountryField({
-    label,
-    value,
-    onChange,
-    description,
-}: {
+                                     label,
+                                     value,
+                                     onChange,
+                                     description,
+                                 }: {
     label: string
     value: string
     onChange: (value: string) => void
@@ -222,12 +225,12 @@ export function StepCountryField({
 }
 
 export function StepStateField({
-    label,
-    countryIso2,
-    value,
-    onChange,
-    description,
-}: {
+                                   label,
+                                   countryIso2,
+                                   value,
+                                   onChange,
+                                   description,
+                               }: {
     label: string
     countryIso2?: string
     value: string

@@ -10,7 +10,7 @@ import {
 } from "#/modules/customer/details/customer-details.utils.ts"
 
 import {KeyValue} from "../../CustomerDetailsPrimitives.tsx"
-import {Card} from "#/components/ui/card.tsx";
+import {Card, CardContent, CardHeader} from "#/components/ui/card.tsx";
 
 type DetailItem = {
     label: string
@@ -26,10 +26,10 @@ function hasDetailValue(value: DetailItem["value"]) {
 }
 
 function DetailGroup({
-    title,
-    description,
-    items,
-}: {
+                         title,
+                         description,
+                         items,
+                     }: {
     title: string
     description?: string
     items: DetailItem[]
@@ -42,17 +42,21 @@ function DetailGroup({
 
     return (
         <section>
-        <Card className={"rounded-lg p-4"} variant={"glass"}>
-            <div className="mb-3">
-                <h3 className="font-medium">{title}</h3>
-                {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
-            </div>
-            <dl className="grid gap-1">
-                {visibleItems.map((item) => (
-                    <KeyValue key={item.label} label={item.label} value={item.value}/>
-                ))}
-            </dl>
-        </Card>
+            <Card className={"p-4"} variant={"glass"}>
+                <CardHeader>
+                    <div className="mb-3">
+                        <h3 className="font-medium">{title}</h3>
+                        {description ? <p className="mt-1 text-sm text-muted-foreground">{description}</p> : null}
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <dl className="grid gap-1">
+                        {visibleItems.map((item) => (
+                            <KeyValue key={item.label} label={item.label} value={item.value}/>
+                        ))}
+                    </dl>
+                </CardContent>
+            </Card>
         </section>
     )
 }
@@ -93,14 +97,17 @@ export function CustomerDetailsRecordTab({customer}: { customer?: CustomerModel.
                         {
                             label: "Organization",
                             value:
-                            isLoadingOrg
-                                ? <Spinner className="size-4"/>
-                                : org?.shortName || org?.name || customer?.entityID,
+                                isLoadingOrg
+                                    ? <Spinner className="size-4"/>
+                                    : org?.shortName || org?.name || customer?.entityID,
                         },
                         {label: "Language", value: customer?.language},
                         {label: "Timezone", value: customer?.timezone},
                         {label: "Tags", value: tags.length ? String(tags.length) : null},
-                        {label: "Segments", value: customer?.segments?.length ? String(customer.segments.length) : null},
+                        {
+                            label: "Segments",
+                            value: customer?.segments?.length ? String(customer.segments.length) : null
+                        },
                     ]}
                 />
 
@@ -132,7 +139,10 @@ export function CustomerDetailsRecordTab({customer}: { customer?: CustomerModel.
                         {label: "Registration Number", value: business?.registrationNumber},
                         {label: "Tax ID", value: business?.taxID},
                         {label: "Industry", value: business?.industry},
-                        {label: "Company Size", value: business?.companySize != null ? String(business.companySize) : null},
+                        {
+                            label: "Company Size",
+                            value: business?.companySize != null ? String(business.companySize) : null
+                        },
                         {label: "Business Type", value: business?.businessType},
                         {label: "Legal Form", value: business?.legalForm},
                         {label: "Registration Date", value: business?.registrationDate},

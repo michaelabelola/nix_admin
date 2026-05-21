@@ -78,7 +78,7 @@ export function DataTableContent<TData, TValue, T>({
                                 :
                                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className={"max-w-40"}>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
@@ -138,7 +138,7 @@ function RowView<TData, T>(props: {
 
     if (status === "SUCCESS")
         return (
-            <TableRow key={props.row.id} data-state={props.row.getIsSelected() && "selected"} >
+            <TableRow key={props.row.id} data-state={props.row.getIsSelected() && "selected"}>
                 {props.row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                         {flexRender(

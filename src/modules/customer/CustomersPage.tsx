@@ -1,7 +1,7 @@
-import {useMemo} from "react"
+import React, {useMemo} from "react"
 import type {ColumnDef} from "@tanstack/react-table"
 import {Link} from "@tanstack/react-router"
-import {ArrowRight, Eye, PlusCircle} from "lucide-react"
+import {ArrowRight, Eye, PlusCircle, User2Icon} from "lucide-react"
 
 import Page from "#/components/Page.tsx"
 import DataTable from "#/components/data-table/data-table.tsx"
@@ -19,6 +19,7 @@ import {
 } from "#/modules/customer/details/customer-details.utils.ts"
 import {CustomerModel} from "#/modules/customer/model.ts"
 import {CustomerRequest} from "#/modules/customer/request.hook.ts"
+import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 
 type CustomerTableRequest = DataTableRequestBase & {
     status?: CustomerModel.CustomerStatus
@@ -76,9 +77,13 @@ function createCustomerColumns(): Array<ColumnDef<CustomerModel.Customer>> {
             accessorKey: "displayName",
             header: "Customer",
             cell: ({row}) => (
-                <div className="space-y-1">
+                <div className="space-y-1 flex items-center gap-2">
+                    <Avatar className={"h-8 w-8 rounded-lg grayscale"}>
+                        <AvatarImage src={row?.original?.avatar} className={"object-cover aspect-square border"}/>
+                        <AvatarFallback><User2Icon className={"w-4 h-4"}/></AvatarFallback>
+                    </Avatar>
                     <div>{getCustomerDisplayName(row.original)}</div>
-                    <div className=" text-[0.5rem] text-muted-foreground">ID: {row.original.id}</div>
+                    {/*<div className=" text-[0.5rem] text-muted-foreground">ID: {row.original.id}</div>*/}
                 </div>
             ),
             meta: {

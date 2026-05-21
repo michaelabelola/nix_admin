@@ -9,7 +9,7 @@ var cardVariants = cva(
     {
         variants: {
             variant: {
-                glass: "backdrop-blur border-transparent",
+                glass: "bg-card/50 backdrop-blur border-transparent",
                 default: ""
             },
         },

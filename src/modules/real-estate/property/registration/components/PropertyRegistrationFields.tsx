@@ -223,7 +223,6 @@ export function RegistrationImageSelectorField({
                             accept={accept}
                             maxSizeBytes={maxSizeBytes}
                             onChange={field.handleChange}
-                            className={"w-full relative"}
                             imageClassName={""}
                         />
                     </div>

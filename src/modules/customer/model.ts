@@ -5,7 +5,7 @@ import type {TagModel} from "#/modules/tags/model.ts"
 
 export namespace CustomerModel {
     export type CustomerID = string
-    export type CustomerAvatar = NixFile.NixImage | { url?: string | null } | null
+    export type CustomerAvatar = NixFile.NixImage
 
     export enum CustomerStatus {
         ACTIVE = "ACTIVE",
@@ -110,7 +110,7 @@ export namespace CustomerModel {
         id: CustomerID
         displayName?: string | null
         type?: CustomerType | null
-        avatar?: CustomerAvatar
+        avatar?: NixFile.NixImage
         lifecycleStage?: CustomerLifecycleStage | null
         status?: CustomerStatus | null
         storageID?: string | number | null
@@ -120,7 +120,7 @@ export namespace CustomerModel {
     export type Detailed = {
         id: CustomerID
         customerNumber?: string | null
-        avatar?: CustomerAvatar
+        avatar?: NixFile.NixImage
         externalId?: string | null
         displayName?: string | null
         personalDetail?: PersonalDetail | null
