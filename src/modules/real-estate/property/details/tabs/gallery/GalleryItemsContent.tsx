@@ -1,6 +1,5 @@
 import {FileIcon} from "lucide-react";
 
-import {Badge} from "#/components/ui/badge.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {
     Card,
@@ -22,7 +21,6 @@ import {Spinner} from "#/components/ui/spinner.tsx";
 import {FilesStorageModel} from "#/modules/files-storage/model.ts";
 
 import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";
-import {getStatusVariant} from "./gallery.utils.ts";
 
 function FilePreview({item}: { item: FilesStorageModel.FileItem }) {
     const previewSrc = item.thumbnail || item.file;
@@ -48,7 +46,6 @@ function FilePreview({item}: { item: FilesStorageModel.FileItem }) {
 }
 
 function GalleryItemCard({item}: { item: FilesStorageModel.FileItem }) {
-    const status = item.listableStatus?.value;
 
     return (
         <Card className="gap-4">
@@ -61,9 +58,6 @@ function GalleryItemCard({item}: { item: FilesStorageModel.FileItem }) {
                         <CardTitle className="text-base">
                             {item.name?.trim() || item.id}
                         </CardTitle>
-                        <Badge variant={getStatusVariant(status)}>
-                            {status || "UNKNOWN"}
-                        </Badge>
                     </div>
                     <CardDescription className="line-clamp-3 min-h-6">
                         {item.description?.trim() || "No description"}

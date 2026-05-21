@@ -162,18 +162,25 @@ export function CustomerCreateReviewStep() {
                 </Card>
             </div>
 
-            <Card>
-                <CardHeader>
-                    <CardTitle className="text-base">Preferences & Classification</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <ReviewRows rows={[
-                        {label: "Marketing consent", value: draft.preferences.marketingConsent},
-                        {label: "Email notifications", value: draft.preferences.emailNotifications},
-                        {label: "SMS notifications", value: draft.preferences.smsNotifications},
-                    ]}/>
+            <div className="grid gap-4 xl:grid-cols-2">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-base">Preferences</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <ReviewRows rows={[
+                            {label: "Marketing consent", value: draft.preferences.marketingConsent},
+                            {label: "Email notifications", value: draft.preferences.emailNotifications},
+                            {label: "SMS notifications", value: draft.preferences.smsNotifications},
+                        ]}/>
+                    </CardContent>
+                </Card>
 
-                    <div className="grid gap-3 border-t pt-4 md:grid-cols-2">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-base">Tags & Segments</CardTitle>
+                    </CardHeader>
+                    <CardContent className="grid gap-4">
                         <div>
                             <div className="text-sm font-medium">Tag IDs</div>
                             <div className="mt-2 flex flex-wrap gap-2">
@@ -195,9 +202,9 @@ export function CustomerCreateReviewStep() {
                                 )}
                             </div>
                         </div>
-                    </div>
-                </CardContent>
-            </Card>
+                    </CardContent>
+                </Card>
+            </div>
         </CustomerCreateStepLayout>
     )
 }

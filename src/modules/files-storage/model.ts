@@ -6,26 +6,12 @@ export namespace FilesStorageModel {
     export type FilesStorageID = string | number
     export type FileID = string
 
-    export enum ListableSourceStatus {
-        LISTABLE = "LISTABLE",
-        NOT_LISTABLE = "NOT_LISTABLE",
-        UNDER_CHECK = "UNDER_CHECK",
-        DISABLED = "DISABLED",
-    }
-
-    export type ListingSourceStatus = {
-        value: ListableSourceStatus | null
-        reason: string | null
-        lastUpdated: Date | string | null
-    }
-
     export type FileItem = {
         id: FileID
         name: string | null
         description: string | null
         file: NixFile.NixFile
         thumbnail: NixFile.NixFile
-        listableStatus: ListingSourceStatus | null
     }
 
     export type DetailedFileItem = FileItem & {
@@ -81,7 +67,6 @@ export namespace FilesStorageModel {
         name: string
         description?: string | null
         file?: File | null
-        listableStatus?: ListableSourceStatus | null
     }
 
     export type UpdateFile = {
@@ -91,7 +76,6 @@ export namespace FilesStorageModel {
     }
 
     export type UpdateListableStatus = {
-        listableStatus: ListableSourceStatus.LISTABLE | ListableSourceStatus.NOT_LISTABLE
         reason?: string | null
     }
 }

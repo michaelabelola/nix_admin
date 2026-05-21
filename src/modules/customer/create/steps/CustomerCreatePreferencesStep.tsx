@@ -1,7 +1,3 @@
-import {Badge} from "#/components/ui/badge.tsx"
-import {ObjectVisibility} from "#/models/PagedModel.ts"
-import {TagRequest} from "#/modules/tags/request.hook.ts"
-
 import {useCustomerCreate} from "../customer-create.context.tsx"
 import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"
 import {
@@ -13,12 +9,7 @@ import {
 } from "../customer-create.fields.tsx"
 
 export function CustomerCreatePreferencesStep() {
-    const {draft, updatePreferences, setTags, setSegmentIds} = useCustomerCreate()
-    const availableTagsQuery = TagRequest.useQueryTags({
-        page: 0,
-        size: 24,
-        show: ObjectVisibility.ENTITY_AND_SYSTEM,
-    })
+    const {draft, updatePreferences, setSegmentIds} = useCustomerCreate()
 
     return (
         <CustomerCreateStepLayout stepId="preferences">
@@ -49,46 +40,17 @@ export function CustomerCreatePreferencesStep() {
             </StepSection>
 
             <StepSection
-                title="Classification"
-                description="Enter existing ids for any tags or customer segments that should be attached during creation."
+                title="Segments"
+                description="Enter existing customer segment ids that should be attached during creation."
             >
-                <div className="grid gap-4 lg:grid-cols-2">
-                    <StepTextarea
-                        label="Tag IDs"
-                        value={stringifyIds(draft.tags)}
-                        rows={6}
-                        description="Separate ids with commas, spaces, or line breaks."
-                        placeholder="12345&#10;67890"
-                        onChange={(value) => setTags(parseIds(value))}
-                    />
-
-                    <StepTextarea
-                        label="Segment IDs"
-                        value={stringifyIds(draft.segmentIds)}
-                        rows={6}
-                        description="Separate ids with commas, spaces, or line breaks."
-                        placeholder="segment-a&#10;segment-b"
-                        onChange={(value) => setSegmentIds(parseIds(value))}
-                    />
-                </div>
-
-                <div className="grid gap-3 rounded-lg border bg-muted/20 p-4">
-                    <div className="font-medium">Available tags</div>
-                    <p className="text-sm text-muted-foreground">
-                        Use these ids if you want to assign existing tags during customer creation.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                        {availableTagsQuery.data.content.length ? availableTagsQuery.data.content.map((tag) => (
-                            <Badge key={tag.id} variant="outline">
-                                {(tag.name?.trim() || tag.id)}: {tag.id}
-                            </Badge>
-                        )) : (
-                            <span className="text-sm text-muted-foreground">
-                                {availableTagsQuery.isFetching ? "Loading tags..." : "No tags available."}
-                            </span>
-                        )}
-                    </div>
-                </div>
+                <StepTextarea
+                    label="Segment IDs"
+                    value={stringifyIds(draft.segmentIds)}
+                    rows={6}
+                    description="Separate ids with commas, spaces, or line breaks."
+                    placeholder="segment-a&#10;segment-b"
+                    onChange={(value) => setSegmentIds(parseIds(value))}
+                />
             </StepSection>
         </CustomerCreateStepLayout>
     )

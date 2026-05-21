@@ -18,7 +18,7 @@ const introHighlights = [
     {
         icon: ClipboardCheck,
         title: "Complete record",
-        description: "Add personal, business, contact, address, and preference details before review.",
+        description: "Add personal, business, contact, address, preference, and tag details before review.",
     },
     {
         icon: FileCheck2,
@@ -33,7 +33,7 @@ export function CustomerCreateStart() {
             heroImageAlt="Customer creation preview"
             badges={["Customer creation", "Admin workflow"]}
             title="Create a customer."
-            description="Build a customer record across focused steps for basics, identity, business data, contact channels, addresses, and preferences."
+            description="Build a customer record across focused steps for basics, identity, business data, contact channels, addresses, preferences, and tags."
             primaryAction={{
                 label: "Start customer setup",
                 to: CUSTOMER_CREATE_STEPS[0].path,

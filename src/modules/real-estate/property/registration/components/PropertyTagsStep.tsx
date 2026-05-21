@@ -5,7 +5,7 @@ import { toast } from "sonner"
 import { Badge } from "#/components/ui/badge.tsx"
 import { PropertyApiHook } from "#/modules/real-estate/property/api.hook.ts"
 import type { PropertyModel } from "#/modules/real-estate/property/model.ts"
-import {TagSelector} from "#/modules/tags/components/TagSelector.tsx"
+import {TagPicker} from "#/modules/tags/components/TagPicker.tsx"
 
 import {
   RegistrationForm,
@@ -77,7 +77,7 @@ export function PropertyTagsStep({
               label="Tags"
               description="Search by name or id, narrow results by module and type, then select the tags that should classify this property."
             >
-              <TagSelector
+              <TagPicker
                 value={field.state.value ?? []}
                 onChange={field.handleChange}
                 disabled={isSubmitting || addTags.isPending}

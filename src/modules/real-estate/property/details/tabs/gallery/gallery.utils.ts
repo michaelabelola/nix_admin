@@ -1,5 +1,3 @@
-import {FilesStorageModel} from "#/modules/files-storage/model.ts";
-
 export const PAGE_SIZE = 12;
 
 export function formatDateTime(value?: Date | string | null) {
@@ -12,20 +10,6 @@ export function formatDateTime(value?: Date | string | null) {
         dateStyle: "medium",
         timeStyle: "short",
     }).format(date);
-}
-
-export function getStatusVariant(status?: FilesStorageModel.ListableSourceStatus | null): "outline" | "secondary" | "success" | "warning" | "destructive" {
-    switch (status) {
-        case FilesStorageModel.ListableSourceStatus.LISTABLE:
-            return "success";
-        case FilesStorageModel.ListableSourceStatus.UNDER_CHECK:
-            return "warning";
-        case FilesStorageModel.ListableSourceStatus.DISABLED:
-            return "destructive";
-        case FilesStorageModel.ListableSourceStatus.NOT_LISTABLE:
-        default:
-            return "secondary";
-    }
 }
 
 export function buildPageItems(currentPage: number, totalPages: number) {

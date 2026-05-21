@@ -69,6 +69,7 @@ import { Route as AuthenticatedSelfOrganizationsRegisterContactRouteImport } fro
 import { Route as AuthenticatedSelfOrganizationsRegisterBioRouteImport } from './routes/_authenticated/self/organizations/register/bio'
 import { Route as AuthenticatedSelfOrganizationsRegisterAvatarRouteImport } from './routes/_authenticated/self/organizations/register/avatar'
 import { Route as AuthenticatedSelfOrganizationsRegisterAddressRouteImport } from './routes/_authenticated/self/organizations/register/address'
+import { Route as AuthenticatedAdminCustomersCreateTagsRouteImport } from './routes/_authenticated/admin/customers/create/tags'
 import { Route as AuthenticatedAdminCustomersCreateReviewRouteImport } from './routes/_authenticated/admin/customers/create/review'
 import { Route as AuthenticatedAdminCustomersCreatePreferencesRouteImport } from './routes/_authenticated/admin/customers/create/preferences'
 import { Route as AuthenticatedAdminCustomersCreatePersonalRouteImport } from './routes/_authenticated/admin/customers/create/personal'
@@ -463,6 +464,12 @@ const AuthenticatedSelfOrganizationsRegisterAddressRoute =
     id: '/address',
     path: '/address',
     getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedAdminCustomersCreateTagsRoute =
+  AuthenticatedAdminCustomersCreateTagsRouteImport.update({
+    id: '/tags',
+    path: '/tags',
+    getParentRoute: () => AuthenticatedAdminCustomersCreateRouteRoute,
   } as any)
 const AuthenticatedAdminCustomersCreateReviewRoute =
   AuthenticatedAdminCustomersCreateReviewRouteImport.update({
@@ -903,6 +910,7 @@ export interface FileRoutesByFullPath {
   '/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
   '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
+  '/admin/customers/create/tags': typeof AuthenticatedAdminCustomersCreateTagsRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -1003,6 +1011,7 @@ export interface FileRoutesByTo {
   '/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
   '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
+  '/admin/customers/create/tags': typeof AuthenticatedAdminCustomersCreateTagsRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -1119,6 +1128,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/customers/create/personal': typeof AuthenticatedAdminCustomersCreatePersonalRoute
   '/_authenticated/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/_authenticated/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
+  '/_authenticated/admin/customers/create/tags': typeof AuthenticatedAdminCustomersCreateTagsRoute
   '/_authenticated/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/_authenticated/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/_authenticated/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -1234,6 +1244,7 @@ export interface FileRouteTypes {
     | '/admin/customers/create/personal'
     | '/admin/customers/create/preferences'
     | '/admin/customers/create/review'
+    | '/admin/customers/create/tags'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -1334,6 +1345,7 @@ export interface FileRouteTypes {
     | '/admin/customers/create/personal'
     | '/admin/customers/create/preferences'
     | '/admin/customers/create/review'
+    | '/admin/customers/create/tags'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -1449,6 +1461,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/customers/create/personal'
     | '/_authenticated/admin/customers/create/preferences'
     | '/_authenticated/admin/customers/create/review'
+    | '/_authenticated/admin/customers/create/tags'
     | '/_authenticated/self/organizations/register/address'
     | '/_authenticated/self/organizations/register/avatar'
     | '/_authenticated/self/organizations/register/bio'
@@ -1946,6 +1959,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterAddressRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
     }
+    '/_authenticated/admin/customers/create/tags': {
+      id: '/_authenticated/admin/customers/create/tags'
+      path: '/tags'
+      fullPath: '/admin/customers/create/tags'
+      preLoaderRoute: typeof AuthenticatedAdminCustomersCreateTagsRouteImport
+      parentRoute: typeof AuthenticatedAdminCustomersCreateRouteRoute
+    }
     '/_authenticated/admin/customers/create/review': {
       id: '/_authenticated/admin/customers/create/review'
       path: '/review'
@@ -2399,6 +2419,7 @@ interface AuthenticatedAdminCustomersCreateRouteRouteChildren {
   AuthenticatedAdminCustomersCreatePersonalRoute: typeof AuthenticatedAdminCustomersCreatePersonalRoute
   AuthenticatedAdminCustomersCreatePreferencesRoute: typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   AuthenticatedAdminCustomersCreateReviewRoute: typeof AuthenticatedAdminCustomersCreateReviewRoute
+  AuthenticatedAdminCustomersCreateTagsRoute: typeof AuthenticatedAdminCustomersCreateTagsRoute
   AuthenticatedAdminCustomersCreateIndexRoute: typeof AuthenticatedAdminCustomersCreateIndexRoute
 }
 
@@ -2418,6 +2439,8 @@ const AuthenticatedAdminCustomersCreateRouteRouteChildren: AuthenticatedAdminCus
       AuthenticatedAdminCustomersCreatePreferencesRoute,
     AuthenticatedAdminCustomersCreateReviewRoute:
       AuthenticatedAdminCustomersCreateReviewRoute,
+    AuthenticatedAdminCustomersCreateTagsRoute:
+      AuthenticatedAdminCustomersCreateTagsRoute,
     AuthenticatedAdminCustomersCreateIndexRoute:
       AuthenticatedAdminCustomersCreateIndexRoute,
   }

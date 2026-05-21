@@ -1,14 +1,17 @@
 import {Separator} from "#/components/ui/separator.tsx";
 import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import {Card, CardContent, CardHeader} from "#/components/ui/card.tsx";
 
 export function PropertyDetailsAboutTab({property}: { property?: PropertyModel.Detailed }) {
     return (
-        <section className="rounded-lg border p-6">
-            <div className="space-y-6">
+        <Card className="rounded-lg border p-6">
+            <CardHeader>
                 <div>
-                    <h2 className="font-semibold">About</h2>
+                    <h2 className="font-semibold">Description</h2>
                     <p className="text-sm text-muted-foreground">Long-form property information.</p>
                 </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
                 <div>
                     <div className="text-sm font-medium">About</div>
                     <p className="mt-2 whitespace-pre-wrap text-sm text-muted-foreground">
@@ -22,7 +25,7 @@ export function PropertyDetailsAboutTab({property}: { property?: PropertyModel.D
                         {property?.description?.trim() || "No description added."}
                     </p>
                 </div>
-            </div>
-        </section>
+            </CardContent>
+        </Card>
     )
 }

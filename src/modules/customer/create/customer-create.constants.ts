@@ -5,6 +5,7 @@ import {
     Contact,
     MapPinned,
     SlidersHorizontal,
+    Tags,
     UserRound,
     type LucideIcon,
 } from "lucide-react"
@@ -20,6 +21,7 @@ export type CustomerCreateStepID =
     | "contact"
     | "addresses"
     | "preferences"
+    | "tags"
     | "review"
 
 export type CustomerCreateStep = {
@@ -78,7 +80,15 @@ export const CUSTOMER_CREATE_STEPS: CustomerCreateStep[] = [
         shortLabel: "Preferences",
         path: "/admin/customers/create/preferences",
         icon: SlidersHorizontal,
-        description: "Set communication preferences and optional tag or segment assignments.",
+        description: "Set communication preferences and optional segment assignments.",
+    },
+    {
+        id: "tags",
+        label: "Tags",
+        shortLabel: "Tags",
+        path: "/admin/customers/create/tags",
+        icon: Tags,
+        description: "Select existing tags that should classify this customer.",
     },
     {
         id: "review",
