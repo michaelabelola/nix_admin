@@ -5,6 +5,7 @@ import {toast} from "sonner"
 import type {Organization_RegisterModel} from "#/modules/organization/models/models.ts"
 
 import onboardingOrgApi from "./onboarding.org.api.ts"
+import defaultData from "#/DefaultData.ts";
 
 type RegistrationDraft = {
     user: Organization_RegisterModel.OrgUser
@@ -43,8 +44,8 @@ const initialDraft: RegistrationDraft = {
             apt_number: "",
             street: "",
             city: "",
-            state: "",
-            country: "",
+            state: defaultData.getState().location.state,
+            country: defaultData.getState().location.country,
             zipcode: "",
             latitude: 0,
             longitude: 0,
@@ -59,7 +60,7 @@ const initialDraft: RegistrationDraft = {
             about: "",
             dateEstablished: "",
             registrationNumber: "",
-            registrationCountry: "",
+            registrationCountry: defaultData.getState().location.country,
         },
         address: {
             apt_number: "",
