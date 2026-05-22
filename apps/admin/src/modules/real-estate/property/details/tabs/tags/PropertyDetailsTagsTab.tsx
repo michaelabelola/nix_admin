@@ -20,13 +20,13 @@ import {
     SelectTrigger,
     SelectValue,
 } from "#/components/ui/select.tsx";
-import {NixModule} from "#/models/Models.ts";
+import {NixModule} from "@suiteonix/server/models";
 import type {PropertyModel} from "@suiteonix/server";
 import {PropertyApiHook} from "@suiteonix/server";
 import {TagQuickViewPopover} from "#/modules/tags/components/TagQuickViewPopover.tsx";
 import {TagRequest} from "@suiteonix/server";
 import {TagModel} from "@suiteonix/server";
-import {ObjectVisibility} from "#/models/PagedModel.ts";
+import {ObjectVisibility} from "@suiteonix/server/models";
 
 import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";
 

@@ -5,7 +5,7 @@ import {
     SummaryMetric,
 } from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 
-import type {ListingModel} from "../model.ts"
+import type {ListingModel} from "@suiteonix/server"
 import {getListingStatusVariant} from "../table.tsx"
 import {formatDate} from "./listing-details.utils.ts"
 import {ListingTags} from "./ListingTags.tsx"

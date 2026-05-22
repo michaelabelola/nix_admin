@@ -18,8 +18,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "#/components/ui/select.tsx"
-import {NixModule} from "#/models/Models.ts"
-import {ObjectVisibility} from "#/models/PagedModel.ts"
+import {NixModule} from "@suiteonix/server/models"
+import {ObjectVisibility} from "@suiteonix/server/models"
 import {TagModel} from "@suiteonix/server"
 import {TagRequest} from "@suiteonix/server"
 

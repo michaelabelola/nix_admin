@@ -7,7 +7,7 @@ import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {formatDuration, formatMoney} from "#/modules/real-estate/property/details/property-details.utils.ts"
 
-import type {PropertyListingProfileModel} from "./model.ts"
+import type {PropertyListingProfileModel} from "@suiteonix/server"
 
 export function createPropertyListingProfileColumns(): Array<ColumnDef<PropertyListingProfileModel.PropertyListingProfile>> {
     return [

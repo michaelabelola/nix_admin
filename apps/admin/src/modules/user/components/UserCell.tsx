@@ -1,4 +1,4 @@
-import type {NixID} from "#/models/Models.ts";
+import type {NixID} from "@suiteonix/server/models";
 import {UserRequest} from "@suiteonix/server";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 import {Skeleton} from "#/components/ui/skeleton.tsx";

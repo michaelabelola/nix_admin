@@ -1,4 +1,4 @@
-import type {ListingQuerierModel} from "../listing-querier.model.ts"
+import type {ListingQuerierModel} from "@suiteonix/server"
 
 export function formatDate(value?: Date | string | null) {
     if (!value) return null

@@ -6,8 +6,8 @@ import {
     EmptyState,
 } from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 
-import type {ListingModel} from "../model.ts"
-import {ListingQuerierRequest} from "../listing-querier.request.hook.ts"
+import type {ListingModel} from "@suiteonix/server"
+import {ListingQuerierRequest} from "@suiteonix/server"
 import {ListingPropertyCard} from "./ListingPropertyCard.tsx"
 
 export function ListingListedItemsTab({listingId}: { listingId: ListingModel.ListingID }) {

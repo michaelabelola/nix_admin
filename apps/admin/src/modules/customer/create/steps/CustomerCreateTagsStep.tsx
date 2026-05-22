@@ -1,4 +1,4 @@
-import {NixModule} from "#/models/Models.ts"
+import {NixModule} from "@suiteonix/server/models"
 import {TagPicker} from "#/modules/tags/components/TagPicker.tsx"
 
 import {useCustomerCreate} from "../customer-create.context.tsx"

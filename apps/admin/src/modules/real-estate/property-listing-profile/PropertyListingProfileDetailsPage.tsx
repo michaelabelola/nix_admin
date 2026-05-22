@@ -20,7 +20,7 @@ import {
 import {Input} from "#/components/ui/input.tsx"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
 import {Tabs, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
-import {NixModule} from "#/models/Models.ts"
+import {NixModule} from "@suiteonix/server/models"
 import {ListingModel} from "@suiteonix/server"
 import {ListingRequest, ListingQueryKeys} from "@suiteonix/server"
 import {getListingStatusVariant} from "#/modules/listing/table.tsx"

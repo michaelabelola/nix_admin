@@ -24,8 +24,8 @@ import {
 } from "#/components/ui/sheet.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
 
-import {PropertyFeatureRuleModel} from "./model.ts";
-import {PropertyFeatureRuleRequest} from "./request.hook.ts";
+import {PropertyFeatureRuleModel} from "@suiteonix/server";
+import {PropertyFeatureRuleRequest} from "@suiteonix/server";
 
 type FeatureRuleFormValues = {
     name: string

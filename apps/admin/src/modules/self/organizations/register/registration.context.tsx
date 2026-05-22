@@ -4,7 +4,7 @@ import {toast} from "sonner"
 
 import type {Organization_RegisterModel} from "@suiteonix/server"
 
-import onboardingOrgApi from "./onboarding.org.api.ts"
+import {orgOnboardingApi as onboardingOrgApi} from "@suiteonix/server"
 import defaultData from "#/DefaultData.ts";
 
 type RegistrationDraft = {

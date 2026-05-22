@@ -14,8 +14,8 @@ import type {
     DataTableFilterField,
     DataTableRequestBase,
 } from "#/components/data-table/types.ts";
-import {NixModule} from "#/models/Models.ts";
-import {ObjectVisibility} from "#/models/PagedModel.ts";
+import {NixModule} from "@suiteonix/server/models";
+import {ObjectVisibility} from "@suiteonix/server/models";
 import {TagCreateSheet} from "#/modules/tags/TagCreateSheet.tsx";
 import {TagModel} from "@suiteonix/server";
 import OrgCell from "#/modules/organization/components/OrgCell.tsx";

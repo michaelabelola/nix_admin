@@ -1,6 +1,6 @@
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
 
-import type {ListingModel} from "../model.ts"
+import type {ListingModel} from "@suiteonix/server"
 import {ListingDetailsRecordTab} from "./ListingDetailsRecordTab.tsx"
 import {ListingListedItemsTab} from "./ListingListedItemsTab.tsx"
 

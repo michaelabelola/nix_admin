@@ -6,7 +6,7 @@ import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
 
-import {ListingModel} from "./model.ts"
+import {ListingModel} from "@suiteonix/server"
 
 export function getListingStatusVariant(status?: string | null) {
     if (status === ListingModel.ListingStatus.LIVE) return "success"

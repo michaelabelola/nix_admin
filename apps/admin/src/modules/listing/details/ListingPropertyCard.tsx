@@ -5,7 +5,7 @@ import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
 
-import type {ListingQuerierModel} from "../listing-querier.model.ts"
+import type {ListingQuerierModel} from "@suiteonix/server"
 import {
     formatDate,
     formatListingItemDefinition,

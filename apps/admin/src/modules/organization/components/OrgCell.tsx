@@ -9,7 +9,7 @@ import {
   PopoverTrigger,
 } from "#/components/ui/popover.tsx";
 import { Skeleton } from "#/components/ui/skeleton.tsx";
-import type { NixID } from "#/models/Models.ts";
+import type { NixID } from "@suiteonix/server/models";
 import type { OrganizationModel } from "@suiteonix/server";
 import {OrganizationRequest} from "@suiteonix/server";
 import {

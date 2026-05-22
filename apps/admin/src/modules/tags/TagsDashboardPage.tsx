@@ -1,7 +1,7 @@
 import {useMemo} from "react";
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
-import {ObjectVisibility} from "#/models/PagedModel.ts";
+import {ObjectVisibility} from "@suiteonix/server/models";
 import {TagModel} from "@suiteonix/server";
 import {TagRequest} from "@suiteonix/server";
 import {TagsTablePage} from "#/modules/tags/tag-table.tsx";

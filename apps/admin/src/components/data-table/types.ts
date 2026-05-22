@@ -2,7 +2,7 @@ import type * as React from "react"
 import type {UseQueryResult} from "@tanstack/react-query"
 import type {ColumnDef, RowData, Table as ReactTable, TableOptions} from "@tanstack/react-table"
 
-import type {Paged, PagedRequest, SortParam} from "#/models/PagedModel.ts"
+import type {Paged, PagedRequest, SortParam} from "@suiteonix/server/models"
 import type {FileRoutesByTo} from "#/routeTree.gen.ts"
 
 declare module "@tanstack/react-table" {

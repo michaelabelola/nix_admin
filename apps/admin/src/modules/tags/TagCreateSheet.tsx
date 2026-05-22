@@ -22,7 +22,7 @@ import {
     SheetTitle,
 } from "#/components/ui/sheet.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
-import {NixModule} from "#/models/Models.ts";
+import {NixModule} from "@suiteonix/server/models";
 import {TagModel} from "@suiteonix/server";
 import {TagRequest} from "@suiteonix/server";
 

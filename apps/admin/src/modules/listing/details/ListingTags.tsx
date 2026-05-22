@@ -2,7 +2,7 @@ import {Badge} from "#/components/ui/badge.tsx"
 import {EmptyState} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 import {TagRequest} from "@suiteonix/server"
 
-import type {ListingModel} from "../model.ts"
+import type {ListingModel} from "@suiteonix/server"
 
 export function ListingTags({listing}: { listing: ListingModel.Detailed }) {
     const tagIds = listing.tags ?? []

@@ -1,7 +1,6 @@
 import {Dropdown, type DropdownProps} from "#/components/Dropdown.tsx";
 
-import CurrencyRequest from "./Currency.request.tsx";
-import {type CurrencyModel} from "#/lib/currency/Currency.api.ts";
+import {CurrencyRequest, type CurrencyModel} from "@suiteonix/server";
 import {useMemo} from "react";
 
 type CurrencyDropdownProps = Omit<DropdownProps, "options" | "label" | "emptyLabel"> & {

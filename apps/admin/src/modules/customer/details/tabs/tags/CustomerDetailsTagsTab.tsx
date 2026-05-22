@@ -12,7 +12,7 @@ import {
     ComboboxItem,
     ComboboxList,
 } from "#/components/ui/combobox.tsx"
-import {ObjectVisibility} from "#/models/PagedModel.ts"
+import {ObjectVisibility} from "@suiteonix/server/models"
 import type {CustomerModel} from "@suiteonix/server"
 import {CustomerRequest} from "@suiteonix/server"
 import {TagQuickViewPopover} from "#/modules/tags/components/TagQuickViewPopover.tsx"

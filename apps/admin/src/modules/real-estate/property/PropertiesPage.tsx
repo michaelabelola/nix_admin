@@ -9,7 +9,7 @@ import type {DataTableRequestBase} from "#/components/data-table/types.ts";
 import {Button} from "#/components/ui/button.tsx";
 import {ButtonGroup} from "#/components/ui/button-group.tsx";
 import {Badge} from "#/components/ui/badge.tsx";
-import type {PageRequest} from "#/models/PagedModel.ts";
+import type {PageRequest} from "@suiteonix/server/models";
 import {PropertyApiHook} from "@suiteonix/server";
 import type {PropertyModel} from "@suiteonix/server";
 

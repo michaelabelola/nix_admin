@@ -2,7 +2,7 @@ import * as React from "react"
 import {useLocation, useNavigate} from "@tanstack/react-router"
 import type {FileRoutesByTo} from "#/routeTree.gen.ts"
 
-import type {SortParam} from "#/models/PagedModel.ts"
+import type {SortParam} from "@suiteonix/server/models"
 
 import {
   type DataTableFilterField,

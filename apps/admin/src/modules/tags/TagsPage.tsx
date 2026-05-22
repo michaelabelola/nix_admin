@@ -1,4 +1,4 @@
-import {ObjectVisibility} from "#/models/PagedModel.ts";
+import {ObjectVisibility} from "@suiteonix/server/models";
 import {TagsTablePage} from "#/modules/tags/tag-table.tsx";
 
 export function TagsPage() {

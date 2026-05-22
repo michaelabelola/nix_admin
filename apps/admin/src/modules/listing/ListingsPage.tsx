@@ -8,7 +8,7 @@ import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
 import {ListingRequest} from "@suiteonix/server"
 
-import type {ListingModel} from "./model.ts"
+import type {ListingModel} from "@suiteonix/server"
 import {createListingColumns} from "./table.tsx"
 
 type ListingTableRequest = DataTableRequestBase

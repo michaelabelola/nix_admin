@@ -8,11 +8,11 @@ import Page from "#/components/Page.tsx";
 import {Badge} from "#/components/ui/badge.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {ButtonGroup} from "#/components/ui/button-group.tsx";
-import {ObjectVisibility} from "#/models/PagedModel.ts";
+import {ObjectVisibility} from "@suiteonix/server/models";
 
 import {FeatureRuleCreateSheet} from "./FeatureRuleCreateSheet.tsx";
-import {PropertyFeatureRuleModel} from "./model.ts";
-import {PropertyFeatureRuleRequest} from "./request.hook.ts";
+import {PropertyFeatureRuleModel} from "@suiteonix/server";
+import {PropertyFeatureRuleRequest} from "@suiteonix/server";
 
 type FeatureRuleTableQuery = DataTableRequestBase & {
     format?: PropertyFeatureRuleModel.FieldFormat

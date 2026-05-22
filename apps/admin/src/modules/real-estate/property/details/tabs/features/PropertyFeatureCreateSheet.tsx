@@ -20,7 +20,7 @@ import {
     SheetTitle,
 } from "#/components/ui/sheet.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
-import {ObjectVisibility} from "#/models/PagedModel.ts";
+import {ObjectVisibility} from "@suiteonix/server/models";
 import {PropertyFeatureApiHook} from "@suiteonix/server";
 import {PropertyFeatureModel} from "@suiteonix/server";
 import type {PropertyModel} from "@suiteonix/server";

@@ -10,10 +10,10 @@ import {Input} from "#/components/ui/input.tsx"
 import {Label} from "#/components/ui/label.tsx"
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "#/components/ui/select.tsx"
 import {Textarea} from "#/components/ui/textarea.tsx"
-import {NixModule} from "#/models/Models.ts"
+import {NixModule} from "@suiteonix/server/models"
 
-import {ListingModel} from "../model.ts"
-import {ListingRequest} from "../request.hook.ts"
+import {ListingModel} from "@suiteonix/server"
+import {ListingRequest} from "@suiteonix/server"
 
 function parseTags(value: string) {
     return value

@@ -1,6 +1,6 @@
 import type {ColumnDef, ColumnSort} from "@tanstack/react-table"
 
-import type {SortParam} from "#/models/PagedModel.ts"
+import type {SortParam} from "@suiteonix/server/models"
 
 export function flattenColumns<TData, TValue>(
   columns: Array<ColumnDef<TData, TValue>>,

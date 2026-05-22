@@ -6,8 +6,8 @@ import {ButtonGroup} from "#/components/ui/button-group.tsx"
 import {EmptyState} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 
 import {ListingDetailsTabs} from "./details/ListingDetailsTabs.tsx"
-import type {ListingModel} from "./model.ts"
-import {ListingRequest} from "./request.hook.ts"
+import type {ListingModel} from "@suiteonix/server"
+import {ListingRequest} from "@suiteonix/server"
 
 export function ListingDetailsPage({listingId}: { listingId: ListingModel.ListingID }) {
     const query = ListingRequest.useGetListing(listingId)

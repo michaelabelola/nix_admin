@@ -1,6 +1,6 @@
 import type {AccountModel} from "@suiteonix/server"
 import type {TransactionModel} from "@suiteonix/server"
-import type {Money} from "#/models/Money.model.ts"
+import type {Money} from "@suiteonix/server/models"
 
 export function getAccountDisplayName(
   account?: Pick<AccountModel.Account, "name" | "id"> | Pick<AccountModel.Detailed, "name" | "id"> | null,
