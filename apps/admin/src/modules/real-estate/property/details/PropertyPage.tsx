@@ -2,21 +2,21 @@ import type {ReactNode} from "react";
 import {useNavigate} from "@tanstack/react-router";
 
 import Page from "#/components/Page.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
+import {Badge} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
+import {ButtonGroup} from "@suiteonix/ui";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "#/components/ui/card.tsx";
+} from "@suiteonix/ui";
 import {
     Tabs,
     TabsList,
     TabsTrigger,
-} from "#/components/ui/tabs.tsx";
+} from "@suiteonix/ui";
 import {PropertyApiHook} from "@suiteonix/server";
 import {
     Route as PropertyDetailsRoute

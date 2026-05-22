@@ -1,4 +1,4 @@
-import {DatePicker, parseDateInput, toDateInputValue} from "#/components/ui/date-picker.tsx"
+import {DatePicker, parseDateInput, toDateInputValue} from "@suiteonix/ui"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"

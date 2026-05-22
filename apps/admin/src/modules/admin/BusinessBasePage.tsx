@@ -1,4 +1,4 @@
-import {SidebarProvider} from "#/components/ui/sidebar.tsx";
+import {SidebarProvider} from "@suiteonix/ui";
 import {Outlet} from "@tanstack/react-router";
 import {AdminSidebar} from "#/modules/admin/components/side-nav/admin-sidebar.tsx";
 import {OrganizationRequest} from "@suiteonix/server";

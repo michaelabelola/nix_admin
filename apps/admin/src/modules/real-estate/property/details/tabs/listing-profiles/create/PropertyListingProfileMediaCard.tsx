@@ -1,11 +1,11 @@
 import {ImageIcon} from "lucide-react"
 
-import {Badge} from "#/components/ui/badge.tsx"
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
-import {Checkbox} from "#/components/ui/checkbox.tsx"
-import {Label} from "#/components/ui/label.tsx"
-import {RadioGroup, RadioGroupItem} from "#/components/ui/radio-group.tsx"
-import {Spinner} from "#/components/ui/spinner.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
+import {Checkbox} from "@suiteonix/ui"
+import {Label} from "@suiteonix/ui"
+import {RadioGroup, RadioGroupItem} from "@suiteonix/ui"
+import {Spinner} from "@suiteonix/ui"
 import type {FilesStorageModel} from "@suiteonix/server"
 import type {PropertyModel} from "@suiteonix/server"
 

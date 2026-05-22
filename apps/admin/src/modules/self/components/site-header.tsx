@@ -1,6 +1,6 @@
-import { Button } from "#/components/ui/button.tsx"
-import { Separator } from "#/components/ui/separator.tsx"
-import { SidebarTrigger } from "#/components/ui/sidebar.tsx"
+import { Button } from "@suiteonix/ui"
+import { Separator } from "@suiteonix/ui"
+import { SidebarTrigger } from "@suiteonix/ui"
 
 export function SiteHeader() {
   return (

@@ -2,8 +2,8 @@ import type {PropertyModel} from "@suiteonix/server";
 
 import {KeyValue} from "../../PropertyDetailsPrimitives.tsx";
 import {OrganizationRequest as organizationRequest} from "@suiteonix/server";
-import {Spinner} from "#/components/ui/spinner.tsx";
-import {Card, CardHeader} from "#/components/ui/card.tsx";
+import {Spinner} from "@suiteonix/ui";
+import {Card, CardHeader} from "@suiteonix/ui";
 import {TagsView} from "#/modules/tags/components/TagsView.tsx";
 
 export function PropertyDetailsRecordTab({property}: { property?: PropertyModel.Detailed }) {

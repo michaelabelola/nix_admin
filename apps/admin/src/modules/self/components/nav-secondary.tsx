@@ -9,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "#/components/ui/sidebar.tsx"
+} from "@suiteonix/ui"
 
 export function NavSecondary({
   items,

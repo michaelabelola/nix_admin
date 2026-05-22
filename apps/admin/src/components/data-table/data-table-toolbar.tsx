@@ -1,20 +1,20 @@
 import {RefreshCw, Search, X} from "lucide-react"
 
-import {Button} from "#/components/ui/button.tsx"
-import {Input} from "#/components/ui/input.tsx"
+import {Button} from "@suiteonix/ui"
+import {Input} from "@suiteonix/ui"
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
+} from "@suiteonix/ui"
 import {cn} from "#/lib/utils.ts"
 
 import {defaultParseValue, defaultSerializeValue} from "./search-state.ts"
 import type {DataTableRequestBase, DataTableToolbarProps} from "./types.ts"
 import {getFilterValue} from "./types.ts"
-import {QuickToolTip} from "#/components/ui/tooltip.tsx";
+import {QuickToolTip} from "@suiteonix/ui";
 
 export function DataTableToolbar<TRequest extends DataTableRequestBase>({
                                                                             filterFields,

@@ -6,7 +6,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "#/components/ui/sidebar.tsx"
+} from "@suiteonix/ui"
 import ThemeToggle from "#/components/ThemeToggle.tsx";
 
 export function NavMain({

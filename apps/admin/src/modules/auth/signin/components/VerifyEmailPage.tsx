@@ -3,14 +3,14 @@ import {KeyRound, MailCheck, ShieldCheck} from 'lucide-react'
 import {useEffect, useRef} from 'react'
 import {useForm, useStore} from '@tanstack/react-form'
 
-import {Alert, AlertDescription, AlertTitle} from '#/components/ui/alert.tsx'
-import {Badge} from '#/components/ui/badge.tsx'
-import {Button} from '#/components/ui/button.tsx'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card.tsx'
-import {Input} from '#/components/ui/input.tsx'
-import {Label} from '#/components/ui/label.tsx'
+import {Alert, AlertDescription, AlertTitle} from '@suiteonix/ui'
+import {Badge} from '@suiteonix/ui'
+import {Button} from '@suiteonix/ui'
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@suiteonix/ui'
+import {Input} from '@suiteonix/ui'
+import {Label} from '@suiteonix/ui'
 import {SignInHook} from '@suiteonix/server'
-import {InputOTP, InputOTPGroup, InputOTPSlot} from "#/components/ui/input-otp.tsx";
+import {InputOTP, InputOTPGroup, InputOTPSlot} from "@suiteonix/ui";
 
 const benefits = [
     {

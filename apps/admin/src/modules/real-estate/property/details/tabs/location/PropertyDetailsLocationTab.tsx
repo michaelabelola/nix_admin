@@ -5,7 +5,7 @@ import {getGoogleMapsEmbedUrl} from "../../property-details.utils.ts";
 import {countriesApi} from "@suiteonix/server";
 import {useEffect, useState} from "react";
 import {statesApi} from "@suiteonix/server";
-import {Card, CardContent} from "#/components/ui/card.tsx";
+import {Card, CardContent} from "@suiteonix/ui";
 
 export function PropertyDetailsLocationTab({property}: { property?: PropertyModel.Detailed }) {
     const location = property?.location

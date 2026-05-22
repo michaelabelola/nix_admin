@@ -2,17 +2,17 @@ import {useEffect} from "react";
 import {useForm, useStore} from "@tanstack/react-form";
 import {toast} from "sonner";
 
-import {Alert, AlertDescription, AlertTitle} from "#/components/ui/alert.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {Input} from "#/components/ui/input.tsx";
-import {Label} from "#/components/ui/label.tsx";
+import {Alert, AlertDescription, AlertTitle} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
+import {Input} from "@suiteonix/ui";
+import {Label} from "@suiteonix/ui";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx";
+} from "@suiteonix/ui";
 import {
     Sheet,
     SheetContent,
@@ -20,8 +20,8 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-} from "#/components/ui/sheet.tsx";
-import {Textarea} from "#/components/ui/textarea.tsx";
+} from "@suiteonix/ui";
+import {Textarea} from "@suiteonix/ui";
 import {NixModule} from "@suiteonix/server/models";
 import {TagModel} from "@suiteonix/server";
 import {TagRequest} from "@suiteonix/server";

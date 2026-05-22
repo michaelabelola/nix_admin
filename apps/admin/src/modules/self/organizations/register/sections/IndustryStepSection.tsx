@@ -6,7 +6,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
+} from "@suiteonix/ui"
 import {organizationUtilsApi} from "@suiteonix/server"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"

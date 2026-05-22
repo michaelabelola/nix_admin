@@ -5,10 +5,10 @@ import {ArrowLeft, ArrowRight, CheckIcon, EyeIcon, FileIcon, ImageIcon, PlusIcon
 import {toast} from "sonner"
 
 import Page from "#/components/Page.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
 import {
     Sheet,
     SheetContent,
@@ -16,10 +16,10 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-} from "#/components/ui/sheet.tsx"
-import {Input} from "#/components/ui/input.tsx"
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
-import {Tabs, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
+} from "@suiteonix/ui"
+import {Input} from "@suiteonix/ui"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@suiteonix/ui"
+import {Tabs, TabsList, TabsTrigger} from "@suiteonix/ui"
 import {NixModule} from "@suiteonix/server/models"
 import {ListingModel} from "@suiteonix/server"
 import {ListingRequest, ListingQueryKeys} from "@suiteonix/server"

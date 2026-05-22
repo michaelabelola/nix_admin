@@ -1,17 +1,17 @@
 import type {ReactNode} from "react"
 
-import {DatePicker, parseDateInput, toDateInputValue} from "#/components/ui/date-picker.tsx"
-import {Input} from "#/components/ui/input.tsx"
-import {Label} from "#/components/ui/label.tsx"
+import {DatePicker, parseDateInput, toDateInputValue} from "@suiteonix/ui"
+import {Input} from "@suiteonix/ui"
+import {Label} from "@suiteonix/ui"
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
-import {Switch} from "#/components/ui/switch.tsx"
-import {Textarea} from "#/components/ui/textarea.tsx"
+} from "@suiteonix/ui"
+import {Switch} from "@suiteonix/ui"
+import {Textarea} from "@suiteonix/ui"
 import {CountrySelector} from "#/modules/location/components/CountrySelector.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
 

@@ -1,4 +1,4 @@
-import {Textarea} from "#/components/ui/textarea.tsx"
+import {Textarea} from "@suiteonix/ui"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"

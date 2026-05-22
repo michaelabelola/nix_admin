@@ -2,9 +2,9 @@ import type {ReactNode} from "react";
 import {Link} from "@tanstack/react-router";
 import {ExternalLink, Globe2} from "lucide-react";
 
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
-import {Button} from "#/components/ui/button.tsx";
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
+import {Badge} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
 import {
     Popover,
     PopoverContent,
@@ -12,7 +12,7 @@ import {
     PopoverHeader,
     PopoverTitle,
     PopoverTrigger,
-} from "#/components/ui/popover.tsx";
+} from "@suiteonix/ui";
 import type {AppModel} from "@suiteonix/server";
 import {getAppDisplayName, getInitials} from "#/modules/app/app.utils.tsx";
 

@@ -1,10 +1,10 @@
 import {AlertTriangle} from "lucide-react"
 
 import {Dropdown, type DropdownOption} from "#/components/Dropdown.tsx"
-import {Checkbox} from "#/components/ui/checkbox.tsx"
-import {Input} from "#/components/ui/input.tsx"
-import {Label} from "#/components/ui/label.tsx"
-import {Textarea} from "#/components/ui/textarea.tsx"
+import {Checkbox} from "@suiteonix/ui"
+import {Input} from "@suiteonix/ui"
+import {Label} from "@suiteonix/ui"
+import {Textarea} from "@suiteonix/ui"
 import type {ErrorFieldType} from "@suiteonix/server"
 
 function FieldErrorMessage({error}: { error?: string }) {

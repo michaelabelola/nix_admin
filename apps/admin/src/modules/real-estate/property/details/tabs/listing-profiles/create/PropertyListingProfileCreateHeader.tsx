@@ -1,8 +1,8 @@
 import {ArrowLeft, Check} from "lucide-react"
 
-import {Button} from "#/components/ui/button.tsx"
-import {Card, CardHeader, CardDescription, CardTitle} from "#/components/ui/card.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
+import {Button} from "@suiteonix/ui"
+import {Card, CardHeader, CardDescription, CardTitle} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui";
 
 export function PropertyListingProfileCreateHeader({
     disabled,

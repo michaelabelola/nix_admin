@@ -1,7 +1,7 @@
 import type {ReactNode} from "react"
 
 import {ImageSelector} from "#/components/ImageSelector.tsx"
-import {Input} from "#/components/ui/input.tsx"
+import {Input} from "@suiteonix/ui"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
 import {
@@ -10,8 +10,8 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
-import {Textarea} from "#/components/ui/textarea.tsx"
+} from "@suiteonix/ui"
+import {Textarea} from "@suiteonix/ui"
 
 import {StepField} from "./PropertyRegistrationFormParts.tsx"
 

@@ -2,8 +2,8 @@ import {useMemo, useState} from "react";
 import {AlertCircle, PlusCircle, Search, Tag as TagIcon, Trash2, X} from "lucide-react";
 import {toast} from "sonner";
 
-import {Button} from "#/components/ui/button.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
+import {Button} from "@suiteonix/ui";
+import {Badge} from "@suiteonix/ui";
 import {
     Combobox,
     ComboboxContent,
@@ -11,15 +11,15 @@ import {
     ComboboxInput,
     ComboboxItem,
     ComboboxList,
-} from "#/components/ui/combobox.tsx";
-import {Input} from "#/components/ui/input.tsx";
+} from "@suiteonix/ui";
+import {Input} from "@suiteonix/ui";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx";
+} from "@suiteonix/ui";
 import {NixModule} from "@suiteonix/server/models";
 import type {PropertyModel} from "@suiteonix/server";
 import {PropertyApiHook} from "@suiteonix/server";

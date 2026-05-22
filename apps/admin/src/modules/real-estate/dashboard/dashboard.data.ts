@@ -1,4 +1,4 @@
-import type {ChartConfig} from "#/components/ui/chart.tsx"
+import type {ChartConfig} from "@suiteonix/ui"
 
 export const portfolioMix = [
   {name: "Apartments", units: 146, occupancy: 94, avgRent: "$2,180"},

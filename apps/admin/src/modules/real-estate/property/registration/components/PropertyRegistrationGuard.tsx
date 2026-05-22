@@ -5,8 +5,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "#/components/ui/card.tsx"
-import { Spinner } from "#/components/ui/spinner.tsx"
+} from "@suiteonix/ui"
+import { Spinner } from "@suiteonix/ui"
 import { PropertyApiHook } from "@suiteonix/server"
 import { PropertyModel } from "@suiteonix/server"
 

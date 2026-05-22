@@ -1,13 +1,13 @@
 import * as React from "react"
 
-import {Button} from "#/components/ui/button.tsx"
+import {Button} from "@suiteonix/ui"
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
+} from "@suiteonix/ui"
 
 import type {DataTablePaginationProps} from "./types.ts"
 

@@ -1,5 +1,5 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
-import {Checkbox} from "#/components/ui/checkbox.tsx"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
+import {Checkbox} from "@suiteonix/ui"
 
 import type {ListingProfileCreateLocationFieldKey} from "./property-listing-profile-create.shared.ts"
 

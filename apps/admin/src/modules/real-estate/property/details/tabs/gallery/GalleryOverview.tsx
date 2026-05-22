@@ -4,8 +4,8 @@ import {
     Lock,
 } from "lucide-react";
 
-import {Badge} from "#/components/ui/badge.tsx";
-import {Card, CardContent} from "#/components/ui/card.tsx";
+import {Badge} from "@suiteonix/ui";
+import {Card, CardContent} from "@suiteonix/ui";
 import type {FilesStorageModel} from "@suiteonix/server";
 
 import {KeyValue, SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";

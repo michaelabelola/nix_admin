@@ -1,7 +1,7 @@
 import {useEffect, useRef} from "react"
 
-import {DatePicker, parseDateInput, toDateInputValue} from "#/components/ui/date-picker.tsx"
-import {Textarea} from "#/components/ui/textarea.tsx"
+import {DatePicker, parseDateInput, toDateInputValue} from "@suiteonix/ui"
+import {Textarea} from "@suiteonix/ui"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
 import {UserRequest} from "@suiteonix/server"

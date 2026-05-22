@@ -8,9 +8,9 @@ import type {
   DataTableFilterField,
   DataTableRequestBase,
 } from "#/components/data-table/types.ts"
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui"
 import type {FileRoutesByTo} from "#/routeTree.gen.ts"
 import type {AccountModel} from "@suiteonix/server"
 import {

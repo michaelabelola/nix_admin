@@ -11,8 +11,8 @@ import {ProxyLoginConfirmDialog} from "./ProxyLoginConfirmDialog.tsx"
 import type {PendingSignIn, PermissionRow} from "./my-businesses.types.ts"
 import {useAuthenticatedUserStore} from "@suiteonix/server";
 import Page from "#/components/Page.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
-import {Button} from "#/components/ui/button.tsx";
+import {ButtonGroup} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
 import {Link, useNavigate} from "@tanstack/react-router";
 
 function createPendingSignIn(row: PermissionRow): PendingSignIn {

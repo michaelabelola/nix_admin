@@ -1,7 +1,7 @@
 import {useMemo} from "react";
 import {AppWindow, KeyRound, ShieldCheck, Webhook} from "lucide-react";
 
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui";
 import {AccessTokenModel} from "@suiteonix/server";
 import {AccessTokenRequest} from "@suiteonix/server";
 import {AppRequest} from "@suiteonix/server";

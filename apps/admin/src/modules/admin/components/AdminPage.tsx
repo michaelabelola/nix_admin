@@ -1,11 +1,11 @@
 import {Navigate} from '@tanstack/react-router'
 
 import {useAuthenticatedUser} from '@suiteonix/server'
-import {Card, CardDescription, CardHeader, CardTitle} from '#/components/ui/card.tsx'
+import {Card, CardDescription, CardHeader, CardTitle} from '@suiteonix/ui'
 
 import {BusinessAdminPage} from '../business-admin/BusinessAdminPage.tsx'
 import {UserAdminPage} from '#/modules/self/UserAdminPage.tsx'
-import {Spinner} from "#/components/ui/spinner.tsx";
+import {Spinner} from "@suiteonix/ui";
 
 export function AdminPage() {
     const {user, isHydrated} = useAuthenticatedUser()

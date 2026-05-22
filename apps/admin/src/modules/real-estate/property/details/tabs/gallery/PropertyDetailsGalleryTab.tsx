@@ -1,8 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
 import {ImageIcon, Upload} from "lucide-react";
 
-import {Button} from "#/components/ui/button.tsx";
-import {Spinner} from "#/components/ui/spinner.tsx";
+import {Button} from "@suiteonix/ui";
+import {Spinner} from "@suiteonix/ui";
 import {FilesStorageRequest} from "@suiteonix/server";
 import type {PropertyModel} from "@suiteonix/server";
 
@@ -12,7 +12,7 @@ import {GalleryOverview} from "./GalleryOverview.tsx";
 import {GalleryUploadForm} from "./GalleryUploadForm.tsx";
 import {buildPageItems, PAGE_SIZE} from "./gallery.utils.ts";
 import {useGalleryUpload} from "./useGalleryUpload.ts";
-import {Card, CardContent} from "#/components/ui/card.tsx";
+import {Card, CardContent} from "@suiteonix/ui";
 
 export function PropertyDetailsGalleryTab({
     property,

@@ -3,8 +3,8 @@ import type {ColumnDef} from "@tanstack/react-table";
 import {PlusCircle} from "lucide-react";
 
 import DataTable from "#/components/data-table/data-table.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
-import {Button} from "#/components/ui/button.tsx";
+import {Badge} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
 import type {PropertyFeatureModel} from "@suiteonix/server";
 import {PropertyFeatureApiHook} from "@suiteonix/server";
 import type {PropertyModel} from "@suiteonix/server";

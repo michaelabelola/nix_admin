@@ -1,16 +1,16 @@
 import {useEffect, useMemo, useState} from "react";
 import {toast} from "sonner";
 
-import {Button} from "#/components/ui/button.tsx";
-import {Input} from "#/components/ui/input.tsx";
-import {Label} from "#/components/ui/label.tsx";
+import {Button} from "@suiteonix/ui";
+import {Input} from "@suiteonix/ui";
+import {Label} from "@suiteonix/ui";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx";
+} from "@suiteonix/ui";
 import {
     Sheet,
     SheetContent,
@@ -18,8 +18,8 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-} from "#/components/ui/sheet.tsx";
-import {Textarea} from "#/components/ui/textarea.tsx";
+} from "@suiteonix/ui";
+import {Textarea} from "@suiteonix/ui";
 import {ObjectVisibility} from "@suiteonix/server/models";
 import {PropertyFeatureApiHook} from "@suiteonix/server";
 import {PropertyFeatureModel} from "@suiteonix/server";

@@ -1,8 +1,8 @@
 import {createFileRoute, Link} from '@tanstack/react-router'
 import {useAuthenticatedUser} from "@suiteonix/server";
-import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "#/components/ui/card.tsx";
-import {Spinner} from "#/components/ui/spinner.tsx";
-import {Button} from "#/components/ui/button.tsx";
+import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@suiteonix/ui";
+import {Spinner} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
 import {IconCancel} from "@tabler/icons-react";
 import BusinessBasePage from "#/modules/admin/BusinessBasePage.tsx";
 import Page404 from "#/components/pages/Page404.tsx";

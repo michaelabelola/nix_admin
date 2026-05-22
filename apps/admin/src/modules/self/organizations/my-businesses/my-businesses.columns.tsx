@@ -1,15 +1,15 @@
 import type {ColumnDef} from "@tanstack/react-table"
 import {EyeIcon, LogIn} from "lucide-react"
 
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
-import {buttonVariants} from "#/components/ui/button.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
+import {ButtonGroup} from "@suiteonix/ui"
+import {buttonVariants} from "@suiteonix/ui"
+import {Badge} from "@suiteonix/ui"
 import {
   QuickToolTip,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "#/components/ui/tooltip.tsx"
+} from "@suiteonix/ui"
 import UserCell from "#/modules/user/components/UserCell.tsx"
 
 import type {PermissionRow} from "./my-businesses.types.ts"

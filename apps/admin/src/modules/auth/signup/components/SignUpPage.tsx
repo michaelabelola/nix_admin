@@ -1,6 +1,6 @@
 import {Building2, Sparkles, UserRoundPlus} from 'lucide-react'
 
-import {Badge} from '#/components/ui/badge.tsx'
+import {Badge} from '@suiteonix/ui'
 
 import {SignUpForm} from './SignUpForm.tsx'
 

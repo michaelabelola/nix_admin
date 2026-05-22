@@ -27,17 +27,17 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "#/components/ui/sidebar.tsx"
+} from "@suiteonix/ui"
 import {selfBusinessNavItems} from "#/modules/self/organizations/OrgNav.tsx";
 import type {FileRoutesByTo} from "#/routeTree.gen.ts";
 import {useAuthenticatedUser} from "@suiteonix/server";
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
 import {OrganizationRequest} from "@suiteonix/server";
-import {QuickToolTip} from "#/components/ui/tooltip.tsx";
+import {QuickToolTip} from "@suiteonix/ui";
 import {useNavigate} from "@tanstack/react-router";
 // @ts-ignore
 import LOGO from "#/assets/logo.svg?react";
-import {Button} from "#/components/ui/button.tsx";
+import {Button} from "@suiteonix/ui";
 
 export type NavSectionType = {
     title?: string,

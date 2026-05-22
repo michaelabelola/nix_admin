@@ -11,7 +11,7 @@ import {
     Avatar,
     AvatarFallback,
     AvatarImage,
-} from "#/components/ui/avatar.tsx"
+} from "@suiteonix/ui"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -20,7 +20,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu.tsx"
+} from "@suiteonix/ui"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -30,13 +30,13 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "#/components/ui/alert-dialog.tsx";
+} from "@suiteonix/ui";
 import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from "#/components/ui/sidebar.tsx"
+} from "@suiteonix/ui"
 import {UserRequest} from "@suiteonix/server";
 import {useLogout} from "@suiteonix/server";
 

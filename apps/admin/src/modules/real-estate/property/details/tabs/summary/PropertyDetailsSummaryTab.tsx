@@ -2,7 +2,7 @@ import type {PropertyModel} from "@suiteonix/server";
 
 import {SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDefinitionAmount, formatLocation, formatPricingDefinition} from "../../property-details.utils.ts";
-import {Card, CardContent, CardHeader} from "#/components/ui/card.tsx";
+import {Card, CardContent, CardHeader} from "@suiteonix/ui";
 
 export function PropertyDetailsSummaryTab({property}: { property?: PropertyModel.Detailed }) {
     const locationLabel = formatLocation(property?.location)

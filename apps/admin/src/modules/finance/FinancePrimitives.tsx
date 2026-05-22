@@ -6,7 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "#/components/ui/card.tsx"
+} from "@suiteonix/ui"
 
 export function SummaryMetric({label, value}: { label: string; value?: string | null }) {
   return (

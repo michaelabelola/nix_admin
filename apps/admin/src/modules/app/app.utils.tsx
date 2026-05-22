@@ -1,6 +1,6 @@
 import type {VariantProps} from "class-variance-authority";
 
-import type {badgeVariants} from "#/components/ui/badge.tsx";
+import type {badgeVariants} from "@suiteonix/ui";
 import {AccessTokenModel} from "@suiteonix/server";
 import type {AppModel} from "@suiteonix/server";
 

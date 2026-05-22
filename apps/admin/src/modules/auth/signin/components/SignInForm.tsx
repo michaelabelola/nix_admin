@@ -1,9 +1,9 @@
 import {useEffect} from 'react'
 import {useForm, useStore} from '@tanstack/react-form'
 
-import {Alert, AlertDescription, AlertTitle} from '#/components/ui/alert.tsx'
-import {Button} from '#/components/ui/button.tsx'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card.tsx'
+import {Alert, AlertDescription, AlertTitle} from '@suiteonix/ui'
+import {Button} from '@suiteonix/ui'
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@suiteonix/ui'
 import {useAuthenticatedUserStore} from '@suiteonix/server'
 import {useEntityStore} from '#/lib/entity.store.ts'
 import type {LoginModel} from '@suiteonix/server'

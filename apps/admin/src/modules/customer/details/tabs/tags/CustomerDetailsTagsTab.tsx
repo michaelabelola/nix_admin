@@ -2,8 +2,8 @@ import {useMemo, useState} from "react"
 import {PlusCircle, Tag as TagIcon, Trash2} from "lucide-react"
 import {toast} from "sonner"
 
-import {Button} from "#/components/ui/button.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
+import {Button} from "@suiteonix/ui"
+import {Badge} from "@suiteonix/ui"
 import {
     Combobox,
     ComboboxContent,
@@ -11,7 +11,7 @@ import {
     ComboboxInput,
     ComboboxItem,
     ComboboxList,
-} from "#/components/ui/combobox.tsx"
+} from "@suiteonix/ui"
 import {ObjectVisibility} from "@suiteonix/server/models"
 import type {CustomerModel} from "@suiteonix/server"
 import {CustomerRequest} from "@suiteonix/server"

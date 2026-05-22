@@ -1,8 +1,8 @@
 import {Link} from "@tanstack/react-router"
 
-import {Button} from "#/components/ui/button.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
-import {Separator} from "#/components/ui/separator.tsx"
+import {Button} from "@suiteonix/ui"
+import {Badge} from "@suiteonix/ui"
+import {Separator} from "@suiteonix/ui"
 import {AccountModel} from "@suiteonix/server"
 import {SummaryMetric} from "#/modules/finance/FinancePrimitives.tsx"
 import {TransactionRequest} from "@suiteonix/server"

@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import {Input} from "#/components/ui/input.tsx"
+import {Input} from "@suiteonix/ui"
 import {
     Select,
     SelectContent,
@@ -9,7 +9,7 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
+} from "@suiteonix/ui"
 import {cn} from "#/lib/utils.ts"
 import {CountryAPI, type LocationModel} from "@suiteonix/server"
 

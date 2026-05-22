@@ -2,9 +2,9 @@ import {Link} from "@tanstack/react-router"
 import type {ColumnDef} from "@tanstack/react-table"
 import {ArrowRight} from "lucide-react"
 
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
 import {formatDuration, formatMoney} from "#/modules/real-estate/property/details/property-details.utils.ts"
 
 import type {PropertyListingProfileModel} from "@suiteonix/server"

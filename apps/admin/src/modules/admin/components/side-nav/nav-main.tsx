@@ -6,9 +6,9 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "#/components/ui/sidebar.tsx"
+} from "@suiteonix/ui"
 import ThemeToggle from "#/components/ThemeToggle.tsx";
-import {Button} from "#/components/ui/button.tsx";
+import {Button} from "@suiteonix/ui";
 import {Grid3X3Icon, Navigation2} from "lucide-react";
 
 export function NavMain({

@@ -1,4 +1,4 @@
-import {Badge} from "#/components/ui/badge.tsx"
+import {Badge} from "@suiteonix/ui"
 import {EmptyState} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 import {TagRequest} from "@suiteonix/server"
 

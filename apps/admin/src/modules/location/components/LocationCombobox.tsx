@@ -4,7 +4,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
+} from "@suiteonix/ui"
 
 export type LocationComboboxOption = {
     label: string

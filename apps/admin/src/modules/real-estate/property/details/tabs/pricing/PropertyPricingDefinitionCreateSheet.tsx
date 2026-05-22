@@ -1,11 +1,11 @@
 import {type ReactNode, useState} from "react";
 import {toast} from "sonner";
 
-import {Button} from "#/components/ui/button.tsx";
-import {Checkbox} from "#/components/ui/checkbox.tsx";
+import {Button} from "@suiteonix/ui";
+import {Checkbox} from "@suiteonix/ui";
 import {CurrencyDropdown} from "#/lib/currency/CurrencyDropdown.tsx";
-import {Input} from "#/components/ui/input.tsx";
-import {Textarea} from "#/components/ui/textarea.tsx";
+import {Input} from "@suiteonix/ui";
+import {Textarea} from "@suiteonix/ui";
 import {
     Sheet,
     SheetContent,
@@ -13,7 +13,7 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-} from "#/components/ui/sheet.tsx";
+} from "@suiteonix/ui";
 import type {PropertyModel} from "@suiteonix/server";
 import {PricingApiHook} from "@suiteonix/server";
 

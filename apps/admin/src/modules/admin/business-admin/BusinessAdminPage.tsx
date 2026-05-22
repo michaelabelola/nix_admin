@@ -1,7 +1,7 @@
 import {Building2, BriefcaseBusiness, ShieldCheck} from 'lucide-react'
 
-import {Badge} from '#/components/ui/badge.tsx'
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card.tsx'
+import {Badge} from '@suiteonix/ui'
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@suiteonix/ui'
 
 const highlights = [
     {

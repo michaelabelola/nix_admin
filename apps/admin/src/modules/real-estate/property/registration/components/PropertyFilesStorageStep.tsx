@@ -2,8 +2,8 @@ import { useState } from "react"
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 
-import { Badge } from "#/components/ui/badge.tsx"
-import { Button } from "#/components/ui/button.tsx"
+import { Badge } from "@suiteonix/ui"
+import { Button } from "@suiteonix/ui"
 import { PropertyApiHook } from "@suiteonix/server"
 import type { PropertyModel } from "@suiteonix/server"
 

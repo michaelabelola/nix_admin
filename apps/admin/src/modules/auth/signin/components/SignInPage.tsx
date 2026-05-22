@@ -1,11 +1,11 @@
 import {Link} from '@tanstack/react-router'
 import {Building2, KeyRound, ShieldCheck} from 'lucide-react'
 
-import {Badge} from '#/components/ui/badge.tsx'
-import {Button} from '#/components/ui/button.tsx'
+import {Badge} from '@suiteonix/ui'
+import {Button} from '@suiteonix/ui'
 
 import {SignInForm} from './SignInForm.tsx'
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
+import {ButtonGroup} from "@suiteonix/ui";
 
 const benefits = [
     {

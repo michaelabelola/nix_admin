@@ -1,10 +1,10 @@
 import type {FormEvent} from "react";
 import {AlertCircle, Upload} from "lucide-react";
 
-import {Alert, AlertDescription, AlertTitle} from "#/components/ui/alert.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {Input} from "#/components/ui/input.tsx";
-import {Label} from "#/components/ui/label.tsx";
+import {Alert, AlertDescription, AlertTitle} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
+import {Input} from "@suiteonix/ui";
+import {Label} from "@suiteonix/ui";
 import {
     Sheet,
     SheetContent,
@@ -12,9 +12,9 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-} from "#/components/ui/sheet.tsx";
-import {Spinner} from "#/components/ui/spinner.tsx";
-import {Textarea} from "#/components/ui/textarea.tsx";
+} from "@suiteonix/ui";
+import {Spinner} from "@suiteonix/ui";
+import {Textarea} from "@suiteonix/ui";
 
 export type GalleryUploadFormState = {
     description: string

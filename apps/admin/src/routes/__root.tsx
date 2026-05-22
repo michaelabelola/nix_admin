@@ -16,8 +16,8 @@ import {getLocale} from '#/paraglide/runtime'
 import appCss from '../styles.css?url'
 
 import type {QueryClient} from '@tanstack/react-query'
-import {TooltipProvider} from "#/components/ui/tooltip.tsx";
-import {Toaster} from "#/components/ui/sonner.tsx";
+import {TooltipProvider} from "@suiteonix/ui";
+import {Toaster} from "@suiteonix/ui";
 import Page404 from "#/components/pages/Page404.tsx";
 import type {ReactNode} from "react";
 

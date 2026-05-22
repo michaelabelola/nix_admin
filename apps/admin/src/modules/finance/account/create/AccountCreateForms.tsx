@@ -2,18 +2,18 @@ import {useMemo, useState} from "react"
 import {Link, useNavigate} from "@tanstack/react-router"
 import {toast} from "sonner"
 
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui"
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "#/components/ui/card.tsx"
-import {Checkbox} from "#/components/ui/checkbox.tsx"
-import {Label} from "#/components/ui/label.tsx"
+} from "@suiteonix/ui"
+import {Checkbox} from "@suiteonix/ui"
+import {Label} from "@suiteonix/ui"
 import {AccountModel} from "@suiteonix/server"
 import {AccountRequest} from "@suiteonix/server"
 import {getAccountDisplayName} from "#/modules/finance/finance.utils.tsx"

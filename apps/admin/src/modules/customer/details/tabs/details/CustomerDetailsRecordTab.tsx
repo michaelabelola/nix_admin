@@ -1,6 +1,6 @@
 import type {ReactNode} from "react"
 
-import {Spinner} from "#/components/ui/spinner.tsx"
+import {Spinner} from "@suiteonix/ui"
 import {CustomerRequest} from "@suiteonix/server"
 import type {CustomerModel} from "@suiteonix/server"
 import {OrganizationRequest as organizationRequest} from "@suiteonix/server"
@@ -10,7 +10,7 @@ import {
 } from "#/modules/customer/details/customer-details.utils.ts"
 
 import {KeyValue} from "../../CustomerDetailsPrimitives.tsx"
-import {Card, CardContent, CardHeader} from "#/components/ui/card.tsx";
+import {Card, CardContent, CardHeader} from "@suiteonix/ui";
 
 type DetailItem = {
     label: string

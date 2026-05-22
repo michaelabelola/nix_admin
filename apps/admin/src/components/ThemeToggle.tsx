@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {Laptop2, MoonIcon, SunIcon} from "lucide-react";
-import {Button} from "#/components/ui/button.tsx";
+import {Button} from "@suiteonix/ui";
 
 type ThemeMode = 'light' | 'dark' | 'auto'
 

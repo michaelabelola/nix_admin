@@ -1,9 +1,9 @@
 import {Link} from "@tanstack/react-router"
 import {ArrowRight, HomeIcon, MapPinIcon} from "lucide-react"
 
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
 
 import type {ListingQuerierModel} from "@suiteonix/server"
 import {

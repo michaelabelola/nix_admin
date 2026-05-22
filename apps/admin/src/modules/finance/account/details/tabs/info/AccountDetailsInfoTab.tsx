@@ -1,4 +1,4 @@
-import {Spinner} from "#/components/ui/spinner.tsx"
+import {Spinner} from "@suiteonix/ui"
 import {AccountRequest} from "@suiteonix/server"
 import {AccountModel} from "@suiteonix/server"
 import {KeyValue, SectionCard} from "#/modules/finance/FinancePrimitives.tsx"

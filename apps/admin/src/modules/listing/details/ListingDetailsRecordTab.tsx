@@ -1,4 +1,4 @@
-import {Badge} from "#/components/ui/badge.tsx"
+import {Badge} from "@suiteonix/ui"
 import {
     DefinitionCard,
     KeyValue,

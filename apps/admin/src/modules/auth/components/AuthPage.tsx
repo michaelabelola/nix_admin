@@ -1,7 +1,7 @@
 import {Building2, KeyRound, ShieldCheck} from 'lucide-react'
 
-import {Badge} from '#/components/ui/badge.tsx'
-import {Tabs, TabsContent, TabsList, TabsTrigger} from '#/components/ui/tabs.tsx'
+import {Badge} from '@suiteonix/ui'
+import {Tabs, TabsContent, TabsList, TabsTrigger} from '@suiteonix/ui'
 import {SignInForm} from '#/modules/auth/signin/components/SignInForm.tsx'
 import {SignUpForm} from '#/modules/auth/signup/components/SignUpForm.tsx'
 

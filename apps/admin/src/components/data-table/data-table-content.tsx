@@ -1,7 +1,7 @@
 import {flexRender, type Row} from "@tanstack/react-table"
 import {ArrowDown, ArrowUp, ArrowUpDown} from "lucide-react"
 
-import {Button} from "#/components/ui/button.tsx"
+import {Button} from "@suiteonix/ui"
 import {
     Table,
     TableBody,
@@ -9,12 +9,12 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "#/components/ui/table.tsx"
+} from "@suiteonix/ui"
 
 import type {DataTableContentProps, TableData} from "./types.ts"
 import {useEffect, useState} from "react";
 import type {FetchError} from "@suiteonix/server";
-import {Spinner} from "#/components/ui/spinner.tsx";
+import {Spinner} from "@suiteonix/ui";
 
 export function DataTableContent<TData, TValue, T>({
                                                        columns,

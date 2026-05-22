@@ -2,15 +2,15 @@ import type {ReactNode} from "react"
 import {Link} from "@tanstack/react-router"
 
 import Page from "#/components/Page.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
+import {Button} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "#/components/ui/card.tsx"
+} from "@suiteonix/ui"
 import {cn} from "#/lib/utils.ts"
 import {AccountModel} from "@suiteonix/server"
 

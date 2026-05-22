@@ -2,9 +2,9 @@ import {Link} from "@tanstack/react-router"
 import type {ColumnDef} from "@tanstack/react-table"
 import {ArrowRight} from "lucide-react"
 
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui"
 
 import {ListingModel} from "@suiteonix/server"
 

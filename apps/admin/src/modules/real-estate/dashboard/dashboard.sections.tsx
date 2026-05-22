@@ -14,8 +14,8 @@ import {
 } from "lucide-react"
 import {Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis} from "recharts"
 
-import {Badge} from "#/components/ui/badge.tsx"
-import {buttonVariants} from "#/components/ui/button.tsx"
+import {Badge} from "@suiteonix/ui"
+import {buttonVariants} from "@suiteonix/ui"
 import {
   Card,
   CardAction,
@@ -24,10 +24,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "#/components/ui/card.tsx"
-import {ChartContainer, ChartTooltip, ChartTooltipContent} from "#/components/ui/chart.tsx"
-import {Progress} from "#/components/ui/progress.tsx"
-import {Separator} from "#/components/ui/separator.tsx"
+} from "@suiteonix/ui"
+import {ChartContainer, ChartTooltip, ChartTooltipContent} from "@suiteonix/ui"
+import {Progress} from "@suiteonix/ui"
+import {Separator} from "@suiteonix/ui"
 import {
   Table,
   TableBody,
@@ -35,7 +35,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "#/components/ui/table.tsx"
+} from "@suiteonix/ui"
 import type {FileRoutesByTo} from "#/routeTree.gen.ts"
 
 import {

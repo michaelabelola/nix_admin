@@ -5,11 +5,11 @@ import {toast} from "sonner";
 
 import DataTable from "#/components/data-table/data-table.tsx";
 import Page from "#/components/Page.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
-import {Card, CardContent, CardHeader, CardTitle} from "#/components/ui/card.tsx";
-import {QuickToolTip} from "#/components/ui/tooltip.tsx";
+import {Badge} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
+import {ButtonGroup} from "@suiteonix/ui";
+import {Card, CardContent, CardHeader, CardTitle} from "@suiteonix/ui";
+import {QuickToolTip} from "@suiteonix/ui";
 import type {
     DataTableFilterField,
     DataTableRequestBase,

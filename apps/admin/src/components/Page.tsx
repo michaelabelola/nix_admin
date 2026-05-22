@@ -1,9 +1,9 @@
 import React, {type ReactNode} from 'react';
 import Page404 from "#/components/pages/Page404.tsx";
-import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "#/components/ui/card.tsx";
-import {Spinner} from "#/components/ui/spinner.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
+import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "@suiteonix/ui";
+import {Spinner} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
 import {cn} from "#/lib/utils.ts";
 
 type HeaderProp = {

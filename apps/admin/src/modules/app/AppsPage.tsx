@@ -10,11 +10,11 @@ import type {
     DataTableRequestBase,
 } from "#/components/data-table/types.ts";
 import Page from "#/components/Page.tsx";
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
-import {QuickToolTip} from "#/components/ui/tooltip.tsx";
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
+import {Badge} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
+import {ButtonGroup} from "@suiteonix/ui";
+import {QuickToolTip} from "@suiteonix/ui";
 import OrgCell from "#/modules/organization/components/OrgCell.tsx";
 import type {AppModel} from "@suiteonix/server";
 import {AppRequest} from "@suiteonix/server";

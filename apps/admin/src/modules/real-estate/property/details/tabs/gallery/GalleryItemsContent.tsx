@@ -1,13 +1,13 @@
 import {FileIcon} from "lucide-react";
 
-import {Button} from "#/components/ui/button.tsx";
+import {Button} from "@suiteonix/ui";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "#/components/ui/card.tsx";
+} from "@suiteonix/ui";
 import {
     Pagination,
     PaginationContent,
@@ -16,8 +16,8 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from "#/components/ui/pagination.tsx";
-import {Spinner} from "#/components/ui/spinner.tsx";
+} from "@suiteonix/ui";
+import {Spinner} from "@suiteonix/ui";
 import type {FilesStorageModel} from "@suiteonix/server";
 
 import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";

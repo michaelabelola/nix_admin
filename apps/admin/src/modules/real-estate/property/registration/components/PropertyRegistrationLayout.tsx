@@ -2,9 +2,9 @@ import type {ReactNode} from "react"
 import {Link} from "@tanstack/react-router"
 import {ArrowLeft, ArrowRight, CheckCircle2, Sparkles} from "lucide-react"
 
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {Progress} from "#/components/ui/progress.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
+import {Progress} from "@suiteonix/ui"
 import type {PropertyModel} from "@suiteonix/server"
 
 import {

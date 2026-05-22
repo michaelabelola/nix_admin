@@ -1,6 +1,6 @@
 import type {ReactNode} from "react"
 
-import {Badge} from "#/components/ui/badge.tsx"
+import {Badge} from "@suiteonix/ui"
 import {
     Popover,
     PopoverContent,
@@ -8,7 +8,7 @@ import {
     PopoverHeader,
     PopoverTitle,
     PopoverTrigger,
-} from "#/components/ui/popover.tsx"
+} from "@suiteonix/ui"
 import type {TagModel} from "@suiteonix/server"
 
 export function TagQuickViewPopover({

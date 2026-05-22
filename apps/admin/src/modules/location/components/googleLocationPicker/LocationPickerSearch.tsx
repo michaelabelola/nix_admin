@@ -1,13 +1,13 @@
 import type {RefObject} from "react"
 import {MapPinIcon, SearchIcon} from "lucide-react"
 
-import {Button} from "#/components/ui/button.tsx"
+import {Button} from "@suiteonix/ui"
 import {
     InputGroup,
     InputGroupAddon,
     InputGroupButton,
     InputGroupInput,
-} from "#/components/ui/input-group.tsx"
+} from "@suiteonix/ui"
 
 import {LocationPickerPredictionList} from "./LocationPickerPredictionList.tsx"
 import type {

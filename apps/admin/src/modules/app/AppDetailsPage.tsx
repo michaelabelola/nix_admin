@@ -4,26 +4,26 @@ import {ArrowLeft, Copy, ExternalLink, KeyRound} from "lucide-react";
 import {toast} from "sonner";
 
 import Page from "#/components/Page.tsx";
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
+import {Badge} from "@suiteonix/ui";
+import {Button} from "@suiteonix/ui";
+import {ButtonGroup} from "@suiteonix/ui";
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "#/components/ui/card.tsx";
-import {Input} from "#/components/ui/input.tsx";
-import {Label} from "#/components/ui/label.tsx";
+} from "@suiteonix/ui";
+import {Input} from "@suiteonix/ui";
+import {Label} from "@suiteonix/ui";
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx";
+} from "@suiteonix/ui";
 import {AccessTokenModel} from "@suiteonix/server";
 import {AccessTokenRequest} from "@suiteonix/server";
 import {AppCredentialRevealCard} from "#/modules/app/components/AppCredentialRevealCard.tsx";

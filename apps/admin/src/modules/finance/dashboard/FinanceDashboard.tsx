@@ -2,16 +2,16 @@ import {Link} from "@tanstack/react-router"
 import {ArrowRightLeft, Banknote, CirclePlus, Landmark, WalletCards} from "lucide-react"
 
 import Page from "#/components/Page.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
+import {Button} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui"
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "#/components/ui/card.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
+} from "@suiteonix/ui"
+import {Badge} from "@suiteonix/ui"
 import {AccountRequest} from "@suiteonix/server"
 import {FinanceCurrencyRequest} from "@suiteonix/server"
 import {TransactionRequest} from "@suiteonix/server"

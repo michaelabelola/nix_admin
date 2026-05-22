@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router"
 import { useForm, useStore } from "@tanstack/react-form"
 import { toast } from "sonner"
 
-import { Badge } from "#/components/ui/badge.tsx"
+import { Badge } from "@suiteonix/ui"
 import { PropertyApiHook } from "@suiteonix/server"
 import type { PropertyModel } from "@suiteonix/server"
 import {TagPicker} from "#/modules/tags/components/TagPicker.tsx"

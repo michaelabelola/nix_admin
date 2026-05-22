@@ -1,8 +1,8 @@
 import {BookOpen, Copy, ExternalLink} from "lucide-react"
 import {toast} from "sonner"
 
-import {Button} from "#/components/ui/button.tsx"
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
+import {Button} from "@suiteonix/ui"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
 import type {AppModel} from "@suiteonix/server"
 
 function getApiDocsUrl() {

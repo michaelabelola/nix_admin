@@ -1,6 +1,6 @@
 import {useMemo} from "react"
 
-import {Badge} from "#/components/ui/badge.tsx"
+import {Badge} from "@suiteonix/ui"
 import {cn} from "#/lib/utils.ts"
 import type {TagModel} from "@suiteonix/server"
 import {TagRequest} from "@suiteonix/server"

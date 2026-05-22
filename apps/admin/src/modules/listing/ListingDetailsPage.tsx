@@ -1,8 +1,8 @@
 import {Link} from "@tanstack/react-router"
 
 import Page from "#/components/Page.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
+import {Button} from "@suiteonix/ui"
+import {ButtonGroup} from "@suiteonix/ui"
 import {EmptyState} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 
 import {ListingDetailsTabs} from "./details/ListingDetailsTabs.tsx"

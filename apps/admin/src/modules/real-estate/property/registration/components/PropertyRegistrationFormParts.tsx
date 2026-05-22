@@ -1,7 +1,7 @@
 import type {ReactNode} from "react"
 
-import {Alert, AlertDescription, AlertTitle} from "#/components/ui/alert.tsx"
-import {Label} from "#/components/ui/label.tsx"
+import {Alert, AlertDescription, AlertTitle} from "@suiteonix/ui"
+import {Label} from "@suiteonix/ui"
 import {cn} from "#/lib/utils.ts";
 
 export function required(value: string, label: string) {

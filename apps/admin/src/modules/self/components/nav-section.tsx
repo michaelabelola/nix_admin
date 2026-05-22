@@ -13,7 +13,7 @@ import {
     DropdownMenuItem,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "#/components/ui/dropdown-menu.tsx"
+} from "@suiteonix/ui"
 import {
     SidebarGroup,
     SidebarGroupLabel,
@@ -22,7 +22,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     useSidebar,
-} from "#/components/ui/sidebar.tsx"
+} from "@suiteonix/ui"
 import type {NavSectionType} from "#/modules/self/components/app-sidebar.tsx";
 import {Link} from "@tanstack/react-router";
 

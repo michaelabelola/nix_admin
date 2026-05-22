@@ -1,8 +1,8 @@
 import {useMemo, useState} from "react"
 import {Search, X} from "lucide-react"
 
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
 import {
     Combobox,
     ComboboxContent,
@@ -10,14 +10,14 @@ import {
     ComboboxInput,
     ComboboxItem,
     ComboboxList,
-} from "#/components/ui/combobox.tsx"
+} from "@suiteonix/ui"
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
+} from "@suiteonix/ui"
 import {NixModule} from "@suiteonix/server/models"
 import {ObjectVisibility} from "@suiteonix/server/models"
 import {TagModel} from "@suiteonix/server"

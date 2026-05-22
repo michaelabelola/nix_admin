@@ -1,5 +1,5 @@
-import {Badge} from "#/components/ui/badge.tsx"
-import {Card, CardContent, CardHeader, CardTitle} from "#/components/ui/card.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Card, CardContent, CardHeader, CardTitle} from "@suiteonix/ui"
 import {CustomerModel} from "@suiteonix/server"
 
 import {useCustomerCreate} from "../customer-create.context.tsx"

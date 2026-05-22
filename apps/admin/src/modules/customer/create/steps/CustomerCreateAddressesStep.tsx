@@ -1,4 +1,4 @@
-import {Button} from "#/components/ui/button.tsx"
+import {Button} from "@suiteonix/ui"
 
 import {useCustomerCreate} from "../customer-create.context.tsx"
 import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"

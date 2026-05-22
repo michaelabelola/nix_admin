@@ -4,7 +4,7 @@ import {PlusCircle} from "lucide-react";
 import {toast} from "sonner";
 
 import DataTable from "#/components/data-table/data-table.tsx";
-import {Button} from "#/components/ui/button.tsx";
+import {Button} from "@suiteonix/ui";
 import type {PropertyModel} from "@suiteonix/server";
 import {PricingApiHook} from "@suiteonix/server";
 import type {RealEstatePricingModel} from "@suiteonix/server";
@@ -17,9 +17,9 @@ import {
     DropdownMenuContent,
     DropdownMenuItem, DropdownMenuSeparator,
     DropdownMenuTrigger
-} from "#/components/ui/dropdown-menu.tsx";
+} from "@suiteonix/ui";
 import {IconDotsVertical, IconShare3, IconTrash} from "@tabler/icons-react";
-import {Badge} from "#/components/ui/badge.tsx";
+import {Badge} from "@suiteonix/ui";
 
 export function PropertyDetailsPricingTab({
     property,

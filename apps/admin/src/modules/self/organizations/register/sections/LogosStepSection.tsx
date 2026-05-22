@@ -1,6 +1,6 @@
 import {Upload} from "lucide-react"
 
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"

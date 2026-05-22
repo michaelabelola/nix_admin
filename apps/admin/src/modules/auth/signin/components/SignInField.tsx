@@ -1,7 +1,7 @@
 import { useStore } from '@tanstack/react-form'
 
-import { Input } from '#/components/ui/input.tsx'
-import { Label } from '#/components/ui/label.tsx'
+import { Input } from '@suiteonix/ui'
+import { Label } from '@suiteonix/ui'
 
 type FieldError = string | { message?: string }
 

@@ -1,14 +1,14 @@
 import type { ReactNode } from "react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "#/components/ui/avatar.tsx";
-import { Badge } from "#/components/ui/badge.tsx";
-import { Item } from "#/components/ui/item.tsx";
+import { Avatar, AvatarFallback, AvatarImage } from "@suiteonix/ui";
+import { Badge } from "@suiteonix/ui";
+import { Item } from "@suiteonix/ui";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "#/components/ui/popover.tsx";
-import { Skeleton } from "#/components/ui/skeleton.tsx";
+} from "@suiteonix/ui";
+import { Skeleton } from "@suiteonix/ui";
 import type { NixID } from "@suiteonix/server/models";
 import type { OrganizationModel } from "@suiteonix/server";
 import {OrganizationRequest} from "@suiteonix/server";

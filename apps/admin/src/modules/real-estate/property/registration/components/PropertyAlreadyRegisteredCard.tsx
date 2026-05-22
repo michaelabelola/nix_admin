@@ -1,6 +1,6 @@
 import {Link} from "@tanstack/react-router"
 
-import {Button} from "#/components/ui/button.tsx"
+import {Button} from "@suiteonix/ui"
 import {
     Card,
     CardContent,
@@ -8,7 +8,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "#/components/ui/card.tsx"
+} from "@suiteonix/ui"
 import type {PropertyModel} from "@suiteonix/server"
 
 import {propertyDetailPath} from "./property-registration.constants.ts"

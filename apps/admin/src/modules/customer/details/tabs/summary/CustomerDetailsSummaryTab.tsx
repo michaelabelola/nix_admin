@@ -5,7 +5,7 @@ import {
 } from "#/modules/customer/details/customer-details.utils.ts"
 
 import {SummaryMetric} from "../../CustomerDetailsPrimitives.tsx"
-import {Card, CardContent, CardHeader} from "#/components/ui/card.tsx";
+import {Card, CardContent, CardHeader} from "@suiteonix/ui";
 
 type SummaryItem = {
     label: string

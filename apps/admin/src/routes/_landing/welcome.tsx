@@ -15,11 +15,11 @@ import {
 } from "lucide-react"
 
 import ThemeToggle from "#/components/ThemeToggle.tsx"
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
-import {Button} from "#/components/ui/button.tsx"
-import {Progress} from "#/components/ui/progress.tsx"
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui"
+import {Badge} from "@suiteonix/ui"
+import {Button} from "@suiteonix/ui"
+import {Progress} from "@suiteonix/ui"
+import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@suiteonix/ui"
 import logo from "#/assets/logo.png"
 
 export const Route = createFileRoute("/_landing/welcome")({component: App})

@@ -1,13 +1,13 @@
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
-import {Checkbox} from "#/components/ui/checkbox.tsx"
-import {Label} from "#/components/ui/label.tsx"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
+import {Checkbox} from "@suiteonix/ui"
+import {Label} from "@suiteonix/ui"
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "#/components/ui/select.tsx"
+} from "@suiteonix/ui"
 
 import {EMPTY_OPTION} from "./property-listing-profile-create.shared.ts"
 

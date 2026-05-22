@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 
-import {Input} from "#/components/ui/input.tsx"
+import {Input} from "@suiteonix/ui"
 
 export function TextField({
     label,

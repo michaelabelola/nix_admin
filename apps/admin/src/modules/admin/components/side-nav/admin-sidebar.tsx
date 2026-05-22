@@ -21,14 +21,14 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "#/components/ui/sidebar.tsx"
+} from "@suiteonix/ui"
 import {useAuthenticatedUser} from "@suiteonix/server";
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
+import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
 import {OrganizationRequest} from "@suiteonix/server";
 import {useNavigate} from "@tanstack/react-router";
 import {realEstateNavItems} from "#/modules/real-estate/nav.tsx";
 import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";
-import {Button} from "#/components/ui/button.tsx";
+import {Button} from "@suiteonix/ui";
 import {type ComponentProps, useMemo} from "react";
 import {tagsNavItems} from "#/modules/tags/nav.tsx";
 import {customerNavItems} from "#/modules/customer/nav.tsx";

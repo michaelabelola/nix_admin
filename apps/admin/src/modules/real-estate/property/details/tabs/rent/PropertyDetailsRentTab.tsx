@@ -4,9 +4,9 @@ import {Check, PlusCircle} from "lucide-react";
 import {toast} from "sonner";
 
 import DataTable from "#/components/data-table/data-table.tsx";
-import {Button} from "#/components/ui/button.tsx";
-import {ButtonGroup} from "#/components/ui/button-group.tsx";
-import {QuickToolTip} from "#/components/ui/tooltip.tsx";
+import {Button} from "@suiteonix/ui";
+import {ButtonGroup} from "@suiteonix/ui";
+import {QuickToolTip} from "@suiteonix/ui";
 import type {PropertyModel} from "@suiteonix/server";
 import {RentDefinitionRequest} from "@suiteonix/server";
 import {RentDefinitionModel} from "@suiteonix/server";
@@ -14,7 +14,7 @@ import {RentDefinitionModel} from "@suiteonix/server";
 import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDuration, formatMoney} from "../../property-details.utils.ts";
 import {PropertyRentDefinitionCreateSheet} from "./PropertyRentDefinitionCreateSheet.tsx";
-import {Badge} from "#/components/ui/badge.tsx";
+import {Badge} from "@suiteonix/ui";
 
 export function PropertyDetailsRentTab({
                                            property,

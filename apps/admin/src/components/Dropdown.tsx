@@ -6,9 +6,9 @@ import {
     SelectLabel,
     SelectTrigger,
     SelectValue,
-} from '#/components/ui/select.tsx'
+} from '@suiteonix/ui'
 import {cn} from '#/lib/utils.ts'
-import type {Input} from "#/components/ui/input.tsx";
+import type {Input} from "@suiteonix/ui";
 
 export type DropdownOption = {
     label: string

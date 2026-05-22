@@ -1,8 +1,8 @@
 import {AppSidebar} from "#/modules/self/components/app-sidebar.tsx";
-import {SidebarProvider} from "#/components/ui/sidebar.tsx";
+import {SidebarProvider} from "@suiteonix/ui";
 import {Outlet} from "@tanstack/react-router";
-import {Card, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
-import {Spinner} from "#/components/ui/spinner.tsx";
+import {Card, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui";
+import {Spinner} from "@suiteonix/ui";
 import {useAuthenticatedUser} from "@suiteonix/server";
 
 export function UserAdminPage() {
