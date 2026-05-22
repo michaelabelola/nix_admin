@@ -4,6 +4,7 @@ import {KeyValue} from "../../PropertyDetailsPrimitives.tsx";
 import organizationRequest from "#/modules/organization/organization.request.ts";
 import {Spinner} from "#/components/ui/spinner.tsx";
 import {Card, CardHeader} from "#/components/ui/card.tsx";
+import {TagsView} from "#/modules/tags/components/TagsView.tsx";
 
 export function PropertyDetailsRecordTab({property}: { property?: PropertyModel.Detailed }) {
     const {data, isLoading} = organizationRequest.useGetOrganizationByID(property?.entityID)
@@ -21,7 +22,7 @@ export function PropertyDetailsRecordTab({property}: { property?: PropertyModel.
                 <KeyValue label="Org" value={
                     isLoading ? <Spinner className={"size-4"}/> :
                         (data?.shortName || data?.name || property?.entityID)}/>
-                <KeyValue label="Tags" value={property?.tags.length ? property.tags.join(", ") : null}/>
+                <KeyValue label="Tags" value={property?.tags.length ? <TagsView tagIds={property.tags}/> : null}/>
             </div>
         </Card>
     )

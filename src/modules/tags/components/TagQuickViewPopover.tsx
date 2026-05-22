@@ -10,11 +10,14 @@ import {
     PopoverTrigger,
 } from "#/components/ui/popover.tsx"
 import type {TagModel} from "#/modules/tags/model.ts"
+import {Button} from "#/components/ui/button.tsx";
+import {ArrowRightIcon} from "lucide-react";
+import {Link} from "@tanstack/react-router";
 
 export function TagQuickViewPopover({
-    tag,
-    children,
-}: {
+                                        tag,
+                                        children,
+                                    }: {
     tag?: TagModel.Tag
     children: ReactNode
 }) {
@@ -24,7 +27,7 @@ export function TagQuickViewPopover({
 
     return (
         <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger className={" cursor-pointer"}>
                 {children}
             </PopoverTrigger>
             <PopoverContent className="w-96 space-y-4">
@@ -45,12 +48,16 @@ export function TagQuickViewContent({tag}: { tag?: TagModel.Tag }) {
                         className="mt-0.5 size-4 rounded-full border"
                         style={tag.colorHex ? {backgroundColor: tag.colorHex} : undefined}
                     />
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0 flex-1 whitespace-nowrap text-ellipsis">
                         <PopoverTitle className="text-base">{tag.name || tag.id}</PopoverTitle>
                         <PopoverDescription className="text-xs">
                             Tag ID: {tag.id}
                         </PopoverDescription>
                     </div>
+                    {/*TODO: make this link possible*/}
+                    {/*<Link to={`/admin/tags/${tag.id}`} className="ml-auto">*/}
+                    {/*    <Button variant={"glass"} size={"icon"}><ArrowRightIcon/></Button>*/}
+                    {/*</Link>*/}
                 </div>
             </PopoverHeader>
 
@@ -61,7 +68,7 @@ export function TagQuickViewContent({tag}: { tag?: TagModel.Tag }) {
             <div className="flex flex-wrap gap-2">
                 <Badge variant="outline">{tag.module || "ALL"}</Badge>
                 <Badge variant="secondary">{tag.type || "UNKNOWN"}</Badge>
-                {tag.colorHex ? <Badge variant="outline">{tag.colorHex}</Badge> : null}
+                {tag.colorHex ? <Badge variant="glass">{tag.colorHex}</Badge> : null}
             </div>
         </div>
     )
