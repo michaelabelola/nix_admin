@@ -46,7 +46,7 @@ export function CustomerRegisterPage() {
 function CustomerRegisterHeader() {
     return (
         <header className="flex items-center justify-between gap-4">
-            <Link to="/customer" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
                 <img src="/logo192.png" alt="Suiteonix" className="size-9 rounded-md shadow-sm"/>
                 <div>
                     <div className="text-sm font-semibold uppercase tracking-[0.16em]">Suiteonix Customer</div>
@@ -55,10 +55,10 @@ function CustomerRegisterHeader() {
             </Link>
             <div className="flex items-center gap-2">
                 <Button asChild variant="ghost" size="sm">
-                    <Link to="/customer">Customer home</Link>
+                    <Link to="/">Customer home</Link>
                 </Button>
                 <Button asChild variant="outline" size="sm">
-                    <Link to="/customer/login">Login</Link>
+                    <Link to="/login">Login</Link>
                 </Button>
             </div>
         </header>
@@ -150,7 +150,7 @@ function CustomerRegisterIntro() {
                                 <ArrowRight className="size-4"/>
                             </Button>
                             <Button asChild size="lg" variant="inverted_glass" className="border-background/30 bg-background/10 text-background hover:bg-background/20 hover:text-background">
-                                <Link to="/customer/login">I already have an account</Link>
+                                <Link to="/login">I already have an account</Link>
                             </Button>
                         </div>
                     </div>
@@ -226,7 +226,7 @@ function CustomerRegisterSuccessDialog() {
                 </DialogHeader>
                 <DialogFooter className="sm:justify-center">
                     <Button asChild>
-                        <Link to="/customer/login">Go to customer login</Link>
+                        <Link to="/login">Go to customer login</Link>
                     </Button>
                 </DialogFooter>
             </DialogContent>

@@ -9,7 +9,7 @@ import {Input,
     SelectTrigger,
     SelectValue,
 } from "@suiteonix/ui"
-import {CountryAPI} from "@suiteonix/server";
+import {CountryAPI, type LocationModel} from "@suiteonix/server";
 import {cn} from "@suiteonix/utils";
 
 type PhoneNumberInputProps = {

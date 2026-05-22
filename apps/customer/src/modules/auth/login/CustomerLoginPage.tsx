@@ -22,7 +22,7 @@ export function CustomerLoginPage() {
                 >
                     <div className="absolute inset-0 bg-black/68"/>
                     <div className="relative z-10 flex h-full flex-col justify-between p-10">
-                        <Link to="/customer" className="flex w-fit items-center gap-3">
+                        <Link to="/" className="flex w-fit items-center gap-3">
                             <img src="/logo192.png" alt="Suiteonix" className="size-9 rounded-md"/>
                             <span className="text-sm font-semibold uppercase tracking-[0.16em]">Suiteonix Customer</span>
                         </Link>
@@ -101,7 +101,7 @@ export function CustomerLoginPage() {
 
                             <div className="text-center text-sm text-muted-foreground">
                                 Need an account?{" "}
-                                <Link to="/customer/register" className="font-medium text-primary hover:underline">
+                                <Link to="/register" className="font-medium text-primary hover:underline">
                                     Register as a customer
                                 </Link>
                             </div>

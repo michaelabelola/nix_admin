@@ -44,13 +44,15 @@ export function LandingPage() {
                 style={{backgroundImage: "url('/customer/portal-hero.png')"}}
             >
                 <div className="absolute inset-0 bg-black/65"/>
-                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.76),rgba(0,0,0,0.46),rgba(0,0,0,0.22))]"/>
+                <div
+                    className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.76),rgba(0,0,0,0.46),rgba(0,0,0,0.22))]"/>
 
                 <div className="relative z-10 mx-auto flex min-h-[92dvh] w-full max-w-7xl flex-col px-4 py-5">
                     <header className="flex items-center justify-between gap-4">
-                        <Link to="/customer" className="flex items-center gap-3">
+                        <Link to="/" className="flex items-center gap-3">
                             <img src="/logo192.png" alt="Suiteonix" className="size-9 rounded-md"/>
-                            <span className="text-sm font-semibold uppercase tracking-[0.16em]">Suiteonix Customer</span>
+                            <span
+                                className="text-sm font-semibold uppercase tracking-[0.16em]">Suiteonix Customer</span>
                         </Link>
                         <nav className="flex items-center gap-2">
                             <Button asChild variant="secondary" size="sm">
@@ -71,17 +73,18 @@ export function LandingPage() {
                                 Customer Portal
                             </h1>
                             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/82">
-                                Access your customer account, keep profile information current, review shared records, and stay connected to service updates.
+                                Access your customer account, keep profile information current, review shared records,
+                                and stay connected to service updates.
                             </p>
                             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                                 <Button asChild size="lg" className="h-12 px-6">
-                                    <Link to="/customer/register">
+                                    <Link to="/register">
                                         Create customer account
                                         <ArrowRight className="size-4"/>
                                     </Link>
                                 </Button>
                                 <Button asChild size="lg" variant="secondary" className="h-12 px-6">
-                                    <Link to="/customer/login">Login to portal</Link>
+                                    <Link to="/login">Login to portal</Link>
                                 </Button>
                             </div>
                         </div>
@@ -121,7 +124,8 @@ export function LandingPage() {
                             A focused account space without the admin noise.
                         </h2>
                         <p className="mt-4 text-sm leading-7 text-muted-foreground sm:text-base">
-                            Customers get a simple route to register, sign in, and maintain the details used across service workflows.
+                            Customers get a simple route to register, sign in, and maintain the details used across
+                            service workflows.
                         </p>
                     </div>
 
@@ -139,27 +143,32 @@ export function LandingPage() {
 
             <section className="bg-muted/35 py-16">
                 <div className="mx-auto grid max-w-7xl gap-4 px-4 md:grid-cols-3">
-                    <TrustItem icon={LockKeyhole} title="Secure access" text="Credentials are created during registration and used for future customer login."/>
-                    <TrustItem icon={ShieldCheck} title="Verified profile" text="Submitted accounts are ready for downstream verification and service review."/>
-                    <TrustItem icon={LifeBuoy} title="Service-ready" text="Contact, address, and preference details help support teams act with context."/>
+                    <TrustItem icon={LockKeyhole} title="Secure access"
+                               text="Credentials are created during registration and used for future customer login."/>
+                    <TrustItem icon={ShieldCheck} title="Verified profile"
+                               text="Submitted accounts are ready for downstream verification and service review."/>
+                    <TrustItem icon={LifeBuoy} title="Service-ready"
+                               text="Contact, address, and preference details help support teams act with context."/>
                 </div>
             </section>
 
             <section className="py-16 sm:py-20">
-                <div className="mx-auto flex max-w-7xl flex-col gap-6 border bg-foreground px-6 py-10 text-background sm:px-10 lg:flex-row lg:items-end lg:justify-between">
+                <div
+                    className="mx-auto flex max-w-7xl flex-col gap-6 border bg-foreground px-6 py-10 text-background sm:px-10 lg:flex-row lg:items-end lg:justify-between">
                     <div className="max-w-2xl">
                         <p className="text-sm font-medium uppercase tracking-[0.18em] text-background/70">Start here</p>
                         <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Open your customer portal account.</h2>
                     </div>
                     <div className="flex flex-col gap-3 sm:flex-row">
                         <Button asChild size="lg" variant="secondary">
-                            <Link to="/customer/register">
+                            <Link to="/register">
                                 Register
                                 <ArrowRight className="size-4"/>
                             </Link>
                         </Button>
-                        <Button asChild size="lg" variant="outline" className="border-background/30 bg-transparent text-background hover:bg-background hover:text-foreground">
-                            <Link to="/customer/login">Login</Link>
+                        <Button asChild size="lg" variant="outline"
+                                className="border-background/30 bg-transparent text-background hover:bg-background hover:text-foreground">
+                            <Link to="/login" search={{email: ""}}>Login</Link>
                         </Button>
                     </div>
                 </div>

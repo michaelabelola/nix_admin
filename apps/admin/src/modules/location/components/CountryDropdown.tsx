@@ -1,7 +1,7 @@
 import {useQuery} from '@tanstack/react-query'
 
 import {Dropdown, type DropdownProps} from '#/components/Dropdown.tsx'
-import {countriesApi} from '@suiteonix/server'
+import {countriesApi, type LocationModel} from '@suiteonix/server'
 
 type CountryDropdownProps = Omit<DropdownProps, 'options' | 'label' | 'emptyLabel'> & {
     label?: string
