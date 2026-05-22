@@ -12,9 +12,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@suiteonix/ui": "workspace:*",
-    "@suiteonix/server": "workspace:*",
-    "@suiteonix/data": "workspace:*",
+    "@suiteonix/sdk": "workspace:*",
     "@base-ui/react": "^1.4.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
