@@ -6,7 +6,7 @@ import {
 
 import {Badge} from "#/components/ui/badge.tsx";
 import {Card, CardContent} from "#/components/ui/card.tsx";
-import {FilesStorageModel} from "#/modules/files-storage/model.ts";
+import type {FilesStorageModel} from "#/modules/files-storage/model.ts";
 
 import {KeyValue, SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDateTime} from "./gallery.utils.ts";

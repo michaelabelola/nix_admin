@@ -107,6 +107,7 @@ export function PhoneNumberInput({
         <div className={cn("flex w-full min-w-0 rounded-md border border-input shadow-xs transition-[color,box-shadow] focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50", className)}>
             <Select
                 value={selectedValue}
+                name={`${name}-country`}
                 disabled={isDisabled}
                 autoComplete={"tel-area-code"}
                 onValueChange={(iso2) => {

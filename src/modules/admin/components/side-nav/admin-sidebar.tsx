@@ -177,11 +177,12 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                             asChild
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
                         >
+
                             <a href="#">
                                 <Avatar className="h-8 w-8 rounded-lg grayscale cursor-pointer">
                                     <AvatarImage src={selectedImage}
                                                  alt={`${org?.shortName}`}
-                                                 className={"object-cover border"}/>
+                                                 className={"object-cover border-transparent"}/>
                                     <AvatarFallback className="rounded-lg bg-transparent">
                                         <BriefcaseBusinessIcon className="size-5! text-primary"/>
                                     </AvatarFallback>

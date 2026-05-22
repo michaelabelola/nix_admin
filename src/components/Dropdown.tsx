@@ -8,6 +8,7 @@ import {
     SelectValue,
 } from '#/components/ui/select'
 import {cn} from '#/lib/utils'
+import type {Input} from "#/components/ui/input.tsx";
 
 export type DropdownOption = {
     label: string
@@ -27,6 +28,7 @@ export type DropdownProps = {
     onValueChange?: (value: string) => void
     triggerClassName?: string
     contentClassName?: string
+    autoComplete?:Parameters<typeof Input>[0]['autoComplete']
 }
 
 export function Dropdown({
@@ -41,6 +43,7 @@ export function Dropdown({
     onValueChange,
     triggerClassName,
     contentClassName,
+    autoComplete
 }: DropdownProps) {
     const hasOptions = options.length > 0
 
@@ -50,6 +53,7 @@ export function Dropdown({
             value={value}
             defaultValue={defaultValue}
             disabled={disabled || !hasOptions}
+            autoComplete={autoComplete}
             onValueChange={onValueChange}
         >
             <SelectTrigger className={cn('w-full h-12', triggerClassName)}>

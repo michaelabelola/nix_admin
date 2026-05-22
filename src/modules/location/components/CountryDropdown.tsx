@@ -11,14 +11,14 @@ type CountryDropdownProps = Omit<DropdownProps, 'options' | 'label' | 'emptyLabe
 }
 
 export function CountryDropdown({
-    label = 'Countries',
-    placeholder = 'Select a country',
-    emptyLabel,
-    disabled,
-    countryToLabel = (country) => country.name,
-    countryToValue = (country) => country.iso2,
-    ...props
-}: CountryDropdownProps) {
+                                    label = 'Countries',
+                                    placeholder = 'Select a country',
+                                    emptyLabel,
+                                    disabled,
+                                    countryToLabel = (country) => country.name,
+                                    countryToValue = (country) => country.iso2,
+                                    ...props
+                                }: CountryDropdownProps) {
     const countriesQuery = useQuery({
         queryKey: ['location', 'countries', 'all'],
         queryFn: () => countriesApi.getAllCountries(),
@@ -37,9 +37,11 @@ export function CountryDropdown({
 
     return (
         <Dropdown
+            name={props.name}
             label={label}
             options={options}
             placeholder={placeholder}
+            autoComplete={"country"}
             emptyLabel={resolvedEmptyLabel}
             disabled={disabled || countriesQuery.isPending || countriesQuery.isError}
             {...props}

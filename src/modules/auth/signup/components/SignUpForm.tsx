@@ -61,11 +61,13 @@ function SignUpTextField({
                              label,
                              placeholder,
                              type = 'text',
+                             autoComplete
                          }: {
     field: any
     label: string
     placeholder?: string
     type?: 'text' | 'email' | 'password' | 'tel'
+    autoComplete?: Parameters<typeof Input>[0]["autoComplete"]
 }) {
     const errors = useStore(field.store, (state: any) => state.meta.errors as FieldError[])
 
@@ -79,6 +81,7 @@ function SignUpTextField({
                 value={field.state.value}
                 placeholder={placeholder}
                 onBlur={field.handleBlur}
+                autoComplete={autoComplete}
                 onChange={(event) => field.handleChange(event.target.value)}
             />
             {field.state.meta.isTouched && errors.length > 0 ? (
@@ -327,7 +330,8 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => required(value, 'First name')}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="First name" placeholder="Ada"/>
+                                <SignUpTextField autoComplete={"given-name"} field={field} label="First name"
+                                                 placeholder="Ada"/>
                             )}
                         </form.Field>
 
@@ -336,7 +340,8 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => required(value, 'Last name')}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="Last name" placeholder="Lovelace"/>
+                                <SignUpTextField autoComplete={"family-name"} field={field} label="Last name"
+                                                 placeholder="Lovelace"/>
                             )}
                         </form.Field>
                     </div>
@@ -347,7 +352,7 @@ export function SignUpForm() {
                             validators={{onChange: ({value}) => validateEmail(value)}}
                         >
                             {(field) => (
-                                <SignUpTextField field={field} label="Email" type="email"
+                                <SignUpTextField autoComplete={"email"} field={field} label="Email" type="email"
                                                  placeholder="you@company.com"/>
                             )}
                         </form.Field>
