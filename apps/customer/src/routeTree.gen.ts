@@ -10,67 +10,52 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as LandingIndexRouteImport } from './routes/_landing/index'
-import { Route as DemoI18nRouteImport } from './routes/demo.i18n'
-import { Route as LandingRegisterRouteImport } from './routes/_landing/register'
-import { Route as LandingLoginRouteImport } from './routes/_landing/login'
+import { Route as AuthRegisterRouteImport } from './routes/_auth/register'
+import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 
 const LandingIndexRoute = LandingIndexRouteImport.update({
   id: '/_landing/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoI18nRoute = DemoI18nRouteImport.update({
-  id: '/demo/i18n',
-  path: '/demo/i18n',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LandingRegisterRoute = LandingRegisterRouteImport.update({
-  id: '/_landing/register',
+const AuthRegisterRoute = AuthRegisterRouteImport.update({
+  id: '/_auth/register',
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LandingLoginRoute = LandingLoginRouteImport.update({
-  id: '/_landing/login',
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: '/_auth/login',
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/login': typeof LandingLoginRoute
-  '/register': typeof LandingRegisterRoute
-  '/demo/i18n': typeof DemoI18nRoute
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
   '/': typeof LandingIndexRoute
 }
 export interface FileRoutesByTo {
-  '/login': typeof LandingLoginRoute
-  '/register': typeof LandingRegisterRoute
-  '/demo/i18n': typeof DemoI18nRoute
+  '/login': typeof AuthLoginRoute
+  '/register': typeof AuthRegisterRoute
   '/': typeof LandingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_landing/login': typeof LandingLoginRoute
-  '/_landing/register': typeof LandingRegisterRoute
-  '/demo/i18n': typeof DemoI18nRoute
+  '/_auth/login': typeof AuthLoginRoute
+  '/_auth/register': typeof AuthRegisterRoute
   '/_landing/': typeof LandingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/login' | '/register' | '/demo/i18n' | '/'
+  fullPaths: '/login' | '/register' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/register' | '/demo/i18n' | '/'
-  id:
-    | '__root__'
-    | '/_landing/login'
-    | '/_landing/register'
-    | '/demo/i18n'
-    | '/_landing/'
+  to: '/login' | '/register' | '/'
+  id: '__root__' | '/_auth/login' | '/_auth/register' | '/_landing/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  LandingLoginRoute: typeof LandingLoginRoute
-  LandingRegisterRoute: typeof LandingRegisterRoute
-  DemoI18nRoute: typeof DemoI18nRoute
+  AuthLoginRoute: typeof AuthLoginRoute
+  AuthRegisterRoute: typeof AuthRegisterRoute
   LandingIndexRoute: typeof LandingIndexRoute
 }
 
@@ -83,34 +68,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LandingIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/i18n': {
-      id: '/demo/i18n'
-      path: '/demo/i18n'
-      fullPath: '/demo/i18n'
-      preLoaderRoute: typeof DemoI18nRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_landing/register': {
-      id: '/_landing/register'
+    '/_auth/register': {
+      id: '/_auth/register'
       path: '/register'
       fullPath: '/register'
-      preLoaderRoute: typeof LandingRegisterRouteImport
+      preLoaderRoute: typeof AuthRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_landing/login': {
-      id: '/_landing/login'
+    '/_auth/login': {
+      id: '/_auth/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof LandingLoginRouteImport
+      preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  LandingLoginRoute: LandingLoginRoute,
-  LandingRegisterRoute: LandingRegisterRoute,
-  DemoI18nRoute: DemoI18nRoute,
+  AuthLoginRoute: AuthLoginRoute,
+  AuthRegisterRoute: AuthRegisterRoute,
   LandingIndexRoute: LandingIndexRoute,
 }
 export const routeTree = rootRouteImport

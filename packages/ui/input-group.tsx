@@ -1,7 +1,7 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
-import {cn} from "@suiteonix/utils/utils.ts"
+import {cn} from "@suiteonix/utils"
 import { Button } from "./button.tsx"
 import { Input } from "./input.tsx"
 import { Textarea } from "./textarea.tsx"

@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
 
-import {cn} from "@suiteonix/utils/utils.ts"
+import {cn} from "@suiteonix/utils"
 
 function Drawer({
   ...props

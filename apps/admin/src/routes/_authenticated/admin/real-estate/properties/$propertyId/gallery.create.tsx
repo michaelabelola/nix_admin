@@ -1,6 +1,6 @@
 import {createFileRoute, useNavigate} from "@tanstack/react-router";
 
-import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
+import {PropertyApiHook} from "@suiteonix/server";
 import PropertyPage from "#/modules/real-estate/property/details/PropertyPage.tsx";
 import {PropertyDetailsGalleryTab} from "#/modules/real-estate/property/details/tabs/gallery/PropertyDetailsGalleryTab.tsx";
 

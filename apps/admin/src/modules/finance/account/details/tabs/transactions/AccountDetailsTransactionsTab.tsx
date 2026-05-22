@@ -1,5 +1,5 @@
 import {SectionCard} from "#/modules/finance/FinancePrimitives.tsx"
-import type {AccountModel} from "#/modules/finance/account/model.ts"
+import type {AccountModel} from "@suiteonix/server"
 import {TransactionsTable} from "#/modules/finance/TransactionsTable.tsx"
 
 export function AccountDetailsTransactionsTab({

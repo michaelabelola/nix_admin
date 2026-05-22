@@ -6,8 +6,8 @@ import DataTable from "#/components/data-table/data-table.tsx"
 import type {DataTableRequestBase} from "#/components/data-table/types.ts"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
-import {PropertyListingProfileApiHook} from "#/modules/real-estate/property-listing-profile/api.hook.ts"
-import type {PropertyListingProfileModel} from "#/modules/real-estate/property-listing-profile/model.ts"
+import {PropertyListingProfileApiHook} from "@suiteonix/server"
+import type {PropertyListingProfileModel} from "@suiteonix/server"
 
 import {createPropertyListingProfileColumns} from "./table.tsx"
 

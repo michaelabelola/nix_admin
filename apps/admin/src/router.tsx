@@ -4,7 +4,7 @@ import {setupRouterSsrQueryIntegration} from '@tanstack/react-router-ssr-query'
 import {
     getContext,
 } from './integrations/tanstack-query/root-provider.tsx'
-import Page404 from "#/components/pages/Page404.tsx";
+import {Page404} from "@suiteonix/components";
 
 export function getRouter() {
     const context = getContext()

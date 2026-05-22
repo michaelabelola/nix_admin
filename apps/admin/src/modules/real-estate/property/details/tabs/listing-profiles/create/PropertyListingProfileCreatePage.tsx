@@ -1,4 +1,4 @@
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import type {PropertyModel} from "@suiteonix/server"
 
 import {PropertyListingProfileCreateHeader} from "./PropertyListingProfileCreateHeader.tsx"
 import {PropertyListingProfileFeaturesCard} from "./PropertyListingProfileFeaturesCard.tsx"

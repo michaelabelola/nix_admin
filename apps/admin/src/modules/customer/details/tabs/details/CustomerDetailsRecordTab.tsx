@@ -1,9 +1,9 @@
 import type {ReactNode} from "react"
 
 import {Spinner} from "#/components/ui/spinner.tsx"
-import {CustomerRequest} from "#/modules/customer/request.hook.ts"
-import type {CustomerModel} from "#/modules/customer/model.ts"
-import organizationRequest from "#/modules/organization/organization.request.ts"
+import {CustomerRequest} from "@suiteonix/server"
+import type {CustomerModel} from "@suiteonix/server"
+import {OrganizationRequest as organizationRequest} from "@suiteonix/server"
 import {
     formatAuditDate,
     formatCustomerAddress,

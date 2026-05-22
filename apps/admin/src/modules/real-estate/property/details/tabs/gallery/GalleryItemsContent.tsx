@@ -18,7 +18,7 @@ import {
     PaginationPrevious,
 } from "#/components/ui/pagination.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
-import type {FilesStorageModel} from "#/modules/files-storage/model.ts";
+import type {FilesStorageModel} from "@suiteonix/server";
 
 import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";
 

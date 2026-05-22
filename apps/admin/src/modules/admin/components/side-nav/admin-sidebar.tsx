@@ -22,9 +22,9 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "#/components/ui/sidebar.tsx"
-import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
+import {useAuthenticatedUser} from "@suiteonix/server";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
-import OrganizationRequest from "#/modules/organization/organization.request.ts";
+import {OrganizationRequest} from "@suiteonix/server";
 import {useNavigate} from "@tanstack/react-router";
 import {realEstateNavItems} from "#/modules/real-estate/nav.tsx";
 import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";

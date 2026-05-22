@@ -1,8 +1,8 @@
-import type {LeaseDefinitionModel} from "#/modules/real-estate/lease-definition/model.ts";
-import type {RealEstatePricingModel} from "#/modules/real-estate/pricing/model.ts";
-import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/model.ts";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
-import type {RentDefinitionModel} from "#/modules/real-estate/rent-definition/model.ts";
+import type {LeaseDefinitionModel} from "@suiteonix/server";
+import type {RealEstatePricingModel} from "@suiteonix/server";
+import type {PropertyFeatureModel} from "@suiteonix/server";
+import type {PropertyModel} from "@suiteonix/server";
+import type {RentDefinitionModel} from "@suiteonix/server";
 
 export function formatLocation(location?: PropertyModel.PropertyLocation | PropertyModel.PropertyLocationDetailed | null) {
     if (!location) return null

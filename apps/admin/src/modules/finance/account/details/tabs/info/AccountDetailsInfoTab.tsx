@@ -1,8 +1,8 @@
 import {Spinner} from "#/components/ui/spinner.tsx"
-import {AccountRequest} from "#/modules/finance/account/request.hook.ts"
-import {AccountModel} from "#/modules/finance/account/model.ts"
+import {AccountRequest} from "@suiteonix/server"
+import {AccountModel} from "@suiteonix/server"
 import {KeyValue, SectionCard} from "#/modules/finance/FinancePrimitives.tsx"
-import organizationRequest from "#/modules/organization/organization.request.ts"
+import {OrganizationRequest as organizationRequest} from "@suiteonix/server"
 import {formatDateTime, formatMoney} from "#/modules/finance/finance.utils.tsx"
 
 export function AccountDetailsInfoTab({account}: { account?: AccountModel.Detailed }) {

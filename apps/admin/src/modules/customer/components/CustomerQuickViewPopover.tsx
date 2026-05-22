@@ -9,7 +9,7 @@ import {
     PopoverTitle,
     PopoverTrigger,
 } from "#/components/ui/popover.tsx"
-import type {CustomerModel} from "#/modules/customer/model.ts"
+import type {CustomerModel} from "@suiteonix/server"
 import {
     customerStatusBadgeVariant,
     formatCustomerAddress,

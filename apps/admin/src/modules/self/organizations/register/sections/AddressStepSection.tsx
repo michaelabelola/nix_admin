@@ -1,4 +1,4 @@
-import type {Organization_RegisterModel} from "#/modules/organization/models/models.ts"
+import type {Organization_RegisterModel} from "@suiteonix/server"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {LocationPicker} from "#/modules/location/components/googleLocationPicker/LocationPicker.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"

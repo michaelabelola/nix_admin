@@ -3,7 +3,7 @@
 import * as React from "react"
 import { AlertDialog as AlertDialogPrimitive } from "radix-ui"
 
-import {cn} from "@suiteonix/utils/utils.ts"
+import {cn} from "@suiteonix/utils"
 import { Button } from "./button.tsx"
 
 function AlertDialog({

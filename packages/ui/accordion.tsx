@@ -2,7 +2,7 @@ import * as React from "react"
 import {ChevronDownIcon} from "lucide-react"
 import {Accordion as AccordionPrimitive} from "radix-ui"
 
-import {cn} from "@suiteonix/utils/utils.ts"
+import {cn} from "@suiteonix/utils"
 
 function Accordion({
                        ...props

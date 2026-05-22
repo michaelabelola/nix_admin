@@ -1,6 +1,6 @@
 import {Navigate} from '@tanstack/react-router'
 
-import {useAuthenticatedUser} from '#/lib/authenticated-user.store.ts'
+import {useAuthenticatedUser} from '@suiteonix/server'
 import {Card, CardDescription, CardHeader, CardTitle} from '#/components/ui/card.tsx'
 
 import {BusinessAdminPage} from '../business-admin/BusinessAdminPage.tsx'

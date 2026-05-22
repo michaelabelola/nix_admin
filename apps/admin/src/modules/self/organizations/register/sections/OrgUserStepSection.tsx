@@ -4,7 +4,7 @@ import {DatePicker, parseDateInput, toDateInputValue} from "#/components/ui/date
 import {Textarea} from "#/components/ui/textarea.tsx"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"
-import {UserRequest} from "#/modules/user/api.hook.tsx"
+import {UserRequest} from "@suiteonix/server"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"

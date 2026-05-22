@@ -1,10 +1,10 @@
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import type {PropertyModel} from "@suiteonix/server";
 
 import {EmptyState, KeyValue} from "../../PropertyDetailsPrimitives.tsx";
 import {getGoogleMapsEmbedUrl} from "../../property-details.utils.ts";
-import countriesApi from "#/modules/location/apis/countries.api.ts";
+import {countriesApi} from "@suiteonix/server";
 import {useEffect, useState} from "react";
-import statesApi from "#/modules/location/apis/states.api.ts";
+import {statesApi} from "@suiteonix/server";
 import {Card, CardContent} from "#/components/ui/card.tsx";
 
 export function PropertyDetailsLocationTab({property}: { property?: PropertyModel.Detailed }) {

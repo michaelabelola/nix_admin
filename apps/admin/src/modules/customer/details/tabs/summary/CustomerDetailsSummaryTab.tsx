@@ -1,4 +1,4 @@
-import type {CustomerModel} from "#/modules/customer/model.ts"
+import type {CustomerModel} from "@suiteonix/server"
 import {
     formatCustomerAddress,
     getCustomerDisplayName,

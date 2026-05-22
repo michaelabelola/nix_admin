@@ -1,5 +1,5 @@
 import {Separator} from "#/components/ui/separator.tsx";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import type {PropertyModel} from "@suiteonix/server";
 import {Card, CardContent, CardHeader} from "#/components/ui/card.tsx";
 
 export function PropertyDetailsAboutTab({property}: { property?: PropertyModel.Detailed }) {

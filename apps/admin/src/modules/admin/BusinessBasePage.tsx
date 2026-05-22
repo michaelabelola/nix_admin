@@ -1,9 +1,9 @@
 import {SidebarProvider} from "#/components/ui/sidebar.tsx";
 import {Outlet} from "@tanstack/react-router";
 import {AdminSidebar} from "#/modules/admin/components/side-nav/admin-sidebar.tsx";
-import OrganizationRequest from "#/modules/organization/organization.request.ts";
+import {OrganizationRequest} from "@suiteonix/server";
 import DefaultBG from "/logo192.png";
-import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
+import {useAuthenticatedUser} from "@suiteonix/server";
 import {useThemeMode} from "#/components/ThemeToggle.tsx";
 
 const BusinessBasePage = () => {

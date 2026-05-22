@@ -1,11 +1,11 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
 
-import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx"
-import {Page_EMPTY} from "#/models/PagedModel.ts"
-import customerApi from "#/modules/customer/api.ts"
-import type {CustomerModel} from "#/modules/customer/model.ts"
-import {CustomerQueryKeys} from "#/modules/customer/query-keys.ts"
-import type {TagModel} from "#/modules/tags/model.ts"
+import {useResponseFieldErrorHandler} from "../utils"
+import {Page_EMPTY} from "@suiteonix/models"
+import customerApi from "./api.ts"
+import type {CustomerModel} from "./model.ts"
+import {CustomerQueryKeys} from "./query-keys.ts"
+import type {TagModel} from "../tags/model.ts"
 
 type SuccessHandler<T> = (data: T) => void
 

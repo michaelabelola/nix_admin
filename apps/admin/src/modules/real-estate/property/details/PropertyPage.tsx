@@ -17,7 +17,7 @@ import {
     TabsList,
     TabsTrigger,
 } from "#/components/ui/tabs.tsx";
-import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
+import {PropertyApiHook} from "@suiteonix/server";
 import {
     Route as PropertyDetailsRoute
 } from "#/routes/_authenticated/admin/real-estate/properties/$propertyId/route.tsx";

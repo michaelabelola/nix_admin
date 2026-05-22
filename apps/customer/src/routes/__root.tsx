@@ -14,7 +14,7 @@ import type {ReactNode} from "react";
 import {Page404} from "@suiteonix/components";
 import {TooltipProvider} from "@suiteonix/ui";
 import {Toaster} from "@suiteonix/admin/src/components/ui/sonner.tsx";
-import {getLocale} from "#/paraglide/runtime";
+import {getLocale} from "../paraglide/runtime";
 
 interface MyRouterContext {
     queryClient: QueryClient
@@ -87,7 +87,6 @@ function RootDocument({children}: { children: ReactNode }) {
         <body className="font-sans antialiased wrap-anywhere">
         <div className={"fixed top-0 right-0 left-0 bottom-0 bg-background/90 backdrop-blur-xl -z-1"}></div>
         <TooltipProvider>
-            <EntityBootstrap/>
             {children}
         </TooltipProvider>
         <Toaster/>

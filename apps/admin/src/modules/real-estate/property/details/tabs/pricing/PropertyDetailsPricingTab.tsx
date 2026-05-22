@@ -5,9 +5,9 @@ import {toast} from "sonner";
 
 import DataTable from "#/components/data-table/data-table.tsx";
 import {Button} from "#/components/ui/button.tsx";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
-import {PricingApiHook} from "#/modules/real-estate/pricing/api.hook.ts";
-import type {RealEstatePricingModel} from "#/modules/real-estate/pricing/model.ts";
+import type {PropertyModel} from "@suiteonix/server";
+import {PricingApiHook} from "@suiteonix/server";
+import type {RealEstatePricingModel} from "@suiteonix/server";
 
 import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatMoney} from "../../property-details.utils.ts";

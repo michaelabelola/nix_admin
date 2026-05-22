@@ -12,8 +12,8 @@ import type {
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
-import {AccountModel} from "#/modules/finance/account/model.ts"
-import {AccountRequest} from "#/modules/finance/account/request.hook.ts"
+import {AccountModel} from "@suiteonix/server"
+import {AccountRequest} from "@suiteonix/server"
 import {
   accountStatusBadgeVariant,
   getAccountDisplayName,

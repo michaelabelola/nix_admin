@@ -1,4 +1,4 @@
-import type {PageRequest, SortParam} from "../models";
+import type {PageRequest, SortParam} from "@suiteonix/models";
 
 export namespace QueryStringUtil {
 

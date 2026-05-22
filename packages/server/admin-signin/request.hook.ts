@@ -1,9 +1,9 @@
 import {useMutation} from "@tanstack/react-query";
-import {AuthProfileModel} from "../auth-profile/Models.ts";
+import {AuthProfileModel} from "../auth-profile";
 import {type LoginModel} from "./Model.ts";
 import {useResponseFieldErrorHandler} from "../utils";
 import {loginApi} from "./api.tsx";
-import type {ResponseDto} from "../models";
+import type {ResponseDto} from "@suiteonix/models";
 
 export namespace SignInHook {
 

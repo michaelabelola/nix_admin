@@ -11,7 +11,7 @@ import {
     SelectValue,
 } from "#/components/ui/select.tsx"
 import {cn} from "#/lib/utils.ts"
-import {CountryAPI} from "#/modules/location/location.hook.ts"
+import {CountryAPI} from "@suiteonix/server"
 
 type PhoneNumberInputProps = {
     id?: string

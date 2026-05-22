@@ -1,5 +1,6 @@
 import type {RequestHelperInit} from "../utils";
 import {BACKEND} from "../utils";
+import type {LocationModel} from "../location/Models.ts";
 
 export namespace CurrencyModel {
     export type CurrencyValue = {

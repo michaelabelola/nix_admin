@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
-import type {NixID} from '../models'
+import type {NixID} from '@suiteonix/models'
 import type {LoginModel} from '../admin-signin/Model.ts'
 import {useNavigate} from "@tanstack/react-router";
 

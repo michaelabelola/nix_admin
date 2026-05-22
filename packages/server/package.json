@@ -4,7 +4,11 @@
   "exports": {
     ".": "./index.ts",
     "./models": "./models/index.ts",
-    "./utils": "./utils/index.ts"
+    "./utils": "./utils/index.ts",
+    "./*": "./*"
+  },
+  "dependencies": {
+    "@suiteonix/models": "workspace:*"
   },
   "peerDependencies": {
     "react": "^19",

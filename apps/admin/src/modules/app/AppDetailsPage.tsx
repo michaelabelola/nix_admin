@@ -24,11 +24,11 @@ import {
     SelectTrigger,
     SelectValue,
 } from "#/components/ui/select.tsx";
-import {AccessTokenModel} from "#/modules/access-token/model.ts";
-import {AccessTokenRequest} from "#/modules/access-token/request.hook.ts";
+import {AccessTokenModel} from "@suiteonix/server";
+import {AccessTokenRequest} from "@suiteonix/server";
 import {AppCredentialRevealCard} from "#/modules/app/components/AppCredentialRevealCard.tsx";
-import type {AppModel} from "#/modules/app/model.ts";
-import {AppRequest} from "#/modules/app/request.hook.ts";
+import type {AppModel} from "@suiteonix/server";
+import {AppRequest} from "@suiteonix/server";
 import {
     accessTokenStatusBadgeVariant,
     formatDateTime,

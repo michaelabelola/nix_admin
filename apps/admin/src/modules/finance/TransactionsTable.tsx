@@ -12,7 +12,7 @@ import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
 import type {FileRoutesByTo} from "#/routeTree.gen.ts"
-import type {AccountModel} from "#/modules/finance/account/model.ts"
+import type {AccountModel} from "@suiteonix/server"
 import {
   formatDateTime,
   formatMoney,
@@ -22,8 +22,8 @@ import {
   transactionDirectionBadgeVariant,
   transactionStatusBadgeVariant,
 } from "#/modules/finance/finance.utils.tsx"
-import {TransactionModel} from "#/modules/finance/transaction/model.ts"
-import {TransactionRequest} from "#/modules/finance/transaction/request.hook.ts"
+import {TransactionModel} from "@suiteonix/server"
+import {TransactionRequest} from "@suiteonix/server"
 
 export type TransactionsTableRequest = DataTableRequestBase & {
   accountID?: AccountModel.AccountID

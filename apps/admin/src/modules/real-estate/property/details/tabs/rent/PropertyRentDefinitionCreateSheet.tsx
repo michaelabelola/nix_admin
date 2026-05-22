@@ -21,9 +21,9 @@ import {
     SheetTitle,
 } from "#/components/ui/sheet.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
-import {RentDefinitionRequest} from "#/modules/real-estate/rent-definition/api.hook.ts";
-import {RentDefinitionModel} from "#/modules/real-estate/rent-definition/model.ts";
+import type {PropertyModel} from "@suiteonix/server";
+import {RentDefinitionRequest} from "@suiteonix/server";
+import {RentDefinitionModel} from "@suiteonix/server";
 
 type RentFormState = {
     name: string

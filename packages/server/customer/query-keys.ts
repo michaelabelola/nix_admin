@@ -1,4 +1,4 @@
-import type {CustomerModel} from "#/modules/customer/model.ts"
+import type {CustomerModel} from "./model.ts"
 
 export namespace CustomerQueryKeys {
     export const root = ["customers"] as const

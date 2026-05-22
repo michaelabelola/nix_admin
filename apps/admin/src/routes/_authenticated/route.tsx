@@ -1,5 +1,5 @@
 import {createFileRoute, Navigate, Outlet} from '@tanstack/react-router'
-import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
+import {useAuthenticatedUser} from "@suiteonix/server";
 import {Card, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
 import Page404 from "#/components/pages/Page404.tsx";

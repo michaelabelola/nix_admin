@@ -1,4 +1,4 @@
-import {CustomerModel} from "#/modules/customer/model.ts"
+import {CustomerModel} from "@suiteonix/server"
 
 import {useCustomerCreate} from "../customer-create.context.tsx"
 import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"

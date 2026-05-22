@@ -1,4 +1,5 @@
-import type {AuditSection, NixID} from "#/models/Models.ts";
+import type {AuditSection, NixID} from "@suiteonix/models";
+import type {LocationModel} from "../location/Models.ts";
 
 export namespace UserModel {
 
@@ -26,4 +27,3 @@ export namespace UserModel {
         audit: AuditSection
     }
 }
-

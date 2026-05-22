@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query"
 
-import statesApi from "#/modules/location/apis/states.api.ts"
+import {statesApi} from "@suiteonix/server"
 
 import {LocationCombobox} from "./LocationCombobox.tsx"
 

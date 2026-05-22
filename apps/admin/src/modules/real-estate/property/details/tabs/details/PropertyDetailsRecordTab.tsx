@@ -1,7 +1,7 @@
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import type {PropertyModel} from "@suiteonix/server";
 
 import {KeyValue} from "../../PropertyDetailsPrimitives.tsx";
-import organizationRequest from "#/modules/organization/organization.request.ts";
+import {OrganizationRequest as organizationRequest} from "@suiteonix/server";
 import {Spinner} from "#/components/ui/spinner.tsx";
 import {Card, CardHeader} from "#/components/ui/card.tsx";
 import {TagsView} from "#/modules/tags/components/TagsView.tsx";

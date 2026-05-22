@@ -1,27 +1,28 @@
-import {CustomerModel} from "./model.ts";
-import {BACKEND, type RequestHelperInit} from "../utils";
-import {type Paged, PageUtil, type ResponseDto} from "@suiteonix/models";
-import {TagModel} from "@suiteonix/admin/src/modules/tags/model.ts";
-
+import {Backend, type RequestHelperInit} from "../utils"
+import type {ResponseDto} from "@suiteonix/models"
+import type {Paged} from "@suiteonix/models"
+import {PageUtil} from "@suiteonix/models"
+import type {CustomerModel} from "./model.ts"
+import type {TagModel} from "../tags/model.ts"
 
 class CustomerApi {
     query(params?: CustomerModel.Query, init?: Partial<RequestHelperInit>) {
         const query = PageUtil.appendRequestToParam(params)
         appendCustomerQueryParams(query, params)
 
-        return BACKEND.authRequest<Paged<CustomerModel.Customer>>(`/customers?${query.toString()}`, init)
+        return Backend.authRequest<Paged<CustomerModel.Customer>>(`/customers?${query.toString()}`, init)
     }
 
     getById(customerId: CustomerModel.CustomerID, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}`, init)
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}`, init)
     }
 
     getDetailed(customerId: CustomerModel.CustomerID, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/detailed`, init)
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/detailed`, init)
     }
 
     create(body: CustomerModel.Create, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>("/customer", {
+        return Backend.authRequest<CustomerModel.Detailed>("/customer", {
             method: "POST",
             body,
             ...init,
@@ -29,7 +30,7 @@ class CustomerApi {
     }
 
     createSelfAccount(body: CustomerModel.SelfCreate, init?: Partial<RequestHelperInit>) {
-        return BACKEND.request<CustomerModel.Detailed>("/customer/self", {
+        return Backend.request<CustomerModel.Detailed>("/customer/self", {
             method: "POST",
             body: {
                 ...body,
@@ -40,7 +41,7 @@ class CustomerApi {
     }
 
     update(customerId: CustomerModel.CustomerID, body: CustomerModel.Update, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}`, {
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}`, {
             method: "PATCH",
             body,
             ...init,
@@ -48,7 +49,7 @@ class CustomerApi {
     }
 
     updateContact(customerId: CustomerModel.CustomerID, body: CustomerModel.Contact, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/contact`, {
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/contact`, {
             method: "PATCH",
             body,
             ...init,
@@ -56,7 +57,7 @@ class CustomerApi {
     }
 
     updateBillingAddress(customerId: CustomerModel.CustomerID, body: CustomerModel.Address, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/billing-address`, {
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/billing-address`, {
             method: "PATCH",
             body,
             ...init,
@@ -64,7 +65,7 @@ class CustomerApi {
     }
 
     updateShippingAddress(customerId: CustomerModel.CustomerID, body: CustomerModel.Address, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/shipping-address`, {
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/shipping-address`, {
             method: "PATCH",
             body,
             ...init,
@@ -72,7 +73,7 @@ class CustomerApi {
     }
 
     updatePreferences(customerId: CustomerModel.CustomerID, body: CustomerModel.Preferences, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/preferences`, {
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/preferences`, {
             method: "PATCH",
             body,
             ...init,
@@ -80,32 +81,32 @@ class CustomerApi {
     }
 
     initializeFilesStorage(customerId: CustomerModel.CustomerID, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/files-storage`, {
+        return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}/files-storage`, {
             method: "POST",
             ...init,
         })
     }
 
     delete(customerId: CustomerModel.CustomerID, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<ResponseDto<void>>(`/customer/${customerId}`, {
+        return Backend.authRequest<ResponseDto<void>>(`/customer/${customerId}`, {
             method: "DELETE",
             ...init,
         })
     }
 
     getTags(customerId: CustomerModel.CustomerID, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<TagModel.Tag[]>(`/customer/${customerId}/tags`, init)
+        return Backend.authRequest<TagModel.Tag[]>(`/customer/${customerId}/tags`, init)
     }
 
     addTag(customerId: CustomerModel.CustomerID, tagId: TagModel.TagID, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<TagModel.Tag>(`/customer/${customerId}/tag/${tagId}`, {
+        return Backend.authRequest<TagModel.Tag>(`/customer/${customerId}/tag/${tagId}`, {
             method: "POST",
             ...init,
         })
     }
 
     removeTag(customerId: CustomerModel.CustomerID, tagId: TagModel.TagID, init?: Partial<RequestHelperInit>) {
-        return BACKEND.authRequest<ResponseDto<void>>(`/customer/${customerId}/tag/${tagId}`, {
+        return Backend.authRequest<ResponseDto<void>>(`/customer/${customerId}/tag/${tagId}`, {
             method: "DELETE",
             ...init,
         })

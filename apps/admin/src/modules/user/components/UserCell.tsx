@@ -1,9 +1,9 @@
 import type {NixID} from "#/models/Models.ts";
-import {UserRequest} from "#/modules/user/api.hook.tsx";
+import {UserRequest} from "@suiteonix/server";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 import {Skeleton} from "#/components/ui/skeleton.tsx";
 import {Item} from "#/components/ui/item.tsx";
-import {type UserModel} from "#/modules/user/Models.ts";
+import {type UserModel} from "@suiteonix/server";
 import {
     Popover,
     PopoverContent,
@@ -12,7 +12,7 @@ import {
 import {Button} from "#/components/ui/button.tsx";
 import {Separator} from "#/components/ui/separator.tsx";
 import {BriefcaseBusinessIcon, CalendarDays, ExternalLink, Eye, Mail, Phone, UserRound} from "lucide-react";
-import OrganizationRequest from "#/modules/organization/organization.request.ts";
+import {OrganizationRequest} from "@suiteonix/server";
 import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 
 function formatUserCreatedDate(value?: string | Date) {

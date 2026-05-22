@@ -1,5 +1,5 @@
-import type {AccountModel} from "#/modules/finance/account/model.ts"
-import type {TransactionModel} from "#/modules/finance/transaction/model.ts"
+import type {AccountModel} from "@suiteonix/server"
+import type {TransactionModel} from "@suiteonix/server"
 import type {Money} from "#/models/Money.model.ts"
 
 export function getAccountDisplayName(

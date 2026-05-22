@@ -6,8 +6,8 @@ import {Checkbox} from "#/components/ui/checkbox.tsx"
 import {Label} from "#/components/ui/label.tsx"
 import {RadioGroup, RadioGroupItem} from "#/components/ui/radio-group.tsx"
 import {Spinner} from "#/components/ui/spinner.tsx"
-import type {FilesStorageModel} from "#/modules/files-storage/model.ts"
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import type {FilesStorageModel} from "@suiteonix/server"
+import type {PropertyModel} from "@suiteonix/server"
 
 function MediaPreview({item}: { item: FilesStorageModel.FileItem }) {
     const src = item.thumbnail || item.file

@@ -54,10 +54,10 @@ export function LandingPage() {
                         </Link>
                         <nav className="flex items-center gap-2">
                             <Button asChild variant="secondary" size="sm">
-                                <Link to="/customer/login">Login</Link>
+                                <Link to="/login">Login</Link>
                             </Button>
                             <Button asChild size="sm">
-                                <Link to="/customer/register">Register</Link>
+                                <Link to="/register">Register</Link>
                             </Button>
                         </nav>
                     </header>

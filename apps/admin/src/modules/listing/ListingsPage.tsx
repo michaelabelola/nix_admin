@@ -6,7 +6,7 @@ import DataTable from "#/components/data-table/data-table.tsx"
 import type {DataTableRequestBase} from "#/components/data-table/types.ts"
 import {Button} from "#/components/ui/button.tsx"
 import {ButtonGroup} from "#/components/ui/button-group.tsx"
-import {ListingRequest} from "#/modules/listing/request.hook.ts"
+import {ListingRequest} from "@suiteonix/server"
 
 import type {ListingModel} from "./model.ts"
 import {createListingColumns} from "./table.tsx"

@@ -1,7 +1,7 @@
 import type {LoginModel} from "./Model.ts";
-import {BACKEND} from "../utils/fetch.ts";
-import type {NixID, ResponseDto} from "../models";
-import {AuthProfileModel} from "@suiteonix/admin/src/modules/Models.ts";
+import {BACKEND} from "../utils";
+import type {NixID, ResponseDto} from "@suiteonix/models";
+import {AuthProfileModel} from "../auth-profile";
 
 class LoginApi {
     emailPasswordLogin({body, ...rest}: BACKEND.ReqBody<LoginModel.EmailAndPassword>) {

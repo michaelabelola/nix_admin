@@ -1,5 +1,5 @@
 import {createFileRoute, Link} from '@tanstack/react-router'
-import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
+import {useAuthenticatedUser} from "@suiteonix/server";
 import {Card, CardDescription, CardFooter, CardHeader, CardTitle} from "#/components/ui/card.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
 import {Button} from "#/components/ui/button.tsx";

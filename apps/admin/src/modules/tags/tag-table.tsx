@@ -17,9 +17,9 @@ import type {
 import {NixModule} from "#/models/Models.ts";
 import {ObjectVisibility} from "#/models/PagedModel.ts";
 import {TagCreateSheet} from "#/modules/tags/TagCreateSheet.tsx";
-import {TagModel} from "#/modules/tags/model.ts";
+import {TagModel} from "@suiteonix/server";
 import OrgCell from "#/modules/organization/components/OrgCell.tsx";
-import {TagRequest} from "#/modules/tags/request.hook.ts";
+import {TagRequest} from "@suiteonix/server";
 
 type TagTableQuery = DataTableRequestBase & {
     type?: TagModel.TagType

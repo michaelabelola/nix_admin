@@ -1,7 +1,7 @@
 import type {TableData} from "#/components/data-table/data-table.tsx"
-import type {loginApi} from "#/modules/auth/signin/api.tsx"
-import type {OrganizationModel} from "#/modules/organization/models/models.ts"
-import type {PermissionModel} from "#/modules/permissions/Models.ts"
+import type {loginApi} from "@suiteonix/server"
+import type {OrganizationModel} from "@suiteonix/server"
+import type {PermissionModel} from "@suiteonix/server"
 
 export type ProxyLoginRequest = Parameters<typeof loginApi.proxyLogin>[0]["query"]
 export type PermissionRow = TableData<

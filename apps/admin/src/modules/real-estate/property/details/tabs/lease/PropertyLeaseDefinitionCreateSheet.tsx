@@ -21,9 +21,9 @@ import {
     SheetTitle,
 } from "#/components/ui/sheet.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
-import {LeaseDefinitionApiHook} from "#/modules/real-estate/lease-definition/api.hook.ts";
-import {LeaseDefinitionModel} from "#/modules/real-estate/lease-definition/model.ts";
+import type {PropertyModel} from "@suiteonix/server";
+import {LeaseDefinitionApiHook} from "@suiteonix/server";
+import {LeaseDefinitionModel} from "@suiteonix/server";
 
 type LeaseFormState = {
     name: string

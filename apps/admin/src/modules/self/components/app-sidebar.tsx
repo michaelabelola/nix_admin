@@ -30,9 +30,9 @@ import {
 } from "#/components/ui/sidebar.tsx"
 import {selfBusinessNavItems} from "#/modules/self/organizations/OrgNav.tsx";
 import type {FileRoutesByTo} from "#/routeTree.gen.ts";
-import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
+import {useAuthenticatedUser} from "@suiteonix/server";
 import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
-import OrganizationRequest from "#/modules/organization/organization.request.ts";
+import {OrganizationRequest} from "@suiteonix/server";
 import {QuickToolTip} from "#/components/ui/tooltip.tsx";
 import {useNavigate} from "@tanstack/react-router";
 // @ts-ignore

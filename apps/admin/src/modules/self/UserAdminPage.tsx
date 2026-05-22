@@ -3,7 +3,7 @@ import {SidebarProvider} from "#/components/ui/sidebar.tsx";
 import {Outlet} from "@tanstack/react-router";
 import {Card, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
-import {useAuthenticatedUser} from "#/lib/authenticated-user.store.ts";
+import {useAuthenticatedUser} from "@suiteonix/server";
 
 export function UserAdminPage() {
     const {isHydrated} = useAuthenticatedUser()

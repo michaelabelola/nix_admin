@@ -1,5 +1,5 @@
-import {BACKEND} from "../utils/fetch.ts";
 import {AuthProfileModel} from "./Models.ts";
+import {BACKEND} from "../utils";
 
 class AuthProfileApi {
 

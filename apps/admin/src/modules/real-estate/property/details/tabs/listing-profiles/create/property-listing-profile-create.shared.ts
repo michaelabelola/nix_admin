@@ -1,5 +1,5 @@
-import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/model.ts"
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import type {PropertyFeatureModel} from "@suiteonix/server"
+import type {PropertyModel} from "@suiteonix/server"
 
 export type ListingProfileCreateLocationState = Required<NonNullable<PropertyModel.CreateListingProfile["location"]>>
 

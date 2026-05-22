@@ -7,8 +7,8 @@ import {
   CardTitle,
 } from "#/components/ui/card.tsx"
 import { Spinner } from "#/components/ui/spinner.tsx"
-import { PropertyApiHook } from "#/modules/real-estate/property/api.hook.ts"
-import { PropertyModel } from "#/modules/real-estate/property/model.ts"
+import { PropertyApiHook } from "@suiteonix/server"
+import { PropertyModel } from "@suiteonix/server"
 
 import { PropertyAlreadyRegisteredCard } from "./PropertyAlreadyRegisteredCard.tsx"
 

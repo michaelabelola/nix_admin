@@ -1,6 +1,6 @@
 import {Badge} from "#/components/ui/badge.tsx"
 import {EmptyState} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
-import {TagRequest} from "#/modules/tags/request.hook.ts"
+import {TagRequest} from "@suiteonix/server"
 
 import type {ListingModel} from "../model.ts"
 

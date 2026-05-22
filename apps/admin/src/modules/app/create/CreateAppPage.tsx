@@ -24,11 +24,11 @@ import {
     SelectValue,
 } from "#/components/ui/select.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
-import {AccessTokenModel} from "#/modules/access-token/model.ts";
+import {AccessTokenModel} from "@suiteonix/server";
 import {AppCredentialRevealCard} from "#/modules/app/components/AppCredentialRevealCard.tsx";
-import type {AppModel} from "#/modules/app/model.ts";
-import {AppRequest} from "#/modules/app/request.hook.ts";
-import type {PermissionModel} from "#/modules/permissions/Models.ts";
+import type {AppModel} from "@suiteonix/server";
+import {AppRequest} from "@suiteonix/server";
+import type {PermissionModel} from "@suiteonix/server";
 
 const INTRO_ITEMS = [
     {

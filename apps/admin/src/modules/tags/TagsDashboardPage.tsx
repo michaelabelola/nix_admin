@@ -2,8 +2,8 @@ import {useMemo} from "react";
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
 import {ObjectVisibility} from "#/models/PagedModel.ts";
-import {TagModel} from "#/modules/tags/model.ts";
-import {TagRequest} from "#/modules/tags/request.hook.ts";
+import {TagModel} from "@suiteonix/server";
+import {TagRequest} from "@suiteonix/server";
 import {TagsTablePage} from "#/modules/tags/tag-table.tsx";
 
 function MetricCard({

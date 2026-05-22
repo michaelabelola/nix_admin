@@ -21,11 +21,11 @@ import {
     SelectValue,
 } from "#/components/ui/select.tsx";
 import {NixModule} from "#/models/Models.ts";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
-import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
+import type {PropertyModel} from "@suiteonix/server";
+import {PropertyApiHook} from "@suiteonix/server";
 import {TagQuickViewPopover} from "#/modules/tags/components/TagQuickViewPopover.tsx";
-import {TagRequest} from "#/modules/tags/request.hook.ts";
-import {TagModel} from "#/modules/tags/model.ts";
+import {TagRequest} from "@suiteonix/server";
+import {TagModel} from "@suiteonix/server";
 import {ObjectVisibility} from "#/models/PagedModel.ts";
 
 import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";

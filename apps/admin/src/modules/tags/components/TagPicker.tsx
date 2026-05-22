@@ -20,8 +20,8 @@ import {
 } from "#/components/ui/select.tsx"
 import {NixModule} from "#/models/Models.ts"
 import {ObjectVisibility} from "#/models/PagedModel.ts"
-import {TagModel} from "#/modules/tags/model.ts"
-import {TagRequest} from "#/modules/tags/request.hook.ts"
+import {TagModel} from "@suiteonix/server"
+import {TagRequest} from "@suiteonix/server"
 
 const ANY_MODULE = "__any_module__"
 const ANY_TYPE = "__any_type__"

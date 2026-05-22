@@ -3,9 +3,9 @@ import {Link} from "@tanstack/react-router"
 import {Button} from "#/components/ui/button.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
 import {Separator} from "#/components/ui/separator.tsx"
-import {AccountModel} from "#/modules/finance/account/model.ts"
+import {AccountModel} from "@suiteonix/server"
 import {SummaryMetric} from "#/modules/finance/FinancePrimitives.tsx"
-import {TransactionRequest} from "#/modules/finance/transaction/request.hook.ts"
+import {TransactionRequest} from "@suiteonix/server"
 import {
   formatDateTime,
   formatMoney,

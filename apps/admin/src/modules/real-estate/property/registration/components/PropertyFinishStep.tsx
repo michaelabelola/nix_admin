@@ -1,8 +1,8 @@
 import { useNavigate } from "@tanstack/react-router"
 import { toast } from "sonner"
 
-import type { PropertyModel } from "#/modules/real-estate/property/model.ts"
-import { PropertyApiHook } from "#/modules/real-estate/property/api.hook.ts"
+import type { PropertyModel } from "@suiteonix/server"
+import { PropertyApiHook } from "@suiteonix/server"
 
 import { PropertyRegistrationLayout } from "./PropertyRegistrationLayout.tsx"
 import { StepMutationError } from "./PropertyRegistrationFormParts.tsx"

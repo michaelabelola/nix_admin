@@ -2,7 +2,7 @@ import {createFileRoute} from "@tanstack/react-router"
 
 import CustomerPage from "#/modules/customer/details/CustomerPage.tsx"
 import {CustomerDetailsRecordTab} from "#/modules/customer/details/tabs/details/CustomerDetailsRecordTab.tsx"
-import {CustomerRequest} from "#/modules/customer/request.hook.ts"
+import {CustomerRequest} from "@suiteonix/server"
 
 export const Route = createFileRoute("/_authenticated/admin/customers/$customerId/details")({
     component: RouteComponent,

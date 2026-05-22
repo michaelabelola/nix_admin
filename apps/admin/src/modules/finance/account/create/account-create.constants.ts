@@ -1,6 +1,6 @@
 import {Layers3, Landmark, type LucideIcon} from "lucide-react"
 
-import {AccountModel} from "#/modules/finance/account/model.ts"
+import {AccountModel} from "@suiteonix/server"
 
 export type CreatableAccountType =
   | AccountModel.AccountType.NIX

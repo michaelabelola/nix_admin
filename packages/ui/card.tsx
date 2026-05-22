@@ -1,6 +1,6 @@
 import * as React from "react"
 
-import {cn} from "@suiteonix/utils/utils.ts"
+import {cn} from "@suiteonix/utils"
 import {cva, type VariantProps} from "class-variance-authority"
 
 

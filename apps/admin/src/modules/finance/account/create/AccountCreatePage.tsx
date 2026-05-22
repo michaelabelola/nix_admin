@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "#/components/ui/card.tsx"
 import {cn} from "#/lib/utils.ts"
-import {AccountModel} from "#/modules/finance/account/model.ts"
+import {AccountModel} from "@suiteonix/server"
 
 import {CreateAggregateAccountForm, CreateNixAccountForm} from "./AccountCreateForms.tsx"
 import {CREATABLE_ACCOUNT_TYPES} from "./account-create.constants.ts"

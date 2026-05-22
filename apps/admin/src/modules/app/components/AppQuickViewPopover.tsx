@@ -13,7 +13,7 @@ import {
     PopoverTitle,
     PopoverTrigger,
 } from "#/components/ui/popover.tsx";
-import type {AppModel} from "#/modules/app/model.ts";
+import type {AppModel} from "@suiteonix/server";
 import {getAppDisplayName, getInitials} from "#/modules/app/app.utils.tsx";
 
 export function AppQuickViewPopover({

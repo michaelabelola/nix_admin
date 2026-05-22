@@ -2,8 +2,8 @@ import {useNavigate} from "@tanstack/react-router"
 import {useForm, useStore} from "@tanstack/react-form"
 import {toast} from "sonner"
 
-import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts"
-import {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import {PropertyApiHook} from "@suiteonix/server"
+import {PropertyModel} from "@suiteonix/server"
 
 import {
     RegistrationForm,

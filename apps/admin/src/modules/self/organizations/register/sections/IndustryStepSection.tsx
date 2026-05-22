@@ -7,7 +7,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "#/components/ui/select.tsx"
-import organizationUtilsApi from "#/modules/self/organizations/OrgUtil.api.ts"
+import {organizationUtilsApi} from "@suiteonix/server"
 
 import {RegistrationStepLayout} from "../RegistrationStepLayout.tsx"
 import {useRegistration} from "../registration.context.tsx"

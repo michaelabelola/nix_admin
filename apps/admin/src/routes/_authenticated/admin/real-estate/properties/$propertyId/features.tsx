@@ -2,7 +2,7 @@ import {createFileRoute, useLocation, useNavigate} from "@tanstack/react-router"
 
 import PropertyPage from "#/modules/real-estate/property/details/PropertyPage.tsx";
 import {PropertyDetailsFeaturesTab} from "#/modules/real-estate/property/details/tabs/features/PropertyDetailsFeaturesTab.tsx";
-import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
+import {PropertyApiHook} from "@suiteonix/server";
 
 export const Route = createFileRoute(
     "/_authenticated/admin/real-estate/properties/$propertyId/features",

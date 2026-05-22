@@ -5,7 +5,7 @@ import {ArrowLeft, ArrowRight, CheckCircle2, Sparkles} from "lucide-react"
 import {Badge} from "#/components/ui/badge.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {Progress} from "#/components/ui/progress.tsx"
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import type {PropertyModel} from "@suiteonix/server"
 
 import {
     type PropertyRegistrationStepID,

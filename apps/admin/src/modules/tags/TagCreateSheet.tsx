@@ -23,8 +23,8 @@ import {
 } from "#/components/ui/sheet.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
 import {NixModule} from "#/models/Models.ts";
-import {TagModel} from "#/modules/tags/model.ts";
-import {TagRequest} from "#/modules/tags/request.hook.ts";
+import {TagModel} from "@suiteonix/server";
+import {TagRequest} from "@suiteonix/server";
 
 type TagFormValues = {
     name: string

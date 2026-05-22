@@ -13,11 +13,11 @@ import {
     ComboboxList,
 } from "#/components/ui/combobox.tsx"
 import {ObjectVisibility} from "#/models/PagedModel.ts"
-import type {CustomerModel} from "#/modules/customer/model.ts"
-import {CustomerRequest} from "#/modules/customer/request.hook.ts"
+import type {CustomerModel} from "@suiteonix/server"
+import {CustomerRequest} from "@suiteonix/server"
 import {TagQuickViewPopover} from "#/modules/tags/components/TagQuickViewPopover.tsx"
-import type {TagModel} from "#/modules/tags/model.ts"
-import {TagRequest} from "#/modules/tags/request.hook.ts"
+import type {TagModel} from "@suiteonix/server"
+import {TagRequest} from "@suiteonix/server"
 
 import {EmptyState} from "../../CustomerDetailsPrimitives.tsx"
 

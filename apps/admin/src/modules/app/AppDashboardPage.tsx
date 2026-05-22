@@ -2,9 +2,9 @@ import {useMemo} from "react";
 import {AppWindow, KeyRound, ShieldCheck, Webhook} from "lucide-react";
 
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx";
-import {AccessTokenModel} from "#/modules/access-token/model.ts";
-import {AccessTokenRequest} from "#/modules/access-token/request.hook.ts";
-import {AppRequest} from "#/modules/app/request.hook.ts";
+import {AccessTokenModel} from "@suiteonix/server";
+import {AccessTokenRequest} from "@suiteonix/server";
+import {AppRequest} from "@suiteonix/server";
 import {AppsPage} from "#/modules/app/AppsPage.tsx";
 
 function MetricCard({

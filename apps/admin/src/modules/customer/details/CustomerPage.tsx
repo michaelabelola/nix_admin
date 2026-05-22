@@ -10,7 +10,7 @@ import {
     TabsList,
     TabsTrigger,
 } from "#/components/ui/tabs.tsx"
-import {CustomerRequest} from "#/modules/customer/request.hook.ts"
+import {CustomerRequest} from "@suiteonix/server"
 import {
     CUSTOMER_DETAILS_TABS,
     CUSTOMER_DETAILS_TAB_LABELS,

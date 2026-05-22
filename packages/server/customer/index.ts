@@ -1,5 +1,5 @@
-export * from "./api"
-export {default as customerApi} from "./api"
-export * from "./model"
-export * from "./query-keys"
-export * from "./request.hook"
+export * from "./api.ts";
+export {default as customerApi} from "./api.ts";
+export * from "./model.ts";
+export * from "./query-keys.ts";
+export * from "./request.hook.ts";

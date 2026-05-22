@@ -10,7 +10,7 @@ import {
     PopoverTrigger,
 } from "#/components/ui/popover.tsx"
 import {formatFeatureValue} from "#/modules/real-estate/property/details/property-details.utils.ts"
-import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/model.ts"
+import type {PropertyFeatureModel} from "@suiteonix/server"
 
 export function PropertyFeatureQuickViewPopover({
     feature,

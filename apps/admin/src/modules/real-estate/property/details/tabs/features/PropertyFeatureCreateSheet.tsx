@@ -21,10 +21,10 @@ import {
 } from "#/components/ui/sheet.tsx";
 import {Textarea} from "#/components/ui/textarea.tsx";
 import {ObjectVisibility} from "#/models/PagedModel.ts";
-import {PropertyFeatureApiHook} from "#/modules/real-estate/property-feature/api.hook.ts";
-import {PropertyFeatureModel} from "#/modules/real-estate/property-feature/model.ts";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
-import {PropertyFeatureRuleRequest} from "#/modules/real-estate/property-feature-rule/request.hook.ts";
+import {PropertyFeatureApiHook} from "@suiteonix/server";
+import {PropertyFeatureModel} from "@suiteonix/server";
+import type {PropertyModel} from "@suiteonix/server";
+import {PropertyFeatureRuleRequest} from "@suiteonix/server";
 
 type PropertyFeatureFormState = {
     name: string

@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
+import countriesApi from "./apis/countries.api.ts";
 import {useResponseFieldErrorHandler} from "../utils";
-import countriesApi from "./countries.api.ts";
 
 export namespace CountryAPI {
     export function useQueryCountries() {

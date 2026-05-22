@@ -3,7 +3,7 @@ import {toast} from "sonner"
 
 import {Button} from "#/components/ui/button.tsx"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
-import type {AppModel} from "#/modules/app/model.ts"
+import type {AppModel} from "@suiteonix/server"
 
 function getApiDocsUrl() {
     const baseUrl = import.meta.env.VITE_API_BASE_URL

@@ -1,4 +1,4 @@
-import type { PropertyModel } from "#/modules/real-estate/property/model.ts"
+import type { PropertyModel } from "@suiteonix/server"
 
 import {
   toNullableNumber,

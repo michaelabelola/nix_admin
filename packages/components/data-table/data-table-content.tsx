@@ -13,7 +13,7 @@ import {
 
 import type {DataTableContentProps, TableData} from "./types.ts"
 import {useEffect, useState} from "react";
-import type {FetchError} from "@suiteonix/server/utils";
+import type {FetchError} from "@suiteonix/server";
 
 export function DataTableContent<TData, TValue, T>({
                                                        columns,

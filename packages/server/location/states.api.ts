@@ -1,5 +1,6 @@
 import {BACKEND} from "../utils";
 import type {Paged, PagedRequest} from "@suiteonix/models";
+import type {LocationModel} from "./Models.ts";
 
 export class StatesApi {
 

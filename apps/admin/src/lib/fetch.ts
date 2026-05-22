@@ -1,6 +1,6 @@
-import type {ErrorHandlerType, FetchError} from "#/lib/request.types.tsx";
+import type {ErrorHandlerType, FetchError} from "@suiteonix/server";
 import {QueryStringUtil} from "#/lib/QueryStringUtil.ts";
-import {useAuthenticatedUserStore} from '#/lib/authenticated-user.store.ts'
+import {useAuthenticatedUserStore} from '@suiteonix/server'
 
 const DEFAULT_AUTH_TOKEN_KEY = 'accessToken'
 

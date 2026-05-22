@@ -9,7 +9,7 @@ import {Button} from '#/components/ui/button.tsx'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card.tsx'
 import {Input} from '#/components/ui/input.tsx'
 import {Label} from '#/components/ui/label.tsx'
-import {SignInHook} from '#/modules/auth/signin/request.hook.ts'
+import {SignInHook} from '@suiteonix/server'
 import {InputOTP, InputOTPGroup, InputOTPSlot} from "#/components/ui/input-otp.tsx";
 
 const benefits = [

@@ -14,8 +14,8 @@ import {
 } from "#/components/ui/card.tsx"
 import {Checkbox} from "#/components/ui/checkbox.tsx"
 import {Label} from "#/components/ui/label.tsx"
-import {AccountModel} from "#/modules/finance/account/model.ts"
-import {AccountRequest} from "#/modules/finance/account/request.hook.ts"
+import {AccountModel} from "@suiteonix/server"
+import {AccountRequest} from "@suiteonix/server"
 import {getAccountDisplayName} from "#/modules/finance/finance.utils.tsx"
 
 import type {CreatableAccountType} from "./account-create.constants.ts"

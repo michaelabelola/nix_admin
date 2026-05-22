@@ -17,7 +17,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "#/components/ui/tabs.tsx"
-import {AccountRequest} from "#/modules/finance/account/request.hook.ts"
+import {AccountRequest} from "@suiteonix/server"
 import {
   ACCOUNT_DETAILS_TABS,
   ACCOUNT_DETAILS_TAB_LABELS,

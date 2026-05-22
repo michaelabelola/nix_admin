@@ -10,8 +10,8 @@ import {Button} from "#/components/ui/button.tsx";
 import {ButtonGroup} from "#/components/ui/button-group.tsx";
 import {Badge} from "#/components/ui/badge.tsx";
 import type {PageRequest} from "#/models/PagedModel.ts";
-import {PropertyApiHook} from "#/modules/real-estate/property/api.hook.ts";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import {PropertyApiHook} from "@suiteonix/server";
+import type {PropertyModel} from "@suiteonix/server";
 
 import {formatLocation} from "./details/property-details.utils.ts";
 

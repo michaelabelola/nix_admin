@@ -1,6 +1,6 @@
 import {Badge} from "#/components/ui/badge.tsx"
 import {Card, CardContent, CardHeader, CardTitle} from "#/components/ui/card.tsx"
-import {CustomerModel} from "#/modules/customer/model.ts"
+import {CustomerModel} from "@suiteonix/server"
 
 import {useCustomerCreate} from "../customer-create.context.tsx"
 import {CustomerCreateStepLayout} from "../CustomerCreateStepLayout.tsx"

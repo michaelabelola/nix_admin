@@ -9,7 +9,7 @@ import {
     PopoverTitle,
     PopoverTrigger,
 } from "#/components/ui/popover.tsx"
-import type {TagModel} from "#/modules/tags/model.ts"
+import type {TagModel} from "@suiteonix/server"
 
 export function TagQuickViewPopover({
                                         tag,

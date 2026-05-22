@@ -3,7 +3,7 @@ import {create} from 'zustand'
 import {persist} from 'zustand/middleware'
 
 import type {NixID} from '#/models/Models.ts'
-import type {LoginModel} from '#/modules/auth/signin/Model.ts'
+import type {LoginModel} from '@suiteonix/server'
 import {useNavigate} from "@tanstack/react-router";
 
 export type AuthenticatedUser = {

@@ -3,8 +3,8 @@ import {ImageIcon, Upload} from "lucide-react";
 
 import {Button} from "#/components/ui/button.tsx";
 import {Spinner} from "#/components/ui/spinner.tsx";
-import {FilesStorageRequest} from "#/modules/files-storage/request.hook.ts";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import {FilesStorageRequest} from "@suiteonix/server";
+import type {PropertyModel} from "@suiteonix/server";
 
 import {EmptyState} from "../../PropertyDetailsPrimitives.tsx";
 import {GalleryItemsContent} from "./GalleryItemsContent.tsx";

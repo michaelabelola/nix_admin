@@ -2,8 +2,7 @@ import type * as React from "react"
 import type {UseQueryResult} from "@tanstack/react-query"
 import type {ColumnDef, RowData, Table as ReactTable, TableOptions} from "@tanstack/react-table"
 
-import type {Paged, PagedRequest, SortParam} from "#/models/PagedModel.ts"
-import type {FileRoutesByTo} from "#/routeTree.gen.ts"
+import type {Paged, PagedRequest, SortParam} from "@suiteonix/models"
 
 declare module "@tanstack/react-table" {
     interface ColumnMeta<TData extends RowData, TValue> {
@@ -50,7 +49,7 @@ export type DataTableProps<
     T = any
 > = {
     columns: Array<ColumnDef<TableData<TData, T>, TValue>>
-    from: keyof FileRoutesByTo
+    from: string
     useQuery: (request: TRequest) => UseQueryResult<Paged<TableData<TData, T> | any>>
     defaultQueryFields?:Record<string, unknown>,
     useRowQuery?: (data: TData) => Promise<T>

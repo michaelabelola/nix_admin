@@ -39,13 +39,13 @@ export function CustomerLoginPage() {
                 <div className="flex min-h-dvh flex-col px-4 py-6 sm:px-8 lg:px-12">
                     <header className="flex items-center justify-between">
                         <Button asChild variant="ghost" className="px-0">
-                            <Link to="/customer">
+                            <Link to="/">
                                 <ArrowLeft className="size-4"/>
                                 Customer home
                             </Link>
                         </Button>
                         <Button asChild variant="outline" size="sm">
-                            <Link to="/customer/register">Register</Link>
+                            <Link to="/register">Register</Link>
                         </Button>
                     </header>
 

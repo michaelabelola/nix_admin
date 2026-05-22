@@ -5,9 +5,9 @@ import {PlusCircle} from "lucide-react"
 import DataTable from "#/components/data-table/data-table.tsx"
 import {Button} from "#/components/ui/button.tsx"
 import {DefinitionCard} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
-import {PropertyListingProfileApiHook} from "#/modules/real-estate/property-listing-profile/api.hook.ts"
+import {PropertyListingProfileApiHook} from "@suiteonix/server"
 import {createPropertyListingProfileColumns} from "#/modules/real-estate/property-listing-profile/table.tsx"
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts"
+import type {PropertyModel} from "@suiteonix/server"
 
 export function PropertyDetailsListingProfilesTab({
     property,

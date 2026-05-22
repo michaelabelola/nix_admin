@@ -5,6 +5,12 @@
   "exports": {
     ".": "./index.ts"
   },
+  "dependencies": {
+    "@suiteonix/models": "workspace:*",
+    "@suiteonix/server": "workspace:*",
+    "@suiteonix/ui": "workspace:*",
+    "@suiteonix/utils": "workspace:*"
+  },
   "peerDependencies": {
     "react": "^19",
     "react-dom": "^19"

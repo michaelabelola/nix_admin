@@ -2,7 +2,7 @@ import {Button} from "#/components/ui/button.tsx"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "#/components/ui/card.tsx"
 import {Checkbox} from "#/components/ui/checkbox.tsx"
 import {PropertyFeatureQuickViewPopover} from "#/modules/real-estate/property-feature/components/PropertyFeatureQuickViewPopover.tsx"
-import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/model.ts"
+import type {PropertyFeatureModel} from "@suiteonix/server"
 import {EyeIcon} from "lucide-react";
 
 export function PropertyListingProfileFeaturesCard({

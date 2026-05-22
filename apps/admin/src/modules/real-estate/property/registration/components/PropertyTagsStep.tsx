@@ -3,8 +3,8 @@ import { useForm, useStore } from "@tanstack/react-form"
 import { toast } from "sonner"
 
 import { Badge } from "#/components/ui/badge.tsx"
-import { PropertyApiHook } from "#/modules/real-estate/property/api.hook.ts"
-import type { PropertyModel } from "#/modules/real-estate/property/model.ts"
+import { PropertyApiHook } from "@suiteonix/server"
+import type { PropertyModel } from "@suiteonix/server"
 import {TagPicker} from "#/modules/tags/components/TagPicker.tsx"
 
 import {

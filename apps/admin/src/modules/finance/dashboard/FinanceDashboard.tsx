@@ -12,9 +12,9 @@ import {
   CardTitle,
 } from "#/components/ui/card.tsx"
 import {Badge} from "#/components/ui/badge.tsx"
-import {AccountRequest} from "#/modules/finance/account/request.hook.ts"
-import {FinanceCurrencyRequest} from "#/modules/finance/currency/request.hook.ts"
-import {TransactionRequest} from "#/modules/finance/transaction/request.hook.ts"
+import {AccountRequest} from "@suiteonix/server"
+import {FinanceCurrencyRequest} from "@suiteonix/server"
+import {TransactionRequest} from "@suiteonix/server"
 import {
   accountStatusBadgeVariant,
   formatDateTime,

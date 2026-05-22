@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 
-import {useResponseFieldErrorHandler} from "#/lib/request.types.tsx";
+import {useResponseFieldErrorHandler} from "@suiteonix/server";
 
 import currencyApi from "./Currency.api.ts";
 

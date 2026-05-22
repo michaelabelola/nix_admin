@@ -37,8 +37,8 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "#/components/ui/sidebar.tsx"
-import {UserRequest} from "#/modules/user/api.hook.tsx";
-import {useLogout} from "#/lib/authenticated-user.store.ts";
+import {UserRequest} from "@suiteonix/server";
+import {useLogout} from "@suiteonix/server";
 
 export function NavUser() {
     const {isMobile} = useSidebar()

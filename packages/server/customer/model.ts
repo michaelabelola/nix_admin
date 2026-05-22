@@ -1,6 +1,7 @@
-import {type AuditSection, type NixFile, type NixID, ObjectVisibility, type PagedRequest} from "@suiteonix/models";
-import {TagModel} from "@suiteonix/admin/src/modules/tags/model.ts";
-
+import type {AuditSection, NixID} from "@suiteonix/models"
+import type {NixFile} from "@suiteonix/models"
+import type {ObjectVisibility, PagedRequest} from "@suiteonix/models"
+import type {TagModel} from "../tags/model.ts"
 
 export namespace CustomerModel {
     export type CustomerID = string

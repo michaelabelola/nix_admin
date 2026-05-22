@@ -5,6 +5,9 @@
   "exports": {
     ".": "./index.ts"
   },
+  "dependencies": {
+    "@suiteonix/utils": "workspace:*"
+  },
   "peerDependencies": {
     "react": "^19",
     "react-dom": "^19"

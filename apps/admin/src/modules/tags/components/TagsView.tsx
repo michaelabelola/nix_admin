@@ -2,8 +2,8 @@ import {useMemo} from "react"
 
 import {Badge} from "#/components/ui/badge.tsx"
 import {cn} from "#/lib/utils.ts"
-import type {TagModel} from "#/modules/tags/model.ts"
-import {TagRequest} from "#/modules/tags/request.hook.ts"
+import type {TagModel} from "@suiteonix/server"
+import {TagRequest} from "@suiteonix/server"
 import {TagQuickViewPopover} from "#/modules/tags/components/TagQuickViewPopover.tsx";
 
 export function TagsView({

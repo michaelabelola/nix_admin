@@ -1,4 +1,4 @@
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import type {PropertyModel} from "@suiteonix/server";
 
 import {SummaryMetric} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDefinitionAmount, formatLocation, formatPricingDefinition} from "../../property-details.utils.ts";

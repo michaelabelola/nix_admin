@@ -1,6 +1,6 @@
-import type {UserModel} from "./Models.ts";
+import {type UserModel} from "./Models.ts";
+import {BACKEND} from "../utils";
 import type {FetchError} from "../utils";
-import {BACKEND} from "../utils/fetch.ts";
 
 class UserApi {
 

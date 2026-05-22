@@ -5,7 +5,7 @@ import {CalendarIcon} from "lucide-react"
 import {Button} from "./button.tsx"
 import {Calendar} from "./calendar.tsx"
 import {Popover, PopoverContent, PopoverTrigger} from "./popover.tsx"
-import {cn} from "@suiteonix/utils/utils.ts"
+import {cn} from "@suiteonix/utils"
 
 type CalendarProps = React.ComponentProps<typeof Calendar>
 

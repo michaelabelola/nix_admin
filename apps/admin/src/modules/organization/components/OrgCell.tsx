@@ -10,8 +10,8 @@ import {
 } from "#/components/ui/popover.tsx";
 import { Skeleton } from "#/components/ui/skeleton.tsx";
 import type { NixID } from "#/models/Models.ts";
-import type { OrganizationModel } from "#/modules/organization/models/models.ts";
-import OrganizationRequest from "#/modules/organization/organization.request.ts";
+import type { OrganizationModel } from "@suiteonix/server";
+import {OrganizationRequest} from "@suiteonix/server";
 import {
   BadgeCheck,
   Ban,

@@ -11,7 +11,7 @@ import {Textarea} from '#/components/ui/textarea.tsx'
 import {CountryDropdown} from '#/modules/location/components/CountryDropdown.tsx'
 import {PhoneNumberInput} from '#/modules/location/components/PhoneNumberInput.tsx'
 import {StatesDropdown} from '#/modules/location/components/StatesDropdown.tsx'
-import {SignupHook} from '#/modules/auth/signup/request.hook.ts'
+import {SignupHook} from '@suiteonix/server'
 import {useNavigate} from "@tanstack/react-router";
 
 type SignUpFormValues = {

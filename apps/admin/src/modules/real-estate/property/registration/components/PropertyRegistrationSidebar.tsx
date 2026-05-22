@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "#/components/ui/card.tsx"
-import type { PropertyModel } from "#/modules/real-estate/property/model.ts"
+import type { PropertyModel } from "@suiteonix/server"
 
 import type { PropertyRegistrationStepID } from "./property-registration.constants.ts"
 import { getPropertyRegistrationSteps } from "./property-registration.constants.ts"

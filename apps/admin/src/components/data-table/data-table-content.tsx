@@ -13,7 +13,7 @@ import {
 
 import type {DataTableContentProps, TableData} from "./types.ts"
 import {useEffect, useState} from "react";
-import type {FetchError} from "#/lib/request.types.tsx";
+import type {FetchError} from "@suiteonix/server";
 import {Spinner} from "#/components/ui/spinner.tsx";
 
 export function DataTableContent<TData, TValue, T>({

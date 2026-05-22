@@ -5,9 +5,9 @@ import {PlusCircle} from "lucide-react";
 import DataTable from "#/components/data-table/data-table.tsx";
 import {Badge} from "#/components/ui/badge.tsx";
 import {Button} from "#/components/ui/button.tsx";
-import type {PropertyFeatureModel} from "#/modules/real-estate/property-feature/model.ts";
-import {PropertyFeatureApiHook} from "#/modules/real-estate/property-feature/api.hook.ts";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import type {PropertyFeatureModel} from "@suiteonix/server";
+import {PropertyFeatureApiHook} from "@suiteonix/server";
+import type {PropertyModel} from "@suiteonix/server";
 
 import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatFeatureValue} from "../../property-details.utils.ts";

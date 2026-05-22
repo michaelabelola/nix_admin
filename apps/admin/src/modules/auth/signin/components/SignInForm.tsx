@@ -4,10 +4,10 @@ import {useForm, useStore} from '@tanstack/react-form'
 import {Alert, AlertDescription, AlertTitle} from '#/components/ui/alert.tsx'
 import {Button} from '#/components/ui/button.tsx'
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/components/ui/card.tsx'
-import {useAuthenticatedUserStore} from '#/lib/authenticated-user.store.ts'
+import {useAuthenticatedUserStore} from '@suiteonix/server'
 import {useEntityStore} from '#/lib/entity.store.ts'
-import type {LoginModel} from '#/modules/auth/signin/Model.ts'
-import {SignInHook} from '#/modules/auth/signin/request.hook.ts'
+import type {LoginModel} from '@suiteonix/server'
+import {SignInHook} from '@suiteonix/server'
 
 import {SignInField} from './SignInField.tsx'
 import {useNavigate} from "@tanstack/react-router";

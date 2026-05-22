@@ -2,7 +2,7 @@ import React, {createContext, useContext, useMemo, useState} from "react"
 import {useNavigate} from "@tanstack/react-router"
 import {toast} from "sonner"
 
-import type {Organization_RegisterModel} from "#/modules/organization/models/models.ts"
+import type {Organization_RegisterModel} from "@suiteonix/server"
 
 import onboardingOrgApi from "./onboarding.org.api.ts"
 import defaultData from "#/DefaultData.ts";

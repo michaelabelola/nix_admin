@@ -1,8 +1,8 @@
 import {type FormEvent, useEffect, useState} from "react";
 import {toast} from "sonner";
 
-import {FilesStorageRequest} from "#/modules/files-storage/request.hook.ts";
-import type {FilesStorageModel} from "#/modules/files-storage/model.ts";
+import {FilesStorageRequest} from "@suiteonix/server";
+import type {FilesStorageModel} from "@suiteonix/server";
 
 import type {GalleryUploadFormState} from "./GalleryUploadForm.tsx";
 

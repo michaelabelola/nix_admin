@@ -2,8 +2,8 @@ import React, {createContext, useContext, useMemo, useState} from "react"
 import {useNavigate} from "@tanstack/react-router"
 import {toast} from "sonner"
 
-import {CustomerModel} from "#/modules/customer/model.ts"
-import {CustomerRequest} from "#/modules/customer/request.hook.ts"
+import {CustomerModel} from "@suiteonix/server"
+import {CustomerRequest} from "@suiteonix/server"
 
 type DraftAddress = {
     label: string

@@ -10,7 +10,7 @@ import {
     type LucideIcon,
 } from "lucide-react"
 
-import {CustomerModel} from "#/modules/customer/model.ts"
+import {CustomerModel} from "@suiteonix/server"
 
 export const CUSTOMER_CREATE_INTRO_PATH = "/admin/customers/create"
 

@@ -14,8 +14,8 @@ import {
     SheetHeader,
     SheetTitle,
 } from "#/components/ui/sheet.tsx";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
-import {PricingApiHook} from "#/modules/real-estate/pricing/api.hook.ts";
+import type {PropertyModel} from "@suiteonix/server";
+import {PricingApiHook} from "@suiteonix/server";
 
 type PricingFormState = {
     name: string

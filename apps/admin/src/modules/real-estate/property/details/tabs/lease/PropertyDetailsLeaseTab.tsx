@@ -7,9 +7,9 @@ import DataTable from "#/components/data-table/data-table.tsx";
 import {Button} from "#/components/ui/button.tsx";
 import {ButtonGroup} from "#/components/ui/button-group.tsx";
 import {QuickToolTip} from "#/components/ui/tooltip.tsx";
-import {LeaseDefinitionApiHook} from "#/modules/real-estate/lease-definition/api.hook.ts";
-import {LeaseDefinitionModel} from "#/modules/real-estate/lease-definition/model.ts";
-import type {PropertyModel} from "#/modules/real-estate/property/model.ts";
+import {LeaseDefinitionApiHook} from "@suiteonix/server";
+import {LeaseDefinitionModel} from "@suiteonix/server";
+import type {PropertyModel} from "@suiteonix/server";
 
 import {DefinitionCard} from "../../PropertyDetailsPrimitives.tsx";
 import {formatDuration, formatMoney} from "../../property-details.utils.ts";

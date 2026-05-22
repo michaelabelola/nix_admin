@@ -1,8 +1,8 @@
 import type {VariantProps} from "class-variance-authority";
 
 import type {badgeVariants} from "#/components/ui/badge.tsx";
-import {AccessTokenModel} from "#/modules/access-token/model.ts";
-import type {AppModel} from "#/modules/app/model.ts";
+import {AccessTokenModel} from "@suiteonix/server";
+import type {AppModel} from "@suiteonix/server";
 
 type BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>["variant"]>
 

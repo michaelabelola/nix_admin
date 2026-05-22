@@ -5,7 +5,7 @@ import {Checkbox} from "#/components/ui/checkbox.tsx"
 import {Input} from "#/components/ui/input.tsx"
 import {Label} from "#/components/ui/label.tsx"
 import {Textarea} from "#/components/ui/textarea.tsx"
-import type {ErrorFieldType} from "#/lib/request.types.tsx"
+import type {ErrorFieldType} from "@suiteonix/server"
 
 function FieldErrorMessage({error}: { error?: string }) {
   if (!error) return null

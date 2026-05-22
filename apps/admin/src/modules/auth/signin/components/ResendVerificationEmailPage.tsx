@@ -10,7 +10,7 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '#/compo
 import {Input} from '#/components/ui/input.tsx'
 import {Label} from '#/components/ui/label.tsx'
 import {useEntityStore} from '#/lib/entity.store.ts'
-import {SignInHook} from '#/modules/auth/signin/request.hook.ts'
+import {SignInHook} from '@suiteonix/server'
 
 const benefits = [
     {

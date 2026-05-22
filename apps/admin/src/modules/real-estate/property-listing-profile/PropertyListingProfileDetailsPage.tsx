@@ -21,8 +21,8 @@ import {Input} from "#/components/ui/input.tsx"
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "#/components/ui/table.tsx"
 import {Tabs, TabsList, TabsTrigger} from "#/components/ui/tabs.tsx"
 import {NixModule} from "#/models/Models.ts"
-import {ListingModel} from "#/modules/listing/model.ts"
-import {ListingRequest, ListingQueryKeys} from "#/modules/listing/request.hook.ts"
+import {ListingModel} from "@suiteonix/server"
+import {ListingRequest, ListingQueryKeys} from "@suiteonix/server"
 import {getListingStatusVariant} from "#/modules/listing/table.tsx"
 import {
     DefinitionCard,
@@ -31,9 +31,9 @@ import {
     SummaryMetric
 } from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 import {formatMoney} from "#/modules/real-estate/property/details/property-details.utils.ts"
-import {RealEstateQueryKeys} from "#/modules/real-estate/query-keys.ts"
-import {PropertyListingProfileApiHook} from "#/modules/real-estate/property-listing-profile/api.hook.ts"
-import type {PropertyListingProfileModel} from "#/modules/real-estate/property-listing-profile/model.ts"
+import {RealEstateQueryKeys} from "@suiteonix/server"
+import {PropertyListingProfileApiHook} from "@suiteonix/server"
+import type {PropertyListingProfileModel} from "@suiteonix/server"
 
 import {formatListingProfileDefinitionValue, formatListingProfileLocation} from "./table.tsx"
 
