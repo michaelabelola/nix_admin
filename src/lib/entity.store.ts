@@ -29,3 +29,7 @@ export function extractEntityIDFromHostname(hostname: string) {
 
   return null
 }
+
+export function isCustomerSubdomain(hostname: string) {
+  return extractEntityIDFromHostname(hostname) === 'customer'
+}
