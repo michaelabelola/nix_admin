@@ -1,0 +1,13 @@
+{
+  "name": "@suiteonix/server",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./models": "./models/index.ts",
+    "./utils": "./utils/index.ts"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

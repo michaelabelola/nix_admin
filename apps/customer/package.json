@@ -1,0 +1,16 @@
+{
+  "name": "@suiteonix/customer",
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "dependencies": {
+    "@suiteonix/ui": "workspace:*",
+    "@suiteonix/server": "workspace:*",
+    "@suiteonix/data": "workspace:*"
+  },
+  "scripts": {
+    "dev": "vite --port 3001 --host",
+    "build": "vite build"
+  }
+}
