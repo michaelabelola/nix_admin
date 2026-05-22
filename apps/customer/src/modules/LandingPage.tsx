@@ -166,7 +166,7 @@ export function LandingPage() {
                                 <ArrowRight className="size-4"/>
                             </Link>
                         </Button>
-                        <Button asChild size="lg" variant="outline"
+                        <Button size="lg" variant="outline"
                                 className="border-background/30 bg-transparent text-background hover:bg-background hover:text-foreground">
                             <Link to="/login" search={{email: ""}}>Login</Link>
                         </Button>
