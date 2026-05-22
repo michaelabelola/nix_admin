@@ -36,6 +36,8 @@ import {
     getInitials,
     tokenEnvironmentBadgeVariant,
 } from "#/modules/app/app.utils.tsx";
+import AccessTokenStatus = AccessTokenModel.AccessTokenStatus;
+import TokenEnvironment = AccessTokenModel.TokenEnvironment;
 
 async function copyValue(value: string, label: string) {
     await navigator.clipboard.writeText(value)
@@ -164,7 +166,8 @@ export function AppDetailsPage({appId}: { appId: AppModel.AppID }) {
                         <DetailRow label="Name" value={app?.name}/>
                         <DetailRow label="Entity" value={app?.entityID}/>
                         <DetailRow label="Webhook URL" value={app?.webhook?.value}/>
-                        <DetailRow label="Webhook Status" value={app?.webhook?.isUp == null ? null : app.webhook.isUp ? "Up" : "Down"}/>
+                        <DetailRow label="Webhook Status"
+                                   value={app?.webhook?.isUp == null ? null : app.webhook.isUp ? "Up" : "Down"}/>
                     </CardContent>
                 </Card>
 
@@ -278,7 +281,8 @@ export function AppDetailsPage({appId}: { appId: AppModel.AppID }) {
                             {(tokenQuery.data?.content ?? []).length ? (
                                 tokenQuery.data.content.map((token) => (
                                     <div key={token.id} className="rounded-lg border p-4">
-                                        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                                        <div
+                                            className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                                             <div className="space-y-1">
                                                 <div className="font-mono text-sm">{token.mask || token.id}</div>
                                                 <div className="text-sm text-muted-foreground">
@@ -289,10 +293,12 @@ export function AppDetailsPage({appId}: { appId: AppModel.AppID }) {
                                                 </div>
                                             </div>
                                             <div className="flex flex-wrap gap-2">
-                                                <Badge variant={accessTokenStatusBadgeVariant[token.status]}>
+                                                <Badge
+                                                    variant={accessTokenStatusBadgeVariant[token.status as any as AccessTokenStatus]}>
                                                     {token.status}
                                                 </Badge>
-                                                <Badge variant={tokenEnvironmentBadgeVariant[token.environment]}>
+                                                <Badge
+                                                    variant={tokenEnvironmentBadgeVariant[token.environment as any as TokenEnvironment]}>
                                                     {token.environment}
                                                 </Badge>
                                             </div>

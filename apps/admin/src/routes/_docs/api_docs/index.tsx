@@ -2,8 +2,8 @@ import {createFileRoute, Link} from '@tanstack/react-router'
 import {ArrowLeft, BookOpen, Braces, Clock, KeyRound, ShieldCheck} from 'lucide-react'
 import type {ComponentType} from 'react'
 
-import {Badge} from '@suiteonix/ui/badge.tsx'
 import {Button} from '#/components/ui/button.tsx'
+import {Badge} from "@suiteonix/ui";
 
 export const Route = createFileRoute('/_docs/api_docs/')({
     component: RouteComponent,
