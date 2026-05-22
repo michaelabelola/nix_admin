@@ -89,7 +89,7 @@ const PropertyPage = ({
                                 replace: true,
                             })
                         }}
-                        className="gap-6 backdrop-blur-2xl"
+                        className="gap-6 bg-card/50 backdrop-blur-2xl w-fit rounded-lg"
                     >
                         <TabsList variant="line" className="h-auto w-full flex-wrap justify-start rounded-none p-0">
                             {PROPERTY_DETAILS_TABS.map((tab) => (

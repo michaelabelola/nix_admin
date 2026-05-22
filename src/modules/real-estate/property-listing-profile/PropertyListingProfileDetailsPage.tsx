@@ -151,7 +151,9 @@ function ListingProfileGalleryTab({profile}: { profile: PropertyListingProfileMo
     )
 }
 
-function ListingProfileListingsTab({listingProfileId}: { listingProfileId: PropertyListingProfileModel.ListingProfileID }) {
+function ListingProfileListingsTab({listingProfileId}: {
+    listingProfileId: PropertyListingProfileModel.ListingProfileID
+}) {
     const listingIdsQuery = PropertyListingProfileApiHook.useGetPropertyListingProfileListingIds(listingProfileId)
     const listingIds = useMemo(() => listingIdsQuery.data ?? [], [listingIdsQuery.data])
     const listingsQuery = ListingRequest.useGetListingsByIds(listingIds)
@@ -199,10 +201,10 @@ function ListingProfileListingsTab({listingProfileId}: { listingProfileId: Prope
 
                         return (
                             <TableRow key={listingId}>
-                                <TableCell>
+                                <TableCell className={"max-w-50"}>
                                     <div className="space-y-1">
-                                        <div className="font-medium">{listing?.title || listingId}</div>
-                                        <div className="line-clamp-2 text-muted-foreground">
+                                        <div className="font-medium text-ellipsis whitespace-nowrap">{listing?.title || listingId}</div>
+                                        <div className="line-clamp-2 text-muted-foreground text-ellipsis whitespace-nowrap">
                                             {listing?.description || "Listing details unavailable"}
                                         </div>
                                     </div>
@@ -317,20 +319,22 @@ function ListingProfileAddListingSheet({
 
                                         return (
                                             <TableRow key={listing.id}>
-                                                <TableCell>
-                                                    <div className="space-y-1">
-                                                        <div className="font-medium">{listing.title || "Untitled listing"}</div>
-                                                        <div className="line-clamp-2 text-muted-foreground">
+                                                <TableCell className={"max-w-50 flex"}>
+                                                    <div
+                                                        className="space-y-1 overflow-x-hidden text-ellipsis whitespace-nowrap">
+                                                        <div
+                                                            className="font-medium text-ellipsis whitespace-nowrap">{listing.title || "Untitled listing"}</div>
+                                                        <div className="line-clamp-2 text-muted-foreground text-ellipsis whitespace-nowrap">
                                                             {listing.description || "No description"}
                                                         </div>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell>
+                                                <TableCell className={"max-w-40"}>
                                                     <Badge variant={getListingStatusVariant(listing.status)}>
                                                         {listing.status || "STATUS_UNSET"}
                                                     </Badge>
                                                 </TableCell>
-                                                <TableCell>{listing.module || "Not set"}</TableCell>
+                                                <TableCell className={"max-w-40"}>{listing.module || "Not set"}</TableCell>
                                                 <TableCell className="text-right">
                                                     <Button
                                                         size="sm"

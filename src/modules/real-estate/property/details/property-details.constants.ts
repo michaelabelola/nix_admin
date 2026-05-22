@@ -3,13 +3,13 @@ export const PROPERTY_DETAILS_TABS = [
     "details",
     "about",
     "gallery",
-    "listing-profiles",
     "location",
     "features",
     "tags",
     "rent",
     "lease",
     "pricing",
+    "listing-profiles",
 ] as const
 
 export type PropertyDetailsTab = (typeof PROPERTY_DETAILS_TABS)[number]
@@ -19,12 +19,12 @@ export const PROPERTY_DETAILS_TAB_LABELS: Record<PropertyDetailsTab, string> = {
     details: "Details",
     about: "About",
     gallery: "Gallery",
-    "listing-profiles": "Listing Profiles",
     location: "Location",
     features: "Features",
     tags: "Tags",
     rent: "Rent",
     lease: "Lease",
+    "listing-profiles": "Profiles",
     pricing: "Pricing",
 }
 

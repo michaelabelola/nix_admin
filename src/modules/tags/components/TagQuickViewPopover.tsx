@@ -10,9 +10,6 @@ import {
     PopoverTrigger,
 } from "#/components/ui/popover.tsx"
 import type {TagModel} from "#/modules/tags/model.ts"
-import {Button} from "#/components/ui/button.tsx";
-import {ArrowRightIcon} from "lucide-react";
-import {Link} from "@tanstack/react-router";
 
 export function TagQuickViewPopover({
                                         tag,
