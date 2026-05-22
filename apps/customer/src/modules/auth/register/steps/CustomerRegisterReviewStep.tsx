@@ -1,7 +1,7 @@
 import {ClipboardCheck} from "lucide-react"
 
-import {Badge} from "@suiteonix/admin/src/components/ui/badge.tsx"
-import {Card, CardContent, CardHeader, CardTitle} from "@suiteonix/admin/src/components/ui/card.tsx"
+import {Badge} from "@suiteonix/ui"
+import {Card, CardContent, CardHeader, CardTitle} from "@suiteonix/ui"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"

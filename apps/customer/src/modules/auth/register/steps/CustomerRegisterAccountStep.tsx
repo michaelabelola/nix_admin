@@ -1,12 +1,11 @@
 import {KeyRound} from "lucide-react"
 
-import {StepInput, StepSection} from "@suiteonix/admin/src/modules/customer/create/customer-create.fields.tsx"
-
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {isPasswordConfirmed} from "../customer-register.utils.ts"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 import {Alert, AlertDescription} from "@suiteonix/ui";
+import {StepInput, StepSection} from "../customer-create.fields.tsx";
 
 export function CustomerRegisterAccountStep() {
     const {draft, updateDraft, getFieldError} = useCustomerRegister()
@@ -17,7 +16,8 @@ export function CustomerRegisterAccountStep() {
     return (
         <CustomerRegisterStepLayout>
             <RegisterStepInsight icon={KeyRound} title="Start with the account identity">
-                The email and password create the customer login profile. Display name can be added on the profile step or left blank.
+                The email and password create the customer login profile. Display name can be added on the profile step
+                or left blank.
             </RegisterStepInsight>
 
             <StepSection

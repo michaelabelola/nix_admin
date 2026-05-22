@@ -1,4 +1,4 @@
-import type {AuditSection, NixID} from "#/models/Models.ts";
+import type {AuditSection, NixID} from "@suiteonix/models";
 
 export namespace UserModel {
 

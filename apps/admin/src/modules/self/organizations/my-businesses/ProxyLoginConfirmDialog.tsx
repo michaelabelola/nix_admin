@@ -1,5 +1,4 @@
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx"
-import {
+import {Avatar, AvatarFallback, AvatarImage,
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
@@ -8,12 +7,11 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "#/components/ui/alert-dialog.tsx"
-import {Skeleton} from "#/components/ui/skeleton.tsx"
-import {UserRequest} from "#/modules/user/api.hook.tsx"
+Skeleton} from "@suiteonix/ui"
 
 import type {PendingSignIn} from "./my-businesses.types.ts"
 import {useState} from "react";
+import {UserRequest} from "@suiteonix/server";
 
 function getInitials(name?: string) {
     if (!name) return "U"

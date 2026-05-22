@@ -2,8 +2,8 @@ import {useEffect, useId, useMemo, useRef, useState} from "react"
 import {ImageIcon, Upload, X} from "lucide-react"
 import type {ClassValue} from 'clsx'
 
-import {Button} from "#/components/ui/button.tsx"
-import {cn} from "#/lib/utils.ts"
+import {cn} from "@suiteonix/utils";
+import {Button} from "@suiteonix/ui";
 
 const DEFAULT_MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024
 

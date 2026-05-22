@@ -1,4 +1,4 @@
-import type {CustomerModel} from "@suiteonix/admin/src/modules/customer/model.ts"
+import {CustomerModel} from "@suiteonix/server";
 
 export type CustomerRegisterStepID = "intro" | "account" | "profile" | "contact" | "addresses" | "preferences" | "review"
 

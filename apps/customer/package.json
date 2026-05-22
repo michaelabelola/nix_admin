@@ -5,9 +5,7 @@
     "#/*": "./src/*"
   },
   "dependencies": {
-    "@suiteonix/ui": "workspace:*",
-    "@suiteonix/server": "workspace:*",
-    "@suiteonix/data": "workspace:*"
+    "@suiteonix/sdk": "workspace:*"
   },
   "scripts": {
     "dev": "vite --port 3001 --host",

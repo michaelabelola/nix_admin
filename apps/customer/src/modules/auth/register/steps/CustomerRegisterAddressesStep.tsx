@@ -3,16 +3,14 @@ import {MapPinned} from "lucide-react"
 import {
     StepCountryField,
     StepInput,
-    StepSection,
-    StepStateField,
+    StepSection, StepStateField,
     StepSwitch,
-} from "@suiteonix/admin/src/modules/customer/create/customer-create.fields.tsx"
+} from "../customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import type {RegisterAddressDraft} from "../customer-register.types.ts"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
-
 function AddressFields({
     address,
     onChange,

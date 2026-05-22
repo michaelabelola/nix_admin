@@ -8,8 +8,52 @@ import {
     SelectValue,
     Switch, Textarea,
 } from "@suiteonix/ui"
+import {CountrySelector, StateCombobox} from "@suiteonix/components";
 
 const BIRTH_DATE_START = new Date(1900, 0, 1)
+
+export function StepCountryField({
+                                     label,
+                                     value,
+                                     onChange,
+                                     description,
+                                 }: {
+    label: string
+    value: string
+    onChange: (value: string) => void
+    description?: string
+}) {
+    return (
+        <StepField label={label} description={description}>
+            <CountrySelector label={false} value={value} onValueChange={onChange}/>
+        </StepField>
+    )
+}
+
+export function StepStateField({
+                                   label,
+                                   countryIso2,
+                                   value,
+                                   onChange,
+                                   description,
+                               }: {
+    label: string
+    countryIso2?: string
+    value: string
+    onChange: (value: string) => void
+    description?: string
+}) {
+    return (
+        <StepField label={label} description={description}>
+            <StateCombobox
+                label={undefined}
+                countryIso2={countryIso2}
+                value={value}
+                onValueChange={onChange}
+            />
+        </StepField>
+    )
+}
 
 export function StepField({
                               label,

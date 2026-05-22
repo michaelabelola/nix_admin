@@ -1,0 +1,26 @@
+{
+  "name": "@suiteonix/sdk",
+  "type": "module",
+  "exports": {
+    "./components": "./components",
+    "./data": "./data",
+    "./lib": "./lib",
+    "./models": "./models",
+    "./server": "./server",
+    "./ui": "./ui",
+    "./util": "./util"
+  },
+  "dependencies": {
+    "@suiteonix/components": "workspace:*",
+    "@suiteonix/data": "workspace:*",
+    "@suiteonix/lib": "workspace:*",
+    "@suiteonix/models": "workspace:*",
+    "@suiteonix/server": "workspace:*",
+    "@suiteonix/ui": "workspace:*",
+    "@suiteonix/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  }
+}

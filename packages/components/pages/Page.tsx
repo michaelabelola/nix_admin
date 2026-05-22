@@ -12,7 +12,7 @@ import {
     AvatarFallback,
     AvatarImage
 } from "@suiteonix/ui";
-import {cn} from "@suiteonix/lib/utils.ts";
+import {cn} from "@suiteonix/utils";
 
 type HeaderProp = {
     avatar?: string | null;

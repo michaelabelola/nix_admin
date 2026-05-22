@@ -9,17 +9,6 @@ import {
     Sparkles,
 } from "lucide-react"
 
-import {Badge} from "@suiteonix/admin/src/components/ui/badge.tsx"
-import {Button} from "@suiteonix/admin/src/components/ui/button.tsx"
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@suiteonix/admin/src/components/ui/dialog.tsx"
-
 import {CustomerRegisterProvider, useCustomerRegister} from "./customer-register.context.tsx"
 import {CustomerRegisterAddressesStep} from "./steps/CustomerRegisterAddressesStep.tsx"
 import {CustomerRegisterAccountStep} from "./steps/CustomerRegisterAccountStep.tsx"
@@ -27,6 +16,16 @@ import {CustomerRegisterContactStep} from "./steps/CustomerRegisterContactStep.t
 import {CustomerRegisterPreferencesStep} from "./steps/CustomerRegisterPreferencesStep.tsx"
 import {CustomerRegisterProfileStep} from "./steps/CustomerRegisterProfileStep.tsx"
 import {CustomerRegisterReviewStep} from "./steps/CustomerRegisterReviewStep.tsx"
+import {
+    Badge,
+    Button,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle
+} from "@suiteonix/ui";
 
 export function CustomerRegisterPage() {
     return (

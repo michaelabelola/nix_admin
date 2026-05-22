@@ -2,10 +2,10 @@ import * as React from "react"
 import {format} from "date-fns"
 import {CalendarIcon} from "lucide-react"
 
-import {Button} from "#/components/ui/button.tsx"
-import {Calendar} from "#/components/ui/calendar.tsx"
-import {Popover, PopoverContent, PopoverTrigger} from "#/components/ui/popover.tsx"
-import {cn} from "#/lib/utils.ts"
+import {Button} from "./button.tsx"
+import {Calendar} from "./calendar.tsx"
+import {Popover, PopoverContent, PopoverTrigger} from "./popover.tsx"
+import {cn} from "@suiteonix/utils/utils.ts"
 
 type CalendarProps = React.ComponentProps<typeof Calendar>
 

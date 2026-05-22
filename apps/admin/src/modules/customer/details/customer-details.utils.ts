@@ -1,4 +1,4 @@
-import type {CustomerModel} from "#/modules/customer/model.ts"
+import {CustomerModel} from "@suiteonix/server";
 
 export function getCustomerAvatarUrl(avatar?: CustomerModel.CustomerAvatar) {
     return  avatar

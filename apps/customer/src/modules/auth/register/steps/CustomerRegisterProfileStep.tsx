@@ -6,7 +6,7 @@ import {
     StepInput,
     StepSection,
     StepSelect
-} from "@suiteonix/admin/src/modules/customer/create/customer-create.fields.tsx"
+} from "../customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"

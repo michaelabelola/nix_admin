@@ -11,10 +11,10 @@ import TanStackQueryDevtools from '../integrations/tanstack-query/devtools.tsx'
 import appCss from '../styles.css?url'
 import type {QueryClient} from '@tanstack/react-query'
 import type {ReactNode} from "react";
-import {getLocale} from "#/paraglide/runtime";
 import {Page404} from "@suiteonix/components";
 import {TooltipProvider} from "@suiteonix/ui";
 import {Toaster} from "@suiteonix/admin/src/components/ui/sonner.tsx";
+import {getLocale} from "#/paraglide/runtime";
 
 interface MyRouterContext {
     queryClient: QueryClient

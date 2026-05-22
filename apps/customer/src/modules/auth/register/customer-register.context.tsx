@@ -2,10 +2,6 @@ import React, {createContext, useContext, useMemo, useState} from "react"
 import {useMutation, useQueryClient} from "@tanstack/react-query"
 import {toast} from "sonner"
 
-import {useResponseFieldErrorHandler} from "@suiteonix/admin/src/lib/request.types.tsx"
-import customerApi from "@suiteonix/admin/src/modules/customer/api.ts"
-import {CustomerQueryKeys} from "@suiteonix/admin/src/modules/customer/query-keys.ts"
-
 import type {
     CustomerRegisterContextValue,
     CustomerRegisterDraft,
@@ -21,6 +17,8 @@ import {
     getStepByIndex,
     getStepIndex,
 } from "./customer-register.utils.ts"
+import {CustomerQueryKeys, useResponseFieldErrorHandler} from "@suiteonix/server";
+import {customerApi} from "@suiteonix/server";
 
 const CustomerRegisterContext = createContext<CustomerRegisterContextValue | null>(null)
 

@@ -1,5 +1,5 @@
 import type {RequestHelperInit} from "../utils";
-import {Backend} from "../utils";
+import {BACKEND} from "../utils";
 
 export namespace CurrencyModel {
     export type CurrencyValue = {
@@ -20,11 +20,11 @@ export namespace CurrencyModel {
 
 class CurrencyApi {
     getAllCurrencies(init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<CurrencyModel.CurrencyValue[]>("/finance-util/currencies", init)
+        return BACKEND.authRequest<CurrencyModel.CurrencyValue[]>("/finance-util/currencies", init)
     }
 
     queryCurrencies(query?: string, init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<CurrencyModel.CurrencyValue[]>("/finance-util/currencies/query", {
+        return BACKEND.authRequest<CurrencyModel.CurrencyValue[]>("/finance-util/currencies/query", {
             ...init,
             query: {
                 query,
@@ -33,7 +33,7 @@ class CurrencyApi {
     }
 
     getCurrenciesMap(init?: Partial<RequestHelperInit>) {
-        return Backend.authRequest<CurrencyModel.CurrencyCountryMap>("/finance-util/currencies-map", init)
+        return BACKEND.authRequest<CurrencyModel.CurrencyCountryMap>("/finance-util/currencies-map", init)
     }
 }
 

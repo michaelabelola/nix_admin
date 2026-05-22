@@ -10,10 +10,7 @@ import {
     ShieldCheck,
     UserRound,
 } from "lucide-react"
-
-import {Badge} from "@suiteonix/admin/src/components/ui/badge.tsx"
-import {Button} from "@suiteonix/admin/src/components/ui/button.tsx"
-import {Progress} from "@suiteonix/admin/src/components/ui/progress.tsx"
+import {Badge, Button, Progress} from "@suiteonix/ui";
 
 const valueProps = [
     {

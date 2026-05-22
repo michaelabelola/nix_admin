@@ -1,6 +1,6 @@
 import {MessageSquareText} from "lucide-react"
 
-import {StepInput, StepSection} from "@suiteonix/admin/src/modules/customer/create/customer-create.fields.tsx"
+import {StepInput, StepSection} from "../customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
@@ -12,7 +12,8 @@ export function CustomerRegisterContactStep() {
     return (
         <CustomerRegisterStepLayout>
             <RegisterStepInsight icon={MessageSquareText} title="Add alternate ways to reach you">
-                Your login email is already captured. These fields help support and service teams contact you through other channels when needed.
+                Your login email is already captured. These fields help support and service teams contact you through
+                other channels when needed.
             </RegisterStepInsight>
 
             <StepSection

@@ -1,25 +1,13 @@
-import React, {useMemo} from "react"
+import {useMemo} from "react"
 import type {ColumnDef} from "@tanstack/react-table"
 import {Link} from "@tanstack/react-router"
 import {ArrowRight, Eye, PlusCircle, User2Icon} from "lucide-react"
+import {DataTable, type DataTableFilterField, type DataTableRequestBase, Page} from "@suiteonix/components"
+import {CustomerModel, CustomerRequest} from "@suiteonix/server";
+import {Avatar, AvatarFallback, AvatarImage, Badge, Button, ButtonGroup} from "@suiteonix/ui";
+import {customerStatusBadgeVariant, getCustomerDisplayName} from "#/modules/customer/details/customer-details.utils.ts";
+import {CustomerQuickViewPopover} from "#/modules/customer/components/CustomerQuickViewPopover.tsx";
 
-import Page from "#/components/Page.tsx"
-import DataTable from "#/components/data-table/data-table.tsx"
-import type {
-    DataTableFilterField,
-    DataTableRequestBase,
-} from "#/components/data-table/types.ts"
-import {Button} from "#/components/ui/button.tsx"
-import {ButtonGroup} from "#/components/ui/button-group.tsx"
-import {Badge} from "#/components/ui/badge.tsx"
-import {CustomerQuickViewPopover} from "#/modules/customer/components/CustomerQuickViewPopover.tsx"
-import {
-    customerStatusBadgeVariant,
-    getCustomerDisplayName,
-} from "#/modules/customer/details/customer-details.utils.ts"
-import {CustomerModel} from "#/modules/customer/model.ts"
-import {CustomerRequest} from "#/modules/customer/request.hook.ts"
-import {Avatar, AvatarFallback, AvatarImage} from "#/components/ui/avatar.tsx";
 
 type CustomerTableRequest = DataTableRequestBase & {
     status?: CustomerModel.CustomerStatus

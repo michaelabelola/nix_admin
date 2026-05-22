@@ -12,6 +12,7 @@ export * from "./data-table/types.ts"
 export * from "./pages/Page404.tsx"
 export * from "./registration/RegistrationLayouts.tsx"
 export * from "./section-cards.tsx"
+export * from "./location"
 
 export {default as DataTable} from "./data-table/data-table.tsx"
 export {DataTableToolbar} from "./data-table/data-table-toolbar.tsx"

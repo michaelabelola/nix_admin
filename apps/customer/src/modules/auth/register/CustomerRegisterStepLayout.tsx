@@ -1,13 +1,10 @@
 import type {ReactNode} from "react"
 import {ArrowLeft, ArrowRight, CheckCircle2, LockKeyhole, Sparkles} from "lucide-react"
 
-import {Badge} from "@suiteonix/admin/src/components/ui/badge.tsx"
-import {Button} from "@suiteonix/admin/src/components/ui/button.tsx"
-import {Progress} from "@suiteonix/admin/src/components/ui/progress.tsx"
-
 import {useCustomerRegister} from "./customer-register.context.tsx"
 import type {CustomerRegisterStepID} from "./customer-register.types.ts"
 import {CUSTOMER_REGISTER_STEPS} from "./customer-register.utils.ts"
+import {Badge, Button, Progress} from "@suiteonix/ui";
 
 export function CustomerRegisterStepLayout({
     children,

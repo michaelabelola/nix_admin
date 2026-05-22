@@ -1,6 +1,6 @@
 import {Bell} from "lucide-react"
 
-import {StepSection, StepSwitch} from "@suiteonix/admin/src/modules/customer/create/customer-create.fields.tsx"
+import {StepSection, StepSwitch} from "../customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
