@@ -61,7 +61,7 @@ function Button({
             data-slot="button"
             data-variant={variant}
             data-size={size}
-            className={cn(buttonVariants({variant, size, className}), !props.disabled ? `cursor-pointer` : "","bg-red-700!")}
+            className={cn(buttonVariants({variant, size, className}), !props.disabled ? `cursor-pointer` : "")}
             {...props}
         />
     )

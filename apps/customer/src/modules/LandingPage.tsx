@@ -66,7 +66,7 @@ export function LandingPage() {
 
                     <div className="grid flex-1 content-end gap-10 pb-10 pt-20 lg:grid-cols-[1fr_390px] lg:items-end">
                         <div className="max-w-3xl">
-                            <Badge className="mb-6 bg-white/15 text-white hover:bg-white/15">
+                            <Badge variant={"glass"} className="mb-6 bg-white/15 text-white hover:bg-white/15">
                                 Customer self-service portal
                             </Badge>
                             <h1 className="text-4xl font-semibold leading-tight sm:text-6xl lg:text-7xl">

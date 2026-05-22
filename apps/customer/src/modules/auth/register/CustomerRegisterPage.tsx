@@ -116,7 +116,7 @@ function CustomerRegisterIntro() {
                     alt="Customer portal preview"
                     className="absolute inset-0 h-full w-full object-cover opacity-75"
                 />
-                <div className="absolute inset-0 bg-black/70"/>
+                <div className="absolute inset-0 bg-foreground/50"/>
                 <div className="relative z-10 grid h-full content-between gap-8">
                     <div className="flex flex-wrap gap-2">
                         <Badge className="border-background/20 bg-background/15 text-background hover:bg-background/15">
