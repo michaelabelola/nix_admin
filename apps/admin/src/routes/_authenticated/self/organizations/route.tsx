@@ -1,5 +1,5 @@
 import {createFileRoute, Outlet} from '@tanstack/react-router'
-import Page404 from "#/components/pages/Page404.tsx";
+import {Page404} from "@suiteonix/components";
 
 export const Route = createFileRoute('/_authenticated/self/organizations')({
     component: RouteComponent,

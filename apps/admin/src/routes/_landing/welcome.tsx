@@ -14,7 +14,7 @@ import {
     Users,
 } from "lucide-react"
 
-import ThemeToggle from "#/components/ThemeToggle.tsx"
+import {ThemeToggle} from "@suiteonix/components"
 import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui"
 import {Badge} from "@suiteonix/ui"
 import {Button} from "@suiteonix/ui"

@@ -1,7 +1,7 @@
 import type {ReactNode} from "react"
 
-import {RegistrationStepLayout as SharedRegistrationStepLayout} from "#/components/registration/RegistrationLayouts.tsx"
-import LOGO from "/logo.png"
+import {RegistrationStepLayout as SharedRegistrationStepLayout} from "@suiteonix/components"
+import LOGO from "#/assets/logo.png"
 
 import {
     REGISTRATION_INTRO_PATH,

@@ -4,7 +4,7 @@ import {Link, useNavigate} from "@tanstack/react-router"
 import {ArrowLeft, ArrowRight, CheckIcon, EyeIcon, FileIcon, ImageIcon, PlusIcon} from "lucide-react"
 import {toast} from "sonner"
 
-import Page from "#/components/Page.tsx"
+import {Page} from "@suiteonix/components"
 import {Badge} from "@suiteonix/ui"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"

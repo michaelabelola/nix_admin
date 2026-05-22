@@ -1,7 +1,7 @@
 import type {ReactNode} from "react"
 import {Link} from "@tanstack/react-router"
 
-import Page from "#/components/Page.tsx"
+import {Page} from "@suiteonix/components"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"
 import {

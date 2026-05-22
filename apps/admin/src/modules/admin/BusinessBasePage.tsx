@@ -2,9 +2,9 @@ import {SidebarProvider} from "@suiteonix/ui";
 import {Outlet} from "@tanstack/react-router";
 import {AdminSidebar} from "#/modules/admin/components/side-nav/admin-sidebar.tsx";
 import {OrganizationRequest} from "@suiteonix/server";
-import DefaultBG from "/logo192.png";
+import DefaultBG from "#/assets/logo.png";
 import {useAuthenticatedUser} from "@suiteonix/server";
-import {useThemeMode} from "#/components/ThemeToggle.tsx";
+import {useThemeMode} from "@suiteonix/components";
 
 const BusinessBasePage = () => {
     const {mode} = useThemeMode()
@@ -17,13 +17,6 @@ const BusinessBasePage = () => {
         document.body.style.backgroundImage = `url("${org.logoDark}")`;
     } else
         document.body.style.backgroundImage = DefaultBG;
-    // org?.logo ? `url(${org.avatar})` : 'url("/logo192.png")'
-    // if (org?.logo) {
-    //     setBgImageUrl(`url("${org.logo}")`)
-    // } else if (org?.logoDark) {
-    //     setBgImageUrl(`url("${org.logoDark}")`)
-    // }
-
     return (
         <SidebarProvider>
             <AdminSidebar/>

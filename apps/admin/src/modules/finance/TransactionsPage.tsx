@@ -1,4 +1,4 @@
-import Page from "#/components/Page.tsx"
+import {Page} from "@suiteonix/components"
 import {TransactionsTable} from "#/modules/finance/TransactionsTable.tsx"
 
 export function TransactionsPage() {

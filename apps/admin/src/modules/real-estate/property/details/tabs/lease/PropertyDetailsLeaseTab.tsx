@@ -3,7 +3,7 @@ import type {ColumnDef} from "@tanstack/react-table";
 import {Check, PlusCircle} from "lucide-react";
 import {toast} from "sonner";
 
-import DataTable from "#/components/data-table/data-table.tsx";
+import {DataTable} from "@suiteonix/components";
 import {Button} from "@suiteonix/ui";
 import {ButtonGroup} from "@suiteonix/ui";
 import {QuickToolTip} from "@suiteonix/ui";

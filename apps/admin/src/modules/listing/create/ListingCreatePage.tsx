@@ -2,7 +2,7 @@ import {useState, type FormEvent} from "react"
 import {Link, useNavigate} from "@tanstack/react-router"
 import {ArrowLeft, FileText} from "lucide-react"
 
-import Page from "#/components/Page.tsx"
+import {Page} from "@suiteonix/components"
 import {Button} from "@suiteonix/ui"
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui"
 import {Checkbox} from "@suiteonix/ui"

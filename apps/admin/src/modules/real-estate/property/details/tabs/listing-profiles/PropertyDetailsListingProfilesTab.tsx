@@ -2,7 +2,7 @@ import {useMemo} from "react"
 import {useNavigate} from "@tanstack/react-router"
 import {PlusCircle} from "lucide-react"
 
-import DataTable from "#/components/data-table/data-table.tsx"
+import {DataTable} from "@suiteonix/components"
 import {Button} from "@suiteonix/ui"
 import {DefinitionCard} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"
 import {PropertyListingProfileApiHook} from "@suiteonix/server"

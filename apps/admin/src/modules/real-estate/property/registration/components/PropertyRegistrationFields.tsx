@@ -1,6 +1,6 @@
 import type {ReactNode} from "react"
 
-import {ImageSelector} from "#/components/ImageSelector.tsx"
+import {ImageSelector} from "@suiteonix/components"
 import {Input} from "@suiteonix/ui"
 import {CountryCombobox} from "#/modules/location/components/CountryCombobox.tsx"
 import {StateCombobox} from "#/modules/location/components/StateCombobox.tsx"

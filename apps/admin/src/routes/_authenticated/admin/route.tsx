@@ -5,7 +5,7 @@ import {Spinner} from "@suiteonix/ui";
 import {Button} from "@suiteonix/ui";
 import {IconCancel} from "@tabler/icons-react";
 import BusinessBasePage from "#/modules/admin/BusinessBasePage.tsx";
-import Page404 from "#/components/pages/Page404.tsx";
+import {Page404} from "@suiteonix/components";
 
 export const Route = createFileRoute('/_authenticated/admin')({
     component: AdminPage,

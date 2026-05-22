@@ -1,7 +1,7 @@
 import type {ReactNode} from "react"
 import {useNavigate} from "@tanstack/react-router"
 
-import Page from "#/components/Page.tsx"
+import {Page} from "@suiteonix/components"
 import {Badge} from "@suiteonix/ui"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"

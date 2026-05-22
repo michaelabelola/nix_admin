@@ -1,6 +1,6 @@
 import {Link} from "@tanstack/react-router"
 
-import Page from "#/components/Page.tsx"
+import {Page} from "@suiteonix/components"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"
 import {EmptyState} from "#/modules/real-estate/property/details/PropertyDetailsPrimitives.tsx"

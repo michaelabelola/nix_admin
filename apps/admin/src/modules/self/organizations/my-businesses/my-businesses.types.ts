@@ -1,4 +1,4 @@
-import type {TableData} from "#/components/data-table/data-table.tsx"
+import {type TableData} from "@suiteonix/components";
 import type {loginApi} from "@suiteonix/server"
 import type {OrganizationModel} from "@suiteonix/server"
 import type {PermissionModel} from "@suiteonix/server"

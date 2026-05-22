@@ -8,7 +8,6 @@ import {Avatar, AvatarFallback, AvatarImage, Badge, Button, ButtonGroup} from "@
 import {customerStatusBadgeVariant, getCustomerDisplayName} from "#/modules/customer/details/customer-details.utils.ts";
 import {CustomerQuickViewPopover} from "#/modules/customer/components/CustomerQuickViewPopover.tsx";
 
-
 type CustomerTableRequest = DataTableRequestBase & {
     status?: CustomerModel.CustomerStatus
     type?: CustomerModel.CustomerType

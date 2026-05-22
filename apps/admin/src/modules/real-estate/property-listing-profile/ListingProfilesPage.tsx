@@ -1,9 +1,9 @@
 import {useMemo} from "react"
 import {Link} from "@tanstack/react-router"
 
-import Page from "#/components/Page.tsx"
-import DataTable from "#/components/data-table/data-table.tsx"
-import type {DataTableRequestBase} from "#/components/data-table/types.ts"
+import {Page} from "@suiteonix/components"
+import {DataTable} from "@suiteonix/components"
+import type {DataTableRequestBase} from "@suiteonix/components"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"
 import {PropertyListingProfileApiHook} from "@suiteonix/server"

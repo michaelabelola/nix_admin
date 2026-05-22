@@ -1,7 +1,7 @@
 import {Link} from "@tanstack/react-router"
 import {ArrowRightLeft, Banknote, CirclePlus, Landmark, WalletCards} from "lucide-react"
 
-import Page from "#/components/Page.tsx"
+import {Page} from "@suiteonix/components"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"
 import {

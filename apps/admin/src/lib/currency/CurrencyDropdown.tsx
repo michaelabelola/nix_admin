@@ -1,4 +1,4 @@
-import {Dropdown, type DropdownProps} from "#/components/Dropdown.tsx";
+import {Dropdown, type DropdownProps} from "@suiteonix/components";
 
 import {CurrencyRequest, type CurrencyModel} from "@suiteonix/server";
 import {useMemo} from "react";

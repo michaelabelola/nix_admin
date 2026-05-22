@@ -3,13 +3,12 @@ import type {ColumnDef} from "@tanstack/react-table";
 import {Link} from "@tanstack/react-router";
 import {ArrowRight, Copy, PlusCircle} from "lucide-react";
 import {toast} from "sonner";
-
-import DataTable from "#/components/data-table/data-table.tsx";
+import {DataTable} from "@suiteonix/components";
 import type {
     DataTableFilterField,
     DataTableRequestBase,
-} from "#/components/data-table/types.ts";
-import Page from "#/components/Page.tsx";
+} from "@suiteonix/components";
+import {Page} from "@suiteonix/components";
 import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
 import {Badge} from "@suiteonix/ui";
 import {Button} from "@suiteonix/ui";

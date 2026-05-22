@@ -2,9 +2,9 @@ import {useMemo, useState} from "react";
 import type {ColumnDef} from "@tanstack/react-table";
 import {PlusCircle} from "lucide-react";
 
-import DataTable from "#/components/data-table/data-table.tsx";
-import type {DataTableFilterField, DataTableRequestBase} from "#/components/data-table/types.ts";
-import Page from "#/components/Page.tsx";
+import {DataTable} from "@suiteonix/components";
+import type {DataTableFilterField, DataTableRequestBase} from "@suiteonix/components";
+import {Page} from "@suiteonix/components";
 import {Badge} from "@suiteonix/ui";
 import {Button} from "@suiteonix/ui";
 import {ButtonGroup} from "@suiteonix/ui";

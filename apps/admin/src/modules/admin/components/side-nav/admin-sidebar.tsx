@@ -36,7 +36,7 @@ import {financeNavItems} from "#/modules/finance/nav.tsx";
 import {appNavItems} from "#/modules/app/nav.tsx";
 import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx";
 import {listingNavItems} from "#/modules/listing/nav.tsx";
-import {useThemeMode} from "#/components/ThemeToggle.tsx";
+import {useThemeMode} from "@suiteonix/components";
 
 const data = {
     user: {

@@ -1,6 +1,6 @@
 import {useQuery} from '@tanstack/react-query'
 
-import {Dropdown, type DropdownProps} from '#/components/Dropdown.tsx'
+import {Dropdown, type DropdownProps} from '@suiteonix/components'
 import {countriesApi, type LocationModel} from '@suiteonix/server'
 
 type CountryDropdownProps = Omit<DropdownProps, 'options' | 'label' | 'emptyLabel'> & {

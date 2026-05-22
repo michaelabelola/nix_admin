@@ -1,6 +1,6 @@
 import {AlertTriangle} from "lucide-react"
 
-import {Dropdown, type DropdownOption} from "#/components/Dropdown.tsx"
+import {Dropdown, type DropdownOption} from "@suiteonix/components"
 import {Checkbox} from "@suiteonix/ui"
 import {Input} from "@suiteonix/ui"
 import {Label} from "@suiteonix/ui"

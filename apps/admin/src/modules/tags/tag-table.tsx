@@ -3,8 +3,8 @@ import type {ColumnDef} from "@tanstack/react-table";
 import {Copy, PlusCircle} from "lucide-react";
 import {toast} from "sonner";
 
-import DataTable from "#/components/data-table/data-table.tsx";
-import Page from "#/components/Page.tsx";
+import {DataTable} from "@suiteonix/components";
+import {Page} from "@suiteonix/components";
 import {Badge} from "@suiteonix/ui";
 import {Button} from "@suiteonix/ui";
 import {ButtonGroup} from "@suiteonix/ui";
@@ -13,7 +13,7 @@ import {QuickToolTip} from "@suiteonix/ui";
 import type {
     DataTableFilterField,
     DataTableRequestBase,
-} from "#/components/data-table/types.ts";
+} from "@suiteonix/components";
 import {NixModule} from "@suiteonix/server/models";
 import {ObjectVisibility} from "@suiteonix/server/models";
 import {TagCreateSheet} from "#/modules/tags/TagCreateSheet.tsx";

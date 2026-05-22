@@ -3,7 +3,7 @@ import {Link} from "@tanstack/react-router";
 import {ArrowRight, KeyRound, ShieldCheck, Webhook} from "lucide-react";
 import {toast} from "sonner";
 
-import Page from "#/components/Page.tsx";
+import {Page} from "@suiteonix/components";
 import {Badge} from "@suiteonix/ui";
 import {Button} from "@suiteonix/ui";
 import {ButtonGroup} from "@suiteonix/ui";

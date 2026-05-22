@@ -1,7 +1,7 @@
 import {useMemo, useState} from "react"
 import {toast} from "sonner"
 
-import DataTable from "#/components/data-table/data-table.tsx"
+import {DataTable} from "@suiteonix/components"
 import {loginApi} from "@suiteonix/server"
 import {orgApi} from "@suiteonix/server"
 import {PermissionRequest} from "@suiteonix/server"
@@ -10,7 +10,7 @@ import {createMyBusinessesColumns} from "./my-businesses.columns.tsx"
 import {ProxyLoginConfirmDialog} from "./ProxyLoginConfirmDialog.tsx"
 import type {PendingSignIn, PermissionRow} from "./my-businesses.types.ts"
 import {useAuthenticatedUserStore} from "@suiteonix/server";
-import Page from "#/components/Page.tsx";
+import {Page} from "@suiteonix/components";
 import {ButtonGroup} from "@suiteonix/ui";
 import {Button} from "@suiteonix/ui";
 import {Link, useNavigate} from "@tanstack/react-router";

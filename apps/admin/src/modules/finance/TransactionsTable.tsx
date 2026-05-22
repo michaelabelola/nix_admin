@@ -3,11 +3,11 @@ import type {ColumnDef} from "@tanstack/react-table"
 import {Link} from "@tanstack/react-router"
 import {ArrowRight} from "lucide-react"
 
-import DataTable from "#/components/data-table/data-table.tsx"
+import {DataTable} from "@suiteonix/components"
 import type {
   DataTableFilterField,
   DataTableRequestBase,
-} from "#/components/data-table/types.ts"
+} from "@suiteonix/components"
 import {Badge} from "@suiteonix/ui"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"

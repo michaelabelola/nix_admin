@@ -3,12 +3,12 @@ import type {ColumnDef} from "@tanstack/react-table"
 import {Link} from "@tanstack/react-router"
 import {ArrowRight, CirclePlus} from "lucide-react"
 
-import Page from "#/components/Page.tsx"
-import DataTable from "#/components/data-table/data-table.tsx"
+import {Page} from "@suiteonix/components"
+import {DataTable} from "@suiteonix/components"
 import type {
   DataTableFilterField,
   DataTableRequestBase,
-} from "#/components/data-table/types.ts"
+} from "@suiteonix/components"
 import {Badge} from "@suiteonix/ui"
 import {Button} from "@suiteonix/ui"
 import {ButtonGroup} from "@suiteonix/ui"

@@ -2,7 +2,6 @@ import {useEffect} from "react"
 import type {ReactNode} from "react"
 import {useNavigate} from "@tanstack/react-router"
 
-import {RegistrationStepLayout} from "#/components/registration/RegistrationLayouts.tsx"
 
 import {
     CUSTOMER_CREATE_INTRO_PATH,
@@ -10,6 +9,7 @@ import {
     getCustomerCreateStepsForType,
 } from "./customer-create.constants.ts"
 import {useCustomerCreate} from "./customer-create.context.tsx"
+import { RegistrationStepLayout } from "@suiteonix/components"
 
 export function CustomerCreateStepLayout({
     stepId,

@@ -14,7 +14,7 @@ import {
     getPropertyRegistrationStep,
     getPropertyRegistrationSteps,
 } from "./property-registration.constants.ts"
-import Page from "#/components/Page.tsx";
+import {Page} from "@suiteonix/components";
 
 export function PropertyRegistrationLayout({
                                                stepId,

@@ -2,7 +2,7 @@ import {createFileRoute, Navigate, Outlet} from '@tanstack/react-router'
 import {useAuthenticatedUser} from "@suiteonix/server";
 import {Card, CardDescription, CardHeader, CardTitle} from "@suiteonix/ui";
 import {Spinner} from "@suiteonix/ui";
-import Page404 from "#/components/pages/Page404.tsx";
+import {Page404} from "@suiteonix/components";
 
 export const Route = createFileRoute('/_authenticated')({
     component: AdminPage,
