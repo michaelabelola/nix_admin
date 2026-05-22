@@ -9,7 +9,6 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as LandingRouteRouteImport } from './routes/_landing/route'
 import { Route as DocsRouteRouteImport } from './routes/_docs/route'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
@@ -125,11 +124,6 @@ import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdGalleryCreateR
 import { Route as AuthenticatedAdminRealEstatePropertiesPropertyIdFeaturesCreateRouteImport } from './routes/_authenticated/admin/real-estate/properties/$propertyId/features.create'
 import { Route as AuthenticatedAdminRealEstatePropertiesListingProfilesListingProfileIdListingsAddRouteImport } from './routes/_authenticated/admin/real-estate/properties/listing-profiles/$listingProfileId.listings.add'
 
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const LandingRouteRoute = LandingRouteRouteImport.update({
   id: '/_landing',
   getParentRoute: () => rootRouteImport,
@@ -862,7 +856,6 @@ const AuthenticatedAdminRealEstatePropertiesListingProfilesListingProfileIdListi
 
 export interface FileRoutesByFullPath {
   '/': typeof LandingIndexRoute
-  '/about': typeof AboutRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/self': typeof AuthenticatedSelfRouteRouteWithChildren
   '/login': typeof LandingLoginRoute
@@ -976,7 +969,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof LandingIndexRoute
-  '/about': typeof AboutRoute
   '/self': typeof AuthenticatedSelfRouteRouteWithChildren
   '/login': typeof LandingLoginRoute
   '/resend-verification-email': typeof LandingResendVerificationEmailRoute
@@ -1079,7 +1071,6 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_docs': typeof DocsRouteRouteWithChildren
   '/_landing': typeof LandingRouteRouteWithChildren
-  '/about': typeof AboutRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/self': typeof AuthenticatedSelfRouteRouteWithChildren
   '/_landing/login': typeof LandingLoginRoute
@@ -1196,7 +1187,6 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
     | '/admin'
     | '/self'
     | '/login'
@@ -1310,7 +1300,6 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/about'
     | '/self'
     | '/login'
     | '/resend-verification-email'
@@ -1412,7 +1401,6 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/_docs'
     | '/_landing'
-    | '/about'
     | '/_authenticated/admin'
     | '/_authenticated/self'
     | '/_landing/login'
@@ -1530,7 +1518,6 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   DocsRouteRoute: typeof DocsRouteRouteWithChildren
   LandingRouteRoute: typeof LandingRouteRouteWithChildren
-  AboutRoute: typeof AboutRoute
   CustomerLoginRoute: typeof CustomerLoginRoute
   CustomerRegisterRoute: typeof CustomerRegisterRoute
   DemoI18nRoute: typeof DemoI18nRoute
@@ -1539,13 +1526,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_landing': {
       id: '/_landing'
       path: ''
@@ -2974,7 +2954,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   DocsRouteRoute: DocsRouteRouteWithChildren,
   LandingRouteRoute: LandingRouteRouteWithChildren,
-  AboutRoute: AboutRoute,
   CustomerLoginRoute: CustomerLoginRoute,
   CustomerRegisterRoute: CustomerRegisterRoute,
   DemoI18nRoute: DemoI18nRoute,
