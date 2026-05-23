@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="admin" pattern="file[admin-ui]:apps/admin/src//*" />
+</component>

@@ -9,7 +9,6 @@ import {useThemeMode} from "@suiteonix/components";
 const BusinessBasePage = () => {
     const {mode} = useThemeMode()
     const {user} = useAuthenticatedUser()
-    // var(--backgroundImageUrl)
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
     if (org?.logo && (mode === "light" || (mode === "auto" && !window.matchMedia("(prefers-color-scheme: dark)").matches))) {
         document.body.style.backgroundImage = `url("${org.logo}")`;

@@ -160,12 +160,10 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
     const navigate = useNavigate()
     const {calculatedMode,mode} = useThemeMode()
-        console.log(mode)
     const selectedImage = useMemo(() => {
         if (calculatedMode === "dark")
             return org?.logoDark ?? org?.logo
         else
-
             return org?.logo ?? org?.logoDark
     }, [calculatedMode, mode])
     return (
