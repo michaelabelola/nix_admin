@@ -18,7 +18,7 @@ const introHighlights = [
     {
         icon: ClipboardCheck,
         title: "Complete record",
-        description: "Add personal, business, contact, address, preference, and tag details before review.",
+        description: "Add personal, business, mainContact, address, preference, and tag details before review.",
     },
     {
         icon: FileCheck2,
@@ -33,7 +33,7 @@ export function CustomerCreateStart() {
             heroImageAlt="Customer creation preview"
             badges={["Customer creation", "Admin workflow"]}
             title="Create a customer."
-            description="Build a customer record across focused steps for basics, identity, business data, contact channels, addresses, preferences, and tags."
+            description="Build a customer record across focused steps for basics, identity, business data, mainContact channels, addresses, preferences, and tags."
             primaryAction={{
                 label: "Start customer setup",
                 to: CUSTOMER_CREATE_STEPS[0].path,
@@ -47,7 +47,7 @@ export function CustomerCreateStart() {
             beforeDescription="The flow uses route-based steps so administrators can move through the record naturally and submit only after the final review."
             checklist={[
                 "Start with the required customer type and lifecycle stage.",
-                "Add optional personal, business, contact, and address details as needed.",
+                "Add optional personal, business, mainContact, and address details as needed.",
                 "Review the complete draft before sending the create request.",
             ]}
             callout={{

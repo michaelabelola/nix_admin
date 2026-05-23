@@ -9,7 +9,7 @@ export function CustomerCreatePersonalStep() {
         <CustomerCreateStepLayout stepId="personal">
             <StepSection
                 title="Personal detail fields"
-                description="Use these fields when the customer is an individual, or when a contact identity should be stored on the record."
+                description="Use these fields when the customer is an individual, or when a mainContact identity should be stored on the record."
             >
                 <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                     <StepInput

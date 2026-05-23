@@ -153,12 +153,12 @@ export function CustomerDetailsRecordTab({customer}: { customer?: CustomerModel.
                     title="Contact"
                     description="Primary communication channels."
                     items={[
-                        {label: "Primary Email", value: customer?.contact?.email},
-                        {label: "Secondary Email", value: customer?.contact?.secondaryEmail},
-                        {label: "Phone Number", value: customer?.contact?.phoneNumber},
-                        {label: "Mobile Number", value: customer?.contact?.mobileNumber},
-                        {label: "Fax Number", value: customer?.contact?.faxNumber},
-                        {label: "Website", value: customer?.contact?.website},
+                        {label: "Primary Email", value: customer?.mainContact?.email},
+                        {label: "Secondary Email", value: customer?.mainContact?.secondaryEmail},
+                        {label: "Phone Number", value: customer?.mainContact?.phoneNumber},
+                        {label: "Mobile Number", value: customer?.mainContact?.mobileNumber},
+                        {label: "Fax Number", value: customer?.mainContact?.faxNumber},
+                        {label: "Website", value: customer?.mainContact?.website},
                     ]}
                 />
 
