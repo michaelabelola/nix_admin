@@ -81,20 +81,22 @@ function Page({
             parentClasses
         )}>
             {header && (
-                <section className="py-2 flex gap-2 items-center">
-                    {header?.avatar &&
-                        <Avatar className={"h-8 w-8 rounded-lg grayscale"}>
-                            <AvatarImage src={header.avatar} className={"object-cover aspect-square border"}/>
-                            <AvatarFallback>{(header?.title as any)?.substring(0, 1).toUpperCase()}</AvatarFallback>
-                        </Avatar>
-                    }
-                    <div className="space-y-1 w-full">
-                        <h1 className="text-2xl font-semibold tracking-tight">{header.title}</h1>
-                        <p className="text-sm text-muted-foreground">
-                            {header.description}
-                        </p>
-                    </div>
-                    <div>
+                <section className="py-2 flex gap-2 items-center justify-between overflow-x-hidden">
+                 <div className={"flex"}>
+                     {header?.avatar &&
+                         <Avatar className={"h-8 w-8 rounded-lg grayscale"}>
+                             <AvatarImage src={header.avatar} className={"object-cover aspect-square border"}/>
+                             <AvatarFallback>{(header?.title as any)?.substring(0, 1).toUpperCase()}</AvatarFallback>
+                         </Avatar>
+                     }
+                     <div className="space-y-1 overflow-x-hidden">
+                         <h1 className="text-2xl font-semibold tracking-tight">{header.title}</h1>
+                         <p className="text-sm max-w-[10rem] sm:max-w-[15rem] md:max-w-[20rem] lg:max-w-[30rem] xl:max-w-[30rem] text-muted-foreground text-ellipsis whitespace-nowrap overflow-x-hidden">
+                             {header.description}
+                         </p>
+                     </div>
+                 </div>
+                    <div className={"flex"}>
                         {header.actionView}
                     </div>
                     <span className="absolute top-4 inset-e-4 flex size-2">

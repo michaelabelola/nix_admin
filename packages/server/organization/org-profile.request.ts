@@ -4,23 +4,37 @@ import {Page_EMPTY, type PageSlice, PageSlice_EMPTY} from "@suiteonix/models";
 
 import {useResponseFieldErrorHandler} from "../utils";
 import orgProfileApi from "./apis/OrgProfile.api.ts";
-import type {OrgProfileModel} from "./models/org-profile.models.ts";
+import type {OrgProfileModel} from "./models";
 
 export const OrgProfileQueryKeys = {
     root: ["org-profiles"] as const,
     detailed: (orgID?: OrgProfileModel.OrgID | null) => [...OrgProfileQueryKeys.root, "detailed", orgID] as const,
+    getOne: (orgID?: OrgProfileModel.OrgID | null) => [...OrgProfileQueryKeys.root, orgID] as const,
     query: (query?: OrgProfileModel.Query) => [...OrgProfileQueryKeys.root, "query", query] as const,
     slice: (query?: OrgProfileModel.Query) => [...OrgProfileQueryKeys.root, "slice", query] as const,
     infiniteSlice: (query?: OrgProfileModel.Query) => [...OrgProfileQueryKeys.root, "slice", "infinite", query] as const,
 }
 
 export namespace OrgProfileRequest {
-    export const useGetOrgProfileByID = (orgID?: OrgProfileModel.OrgID | null) => {
+    export const useGetDetailedOrgProfileByID = (orgID?: OrgProfileModel.OrgID | null) => {
         const errHandler = useResponseFieldErrorHandler()
 
         return {
             ...useQuery({
                 queryKey: OrgProfileQueryKeys.detailed(orgID),
+                queryFn: () => orgProfileApi.getDetailedById(orgID!, {errHandler}),
+                enabled: Boolean(orgID),
+            }),
+            errHandler,
+        }
+    }
+
+    export const useGetOrgProfileByID = (orgID?: OrgProfileModel.OrgID | null) => {
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useQuery({
+                queryKey: OrgProfileQueryKeys.getOne(orgID),
                 queryFn: () => orgProfileApi.getById(orgID!, {errHandler}),
                 enabled: Boolean(orgID),
             }),

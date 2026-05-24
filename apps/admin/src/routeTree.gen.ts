@@ -48,6 +48,7 @@ import { Route as AuthenticatedAdminTagsDashboardIndexRouteImport } from './rout
 import { Route as AuthenticatedAdminRealEstatePropertiesIndexRouteImport } from './routes/_authenticated/admin/real-estate/properties/index'
 import { Route as AuthenticatedAdminRealEstateFeatureRulesIndexRouteImport } from './routes/_authenticated/admin/real-estate/feature-rules/index'
 import { Route as AuthenticatedAdminRealEstateDashboardIndexRouteImport } from './routes/_authenticated/admin/real-estate/dashboard/index'
+import { Route as AuthenticatedAdminListingsDashboardIndexRouteImport } from './routes/_authenticated/admin/listings/dashboard/index'
 import { Route as AuthenticatedAdminFinanceTransactionsIndexRouteImport } from './routes/_authenticated/admin/finance/transactions/index'
 import { Route as AuthenticatedAdminFinanceDashboardIndexRouteImport } from './routes/_authenticated/admin/finance/dashboard/index'
 import { Route as AuthenticatedAdminFinanceAccountsIndexRouteImport } from './routes/_authenticated/admin/finance/accounts/index'
@@ -338,6 +339,12 @@ const AuthenticatedAdminRealEstateDashboardIndexRoute =
     id: '/dashboard/',
     path: '/dashboard/',
     getParentRoute: () => AuthenticatedAdminRealEstateRouteRoute,
+  } as any)
+const AuthenticatedAdminListingsDashboardIndexRoute =
+  AuthenticatedAdminListingsDashboardIndexRouteImport.update({
+    id: '/listings/dashboard/',
+    path: '/listings/dashboard/',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminFinanceTransactionsIndexRoute =
   AuthenticatedAdminFinanceTransactionsIndexRouteImport.update({
@@ -900,6 +907,7 @@ export interface FileRoutesByFullPath {
   '/admin/finance/accounts/': typeof AuthenticatedAdminFinanceAccountsIndexRoute
   '/admin/finance/dashboard/': typeof AuthenticatedAdminFinanceDashboardIndexRoute
   '/admin/finance/transactions/': typeof AuthenticatedAdminFinanceTransactionsIndexRoute
+  '/admin/listings/dashboard/': typeof AuthenticatedAdminListingsDashboardIndexRoute
   '/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/feature-rules/': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
@@ -997,6 +1005,7 @@ export interface FileRoutesByTo {
   '/admin/finance/accounts': typeof AuthenticatedAdminFinanceAccountsIndexRoute
   '/admin/finance/dashboard': typeof AuthenticatedAdminFinanceDashboardIndexRoute
   '/admin/finance/transactions': typeof AuthenticatedAdminFinanceTransactionsIndexRoute
+  '/admin/listings/dashboard': typeof AuthenticatedAdminListingsDashboardIndexRoute
   '/admin/real-estate/dashboard': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/admin/real-estate/feature-rules': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/admin/real-estate/properties': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
@@ -1110,6 +1119,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/finance/accounts/': typeof AuthenticatedAdminFinanceAccountsIndexRoute
   '/_authenticated/admin/finance/dashboard/': typeof AuthenticatedAdminFinanceDashboardIndexRoute
   '/_authenticated/admin/finance/transactions/': typeof AuthenticatedAdminFinanceTransactionsIndexRoute
+  '/_authenticated/admin/listings/dashboard/': typeof AuthenticatedAdminListingsDashboardIndexRoute
   '/_authenticated/admin/real-estate/dashboard/': typeof AuthenticatedAdminRealEstateDashboardIndexRoute
   '/_authenticated/admin/real-estate/feature-rules/': typeof AuthenticatedAdminRealEstateFeatureRulesIndexRoute
   '/_authenticated/admin/real-estate/properties/': typeof AuthenticatedAdminRealEstatePropertiesIndexRoute
@@ -1222,6 +1232,7 @@ export interface FileRouteTypes {
     | '/admin/finance/accounts/'
     | '/admin/finance/dashboard/'
     | '/admin/finance/transactions/'
+    | '/admin/listings/dashboard/'
     | '/admin/real-estate/dashboard/'
     | '/admin/real-estate/feature-rules/'
     | '/admin/real-estate/properties/'
@@ -1319,6 +1330,7 @@ export interface FileRouteTypes {
     | '/admin/finance/accounts'
     | '/admin/finance/dashboard'
     | '/admin/finance/transactions'
+    | '/admin/listings/dashboard'
     | '/admin/real-estate/dashboard'
     | '/admin/real-estate/feature-rules'
     | '/admin/real-estate/properties'
@@ -1431,6 +1443,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/finance/accounts/'
     | '/_authenticated/admin/finance/dashboard/'
     | '/_authenticated/admin/finance/transactions/'
+    | '/_authenticated/admin/listings/dashboard/'
     | '/_authenticated/admin/real-estate/dashboard/'
     | '/_authenticated/admin/real-estate/feature-rules/'
     | '/_authenticated/admin/real-estate/properties/'
@@ -1759,6 +1772,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/real-estate/dashboard/'
       preLoaderRoute: typeof AuthenticatedAdminRealEstateDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRealEstateRouteRoute
+    }
+    '/_authenticated/admin/listings/dashboard/': {
+      id: '/_authenticated/admin/listings/dashboard/'
+      path: '/listings/dashboard'
+      fullPath: '/admin/listings/dashboard/'
+      preLoaderRoute: typeof AuthenticatedAdminListingsDashboardIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/finance/transactions/': {
       id: '/_authenticated/admin/finance/transactions/'
@@ -2735,6 +2755,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminListingsListingIdRoute: typeof AuthenticatedAdminListingsListingIdRoute
   AuthenticatedAdminListingsCreateRoute: typeof AuthenticatedAdminListingsCreateRoute
   AuthenticatedAdminListingsIndexRoute: typeof AuthenticatedAdminListingsIndexRoute
+  AuthenticatedAdminListingsDashboardIndexRoute: typeof AuthenticatedAdminListingsDashboardIndexRoute
 }
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
@@ -2755,6 +2776,8 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminListingsCreateRoute:
       AuthenticatedAdminListingsCreateRoute,
     AuthenticatedAdminListingsIndexRoute: AuthenticatedAdminListingsIndexRoute,
+    AuthenticatedAdminListingsDashboardIndexRoute:
+      AuthenticatedAdminListingsDashboardIndexRoute,
   }
 
 const AuthenticatedAdminRouteRouteWithChildren =

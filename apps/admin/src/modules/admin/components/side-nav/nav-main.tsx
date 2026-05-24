@@ -1,6 +1,7 @@
 import {type Icon} from "@tabler/icons-react"
 
 import {
+    QuickToolTip,
     SidebarGroup,
     SidebarGroupContent,
     SidebarMenu,
@@ -9,7 +10,7 @@ import {
 } from "@suiteonix/ui"
 import {ThemeToggle} from "@suiteonix/components";
 import {Button} from "@suiteonix/ui";
-import {Grid3X3Icon, Navigation2} from "lucide-react";
+import {Building2, Grid3X3Icon, Navigation2} from "lucide-react";
 
 export function NavMain({
                             items,
@@ -25,6 +26,11 @@ export function NavMain({
             <SidebarGroupContent className="flex flex-col gap-2">
                 <SidebarMenu>
                     <div className="flex flex-row gap-2">
+                       <QuickToolTip content={"Public Profile"}>
+                           <Button variant={"outline"}>
+                               <Building2/>
+                           </Button>
+                       </QuickToolTip>
                         <Button variant={"outline"}>
                             <Grid3X3Icon/>
                         </Button>

@@ -1,12 +1,17 @@
 import {type PageSlice, PageUtil, type Paged} from "@suiteonix/models";
 
 import {Backend, type RequestHelperInit} from "../../utils";
-import type {OrgProfileModel} from "../models/org-profile.models.ts";
+import type {OrgProfileModel} from "../models";
 
 export class OrgProfileApi {
+    getDetailedById(orgID: OrgProfileModel.OrgID, init?: Partial<RequestHelperInit>) {
+        if (!orgID) return Promise.reject("Organization ID is required");
+        return Backend.authRequest<OrgProfileModel.Detailed>(`/organizations/${orgID}/profile/detailed`, init)
+    }
+
     getById(orgID: OrgProfileModel.OrgID, init?: Partial<RequestHelperInit>) {
         if (!orgID) return Promise.reject("Organization ID is required");
-        return Backend.authRequest<OrgProfileModel.Detailed>(`/organizations/${orgID}/profile`, init)
+        return Backend.authRequest<OrgProfileModel.OrgProfile>(`/organizations/${orgID}/profile`, init)
     }
 
     query(params?: OrgProfileModel.Query, init?: Partial<RequestHelperInit>) {
