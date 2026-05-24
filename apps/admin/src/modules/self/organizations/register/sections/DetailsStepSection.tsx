@@ -11,7 +11,8 @@ export function DetailsStepSection() {
     const {draft, updateDataDetail} = useRegistration()
     const today = new Date()
     const dateEstablished = parseDateInput(dateInputValue(draft.data.detail.dateEstablished ?? ""))
-    const isDisabled = !draft.data.detail.registrationCountry.trim()
+    const registrationCountry = draft.data.detail.registrationCountry ?? ""
+    const isDisabled = !registrationCountry.trim()
 
     return (
         <RegistrationStepLayout stepId="details" disableNext={isDisabled}>
@@ -22,7 +23,7 @@ export function DetailsStepSection() {
                     onChange={(value) => updateDataDetail({registrationNumber: value})}
                 />
                 <CountryCombobox
-                    value={draft.data.detail.registrationCountry}
+                    value={registrationCountry}
                     onValueChange={(value) => updateDataDetail({registrationCountry: value})}
                 />
                 <label className="grid gap-2">

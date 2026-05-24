@@ -4,16 +4,12 @@ import {AdminSidebar} from "#/modules/admin/components/side-nav/admin-sidebar.ts
 import {OrganizationRequest} from "@suiteonix/server";
 import DefaultBG from "#/assets/logo.png";
 import {useAuthenticatedUser} from "@suiteonix/server";
-import {useThemeMode} from "@suiteonix/components";
 
 const BusinessBasePage = () => {
-    const {mode} = useThemeMode()
     const {user} = useAuthenticatedUser()
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
-    if (org?.logo && (mode === "light" || (mode === "auto" && !window.matchMedia("(prefers-color-scheme: dark)").matches))) {
+    if (org?.logo) {
         document.body.style.backgroundImage = `url("${org.logo}")`;
-    } else if (org?.logoDark && (mode === "dark" || mode === "auto" && (window.matchMedia("(prefers-color-scheme: dark)").matches))) {
-        document.body.style.backgroundImage = `url("${org.logoDark}")`;
     } else
         document.body.style.backgroundImage = DefaultBG;
     return (

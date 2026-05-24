@@ -97,7 +97,7 @@ function Cell2({ org }: { org?: OrganizationModel.Organization }) {
       className="flex flex-row items-center gap-2 rounded-lg p-2"
     >
       <Avatar className="h-5 w-5 rounded-lg grayscale">
-        <AvatarImage src={org.logo} alt={`${org.name}'s logo`} className="object-cover" />
+        <AvatarImage src={org.logo ?? undefined} alt={`${org.name}'s logo`} className="object-cover" />
         <AvatarFallback className="rounded-lg text-[10px]">
           {getInitials(org.name, org.shortName)}
         </AvatarFallback>
@@ -155,7 +155,7 @@ function CellPopoverContent({ org }: { org?: OrganizationModel.Organization }) {
     <div className="space-y-4">
       <div className="flex items-start gap-4">
         <Avatar className="size-16 rounded-xl border">
-          <AvatarImage src={org.logo} alt={`${org.name}'s logo`} className="object-cover" />
+          <AvatarImage src={org.logo ?? undefined} alt={`${org.name}'s logo`} className="object-cover" />
           <AvatarFallback className="rounded-xl text-base">
             {getInitials(org.name, org.shortName)}
           </AvatarFallback>

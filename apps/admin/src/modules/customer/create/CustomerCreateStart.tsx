@@ -5,7 +5,7 @@ import {
     UserRound,
 } from "lucide-react"
 
-import {RegistrationIntroLayout} from "#/components/registration/RegistrationLayouts.tsx"
+import {RegistrationIntroLayout} from "@suiteonix/components"
 
 import {CUSTOMER_CREATE_STEPS} from "./customer-create.constants.ts"
 

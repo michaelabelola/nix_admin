@@ -1,16 +1,14 @@
-import {type Organization_RegisterModel, type OrganizationModel} from "../../../organization/models/models.ts";
+import {type Organization_RegisterModel} from "../../../organization/models/models.ts";
 import {BACKEND} from "../../../utils";
 
 export class OnboardingOrgApi {
 
-    register({user, data, avatar, logo, logoDark, coverImage, coverImageDark}: {
+    register({user, data, avatar, logo, coverImage}: {
         user: Organization_RegisterModel.OrgUser,
         data: Organization_RegisterModel.Register,
         avatar?: File,
         logo?: File,
-        logoDark?: File,
         coverImage?: File,
-        coverImageDark?: File
     }) {
 
         const formData = new FormData();
@@ -18,11 +16,9 @@ export class OnboardingOrgApi {
         formData.append("data", JSON.stringify(data));
         avatar && formData.append("avatar", avatar);
         logo && formData.append("logo", logo);
-        logoDark && formData.append("logoDark", logoDark);
         coverImage && formData.append("coverImage", coverImage);
-        coverImageDark && formData.append("coverImageDark", coverImageDark);
 
-        return BACKEND.authFetch<OrganizationModel.Organization>(`/organizations/register`, {
+        return BACKEND.authFetch<Organization_RegisterModel.RegistrationResponse>(`/organizations/register`, {
             method: "POST",
             contentType: "omit",
             body: formData,

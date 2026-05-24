@@ -1,10 +1,60 @@
-import type {NixID} from "@suiteonix/models";
-import type {Auditable} from "@suiteonix/models";
-import type {Ownable, PagedRequest} from "@suiteonix/models";
+import type {AuditSection, NixFile, NixID, Ownable, PagedRequest} from "@suiteonix/models";
 import type {LocationModel} from "../../location/Models.ts";
 
 export namespace OrganizationModel {
     export type OrgID = NixID
+    export type FileRef = NixFile.NixImage | null
+
+    export enum ContactMethod {
+        EMAIL = "EMAIL",
+        PHONE = "PHONE",
+        WHATSAPP = "WHATSAPP",
+    }
+
+    export enum LifecycleStatus {
+        ACTIVE = "ACTIVE",
+        INACTIVE = "INACTIVE",
+        DELETED = "DELETED",
+        ARCHIVED = "ARCHIVED",
+    }
+
+    export enum OrganizationStatusValue {
+        ACTIVE = "ACTIVE",
+        INACTIVE = "INACTIVE",
+        SUSPENDED = "SUSPENDED",
+        DELETED = "DELETED",
+        BANNED = "BANNED",
+    }
+
+    export type Contact = {
+        method: ContactMethod
+        value: string
+        lifecycleStatus?: LifecycleStatus | null
+    }
+
+    export type ContactUpdate = {
+        id: string
+        value: string
+    }
+
+    export type SocialAccount = {
+        id?: string | null
+        name: string
+        value: string
+        lifecycleStatus?: LifecycleStatus | null
+    }
+
+    export type SocialAccountUpdate = {
+        id: string
+        value: string
+    }
+
+    export type OrganizationStatus = {
+        value: OrganizationStatusValue
+        reason?: string | null
+        date?: string | null
+    }
+
     export type Organization = {
         id: string
         name: string
@@ -12,72 +62,90 @@ export namespace OrganizationModel {
         industry: string
         isApproved: boolean
         isSuspended: boolean
-        logo: string
-        logoDark: string
-        coverImage: string
-        coverImageDark: string
+        logo: FileRef
+        coverImage: FileRef
         entityID: NixID
     }
-    type Details = {
-        about: string
-        dateEstablished: Date | string //2026-02-26,
-        registrationNumber: string
-        registrationCountry: string
-        verified: boolean
-        approved: boolean
-        suspended: boolean
-    }
-    type Logos = {
-        logo: string
-        logoDark: string
-        coverImage: string
-        coverImageDark: string
-    }
-    type Socials = {
-        website: string
-        facebook: string
-        twitter: string
-        instagram: string
-        linkedin: string
-        youtube: string
-        snapchat: string
-        pinterest: string
-    }
-    type Contact = {
 
-        email: string
-        phone: string
+    export type Details = {
+        about?: string | null
+        dateEstablished?: Date | string | null
+        registrationNumber?: string | null
+        registrationCountry?: string | null
+        verified?: boolean | null
+        approved?: boolean | null
+        suspended?: boolean | null
     }
+
     export type Detailed = {
         id: string
         name: string
         shortName: string
         industry: string
         details: Details
-        address: LocationModel.Address
-        logos: Logos
-        registeredBy: string
-        socials: Socials
-        contact: Contact
-        audit: Auditable
-    } & Auditable & Ownable
+        address: LocationModel.Address | null
+        logo: FileRef
+        coverImage: FileRef
+        email?: string | null
+        phone?: string | null
+        socials: SocialAccount[]
+        contacts: Contact[]
+        registeredBy?: NixID | null
+        registeredBy_id?: NixID | null
+        status: OrganizationStatus
+        audit: AuditSection
+        entityID: NixID
+    } & Ownable
 
-    type QueryMain = PagedRequest<{
-        "query": string
-        "id": NixID
-        "name": string
-        "shortName": string
-        "industry": string
-        "dateEstablished": string //"2026-02-26",
-        "registrationNumber": string
-        "registrationCountry": string
-        "verified": boolean
-        "approved": boolean
-        "suspended": boolean
-        "isApproved": boolean
+    export type CreateDetails = {
+        about?: string | null
+        dateEstablished?: string | null
+        registrationNumber?: string | null
+        registrationCountry?: string | null
+    }
+
+    export type Create = {
+        name: string
+        shortName: string
+        industry: string
+        bio: string
+        detail: CreateDetails
+        address: LocationModel.Address
+        email: string
+        phone: string
+        socials?: SocialAccount[]
+        contacts?: Contact[]
+    }
+
+    export type Update = Partial<Omit<Create, "detail"> & {
+        detail: Details
     }>
-    export type Query = QueryMain
-    // export type Query = Pick<QueryMain, "query">
+
+    export type QueryDetails = {
+        dateEstablished?: string
+        registrationNumber?: string
+        registrationCountry?: string
+        verified?: boolean
+        approved?: boolean
+        suspended?: boolean
+    }
+
+    export type Query = PagedRequest<{
+        query: string
+        id: NixID
+        name: string
+        shortName: string
+        industry: string
+        detail: QueryDetails
+        isApproved: boolean
+        email: string
+        phone: string
+    }>
+
+    export type ChangeStatusRequest = {
+        status: OrganizationStatusValue
+        reason?: string | null
+    }
 }
 
 export namespace Organization_RegisterModel {
@@ -99,40 +167,11 @@ export namespace Organization_RegisterModel {
             "longitude": number
         }
     }
-    export type Register = {
-        name: string
-        shortName: string
-        industry: string
-        bio?: string
-        detail: {
-            about?: string
-            dateEstablished?: string// 2026-02-26,
-            registrationNumber?: string
-            registrationCountry: string
-        },
-        address: {
-            apt_number?: string
-            street: string
-            city: string
-            state: string
-            country: string
-            zipcode: string
-            latitude: number
-            longitude: number
-        },
-        socials: {
-            website: string
-            facebook: string
-            twitter: string
-            instagram: string
-            linkedin: string
-            youtube: string
-            snapchat: string
-            pinterest: string
-        }
-        contact: {
-            email: string
-            phone: string
-        }
+    export type Register = OrganizationModel.Create
+    export type RegistrationResponse = {
+        org: OrganizationModel.Organization
+        user: unknown
+        auth: unknown
+        role: unknown
     }
 }

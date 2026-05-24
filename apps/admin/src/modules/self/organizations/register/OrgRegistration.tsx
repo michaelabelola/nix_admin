@@ -1,5 +1,5 @@
 import {Outlet} from "@tanstack/react-router";
-import {RegistrationPageShell} from "#/components/registration/RegistrationLayouts.tsx";
+import {RegistrationPageShell} from "@suiteonix/components";
 import {RegistrationProvider} from "#/modules/self/organizations/register/registration.context.tsx";
 
 const OrgRegistration = () => {

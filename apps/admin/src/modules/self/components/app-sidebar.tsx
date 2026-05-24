@@ -195,7 +195,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                                         to: "/admin"
                                     })
                                 }}>
-                                    <AvatarImage src={org?.logo} alt={`${org?.shortName}`}
+                                    <AvatarImage src={org?.logo ?? undefined} alt={`${org?.shortName}`}
                                                  className={"object-cover"}/>
                                     <AvatarFallback className="rounded-lg">{org?.shortName}</AvatarFallback>
                                 </Avatar>

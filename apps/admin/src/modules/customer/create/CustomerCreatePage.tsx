@@ -1,6 +1,6 @@
 import {Outlet} from "@tanstack/react-router"
 
-import {RegistrationPageShell} from "#/components/registration/RegistrationLayouts.tsx"
+import {RegistrationPageShell} from "@suiteonix/components"
 
 import {CustomerCreateProvider} from "./customer-create.context.tsx"
 

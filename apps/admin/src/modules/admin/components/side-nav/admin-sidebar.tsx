@@ -29,14 +29,13 @@ import {useNavigate} from "@tanstack/react-router";
 import {realEstateNavItems} from "#/modules/real-estate/nav.tsx";
 import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";
 import {Button} from "@suiteonix/ui";
-import {type ComponentProps, useMemo} from "react";
+import {type ComponentProps} from "react";
 import {tagsNavItems} from "#/modules/tags/nav.tsx";
 import {customerNavItems} from "#/modules/customer/nav.tsx";
 import {financeNavItems} from "#/modules/finance/nav.tsx";
 import {appNavItems} from "#/modules/app/nav.tsx";
 import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx";
 import {listingNavItems} from "#/modules/listing/nav.tsx";
-import {useThemeMode} from "@suiteonix/components";
 
 const data = {
     user: {
@@ -159,13 +158,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
     const {user} = useAuthenticatedUser()
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
     const navigate = useNavigate()
-    const {calculatedMode,mode} = useThemeMode()
-    const selectedImage = useMemo(() => {
-        if (calculatedMode === "dark")
-            return org?.logoDark ?? org?.logo
-        else
-            return org?.logo ?? org?.logoDark
-    }, [calculatedMode, mode])
+    const selectedImage = org?.logo ?? undefined
     return (
         <Sidebar collapsible="offcanvas" {...props} className={"bg-background/80 backdrop-blur-sm border-r"}>
             <SidebarHeader>

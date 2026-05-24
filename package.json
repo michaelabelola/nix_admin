@@ -7,10 +7,10 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:customer": "bun --env-file=.env --filter @suiteonix/customer dev",
     "dev:admin": "bun --env-file=.env --filter @suiteonix/admin dev",
-    "build:customer": "bun --env-file=.env --filter @suiteonix/customer build",
-    "build:admin": "bun --env-file=.env --filter @suiteonix/admin build"
+    "dev:customer": "bun --env-file=.env --filter @suiteonix/customer dev",
+    "build:admin": "bun --env-file=.env --filter @suiteonix/admin build",
+    "build:customer": "bun --env-file=.env --filter @suiteonix/customer build"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

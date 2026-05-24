@@ -26,22 +26,10 @@ export function LogosStepSection() {
                         onChange={(file) => setFile("logo", file)}
                     />
                     <FileField
-                        label="Dark logo"
-                        description="Alternative logo for dark surfaces."
-                        value={draft.logoDark}
-                        onChange={(file) => setFile("logoDark", file)}
-                    />
-                    <FileField
                         label="Cover image"
                         description="Optional cover image for organization pages."
                         value={draft.coverImage}
                         onChange={(file) => setFile("coverImage", file)}
-                    />
-                    <FileField
-                        label="Dark cover image"
-                        description="Optional dark-mode cover variant."
-                        value={draft.coverImageDark}
-                        onChange={(file) => setFile("coverImageDark", file)}
                     />
                 </div>
 
