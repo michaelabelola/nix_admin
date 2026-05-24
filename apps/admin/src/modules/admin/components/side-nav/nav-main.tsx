@@ -10,8 +10,8 @@ import {
 } from "@suiteonix/ui"
 import {ThemeToggle} from "@suiteonix/components";
 import {Button} from "@suiteonix/ui";
-import {Building2, Grid3X3Icon, Navigation2} from "lucide-react";
-import {Link} from "@tanstack/react-router";
+import {Building2, Grid3X3Icon, Navigation2, User} from "lucide-react";
+import {Link, useNavigate} from "@tanstack/react-router";
 
 export function NavMain({
                             items,
@@ -22,6 +22,7 @@ export function NavMain({
         icon?: Icon
     }[]
 }) {
+    const navigate = useNavigate();
     return (
         <SidebarGroup>
             <SidebarGroupContent className="flex flex-col gap-2">
@@ -37,10 +38,19 @@ export function NavMain({
                         <Button variant={"outline"}>
                             <Grid3X3Icon/>
                         </Button>
+
                         <Button variant={"outline"}>
                             <Navigation2/>
                         </Button>
                         <ThemeToggle type={1}/>
+
+                        <QuickToolTip content={"User Page"} asChild>
+                            <Button variant={"outline"} onClick={() => navigate({
+                                to: "/self/organizations"
+                            })}>
+                                <User/>
+                            </Button>
+                        </QuickToolTip>
                     </div>
                 </SidebarMenu>
                 <SidebarMenu>

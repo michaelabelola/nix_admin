@@ -120,8 +120,8 @@ export namespace PropertyApiHook {
 
         return {
             ...useMutation({
-                mutationFn: ({propertyId, file, part}: { propertyId: PropertyModel.PropertyID, file: File, part?: "image" | "avatar" }) =>
-                    propertyApi.uploadAvatar(propertyId, file, part, {errHandler}),
+                mutationFn: ({propertyId, file}: { propertyId: PropertyModel.PropertyID, file: File }) =>
+                    propertyApi.uploadAvatar(propertyId, file, {errHandler}),
                 onSuccess: async (data, variables) => {
                     await Promise.all([
                         queryClient.invalidateQueries({queryKey: RealEstateQueryKeys.propertiesRoot}),

@@ -48,10 +48,10 @@ class PropertyApi {
         })
     }
 
-    uploadAvatar(propertyId: PropertyModel.PropertyID, file: File, part: "image" | "avatar" = "image", init?: Partial<RequestHelperInit>) {
+    uploadAvatar(propertyId: PropertyModel.PropertyID, file: File, init?: Partial<RequestHelperInit>) {
         const formData = new FormData()
-        formData.append(part, file)
-        return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}/${part}`, {
+        formData.append("avatar", file)
+        return Backend.authRequest<PropertyModel.Property>(`/real-estate/properties/${propertyId}/avatar`, {
             method: "POST",
             body: formData,
             contentType: "omit",

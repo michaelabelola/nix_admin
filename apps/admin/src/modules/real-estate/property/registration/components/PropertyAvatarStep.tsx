@@ -35,7 +35,6 @@ export function PropertyAvatarStep({
         await uploadAvatar.mutateAsync({
           propertyId: property.id,
           file: value.file,
-          part: "avatar",
         })
 
         toast.success("Property avatar uploaded.")

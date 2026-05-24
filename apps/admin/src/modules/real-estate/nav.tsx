@@ -16,7 +16,7 @@ export const realEstateNavItems: NavSectionType = {
             to: "/admin/real-estate/properties",
         },
         {
-            name: "Listing Profiles",
+            name: "Profiles",
             icon: ListIcon,
             to: "/admin/real-estate/properties/listing-profiles",
         },

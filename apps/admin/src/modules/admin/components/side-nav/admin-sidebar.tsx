@@ -19,15 +19,13 @@ import {
     SidebarFooter,
     SidebarHeader,
     SidebarMenu,
-    SidebarMenuButton,
     SidebarMenuItem,
 } from "@suiteonix/ui"
 import {useAuthenticatedUser} from "@suiteonix/server";
 import {Avatar, AvatarFallback, AvatarImage} from "@suiteonix/ui";
 import {OrganizationRequest} from "@suiteonix/server";
-import {useNavigate} from "@tanstack/react-router";
 import {realEstateNavItems} from "#/modules/real-estate/nav.tsx";
-import {BriefcaseBusinessIcon, User2Icon} from "lucide-react";
+import {BriefcaseBusinessIcon} from "lucide-react";
 import {Button} from "@suiteonix/ui";
 import {type ComponentProps} from "react";
 import {tagsNavItems} from "#/modules/tags/nav.tsx";
@@ -36,6 +34,7 @@ import {financeNavItems} from "#/modules/finance/nav.tsx";
 import {appNavItems} from "#/modules/app/nav.tsx";
 import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx";
 import {listingNavItems} from "#/modules/listing/nav.tsx";
+import {OrganizationQuickViewPopover} from "#/modules/organization/components/OrganizationQuickViewPopover.tsx";
 
 const data = {
     user: {
@@ -157,19 +156,14 @@ const data = {
 export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
     const {user} = useAuthenticatedUser()
     const {data: org} = OrganizationRequest.useGetOrganizationByID(user?.orgID || "")
-    const navigate = useNavigate()
     const selectedImage = org?.logo ?? undefined
     return (
         <Sidebar collapsible="offcanvas" {...props} className={"bg-background/80 backdrop-blur-sm border-r"}>
             <SidebarHeader>
                 <SidebarMenu>
-                    <SidebarMenuItem className={"flex "}>
-                        <SidebarMenuButton
-                            asChild
-                            className="data-[slot=sidebar-menu-button]:p-1.5!"
-                        >
-
-                            <a href="#">
+                    <SidebarMenuItem className={"flex min-w-0 w-full shrink-0"}>
+                        <OrganizationQuickViewPopover orgID={org?.id}>
+                            <Button variant={"ghost"} className={"min-w-0 w-full shrink-0"}>
                                 <Avatar className="h-8 w-8 rounded-lg grayscale cursor-pointer">
                                     <AvatarImage src={selectedImage}
                                                  alt={`${org?.shortName}`}
@@ -178,17 +172,10 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                                         <BriefcaseBusinessIcon className="size-5! text-primary"/>
                                     </AvatarFallback>
                                 </Avatar>
-                                <span className="text-base font-semibold">{org?.shortName?.toUpperCase()}</span>
-                            </a>
-                        </SidebarMenuButton>
-                        {/*<QuickToolTip content={"User Page"}>*/}
-                        <Button variant={"ghost"} onClick={() => navigate({
-                            to: "/admin/public-profile"
-                        })} className="ml-auto">
-                            <User2Icon className="size-7!"/>
-                        </Button>
-                        {/*</QuickToolTip>*/}
-
+                                <span
+                                    className="text-base font-semibold text-ellipsis whitespace-nowrap">{org?.shortName?.toUpperCase()}</span>
+                            </Button>
+                        </OrganizationQuickViewPopover>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
