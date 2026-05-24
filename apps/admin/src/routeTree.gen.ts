@@ -23,6 +23,7 @@ import { Route as AuthenticatedSelfRouteRouteImport } from './routes/_authentica
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as DocsApi_docsIndexRouteImport } from './routes/_docs/api_docs/index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminPublicProfileRouteImport } from './routes/_authenticated/admin/public-profile'
 import { Route as AuthenticatedSelfOrganizationsRouteRouteImport } from './routes/_authenticated/self/organizations/route'
 import { Route as AuthenticatedAdminTagsRouteRouteImport } from './routes/_authenticated/admin/tags/route'
 import { Route as AuthenticatedAdminRealEstateRouteRouteImport } from './routes/_authenticated/admin/real-estate/route'
@@ -190,6 +191,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const AuthenticatedAdminPublicProfileRoute =
+  AuthenticatedAdminPublicProfileRouteImport.update({
+    id: '/public-profile',
+    path: '/public-profile',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedSelfOrganizationsRouteRoute =
   AuthenticatedSelfOrganizationsRouteRouteImport.update({
     id: '/organizations',
@@ -859,6 +866,7 @@ export interface FileRoutesByFullPath {
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
+  '/admin/public-profile': typeof AuthenticatedAdminPublicProfileRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api_docs/': typeof DocsApi_docsIndexRoute
   '/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
@@ -964,6 +972,7 @@ export interface FileRoutesByTo {
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
+  '/admin/public-profile': typeof AuthenticatedAdminPublicProfileRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api_docs': typeof DocsApi_docsIndexRoute
   '/admin/apps/$appId': typeof AuthenticatedAdminAppsAppIdRoute
@@ -1071,6 +1080,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/_authenticated/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
   '/_authenticated/self/organizations': typeof AuthenticatedSelfOrganizationsRouteRouteWithChildren
+  '/_authenticated/admin/public-profile': typeof AuthenticatedAdminPublicProfileRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_docs/api_docs/': typeof DocsApi_docsIndexRoute
   '/_authenticated/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
@@ -1184,6 +1194,7 @@ export interface FileRouteTypes {
     | '/admin/real-estate'
     | '/admin/tags'
     | '/self/organizations'
+    | '/admin/public-profile'
     | '/admin/'
     | '/api_docs/'
     | '/admin/apps/create'
@@ -1289,6 +1300,7 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/demo/i18n'
     | '/admin/real-estate'
+    | '/admin/public-profile'
     | '/admin'
     | '/api_docs'
     | '/admin/apps/$appId'
@@ -1395,6 +1407,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/real-estate'
     | '/_authenticated/admin/tags'
     | '/_authenticated/self/organizations'
+    | '/_authenticated/admin/public-profile'
     | '/_authenticated/admin/'
     | '/_docs/api_docs/'
     | '/_authenticated/admin/apps/create'
@@ -1596,6 +1609,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/public-profile': {
+      id: '/_authenticated/admin/public-profile'
+      path: '/public-profile'
+      fullPath: '/admin/public-profile'
+      preLoaderRoute: typeof AuthenticatedAdminPublicProfileRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/self/organizations': {
@@ -2751,6 +2771,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminFinanceRouteRoute: typeof AuthenticatedAdminFinanceRouteRouteWithChildren
   AuthenticatedAdminRealEstateRouteRoute: typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   AuthenticatedAdminTagsRouteRoute: typeof AuthenticatedAdminTagsRouteRouteWithChildren
+  AuthenticatedAdminPublicProfileRoute: typeof AuthenticatedAdminPublicProfileRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminListingsListingIdRoute: typeof AuthenticatedAdminListingsListingIdRoute
   AuthenticatedAdminListingsCreateRoute: typeof AuthenticatedAdminListingsCreateRoute
@@ -2770,6 +2791,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
       AuthenticatedAdminRealEstateRouteRouteWithChildren,
     AuthenticatedAdminTagsRouteRoute:
       AuthenticatedAdminTagsRouteRouteWithChildren,
+    AuthenticatedAdminPublicProfileRoute: AuthenticatedAdminPublicProfileRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
     AuthenticatedAdminListingsListingIdRoute:
       AuthenticatedAdminListingsListingIdRoute,

@@ -11,6 +11,7 @@ import {
 import {ThemeToggle} from "@suiteonix/components";
 import {Button} from "@suiteonix/ui";
 import {Building2, Grid3X3Icon, Navigation2} from "lucide-react";
+import {Link} from "@tanstack/react-router";
 
 export function NavMain({
                             items,
@@ -26,11 +27,13 @@ export function NavMain({
             <SidebarGroupContent className="flex flex-col gap-2">
                 <SidebarMenu>
                     <div className="flex flex-row gap-2">
-                       <QuickToolTip content={"Public Profile"}>
-                           <Button variant={"outline"}>
-                               <Building2/>
-                           </Button>
-                       </QuickToolTip>
+                        <QuickToolTip content={"Public Profile"} asChild>
+                            <Button variant={"outline"} size="icon" asChild>
+                                <Link to="/admin/public-profile">
+                                    <Building2/>
+                                </Link>
+                            </Button>
+                        </QuickToolTip>
                         <Button variant={"outline"}>
                             <Grid3X3Icon/>
                         </Button>

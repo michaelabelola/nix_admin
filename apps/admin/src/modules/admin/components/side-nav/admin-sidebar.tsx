@@ -183,7 +183,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
                         </SidebarMenuButton>
                         {/*<QuickToolTip content={"User Page"}>*/}
                         <Button variant={"ghost"} onClick={() => navigate({
-                            to: "/self"
+                            to: "/admin/public-profile"
                         })} className="ml-auto">
                             <User2Icon className="size-7!"/>
                         </Button>
