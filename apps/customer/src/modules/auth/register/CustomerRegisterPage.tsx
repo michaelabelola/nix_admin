@@ -12,7 +12,7 @@ import {
 import {CustomerRegisterProvider, useCustomerRegister} from "./customer-register.context.tsx"
 import {CustomerRegisterAddressesStep} from "./steps/CustomerRegisterAddressesStep.tsx"
 import {CustomerRegisterAccountStep} from "./steps/CustomerRegisterAccountStep.tsx"
-import {CustomerRegisterContactStep} from "./steps/CustomerRegisterContactStep.tsx"
+import {CustomerRegisterAvatarStep} from "./steps/CustomerRegisterAvatarStep.tsx"
 import {CustomerRegisterPreferencesStep} from "./steps/CustomerRegisterPreferencesStep.tsx"
 import {CustomerRegisterProfileStep} from "./steps/CustomerRegisterProfileStep.tsx"
 import {CustomerRegisterReviewStep} from "./steps/CustomerRegisterReviewStep.tsx"
@@ -73,8 +73,8 @@ function CustomerRegisterCurrentStep() {
             return <CustomerRegisterIntro/>
         case "profile":
             return <CustomerRegisterProfileStep/>
-        case "contact":
-            return <CustomerRegisterContactStep/>
+        case "avatar":
+            return <CustomerRegisterAvatarStep/>
         case "addresses":
             return <CustomerRegisterAddressesStep/>
         case "preferences":
@@ -172,7 +172,7 @@ function CustomerRegisterIntro() {
                     <Badge variant="outline" className="w-fit">Before you start</Badge>
                     <h2 className="text-3xl font-semibold tracking-tight">A focused setup that only asks for what the customer account needs.</h2>
                     <p className="text-muted-foreground">
-                        The registration flow is split into short steps so credentials, profile information, contact channels, addresses, and preferences stay easy to review.
+                        The registration flow is split into short steps so credentials, profile information, avatar, addresses, and preferences stay easy to review.
                     </p>
                 </div>
 

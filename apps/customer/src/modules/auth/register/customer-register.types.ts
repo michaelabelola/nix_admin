@@ -1,11 +1,10 @@
 import {CustomerModel} from "@suiteonix/server";
 
-export type CustomerRegisterStepID = "intro" | "account" | "profile" | "contact" | "addresses" | "preferences" | "review"
+export type CustomerRegisterStepID = "intro" | "account" | "profile" | "avatar" | "addresses" | "preferences" | "review"
 
 export type RegisterAddressDraft = {
     label: string
     line1: string
-    line2: string
     city: string
     state: string
     province: string
@@ -26,22 +25,14 @@ export type CustomerRegisterDraft = {
         firstName: string
         middleName: string
         lastName: string
-        title: string
         gender: string
         dateOfBirth: string
         nationality: string
-        passportNumber: string
-        nationalID: string
         maritalStatus: string
-        mothersMaidenName: string
         countryOfBirth: string
-        profession: string
     }
     contact: {
-        secondaryEmail: string
         phoneNumber: string
-        mobileNumber: string
-        website: string
     }
     billingAddress: RegisterAddressDraft
     sameAsBillingAddress: boolean

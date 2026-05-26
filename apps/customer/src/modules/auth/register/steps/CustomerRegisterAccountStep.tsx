@@ -8,7 +8,7 @@ import {Alert, AlertDescription} from "@suiteonix/ui";
 import {StepInput, StepSection} from "../customer-create.fields.tsx";
 
 export function CustomerRegisterAccountStep() {
-    const {draft, updateDraft, getFieldError} = useCustomerRegister()
+    const {draft, updateDraft, updateContact, getFieldError} = useCustomerRegister()
     const passwordMismatch = Boolean(draft.confirmPassword && !isPasswordConfirmed(draft))
     const serverEmailError = getFieldError("email")
     const serverPasswordError = getFieldError("password")
@@ -16,8 +16,8 @@ export function CustomerRegisterAccountStep() {
     return (
         <CustomerRegisterStepLayout>
             <RegisterStepInsight icon={KeyRound} title="Start with the account identity">
-                The email and password create the customer login profile. Display name can be added on the profile step
-                or left blank.
+                The email and password create the customer login profile. Phone number is optional and can be used for
+                account support.
             </RegisterStepInsight>
 
             <StepSection
@@ -31,6 +31,12 @@ export function CustomerRegisterAccountStep() {
                         value={draft.email}
                         placeholder="jane@example.com"
                         onChange={(value) => updateDraft({email: value})}
+                    />
+                    <StepInput
+                        label="Phone number"
+                        type="tel"
+                        value={draft.contact.phoneNumber}
+                        onChange={(value) => updateContact({phoneNumber: value})}
                     />
                     <StepInput
                         label="Password"

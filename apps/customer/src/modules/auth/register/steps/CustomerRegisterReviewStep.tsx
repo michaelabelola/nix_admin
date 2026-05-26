@@ -56,6 +56,7 @@ export function CustomerRegisterReviewStep() {
                     <CardContent>
                         <ReviewRows rows={[
                             {label: "Email", value: draft.email.trim()},
+                            {label: "Phone number", value: draft.contact.phoneNumber.trim()},
                             {label: "Language", value: draft.language.trim()},
                         ]}/>
                     </CardContent>
@@ -70,32 +71,23 @@ export function CustomerRegisterReviewStep() {
                             {label: "First name", value: draft.personalDetail.firstName.trim()},
                             {label: "Middle name", value: draft.personalDetail.middleName.trim()},
                             {label: "Last name", value: draft.personalDetail.lastName.trim()},
-                            {label: "Avatar", value: draft.avatar?.name},
-                            {label: "Title", value: draft.personalDetail.title.trim()},
                             {label: "Gender", value: draft.personalDetail.gender.trim()},
                             {label: "Date of birth", value: draft.personalDetail.dateOfBirth.trim()},
                             {label: "Nationality", value: draft.personalDetail.nationality.trim()},
-                            {label: "Passport number", value: draft.personalDetail.passportNumber.trim()},
-                            {label: "National ID", value: draft.personalDetail.nationalID.trim()},
                             {label: "Marital status", value: draft.personalDetail.maritalStatus.trim()},
-                            {label: "Mother's maiden name", value: draft.personalDetail.mothersMaidenName.trim()},
                             {label: "Display name", value: draft.displayName.trim()},
                             {label: "Country of birth", value: draft.personalDetail.countryOfBirth.trim()},
-                            {label: "Profession", value: draft.personalDetail.profession.trim()},
                         ]}/>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardHeader>
-                        <CardTitle className="text-base">Contact</CardTitle>
+                        <CardTitle className="text-base">Avatar</CardTitle>
                     </CardHeader>
                     <CardContent>
                         <ReviewRows rows={[
-                            {label: "Secondary email", value: draft.contact.secondaryEmail.trim()},
-                            {label: "Phone number", value: draft.contact.phoneNumber.trim()},
-                            {label: "Mobile number", value: draft.contact.mobileNumber.trim()},
-                            {label: "Website", value: draft.contact.website.trim()},
+                            {label: "Selected file", value: draft.avatar?.name},
                         ]}/>
                     </CardContent>
                 </Card>
@@ -108,7 +100,6 @@ export function CustomerRegisterReviewStep() {
                         <ReviewRows rows={[
                             {label: "Label", value: draft.billingAddress.label.trim()},
                             {label: "Line 1", value: draft.billingAddress.line1.trim()},
-                            {label: "Line 2", value: draft.billingAddress.line2.trim()},
                             {label: "City", value: draft.billingAddress.city.trim()},
                             {label: "State", value: draft.billingAddress.state.trim()},
                             {label: "Province", value: draft.billingAddress.province.trim()},
@@ -129,7 +120,6 @@ export function CustomerRegisterReviewStep() {
                             <ReviewRows rows={[
                                 {label: "Label", value: draft.shippingAddress.label.trim()},
                                 {label: "Line 1", value: draft.shippingAddress.line1.trim()},
-                                {label: "Line 2", value: draft.shippingAddress.line2.trim()},
                                 {label: "City", value: draft.shippingAddress.city.trim()},
                                 {label: "State", value: draft.shippingAddress.state.trim()},
                                 {label: "Province", value: draft.shippingAddress.province.trim()},
