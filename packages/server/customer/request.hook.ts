@@ -91,6 +91,33 @@ export namespace CustomerRequest {
         }
     }
 
+    export function useVerifyCustomerEmail(successHandler?: SuccessHandler<CustomerModel.VerifyEmailResponse>) {
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useMutation({
+                mutationFn: (body: CustomerModel.VerifyEmailRequest) => customerApi.verifyEmail(body, {errHandler}),
+                onSuccess: successHandler,
+                networkMode: "online",
+            }),
+            errHandler,
+        }
+    }
+
+    export function useResendCustomerVerificationEmail(successHandler?: SuccessHandler<void>) {
+        const errHandler = useResponseFieldErrorHandler()
+
+        return {
+            ...useMutation({
+                mutationFn: (body: CustomerModel.ResendVerificationEmailRequest) =>
+                    customerApi.resendVerificationEmail(body, {errHandler}),
+                onSuccess: successHandler,
+                networkMode: "online",
+            }),
+            errHandler,
+        }
+    }
+
     export function useUpdateCustomer(successHandler?: SuccessHandler<CustomerModel.Detailed>) {
         const queryClient = useQueryClient()
         const errHandler = useResponseFieldErrorHandler()

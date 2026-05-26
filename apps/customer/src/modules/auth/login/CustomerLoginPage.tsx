@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {Link} from "@tanstack/react-router"
 import {ArrowLeft, LockKeyhole, Mail, ShieldCheck} from "lucide-react"
 import {toast} from "sonner"
@@ -9,9 +9,13 @@ import {Button} from "@suiteonix/ui"
 import {Input} from "@suiteonix/ui"
 import {Label} from "@suiteonix/ui"
 
-export function CustomerLoginPage() {
-    const [email, setEmail] = useState("")
+export function CustomerLoginPage({initialEmail = ""}: { initialEmail?: string }) {
+    const [email, setEmail] = useState(initialEmail)
     const [password, setPassword] = useState("")
+
+    useEffect(() => {
+        setEmail(initialEmail)
+    }, [initialEmail])
 
     return (
         <main className="min-h-dvh bg-background">
@@ -93,6 +97,16 @@ export function CustomerLoginPage() {
                                     placeholder="Enter your password"
                                     onChange={(event) => setPassword(event.target.value)}
                                 />
+                            </div>
+
+                            <div className="flex flex-wrap justify-end gap-3 text-sm">
+                                <Link
+                                    to="/resend-verification-email"
+                                    search={{email}}
+                                    className="font-medium text-primary underline"
+                                >
+                                    Forgot password?
+                                </Link>
                             </div>
 
                             <Button type="submit" disabled={!email.trim() || !password}>

@@ -228,8 +228,15 @@ function CustomerRegisterSuccessDialog() {
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="sm:justify-center">
+                    <Button asChild variant="outline">
+                        <Link to="/login" search={{email: successEmail ?? ""}}>
+                            Go to customer login
+                        </Link>
+                    </Button>
                     <Button asChild>
-                        <Link to="/login">Go to customer login</Link>
+                        <Link to="/verify-email" search={{email: successEmail ?? "", token: ""}}>
+                            Verify email
+                        </Link>
                     </Button>
                 </DialogFooter>
             </DialogContent>

@@ -1,4 +1,4 @@
-import type {AuditSection, NixID} from "@suiteonix/models"
+import type {AuditSection, NixID, ResponseDto} from "@suiteonix/models"
 import type {NixFile} from "@suiteonix/models"
 import type {ObjectVisibility, PagedRequest} from "@suiteonix/models"
 import type {TagModel} from "../tags/model.ts"
@@ -6,6 +6,34 @@ import type {TagModel} from "../tags/model.ts"
 export namespace CustomerModel {
     export type CustomerID = string
     export type CustomerAvatar = NixFile.NixImage
+
+    export type AuthConfigFlag = "ACTIVE" | "INACTIVE" | "DISABLED"
+
+    export type CustomerAuthProfile = {
+        id: NixID
+        email: string
+        entityID: NixID
+        emailVerified: boolean
+        customerID: NixID
+        signInOptions?: {
+            emailAndPassword?: AuthConfigFlag | null
+            emailAndEmailToken?: AuthConfigFlag | null
+        } | null
+        configFlags?: {
+            jwtAuthEnabled?: AuthConfigFlag | null
+        } | null
+    }
+
+    export type VerifyEmailRequest = {
+        email: string
+        token: string
+    }
+
+    export type VerifyEmailResponse = ResponseDto<CustomerAuthProfile>
+
+    export type ResendVerificationEmailRequest = {
+        email: string
+    }
 
     export enum CustomerStatus {
         ACTIVE = "ACTIVE",

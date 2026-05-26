@@ -58,6 +58,22 @@ class CustomerApi {
         })
     }
 
+    verifyEmail(body: CustomerModel.VerifyEmailRequest, init?: Partial<RequestHelperInit>) {
+        return Backend.request<CustomerModel.VerifyEmailResponse>("/api/customer-api/auth/verify-email", {
+            method: "POST",
+            body,
+            ...init,
+        })
+    }
+
+    resendVerificationEmail(body: CustomerModel.ResendVerificationEmailRequest, init?: Partial<RequestHelperInit>) {
+        return Backend.request<void>("/api/customer-api/auth/resend-verification-mail", {
+            method: "POST",
+            body,
+            ...init,
+        })
+    }
+
     update(customerId: CustomerModel.CustomerID, body: CustomerModel.Update, init?: Partial<RequestHelperInit>) {
         return Backend.authRequest<CustomerModel.Detailed>(`/customer/${customerId}`, {
             method: "PATCH",
