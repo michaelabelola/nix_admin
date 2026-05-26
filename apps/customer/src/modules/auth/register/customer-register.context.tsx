@@ -32,7 +32,6 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
     const createAccount = useMutation<CustomerModel.Detailed, unknown, CustomerRegisterDraft>({
         mutationFn: (body: CustomerRegisterDraft) =>
             customerApi.createSelfAccount({
-                // @ts-ignore
                 data: buildCustomerSelfAccountPayload(body),
                 avatar: body.avatar,
             }, {errHandler}),

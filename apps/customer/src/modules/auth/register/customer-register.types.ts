@@ -1,6 +1,14 @@
 import {CustomerModel} from "@suiteonix/server";
 
-export type CustomerRegisterStepID = "intro" | "account" | "profile" | "avatar" | "addresses" | "preferences" | "review"
+export type CustomerRegisterStepID =
+    | "intro"
+    | "account"
+    | "profile"
+    | "avatar"
+    | "addresses"
+    | "shipping-address"
+    | "preferences"
+    | "review"
 
 export type RegisterAddressDraft = {
     line1: string
@@ -25,8 +33,6 @@ export type CustomerRegisterDraft = {
         lastName: string
         gender: string
         dateOfBirth: string
-        nationality: string
-        maritalStatus: string
         countryOfBirth: string
     }
     contact: {

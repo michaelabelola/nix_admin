@@ -8,8 +8,8 @@ import {
 import {
     StepCountryField,
     StepInput,
-    StepSection, StepStateField,
-    StepSwitch,
+    StepSection,
+    StepStateField,
 } from "../customer-create.fields.tsx"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
@@ -49,7 +49,7 @@ function toAddressPatch(patch: LocationPickerAddressPatch): Partial<RegisterAddr
     return nextPatch
 }
 
-function AddressFields({
+export function CustomerRegisterAddressFields({
     address,
     onChange,
 }: {
@@ -78,31 +78,17 @@ function AddressFields({
 export function CustomerRegisterAddressesStep() {
     const {
         draft,
-        updateDraft,
         updateBillingAddress,
-        updateShippingAddress,
     } = useCustomerRegister()
 
     return (
         <CustomerRegisterStepLayout>
             <RegisterStepInsight icon={MapPinned} title="Addresses can be simple">
-                Use only the fields that matter for your account. Location coordinates are optional and can be left blank.
+                Use only the billing fields that matter for your account. Location coordinates are optional and can be left blank.
             </RegisterStepInsight>
 
             <StepSection title="Billing address" description="Optional billing address stored on the customer profile.">
-                <AddressFields address={draft.billingAddress} onChange={updateBillingAddress}/>
-            </StepSection>
-
-            <StepSection title="Shipping address" description="Use billing as shipping or provide a separate destination.">
-                <StepSwitch
-                    label="Shipping address is the same as billing"
-                    checked={draft.sameAsBillingAddress}
-                    onCheckedChange={(sameAsBillingAddress) => updateDraft({sameAsBillingAddress})}
-                />
-
-                {!draft.sameAsBillingAddress ? (
-                    <AddressFields address={draft.shippingAddress} onChange={updateShippingAddress}/>
-                ) : null}
+                <CustomerRegisterAddressFields address={draft.billingAddress} onChange={updateBillingAddress}/>
             </StepSection>
         </CustomerRegisterStepLayout>
     )

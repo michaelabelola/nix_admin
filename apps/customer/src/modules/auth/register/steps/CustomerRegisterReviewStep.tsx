@@ -73,8 +73,6 @@ export function CustomerRegisterReviewStep() {
                             {label: "Last name", value: draft.personalDetail.lastName.trim()},
                             {label: "Gender", value: draft.personalDetail.gender.trim()},
                             {label: "Date of birth", value: draft.personalDetail.dateOfBirth.trim()},
-                            {label: "Nationality", value: draft.personalDetail.nationality.trim()},
-                            {label: "Marital status", value: draft.personalDetail.maritalStatus.trim()},
                             {label: "Display name", value: draft.displayName.trim()},
                             {label: "Country of birth", value: draft.personalDetail.countryOfBirth.trim()},
                         ]}/>

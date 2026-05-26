@@ -39,8 +39,13 @@ export const CUSTOMER_REGISTER_STEPS: Array<{
     },
     {
         id: "addresses",
-        label: "Addresses",
-        description: "Billing and shipping details.",
+        label: "Billing Address",
+        description: "Billing address details.",
+    },
+    {
+        id: "shipping-address",
+        label: "Shipping Address",
+        description: "Shipping address details.",
     },
     {
         id: "preferences",
@@ -67,8 +72,6 @@ export const INITIAL_CUSTOMER_REGISTER_DRAFT: CustomerRegisterDraft = {
         lastName: "",
         gender: "",
         dateOfBirth: "",
-        nationality: "",
-        maritalStatus: "",
         countryOfBirth: "",
     },
     contact: {
@@ -149,8 +152,6 @@ export function buildCustomerSelfAccountPayload(draft: CustomerRegisterDraft): C
             lastName: optionalString(draft.personalDetail.lastName),
             gender: optionalString(draft.personalDetail.gender),
             dateOfBirth: optionalString(draft.personalDetail.dateOfBirth),
-            nationality: optionalString(draft.personalDetail.nationality),
-            maritalStatus: optionalString(draft.personalDetail.maritalStatus),
             countryOfBirth: optionalString(draft.personalDetail.countryOfBirth),
         }),
         contact: compactObject({

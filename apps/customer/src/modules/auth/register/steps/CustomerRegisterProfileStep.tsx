@@ -47,10 +47,6 @@ export function CustomerRegisterProfileStep() {
                     <StepDatePicker label="Date of birth" value={personal.dateOfBirth}
                                     onChange={(value) => updatePersonalDetail({dateOfBirth: value})}
                                     disabled={(date) => date > new Date()}/>
-                    <StepInput label="Nationality" value={personal.nationality}
-                               onChange={(value) => updatePersonalDetail({nationality: value})}/>
-                    <StepInput label="Marital status" value={personal.maritalStatus}
-                               onChange={(value) => updatePersonalDetail({maritalStatus: value})}/>
                     <StepCountryField label="Country of birth" value={personal.countryOfBirth}
                                       onChange={(value) => updatePersonalDetail({countryOfBirth: value})}/>
                 </div>

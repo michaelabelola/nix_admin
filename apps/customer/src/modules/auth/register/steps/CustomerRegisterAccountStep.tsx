@@ -1,11 +1,12 @@
 import {KeyRound} from "lucide-react"
+import {PhoneNumberInput} from "@suiteonix/components"
 
 import {useCustomerRegister} from "../customer-register.context.tsx"
 import {isPasswordConfirmed} from "../customer-register.utils.ts"
 import {RegisterStepInsight} from "../CustomerRegisterStepPrimitives.tsx"
 import {CustomerRegisterStepLayout} from "../CustomerRegisterStepLayout.tsx"
 import {Alert, AlertDescription} from "@suiteonix/ui";
-import {StepInput, StepSection} from "../customer-create.fields.tsx";
+import {StepField, StepInput, StepSection} from "../customer-create.fields.tsx";
 
 export function CustomerRegisterAccountStep() {
     const {draft, updateDraft, updateContact, getFieldError} = useCustomerRegister()
@@ -32,12 +33,12 @@ export function CustomerRegisterAccountStep() {
                         placeholder="jane@example.com"
                         onChange={(value) => updateDraft({email: value})}
                     />
-                    <StepInput
-                        label="Phone number"
-                        type="tel"
-                        value={draft.contact.phoneNumber}
-                        onChange={(value) => updateContact({phoneNumber: value})}
-                    />
+                    <StepField label="Phone number">
+                        <PhoneNumberInput
+                            value={draft.contact.phoneNumber}
+                            onValueChange={(phoneNumber) => updateContact({phoneNumber})}
+                        />
+                    </StepField>
                     <StepInput
                         label="Password"
                         type="password"

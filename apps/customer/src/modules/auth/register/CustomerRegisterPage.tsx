@@ -16,6 +16,7 @@ import {CustomerRegisterAvatarStep} from "./steps/CustomerRegisterAvatarStep.tsx
 import {CustomerRegisterPreferencesStep} from "./steps/CustomerRegisterPreferencesStep.tsx"
 import {CustomerRegisterProfileStep} from "./steps/CustomerRegisterProfileStep.tsx"
 import {CustomerRegisterReviewStep} from "./steps/CustomerRegisterReviewStep.tsx"
+import {CustomerRegisterShippingAddressStep} from "./steps/CustomerRegisterShippingAddressStep.tsx"
 import {
     Badge,
     Button,
@@ -77,6 +78,8 @@ function CustomerRegisterCurrentStep() {
             return <CustomerRegisterAvatarStep/>
         case "addresses":
             return <CustomerRegisterAddressesStep/>
+        case "shipping-address":
+            return <CustomerRegisterShippingAddressStep/>
         case "preferences":
             return <CustomerRegisterPreferencesStep/>
         case "review":
