@@ -3,33 +3,42 @@ FROM oven/bun:1-alpine AS deps
 WORKDIR /app
 
 COPY package.json bun.lock ./
+COPY apps/admin/package.json apps/admin/package.json
+COPY apps/customer/package.json apps/customer/package.json
+COPY packages/components/package.json packages/components/package.json
+COPY packages/data/package.json packages/data/package.json
+COPY packages/lib/package.json packages/lib/package.json
+COPY packages/models/package.json packages/models/package.json
+COPY packages/sdk/package.json packages/sdk/package.json
+COPY packages/server/package.json packages/server/package.json
+COPY packages/ui/package.json packages/ui/package.json
+COPY packages/utils/package.json packages/utils/package.json
+
 RUN bun install --frozen-lockfile
 
-FROM oven/bun:1-alpine AS builder
-
-WORKDIR /app
+FROM deps AS builder
 
 ARG VITE_API_BASE_URL=https://api.suiteonix.com
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 
-COPY --from=deps /apps/node_modules ./node_modules
 COPY . .
 
-RUN bun run build
+RUN bun --filter @suiteonix/customer build
 
 FROM oven/bun:1-alpine AS runner
-
-WORKDIR /app
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=80
 
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile --production
+WORKDIR /app/apps/customer
 
-COPY --from=builder /apps/dist ./dist
-COPY --from=builder /apps/server.mjs ./server.mjs
+COPY --from=deps /app/node_modules /app/node_modules
+COPY --from=builder /app/package.json /app/bun.lock /app/
+COPY --from=builder /app/packages /app/packages
+COPY --from=builder /app/apps/customer/package.json ./package.json
+COPY --from=builder /app/apps/customer/server.mjs ./server.mjs
+COPY --from=builder /app/apps/customer/dist ./dist
 
 EXPOSE 80
 
