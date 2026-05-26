@@ -8,11 +8,9 @@ import type {
 export type CustomerRegisterFormStepID = Exclude<CustomerRegisterStepID, "intro">
 
 const EMPTY_ADDRESS: RegisterAddressDraft = {
-    label: "",
     line1: "",
     city: "",
     state: "",
-    province: "",
     postalCode: "",
     country: "",
     latitude: "",
@@ -115,11 +113,9 @@ function compactObject<T extends Record<string, unknown>>(value: T) {
 
 function buildAddress(address: RegisterAddressDraft) {
     return compactObject({
-        label: optionalString(address.label),
         line1: optionalString(address.line1),
         city: optionalString(address.city),
         state: optionalString(address.state),
-        province: optionalString(address.province),
         postalCode: optionalString(address.postalCode),
         country: optionalString(address.country),
         latitude: optionalNumber(address.latitude),

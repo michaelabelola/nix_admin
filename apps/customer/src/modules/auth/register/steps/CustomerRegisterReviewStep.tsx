@@ -98,11 +98,9 @@ export function CustomerRegisterReviewStep() {
                     </CardHeader>
                     <CardContent>
                         <ReviewRows rows={[
-                            {label: "Label", value: draft.billingAddress.label.trim()},
                             {label: "Line 1", value: draft.billingAddress.line1.trim()},
                             {label: "City", value: draft.billingAddress.city.trim()},
                             {label: "State", value: draft.billingAddress.state.trim()},
-                            {label: "Province", value: draft.billingAddress.province.trim()},
                             {label: "Postal code", value: draft.billingAddress.postalCode.trim()},
                             {label: "Country", value: draft.billingAddress.country.trim()},
                             {label: "Latitude", value: draft.billingAddress.latitude.trim()},
@@ -118,11 +116,9 @@ export function CustomerRegisterReviewStep() {
                         </CardHeader>
                         <CardContent>
                             <ReviewRows rows={[
-                                {label: "Label", value: draft.shippingAddress.label.trim()},
                                 {label: "Line 1", value: draft.shippingAddress.line1.trim()},
                                 {label: "City", value: draft.shippingAddress.city.trim()},
                                 {label: "State", value: draft.shippingAddress.state.trim()},
-                                {label: "Province", value: draft.shippingAddress.province.trim()},
                                 {label: "Postal code", value: draft.shippingAddress.postalCode.trim()},
                                 {label: "Country", value: draft.shippingAddress.country.trim()},
                                 {label: "Latitude", value: draft.shippingAddress.latitude.trim()},

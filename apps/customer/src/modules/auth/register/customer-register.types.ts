@@ -3,11 +3,9 @@ import {CustomerModel} from "@suiteonix/server";
 export type CustomerRegisterStepID = "intro" | "account" | "profile" | "avatar" | "addresses" | "preferences" | "review"
 
 export type RegisterAddressDraft = {
-    label: string
     line1: string
     city: string
     state: string
-    province: string
     postalCode: string
     country: string
     latitude: string

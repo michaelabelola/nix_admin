@@ -63,11 +63,9 @@ function AddressFields({
                 onChange={(patch) => onChange(toAddressPatch(patch))}
             />
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                <StepInput label="Label" value={address.label} onChange={(value) => onChange({label: value})}/>
                 <StepInput label="Address line 1" value={address.line1} onChange={(value) => onChange({line1: value})}/>
                 <StepInput label="City" value={address.city} onChange={(value) => onChange({city: value})}/>
                 <StepStateField label="State" countryIso2={address.country} value={address.state} onChange={(value) => onChange({state: value})}/>
-                <StepInput label="Province / region" value={address.province} onChange={(value) => onChange({province: value})}/>
                 <StepInput label="Postal code" value={address.postalCode} onChange={(value) => onChange({postalCode: value})}/>
                 <StepCountryField label="Country" value={address.country} onChange={(value) => onChange({country: value})}/>
                 <StepInput label="Latitude" value={address.latitude} onChange={(value) => onChange({latitude: value})}/>
