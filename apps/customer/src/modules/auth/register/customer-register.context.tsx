@@ -17,8 +17,8 @@ import {
     getStepByIndex,
     getStepIndex,
 } from "./customer-register.utils.ts"
-import {CustomerQueryKeys, useResponseFieldErrorHandler} from "@suiteonix/server";
-import {customerApi} from "@suiteonix/server";
+import {CustomerQueryKeys, customerApi, useResponseFieldErrorHandler} from "@suiteonix/server";
+import type {CustomerModel} from "@suiteonix/server";
 
 const CustomerRegisterContext = createContext<CustomerRegisterContextValue | null>(null)
 
@@ -29,9 +29,10 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
     const [stepId, setStepId] = useState<CustomerRegisterStepID>("intro")
     const [successEmail, setSuccessEmail] = useState<string>()
 
-    const createAccount = useMutation({
+    const createAccount = useMutation<CustomerModel.Detailed, unknown, CustomerRegisterDraft>({
         mutationFn: (body: CustomerRegisterDraft) =>
             customerApi.createSelfAccount({
+                // @ts-ignore
                 data: buildCustomerSelfAccountPayload(body),
                 avatar: body.avatar,
             }, {errHandler}),
