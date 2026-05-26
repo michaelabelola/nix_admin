@@ -77,7 +77,7 @@ export function CustomerRegisterStepLayout({
                             Guided registration
                         </div>
                         <p className="mt-2 text-xs leading-5 text-background/70">
-                            Required fields are kept to credentials and display name. Everything else can be refined later.
+                            Required fields are kept to credentials. Profile details can be refined later.
                         </p>
                     </div>
                 </div>

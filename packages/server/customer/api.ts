@@ -5,6 +5,26 @@ import {PageUtil} from "@suiteonix/models"
 import type {CustomerModel} from "./model.ts"
 import type {TagModel} from "../tags/model.ts"
 
+function buildSelfCreateFormData({data, avatar}: CustomerModel.SelfCreateRequest) {
+    const formData = new FormData()
+    formData.append(
+        "data",
+        new Blob(
+            [
+                JSON.stringify({
+                    ...data,
+                    contact: data.contact ?? {},
+                }),
+            ],
+            {type: "application/json"},
+        ),
+    )
+    if (avatar) {
+        formData.append("avatar", avatar)
+    }
+    return formData
+}
+
 class CustomerApi {
     query(params?: CustomerModel.Query, init?: Partial<RequestHelperInit>) {
         const query = PageUtil.appendRequestToParam(params)
@@ -29,13 +49,11 @@ class CustomerApi {
         })
     }
 
-    createSelfAccount(body: CustomerModel.SelfCreate, init?: Partial<RequestHelperInit>) {
+    createSelfAccount(body: CustomerModel.SelfCreateRequest, init?: Partial<RequestHelperInit>) {
         return Backend.request<CustomerModel.Detailed>("/customer/self", {
             method: "POST",
-            body: {
-                ...body,
-                contact: body.contact ?? {},
-            },
+            body: buildSelfCreateFormData(body),
+            contentType: "omit",
             ...init,
         })
     }

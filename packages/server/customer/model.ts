@@ -78,6 +78,8 @@ export namespace CustomerModel {
         longitude?: number | null
     }
 
+    export type CreateAddress = Omit<Address, "id">
+
     export type Preferences = {
         marketingConsent?: boolean | null
         emailNotifications?: boolean | null
@@ -92,11 +94,7 @@ export namespace CustomerModel {
         website?: string | null
     }
 
-    export type SelfPreferences = {
-        marketingConsent?: boolean | null
-        emailNotifications?: boolean | null
-        smsNotifications?: boolean | null
-    }
+    export type SelfPreferences = Preferences
 
     export type CustomerSegment = {
         id: string
@@ -162,12 +160,17 @@ export namespace CustomerModel {
         personalDetail?: PersonalDetail
         language?: string
         contact?: SelfContact
-        billingAddress?: Address
+        billingAddress?: CreateAddress
         sameAsBillingAddress?: boolean
-        shippingAddress?: Address
-        preferences?: SelfPreferences
+        shippingAddress?: CreateAddress
+        preferences?: Preferences
         email: string
         password: string
+    }
+
+    export type SelfCreateRequest = {
+        data: SelfCreate
+        avatar?: File | null
     }
 
     export type Update = Create & {

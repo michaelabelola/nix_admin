@@ -81,7 +81,7 @@ export namespace CustomerRequest {
 
         return {
             ...useMutation({
-                mutationFn: (body: CustomerModel.SelfCreate) => customerApi.createSelfAccount(body, {errHandler}),
+                mutationFn: (body: CustomerModel.SelfCreateRequest) => customerApi.createSelfAccount(body, {errHandler}),
                 onSuccess: async (data) => {
                     await queryClient.invalidateQueries({queryKey: CustomerQueryKeys.root})
                     successHandler?.(data)

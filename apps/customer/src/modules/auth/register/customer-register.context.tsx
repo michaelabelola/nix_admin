@@ -31,7 +31,10 @@ export function CustomerRegisterProvider({children}: { children: React.ReactNode
 
     const createAccount = useMutation({
         mutationFn: (body: CustomerRegisterDraft) =>
-            customerApi.createSelfAccount(buildCustomerSelfAccountPayload(body), {errHandler}),
+            customerApi.createSelfAccount({
+                data: buildCustomerSelfAccountPayload(body),
+                avatar: body.avatar,
+            }, {errHandler}),
         onSuccess: async (_data, submittedDraft) => {
             await queryClient.invalidateQueries({queryKey: CustomerQueryKeys.root})
             setSuccessEmail(submittedDraft.email.trim())

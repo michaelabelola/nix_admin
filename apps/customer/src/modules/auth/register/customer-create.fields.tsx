@@ -123,6 +123,31 @@ export function StepInput({
     )
 }
 
+export function StepFileInput({
+                                  label,
+                                  fileName,
+                                  onChange,
+                                  description,
+                                  accept,
+                              }: {
+    label: string
+    fileName?: string
+    onChange: (file: File | null) => void
+    description?: string
+    accept?: string
+}) {
+    return (
+        <StepField label={label} description={description}>
+            <Input
+                type="file"
+                accept={accept}
+                onChange={(event) => onChange(event.target.files?.[0] ?? null)}
+            />
+            {fileName ? <p className="text-xs text-muted-foreground">{fileName}</p> : null}
+        </StepField>
+    )
+}
+
 export function StepDatePicker({
                                    label,
                                    value,

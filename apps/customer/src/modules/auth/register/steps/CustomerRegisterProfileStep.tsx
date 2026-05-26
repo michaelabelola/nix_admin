@@ -3,6 +3,7 @@ import {UserRound} from "lucide-react"
 import {
     StepCountryField,
     StepDatePicker,
+    StepFileInput,
     StepInput,
     StepSection,
     StepSelect
@@ -42,6 +43,12 @@ export function CustomerRegisterProfileStep() {
                         placeholder="Jane Smith"
                         onChange={(value) => updateDraft({displayName: value})}
                     />
+                    <StepFileInput
+                        label="Avatar"
+                        accept="image/*"
+                        fileName={draft.avatar?.name}
+                        onChange={(avatar) => updateDraft({avatar})}
+                    />
                     <StepInput label="Title" value={personal.title} placeholder="Ms."
                                onChange={(value) => updatePersonalDetail({title: value})}/>
                     <StepSelect label="Gender" value={personal.gender} placeholder="Select gender"
@@ -51,6 +58,14 @@ export function CustomerRegisterProfileStep() {
                                     disabled={(date) => date > new Date()}/>
                     <StepInput label="Nationality" value={personal.nationality}
                                onChange={(value) => updatePersonalDetail({nationality: value})}/>
+                    <StepInput label="Passport number" value={personal.passportNumber}
+                               onChange={(value) => updatePersonalDetail({passportNumber: value})}/>
+                    <StepInput label="National ID" value={personal.nationalID}
+                               onChange={(value) => updatePersonalDetail({nationalID: value})}/>
+                    <StepInput label="Marital status" value={personal.maritalStatus}
+                               onChange={(value) => updatePersonalDetail({maritalStatus: value})}/>
+                    <StepInput label="Mother's maiden name" value={personal.mothersMaidenName}
+                               onChange={(value) => updatePersonalDetail({mothersMaidenName: value})}/>
                     <StepCountryField label="Country of birth" value={personal.countryOfBirth}
                                       onChange={(value) => updatePersonalDetail({countryOfBirth: value})}/>
                     <StepInput label="Profession" value={personal.profession}
