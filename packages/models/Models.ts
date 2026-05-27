@@ -30,6 +30,7 @@ export enum NixModule {
     PRODUCT = "PRODUCT",
     INTERACTION = "INTERACTION",
     FINANCE = "FINANCE",
+    DEPARTMENT = "DEPARTMENT",
     TAG = "TAG",
     PRICING = "PRICING",
     LISTING = "LISTING",

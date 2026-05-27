@@ -5,6 +5,7 @@ export * from './auth';
 export * from './auth-profile';
 export * from './currency';
 export * from './customer';
+export * from './department';
 export * from './files-storage';
 export * from './finance';
 export * from './listing';

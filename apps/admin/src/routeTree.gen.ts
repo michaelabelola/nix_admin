@@ -28,19 +28,23 @@ import { Route as AuthenticatedSelfOrganizationsRouteRouteImport } from './route
 import { Route as AuthenticatedAdminTagsRouteRouteImport } from './routes/_authenticated/admin/tags/route'
 import { Route as AuthenticatedAdminRealEstateRouteRouteImport } from './routes/_authenticated/admin/real-estate/route'
 import { Route as AuthenticatedAdminFinanceRouteRouteImport } from './routes/_authenticated/admin/finance/route'
+import { Route as AuthenticatedAdminDepartmentsRouteRouteImport } from './routes/_authenticated/admin/departments/route'
 import { Route as AuthenticatedAdminCustomersRouteRouteImport } from './routes/_authenticated/admin/customers/route'
 import { Route as AuthenticatedAdminAppsRouteRouteImport } from './routes/_authenticated/admin/apps/route'
 import { Route as AuthenticatedSelfOrganizationsIndexRouteImport } from './routes/_authenticated/self/organizations/index'
 import { Route as AuthenticatedAdminTagsIndexRouteImport } from './routes/_authenticated/admin/tags/index'
 import { Route as AuthenticatedAdminListingsIndexRouteImport } from './routes/_authenticated/admin/listings/index'
 import { Route as AuthenticatedAdminFinanceIndexRouteImport } from './routes/_authenticated/admin/finance/index'
+import { Route as AuthenticatedAdminDepartmentsIndexRouteImport } from './routes/_authenticated/admin/departments/index'
 import { Route as AuthenticatedAdminCustomersIndexRouteImport } from './routes/_authenticated/admin/customers/index'
 import { Route as AuthenticatedAdminAppsIndexRouteImport } from './routes/_authenticated/admin/apps/index'
 import { Route as AuthenticatedSelfOrganizationsDashboardRouteImport } from './routes/_authenticated/self/organizations/dashboard'
 import { Route as AuthenticatedAdminListingsCreateRouteImport } from './routes/_authenticated/admin/listings/create'
 import { Route as AuthenticatedAdminListingsListingIdRouteImport } from './routes/_authenticated/admin/listings/$listingId'
+import { Route as AuthenticatedAdminDepartmentsCreateRouteImport } from './routes/_authenticated/admin/departments/create'
 import { Route as AuthenticatedAdminAppsAppIdRouteImport } from './routes/_authenticated/admin/apps/$appId'
 import { Route as AuthenticatedSelfOrganizationsRegisterRouteRouteImport } from './routes/_authenticated/self/organizations/register/route'
+import { Route as AuthenticatedAdminDepartmentsDepartmentIdRouteRouteImport } from './routes/_authenticated/admin/departments/$departmentId/route'
 import { Route as AuthenticatedAdminCustomersCreateRouteRouteImport } from './routes/_authenticated/admin/customers/create/route'
 import { Route as AuthenticatedAdminCustomersCustomerIdRouteRouteImport } from './routes/_authenticated/admin/customers/$customerId/route'
 import { Route as AuthenticatedAdminAppsCreateRouteRouteImport } from './routes/_authenticated/admin/apps/create/route'
@@ -53,6 +57,7 @@ import { Route as AuthenticatedAdminListingsDashboardIndexRouteImport } from './
 import { Route as AuthenticatedAdminFinanceTransactionsIndexRouteImport } from './routes/_authenticated/admin/finance/transactions/index'
 import { Route as AuthenticatedAdminFinanceDashboardIndexRouteImport } from './routes/_authenticated/admin/finance/dashboard/index'
 import { Route as AuthenticatedAdminFinanceAccountsIndexRouteImport } from './routes/_authenticated/admin/finance/accounts/index'
+import { Route as AuthenticatedAdminDepartmentsDepartmentIdIndexRouteImport } from './routes/_authenticated/admin/departments/$departmentId/index'
 import { Route as AuthenticatedAdminCustomersCreateIndexRouteImport } from './routes/_authenticated/admin/customers/create/index'
 import { Route as AuthenticatedAdminCustomersCustomerIdIndexRouteImport } from './routes/_authenticated/admin/customers/$customerId/index'
 import { Route as AuthenticatedAdminAppsDashboardIndexRouteImport } from './routes/_authenticated/admin/apps/dashboard/index'
@@ -67,6 +72,8 @@ import { Route as AuthenticatedSelfOrganizationsRegisterContactRouteImport } fro
 import { Route as AuthenticatedSelfOrganizationsRegisterBioRouteImport } from './routes/_authenticated/self/organizations/register/bio'
 import { Route as AuthenticatedSelfOrganizationsRegisterAvatarRouteImport } from './routes/_authenticated/self/organizations/register/avatar'
 import { Route as AuthenticatedSelfOrganizationsRegisterAddressRouteImport } from './routes/_authenticated/self/organizations/register/address'
+import { Route as AuthenticatedAdminDepartmentsDepartmentIdMembersRouteImport } from './routes/_authenticated/admin/departments/$departmentId/members'
+import { Route as AuthenticatedAdminDepartmentsDepartmentIdDetailsRouteImport } from './routes/_authenticated/admin/departments/$departmentId/details'
 import { Route as AuthenticatedAdminCustomersCreateTagsRouteImport } from './routes/_authenticated/admin/customers/create/tags'
 import { Route as AuthenticatedAdminCustomersCreateReviewRouteImport } from './routes/_authenticated/admin/customers/create/review'
 import { Route as AuthenticatedAdminCustomersCreatePreferencesRouteImport } from './routes/_authenticated/admin/customers/create/preferences'
@@ -221,6 +228,12 @@ const AuthenticatedAdminFinanceRouteRoute =
     path: '/finance',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminDepartmentsRouteRoute =
+  AuthenticatedAdminDepartmentsRouteRouteImport.update({
+    id: '/departments',
+    path: '/departments',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminCustomersRouteRoute =
   AuthenticatedAdminCustomersRouteRouteImport.update({
     id: '/customers',
@@ -257,6 +270,12 @@ const AuthenticatedAdminFinanceIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedAdminFinanceRouteRoute,
   } as any)
+const AuthenticatedAdminDepartmentsIndexRoute =
+  AuthenticatedAdminDepartmentsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminDepartmentsRouteRoute,
+  } as any)
 const AuthenticatedAdminCustomersIndexRoute =
   AuthenticatedAdminCustomersIndexRouteImport.update({
     id: '/',
@@ -287,6 +306,12 @@ const AuthenticatedAdminListingsListingIdRoute =
     path: '/listings/$listingId',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminDepartmentsCreateRoute =
+  AuthenticatedAdminDepartmentsCreateRouteImport.update({
+    id: '/create',
+    path: '/create',
+    getParentRoute: () => AuthenticatedAdminDepartmentsRouteRoute,
+  } as any)
 const AuthenticatedAdminAppsAppIdRoute =
   AuthenticatedAdminAppsAppIdRouteImport.update({
     id: '/$appId',
@@ -298,6 +323,12 @@ const AuthenticatedSelfOrganizationsRegisterRouteRoute =
     id: '/register',
     path: '/register',
     getParentRoute: () => AuthenticatedSelfOrganizationsRouteRoute,
+  } as any)
+const AuthenticatedAdminDepartmentsDepartmentIdRouteRoute =
+  AuthenticatedAdminDepartmentsDepartmentIdRouteRouteImport.update({
+    id: '/$departmentId',
+    path: '/$departmentId',
+    getParentRoute: () => AuthenticatedAdminDepartmentsRouteRoute,
   } as any)
 const AuthenticatedAdminCustomersCreateRouteRoute =
   AuthenticatedAdminCustomersCreateRouteRouteImport.update({
@@ -370,6 +401,12 @@ const AuthenticatedAdminFinanceAccountsIndexRoute =
     id: '/accounts/',
     path: '/accounts/',
     getParentRoute: () => AuthenticatedAdminFinanceRouteRoute,
+  } as any)
+const AuthenticatedAdminDepartmentsDepartmentIdIndexRoute =
+  AuthenticatedAdminDepartmentsDepartmentIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminDepartmentsDepartmentIdRouteRoute,
   } as any)
 const AuthenticatedAdminCustomersCreateIndexRoute =
   AuthenticatedAdminCustomersCreateIndexRouteImport.update({
@@ -454,6 +491,18 @@ const AuthenticatedSelfOrganizationsRegisterAddressRoute =
     id: '/address',
     path: '/address',
     getParentRoute: () => AuthenticatedSelfOrganizationsRegisterRouteRoute,
+  } as any)
+const AuthenticatedAdminDepartmentsDepartmentIdMembersRoute =
+  AuthenticatedAdminDepartmentsDepartmentIdMembersRouteImport.update({
+    id: '/members',
+    path: '/members',
+    getParentRoute: () => AuthenticatedAdminDepartmentsDepartmentIdRouteRoute,
+  } as any)
+const AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute =
+  AuthenticatedAdminDepartmentsDepartmentIdDetailsRouteImport.update({
+    id: '/details',
+    path: '/details',
+    getParentRoute: () => AuthenticatedAdminDepartmentsDepartmentIdRouteRoute,
   } as any)
 const AuthenticatedAdminCustomersCreateTagsRoute =
   AuthenticatedAdminCustomersCreateTagsRouteImport.update({
@@ -862,6 +911,7 @@ export interface FileRoutesByFullPath {
   '/demo/i18n': typeof DemoI18nRoute
   '/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
   '/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
+  '/admin/departments': typeof AuthenticatedAdminDepartmentsRouteRouteWithChildren
   '/admin/finance': typeof AuthenticatedAdminFinanceRouteRouteWithChildren
   '/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
@@ -872,13 +922,16 @@ export interface FileRoutesByFullPath {
   '/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
   '/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
   '/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
+  '/admin/departments/$departmentId': typeof AuthenticatedAdminDepartmentsDepartmentIdRouteRouteWithChildren
   '/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/admin/apps/$appId': typeof AuthenticatedAdminAppsAppIdRoute
+  '/admin/departments/create': typeof AuthenticatedAdminDepartmentsCreateRoute
   '/admin/listings/$listingId': typeof AuthenticatedAdminListingsListingIdRoute
   '/admin/listings/create': typeof AuthenticatedAdminListingsCreateRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/admin/apps/': typeof AuthenticatedAdminAppsIndexRoute
   '/admin/customers/': typeof AuthenticatedAdminCustomersIndexRoute
+  '/admin/departments/': typeof AuthenticatedAdminDepartmentsIndexRoute
   '/admin/finance/': typeof AuthenticatedAdminFinanceIndexRoute
   '/admin/listings/': typeof AuthenticatedAdminListingsIndexRoute
   '/admin/tags/': typeof AuthenticatedAdminTagsIndexRoute
@@ -898,6 +951,8 @@ export interface FileRoutesByFullPath {
   '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
   '/admin/customers/create/tags': typeof AuthenticatedAdminCustomersCreateTagsRoute
+  '/admin/departments/$departmentId/details': typeof AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute
+  '/admin/departments/$departmentId/members': typeof AuthenticatedAdminDepartmentsDepartmentIdMembersRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -912,6 +967,7 @@ export interface FileRoutesByFullPath {
   '/admin/apps/dashboard/': typeof AuthenticatedAdminAppsDashboardIndexRoute
   '/admin/customers/$customerId/': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
   '/admin/customers/create/': typeof AuthenticatedAdminCustomersCreateIndexRoute
+  '/admin/departments/$departmentId/': typeof AuthenticatedAdminDepartmentsDepartmentIdIndexRoute
   '/admin/finance/accounts/': typeof AuthenticatedAdminFinanceAccountsIndexRoute
   '/admin/finance/dashboard/': typeof AuthenticatedAdminFinanceDashboardIndexRoute
   '/admin/finance/transactions/': typeof AuthenticatedAdminFinanceTransactionsIndexRoute
@@ -976,11 +1032,13 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api_docs': typeof DocsApi_docsIndexRoute
   '/admin/apps/$appId': typeof AuthenticatedAdminAppsAppIdRoute
+  '/admin/departments/create': typeof AuthenticatedAdminDepartmentsCreateRoute
   '/admin/listings/$listingId': typeof AuthenticatedAdminListingsListingIdRoute
   '/admin/listings/create': typeof AuthenticatedAdminListingsCreateRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/admin/apps': typeof AuthenticatedAdminAppsIndexRoute
   '/admin/customers': typeof AuthenticatedAdminCustomersIndexRoute
+  '/admin/departments': typeof AuthenticatedAdminDepartmentsIndexRoute
   '/admin/finance': typeof AuthenticatedAdminFinanceIndexRoute
   '/admin/listings': typeof AuthenticatedAdminListingsIndexRoute
   '/admin/tags': typeof AuthenticatedAdminTagsIndexRoute
@@ -997,6 +1055,8 @@ export interface FileRoutesByTo {
   '/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
   '/admin/customers/create/tags': typeof AuthenticatedAdminCustomersCreateTagsRoute
+  '/admin/departments/$departmentId/details': typeof AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute
+  '/admin/departments/$departmentId/members': typeof AuthenticatedAdminDepartmentsDepartmentIdMembersRoute
   '/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -1011,6 +1071,7 @@ export interface FileRoutesByTo {
   '/admin/apps/dashboard': typeof AuthenticatedAdminAppsDashboardIndexRoute
   '/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
   '/admin/customers/create': typeof AuthenticatedAdminCustomersCreateIndexRoute
+  '/admin/departments/$departmentId': typeof AuthenticatedAdminDepartmentsDepartmentIdIndexRoute
   '/admin/finance/accounts': typeof AuthenticatedAdminFinanceAccountsIndexRoute
   '/admin/finance/dashboard': typeof AuthenticatedAdminFinanceDashboardIndexRoute
   '/admin/finance/transactions': typeof AuthenticatedAdminFinanceTransactionsIndexRoute
@@ -1076,6 +1137,7 @@ export interface FileRoutesById {
   '/_landing/': typeof LandingIndexRoute
   '/_authenticated/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
   '/_authenticated/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
+  '/_authenticated/admin/departments': typeof AuthenticatedAdminDepartmentsRouteRouteWithChildren
   '/_authenticated/admin/finance': typeof AuthenticatedAdminFinanceRouteRouteWithChildren
   '/_authenticated/admin/real-estate': typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   '/_authenticated/admin/tags': typeof AuthenticatedAdminTagsRouteRouteWithChildren
@@ -1086,13 +1148,16 @@ export interface FileRoutesById {
   '/_authenticated/admin/apps/create': typeof AuthenticatedAdminAppsCreateRouteRouteWithChildren
   '/_authenticated/admin/customers/$customerId': typeof AuthenticatedAdminCustomersCustomerIdRouteRouteWithChildren
   '/_authenticated/admin/customers/create': typeof AuthenticatedAdminCustomersCreateRouteRouteWithChildren
+  '/_authenticated/admin/departments/$departmentId': typeof AuthenticatedAdminDepartmentsDepartmentIdRouteRouteWithChildren
   '/_authenticated/self/organizations/register': typeof AuthenticatedSelfOrganizationsRegisterRouteRouteWithChildren
   '/_authenticated/admin/apps/$appId': typeof AuthenticatedAdminAppsAppIdRoute
+  '/_authenticated/admin/departments/create': typeof AuthenticatedAdminDepartmentsCreateRoute
   '/_authenticated/admin/listings/$listingId': typeof AuthenticatedAdminListingsListingIdRoute
   '/_authenticated/admin/listings/create': typeof AuthenticatedAdminListingsCreateRoute
   '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/_authenticated/admin/apps/': typeof AuthenticatedAdminAppsIndexRoute
   '/_authenticated/admin/customers/': typeof AuthenticatedAdminCustomersIndexRoute
+  '/_authenticated/admin/departments/': typeof AuthenticatedAdminDepartmentsIndexRoute
   '/_authenticated/admin/finance/': typeof AuthenticatedAdminFinanceIndexRoute
   '/_authenticated/admin/listings/': typeof AuthenticatedAdminListingsIndexRoute
   '/_authenticated/admin/tags/': typeof AuthenticatedAdminTagsIndexRoute
@@ -1112,6 +1177,8 @@ export interface FileRoutesById {
   '/_authenticated/admin/customers/create/preferences': typeof AuthenticatedAdminCustomersCreatePreferencesRoute
   '/_authenticated/admin/customers/create/review': typeof AuthenticatedAdminCustomersCreateReviewRoute
   '/_authenticated/admin/customers/create/tags': typeof AuthenticatedAdminCustomersCreateTagsRoute
+  '/_authenticated/admin/departments/$departmentId/details': typeof AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute
+  '/_authenticated/admin/departments/$departmentId/members': typeof AuthenticatedAdminDepartmentsDepartmentIdMembersRoute
   '/_authenticated/self/organizations/register/address': typeof AuthenticatedSelfOrganizationsRegisterAddressRoute
   '/_authenticated/self/organizations/register/avatar': typeof AuthenticatedSelfOrganizationsRegisterAvatarRoute
   '/_authenticated/self/organizations/register/bio': typeof AuthenticatedSelfOrganizationsRegisterBioRoute
@@ -1126,6 +1193,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/apps/dashboard/': typeof AuthenticatedAdminAppsDashboardIndexRoute
   '/_authenticated/admin/customers/$customerId/': typeof AuthenticatedAdminCustomersCustomerIdIndexRoute
   '/_authenticated/admin/customers/create/': typeof AuthenticatedAdminCustomersCreateIndexRoute
+  '/_authenticated/admin/departments/$departmentId/': typeof AuthenticatedAdminDepartmentsDepartmentIdIndexRoute
   '/_authenticated/admin/finance/accounts/': typeof AuthenticatedAdminFinanceAccountsIndexRoute
   '/_authenticated/admin/finance/dashboard/': typeof AuthenticatedAdminFinanceDashboardIndexRoute
   '/_authenticated/admin/finance/transactions/': typeof AuthenticatedAdminFinanceTransactionsIndexRoute
@@ -1190,6 +1258,7 @@ export interface FileRouteTypes {
     | '/demo/i18n'
     | '/admin/apps'
     | '/admin/customers'
+    | '/admin/departments'
     | '/admin/finance'
     | '/admin/real-estate'
     | '/admin/tags'
@@ -1200,13 +1269,16 @@ export interface FileRouteTypes {
     | '/admin/apps/create'
     | '/admin/customers/$customerId'
     | '/admin/customers/create'
+    | '/admin/departments/$departmentId'
     | '/self/organizations/register'
     | '/admin/apps/$appId'
+    | '/admin/departments/create'
     | '/admin/listings/$listingId'
     | '/admin/listings/create'
     | '/self/organizations/dashboard'
     | '/admin/apps/'
     | '/admin/customers/'
+    | '/admin/departments/'
     | '/admin/finance/'
     | '/admin/listings/'
     | '/admin/tags/'
@@ -1226,6 +1298,8 @@ export interface FileRouteTypes {
     | '/admin/customers/create/preferences'
     | '/admin/customers/create/review'
     | '/admin/customers/create/tags'
+    | '/admin/departments/$departmentId/details'
+    | '/admin/departments/$departmentId/members'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -1240,6 +1314,7 @@ export interface FileRouteTypes {
     | '/admin/apps/dashboard/'
     | '/admin/customers/$customerId/'
     | '/admin/customers/create/'
+    | '/admin/departments/$departmentId/'
     | '/admin/finance/accounts/'
     | '/admin/finance/dashboard/'
     | '/admin/finance/transactions/'
@@ -1304,11 +1379,13 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api_docs'
     | '/admin/apps/$appId'
+    | '/admin/departments/create'
     | '/admin/listings/$listingId'
     | '/admin/listings/create'
     | '/self/organizations/dashboard'
     | '/admin/apps'
     | '/admin/customers'
+    | '/admin/departments'
     | '/admin/finance'
     | '/admin/listings'
     | '/admin/tags'
@@ -1325,6 +1402,8 @@ export interface FileRouteTypes {
     | '/admin/customers/create/preferences'
     | '/admin/customers/create/review'
     | '/admin/customers/create/tags'
+    | '/admin/departments/$departmentId/details'
+    | '/admin/departments/$departmentId/members'
     | '/self/organizations/register/address'
     | '/self/organizations/register/avatar'
     | '/self/organizations/register/bio'
@@ -1339,6 +1418,7 @@ export interface FileRouteTypes {
     | '/admin/apps/dashboard'
     | '/admin/customers/$customerId'
     | '/admin/customers/create'
+    | '/admin/departments/$departmentId'
     | '/admin/finance/accounts'
     | '/admin/finance/dashboard'
     | '/admin/finance/transactions'
@@ -1403,6 +1483,7 @@ export interface FileRouteTypes {
     | '/_landing/'
     | '/_authenticated/admin/apps'
     | '/_authenticated/admin/customers'
+    | '/_authenticated/admin/departments'
     | '/_authenticated/admin/finance'
     | '/_authenticated/admin/real-estate'
     | '/_authenticated/admin/tags'
@@ -1413,13 +1494,16 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/apps/create'
     | '/_authenticated/admin/customers/$customerId'
     | '/_authenticated/admin/customers/create'
+    | '/_authenticated/admin/departments/$departmentId'
     | '/_authenticated/self/organizations/register'
     | '/_authenticated/admin/apps/$appId'
+    | '/_authenticated/admin/departments/create'
     | '/_authenticated/admin/listings/$listingId'
     | '/_authenticated/admin/listings/create'
     | '/_authenticated/self/organizations/dashboard'
     | '/_authenticated/admin/apps/'
     | '/_authenticated/admin/customers/'
+    | '/_authenticated/admin/departments/'
     | '/_authenticated/admin/finance/'
     | '/_authenticated/admin/listings/'
     | '/_authenticated/admin/tags/'
@@ -1439,6 +1523,8 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/customers/create/preferences'
     | '/_authenticated/admin/customers/create/review'
     | '/_authenticated/admin/customers/create/tags'
+    | '/_authenticated/admin/departments/$departmentId/details'
+    | '/_authenticated/admin/departments/$departmentId/members'
     | '/_authenticated/self/organizations/register/address'
     | '/_authenticated/self/organizations/register/avatar'
     | '/_authenticated/self/organizations/register/bio'
@@ -1453,6 +1539,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/apps/dashboard/'
     | '/_authenticated/admin/customers/$customerId/'
     | '/_authenticated/admin/customers/create/'
+    | '/_authenticated/admin/departments/$departmentId/'
     | '/_authenticated/admin/finance/accounts/'
     | '/_authenticated/admin/finance/dashboard/'
     | '/_authenticated/admin/finance/transactions/'
@@ -1646,6 +1733,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFinanceRouteRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/departments': {
+      id: '/_authenticated/admin/departments'
+      path: '/departments'
+      fullPath: '/admin/departments'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/customers': {
       id: '/_authenticated/admin/customers'
       path: '/customers'
@@ -1688,6 +1782,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminFinanceIndexRouteImport
       parentRoute: typeof AuthenticatedAdminFinanceRouteRoute
     }
+    '/_authenticated/admin/departments/': {
+      id: '/_authenticated/admin/departments/'
+      path: '/'
+      fullPath: '/admin/departments/'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminDepartmentsRouteRoute
+    }
     '/_authenticated/admin/customers/': {
       id: '/_authenticated/admin/customers/'
       path: '/'
@@ -1723,6 +1824,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminListingsListingIdRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/departments/create': {
+      id: '/_authenticated/admin/departments/create'
+      path: '/create'
+      fullPath: '/admin/departments/create'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsCreateRouteImport
+      parentRoute: typeof AuthenticatedAdminDepartmentsRouteRoute
+    }
     '/_authenticated/admin/apps/$appId': {
       id: '/_authenticated/admin/apps/$appId'
       path: '/$appId'
@@ -1736,6 +1844,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/self/organizations/register'
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRouteRoute
+    }
+    '/_authenticated/admin/departments/$departmentId': {
+      id: '/_authenticated/admin/departments/$departmentId'
+      path: '/$departmentId'
+      fullPath: '/admin/departments/$departmentId'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminDepartmentsRouteRoute
     }
     '/_authenticated/admin/customers/create': {
       id: '/_authenticated/admin/customers/create'
@@ -1820,6 +1935,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/finance/accounts/'
       preLoaderRoute: typeof AuthenticatedAdminFinanceAccountsIndexRouteImport
       parentRoute: typeof AuthenticatedAdminFinanceRouteRoute
+    }
+    '/_authenticated/admin/departments/$departmentId/': {
+      id: '/_authenticated/admin/departments/$departmentId/'
+      path: '/'
+      fullPath: '/admin/departments/$departmentId/'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdRouteRoute
     }
     '/_authenticated/admin/customers/create/': {
       id: '/_authenticated/admin/customers/create/'
@@ -1918,6 +2040,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/self/organizations/register/address'
       preLoaderRoute: typeof AuthenticatedSelfOrganizationsRegisterAddressRouteImport
       parentRoute: typeof AuthenticatedSelfOrganizationsRegisterRouteRoute
+    }
+    '/_authenticated/admin/departments/$departmentId/members': {
+      id: '/_authenticated/admin/departments/$departmentId/members'
+      path: '/members'
+      fullPath: '/admin/departments/$departmentId/members'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdMembersRouteImport
+      parentRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdRouteRoute
+    }
+    '/_authenticated/admin/departments/$departmentId/details': {
+      id: '/_authenticated/admin/departments/$departmentId/details'
+      path: '/details'
+      fullPath: '/admin/departments/$departmentId/details'
+      preLoaderRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdDetailsRouteImport
+      parentRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdRouteRoute
     }
     '/_authenticated/admin/customers/create/tags': {
       id: '/_authenticated/admin/customers/create/tags'
@@ -2431,6 +2567,48 @@ const AuthenticatedAdminCustomersRouteRouteWithChildren =
     AuthenticatedAdminCustomersRouteRouteChildren,
   )
 
+interface AuthenticatedAdminDepartmentsDepartmentIdRouteRouteChildren {
+  AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute
+  AuthenticatedAdminDepartmentsDepartmentIdMembersRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdMembersRoute
+  AuthenticatedAdminDepartmentsDepartmentIdIndexRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdIndexRoute
+}
+
+const AuthenticatedAdminDepartmentsDepartmentIdRouteRouteChildren: AuthenticatedAdminDepartmentsDepartmentIdRouteRouteChildren =
+  {
+    AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute:
+      AuthenticatedAdminDepartmentsDepartmentIdDetailsRoute,
+    AuthenticatedAdminDepartmentsDepartmentIdMembersRoute:
+      AuthenticatedAdminDepartmentsDepartmentIdMembersRoute,
+    AuthenticatedAdminDepartmentsDepartmentIdIndexRoute:
+      AuthenticatedAdminDepartmentsDepartmentIdIndexRoute,
+  }
+
+const AuthenticatedAdminDepartmentsDepartmentIdRouteRouteWithChildren =
+  AuthenticatedAdminDepartmentsDepartmentIdRouteRoute._addFileChildren(
+    AuthenticatedAdminDepartmentsDepartmentIdRouteRouteChildren,
+  )
+
+interface AuthenticatedAdminDepartmentsRouteRouteChildren {
+  AuthenticatedAdminDepartmentsDepartmentIdRouteRoute: typeof AuthenticatedAdminDepartmentsDepartmentIdRouteRouteWithChildren
+  AuthenticatedAdminDepartmentsCreateRoute: typeof AuthenticatedAdminDepartmentsCreateRoute
+  AuthenticatedAdminDepartmentsIndexRoute: typeof AuthenticatedAdminDepartmentsIndexRoute
+}
+
+const AuthenticatedAdminDepartmentsRouteRouteChildren: AuthenticatedAdminDepartmentsRouteRouteChildren =
+  {
+    AuthenticatedAdminDepartmentsDepartmentIdRouteRoute:
+      AuthenticatedAdminDepartmentsDepartmentIdRouteRouteWithChildren,
+    AuthenticatedAdminDepartmentsCreateRoute:
+      AuthenticatedAdminDepartmentsCreateRoute,
+    AuthenticatedAdminDepartmentsIndexRoute:
+      AuthenticatedAdminDepartmentsIndexRoute,
+  }
+
+const AuthenticatedAdminDepartmentsRouteRouteWithChildren =
+  AuthenticatedAdminDepartmentsRouteRoute._addFileChildren(
+    AuthenticatedAdminDepartmentsRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminFinanceAccountsAccountIdRouteRouteChildren {
   AuthenticatedAdminFinanceAccountsAccountIdDashboardRoute: typeof AuthenticatedAdminFinanceAccountsAccountIdDashboardRoute
   AuthenticatedAdminFinanceAccountsAccountIdInfoRoute: typeof AuthenticatedAdminFinanceAccountsAccountIdInfoRoute
@@ -2768,6 +2946,7 @@ const AuthenticatedAdminTagsRouteRouteWithChildren =
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAppsRouteRoute: typeof AuthenticatedAdminAppsRouteRouteWithChildren
   AuthenticatedAdminCustomersRouteRoute: typeof AuthenticatedAdminCustomersRouteRouteWithChildren
+  AuthenticatedAdminDepartmentsRouteRoute: typeof AuthenticatedAdminDepartmentsRouteRouteWithChildren
   AuthenticatedAdminFinanceRouteRoute: typeof AuthenticatedAdminFinanceRouteRouteWithChildren
   AuthenticatedAdminRealEstateRouteRoute: typeof AuthenticatedAdminRealEstateRouteRouteWithChildren
   AuthenticatedAdminTagsRouteRoute: typeof AuthenticatedAdminTagsRouteRouteWithChildren
@@ -2785,6 +2964,8 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
       AuthenticatedAdminAppsRouteRouteWithChildren,
     AuthenticatedAdminCustomersRouteRoute:
       AuthenticatedAdminCustomersRouteRouteWithChildren,
+    AuthenticatedAdminDepartmentsRouteRoute:
+      AuthenticatedAdminDepartmentsRouteRouteWithChildren,
     AuthenticatedAdminFinanceRouteRoute:
       AuthenticatedAdminFinanceRouteRouteWithChildren,
     AuthenticatedAdminRealEstateRouteRoute:
