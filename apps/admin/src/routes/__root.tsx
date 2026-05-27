@@ -26,7 +26,8 @@ interface MyRouterContext {
 }
 
 const THEME_INIT_SCRIPT = `(function(){try{var stored=window.localStorage.getItem('theme');var mode=(stored==='light'||stored==='dark'||stored==='auto')?stored:'auto';var prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;var resolved=mode==='auto'?(prefersDark?'dark':'light'):mode;var root=document.documentElement;root.classList.remove('light','dark');root.classList.add(resolved);if(mode==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',mode)}root.style.colorScheme=resolved;}catch(e){}})();`
-
+const appTitle: string = "Suiteonix Admin Portal";
+const appDescription: string = "Suiteonix is a real estate operations platform built for agencies, property managers, and leasing teams. Manage listings, track leasing activity, and keep rentals, leases, and sales moving from one place.";
 export const Route = createRootRouteWithContext<MyRouterContext>()({
     beforeLoad: async () => {
         // Other redirect strategies are possible; see
@@ -50,29 +51,30 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
             },
             {
                 name: "description",
-                content: ""
+                content: appDescription
             },
             {
                 name: "twitter:title",
-                content: ""
+                content: appTitle
             },
             {
                 name: "twitter:description",
-                content: ""
+                content: appDescription
             },
             {
                 name: "og:title",
-                content: ""
+                content: appTitle
             },
             {
                 name: "og:description",
-                content: ""
+                content: appDescription
             }
         ],
         links: [
             {
                 rel: 'stylesheet',
                 href: appCss,
+                precedence: 'low'
             },
         ],
     }),

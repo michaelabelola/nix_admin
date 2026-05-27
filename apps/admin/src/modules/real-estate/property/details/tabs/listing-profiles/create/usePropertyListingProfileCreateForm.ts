@@ -65,7 +65,6 @@ export function usePropertyListingProfileCreateForm({
             params: {propertyId},
         })
     })
-
     useEffect(() => {
         setFormState(buildInitialFormState(property))
     }, [property?.id])
