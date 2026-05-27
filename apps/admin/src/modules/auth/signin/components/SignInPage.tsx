@@ -47,7 +47,9 @@ export function SignInPage({initialEmail}: { initialEmail?: string }) {
                                 <Link to="/signup">Register account</Link>
                             </Button>
                             <Button asChild variant="outline">
-                                <Link to="/resend-verification-email">Forgot Password?</Link>
+                                <Link to="/resend-verification-email" search={{
+                                    email: initialEmail ?? "",
+                                }}>Forgot Password?</Link>
                             </Button>
                         </ButtonGroup>
                     </div>

@@ -12,5 +12,6 @@ export const Route = createFileRoute('/_landing/login')({
 function LoginRoute() {
     const search = Route.useSearch()
 
-    return <SignInPage initialEmail={search.email}/>
+    return <SignInPage initialEmail={
+        (search.email !== "admin" && search.email !== "customer") ? search.email : undefined}/>
 }
