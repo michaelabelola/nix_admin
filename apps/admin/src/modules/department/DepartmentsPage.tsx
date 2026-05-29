@@ -181,8 +181,8 @@ function createDepartmentColumns(): Array<ColumnDef<DepartmentModel.Department>>
 }
 
 function DepartmentActions({
-    department,
-}: {
+                               department,
+                           }: {
     department: DepartmentModel.Department
 }) {
     const deleteDepartment = DepartmentRequest.useDeleteDepartment(() => {
@@ -281,7 +281,9 @@ export function DepartmentsPage() {
                         initialRequest={{
                             page: 0,
                             size: 10,
-                            sort: [{field: "displayOrder", direction: "ASC"}],
+                            sort: [
+                                {field: "displayOrder", direction: "ASC"}
+                            ]
                         }}
                         filterFields={DEPARTMENT_FILTER_FIELDS}
                         searchPlaceholder="Search departments..."

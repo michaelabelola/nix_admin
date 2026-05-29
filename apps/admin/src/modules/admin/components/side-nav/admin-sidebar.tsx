@@ -36,6 +36,7 @@ import {NavMain} from "#/modules/admin/components/side-nav/nav-main.tsx";
 import {listingNavItems} from "#/modules/listing/nav.tsx";
 import {OrganizationQuickViewPopover} from "#/modules/organization/components/OrganizationQuickViewPopover.tsx";
 import {departmentsNavItems} from "#/modules/department/nav.tsx";
+import {chatNavItems} from "#/modules/chat/nav.tsx";
 
 const data = {
     user: {
@@ -182,7 +183,7 @@ export function AdminSidebar({...props}: ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 <NavMain items={data.navMain}/>
-                {[realEstateNavItems, customerNavItems, listingNavItems, financeNavItems, departmentsNavItems, appNavItems, tagsNavItems].map((item, index) => (
+                {[realEstateNavItems, customerNavItems, listingNavItems, financeNavItems, departmentsNavItems, chatNavItems, appNavItems, tagsNavItems].map((item, index) => (
                     <NavSection key={`${item.title}_${index}`} section={item}/>
                 ))}
                 <NavSecondary items={data.navSecondary} className="mt-auto"/>

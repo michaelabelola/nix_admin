@@ -30,6 +30,7 @@ import { Route as AuthenticatedAdminRealEstateRouteRouteImport } from './routes/
 import { Route as AuthenticatedAdminFinanceRouteRouteImport } from './routes/_authenticated/admin/finance/route'
 import { Route as AuthenticatedAdminDepartmentsRouteRouteImport } from './routes/_authenticated/admin/departments/route'
 import { Route as AuthenticatedAdminCustomersRouteRouteImport } from './routes/_authenticated/admin/customers/route'
+import { Route as AuthenticatedAdminChatsRouteRouteImport } from './routes/_authenticated/admin/chats/route'
 import { Route as AuthenticatedAdminAppsRouteRouteImport } from './routes/_authenticated/admin/apps/route'
 import { Route as AuthenticatedSelfOrganizationsIndexRouteImport } from './routes/_authenticated/self/organizations/index'
 import { Route as AuthenticatedAdminTagsIndexRouteImport } from './routes/_authenticated/admin/tags/index'
@@ -37,6 +38,7 @@ import { Route as AuthenticatedAdminListingsIndexRouteImport } from './routes/_a
 import { Route as AuthenticatedAdminFinanceIndexRouteImport } from './routes/_authenticated/admin/finance/index'
 import { Route as AuthenticatedAdminDepartmentsIndexRouteImport } from './routes/_authenticated/admin/departments/index'
 import { Route as AuthenticatedAdminCustomersIndexRouteImport } from './routes/_authenticated/admin/customers/index'
+import { Route as AuthenticatedAdminChatsIndexRouteImport } from './routes/_authenticated/admin/chats/index'
 import { Route as AuthenticatedAdminAppsIndexRouteImport } from './routes/_authenticated/admin/apps/index'
 import { Route as AuthenticatedSelfOrganizationsDashboardRouteImport } from './routes/_authenticated/self/organizations/dashboard'
 import { Route as AuthenticatedAdminListingsCreateRouteImport } from './routes/_authenticated/admin/listings/create'
@@ -240,6 +242,12 @@ const AuthenticatedAdminCustomersRouteRoute =
     path: '/customers',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminChatsRouteRoute =
+  AuthenticatedAdminChatsRouteRouteImport.update({
+    id: '/chats',
+    path: '/chats',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminAppsRouteRoute =
   AuthenticatedAdminAppsRouteRouteImport.update({
     id: '/apps',
@@ -281,6 +289,12 @@ const AuthenticatedAdminCustomersIndexRoute =
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedAdminCustomersRouteRoute,
+  } as any)
+const AuthenticatedAdminChatsIndexRoute =
+  AuthenticatedAdminChatsIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminChatsRouteRoute,
   } as any)
 const AuthenticatedAdminAppsIndexRoute =
   AuthenticatedAdminAppsIndexRouteImport.update({
@@ -910,6 +924,7 @@ export interface FileRoutesByFullPath {
   '/welcome': typeof LandingWelcomeRoute
   '/demo/i18n': typeof DemoI18nRoute
   '/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
+  '/admin/chats': typeof AuthenticatedAdminChatsRouteRouteWithChildren
   '/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   '/admin/departments': typeof AuthenticatedAdminDepartmentsRouteRouteWithChildren
   '/admin/finance': typeof AuthenticatedAdminFinanceRouteRouteWithChildren
@@ -930,6 +945,7 @@ export interface FileRoutesByFullPath {
   '/admin/listings/create': typeof AuthenticatedAdminListingsCreateRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/admin/apps/': typeof AuthenticatedAdminAppsIndexRoute
+  '/admin/chats/': typeof AuthenticatedAdminChatsIndexRoute
   '/admin/customers/': typeof AuthenticatedAdminCustomersIndexRoute
   '/admin/departments/': typeof AuthenticatedAdminDepartmentsIndexRoute
   '/admin/finance/': typeof AuthenticatedAdminFinanceIndexRoute
@@ -1037,6 +1053,7 @@ export interface FileRoutesByTo {
   '/admin/listings/create': typeof AuthenticatedAdminListingsCreateRoute
   '/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/admin/apps': typeof AuthenticatedAdminAppsIndexRoute
+  '/admin/chats': typeof AuthenticatedAdminChatsIndexRoute
   '/admin/customers': typeof AuthenticatedAdminCustomersIndexRoute
   '/admin/departments': typeof AuthenticatedAdminDepartmentsIndexRoute
   '/admin/finance': typeof AuthenticatedAdminFinanceIndexRoute
@@ -1136,6 +1153,7 @@ export interface FileRoutesById {
   '/demo/i18n': typeof DemoI18nRoute
   '/_landing/': typeof LandingIndexRoute
   '/_authenticated/admin/apps': typeof AuthenticatedAdminAppsRouteRouteWithChildren
+  '/_authenticated/admin/chats': typeof AuthenticatedAdminChatsRouteRouteWithChildren
   '/_authenticated/admin/customers': typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   '/_authenticated/admin/departments': typeof AuthenticatedAdminDepartmentsRouteRouteWithChildren
   '/_authenticated/admin/finance': typeof AuthenticatedAdminFinanceRouteRouteWithChildren
@@ -1156,6 +1174,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/listings/create': typeof AuthenticatedAdminListingsCreateRoute
   '/_authenticated/self/organizations/dashboard': typeof AuthenticatedSelfOrganizationsDashboardRoute
   '/_authenticated/admin/apps/': typeof AuthenticatedAdminAppsIndexRoute
+  '/_authenticated/admin/chats/': typeof AuthenticatedAdminChatsIndexRoute
   '/_authenticated/admin/customers/': typeof AuthenticatedAdminCustomersIndexRoute
   '/_authenticated/admin/departments/': typeof AuthenticatedAdminDepartmentsIndexRoute
   '/_authenticated/admin/finance/': typeof AuthenticatedAdminFinanceIndexRoute
@@ -1257,6 +1276,7 @@ export interface FileRouteTypes {
     | '/welcome'
     | '/demo/i18n'
     | '/admin/apps'
+    | '/admin/chats'
     | '/admin/customers'
     | '/admin/departments'
     | '/admin/finance'
@@ -1277,6 +1297,7 @@ export interface FileRouteTypes {
     | '/admin/listings/create'
     | '/self/organizations/dashboard'
     | '/admin/apps/'
+    | '/admin/chats/'
     | '/admin/customers/'
     | '/admin/departments/'
     | '/admin/finance/'
@@ -1384,6 +1405,7 @@ export interface FileRouteTypes {
     | '/admin/listings/create'
     | '/self/organizations/dashboard'
     | '/admin/apps'
+    | '/admin/chats'
     | '/admin/customers'
     | '/admin/departments'
     | '/admin/finance'
@@ -1482,6 +1504,7 @@ export interface FileRouteTypes {
     | '/demo/i18n'
     | '/_landing/'
     | '/_authenticated/admin/apps'
+    | '/_authenticated/admin/chats'
     | '/_authenticated/admin/customers'
     | '/_authenticated/admin/departments'
     | '/_authenticated/admin/finance'
@@ -1502,6 +1525,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/listings/create'
     | '/_authenticated/self/organizations/dashboard'
     | '/_authenticated/admin/apps/'
+    | '/_authenticated/admin/chats/'
     | '/_authenticated/admin/customers/'
     | '/_authenticated/admin/departments/'
     | '/_authenticated/admin/finance/'
@@ -1747,6 +1771,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminCustomersRouteRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/chats': {
+      id: '/_authenticated/admin/chats'
+      path: '/chats'
+      fullPath: '/admin/chats'
+      preLoaderRoute: typeof AuthenticatedAdminChatsRouteRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/apps': {
       id: '/_authenticated/admin/apps'
       path: '/apps'
@@ -1795,6 +1826,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/customers/'
       preLoaderRoute: typeof AuthenticatedAdminCustomersIndexRouteImport
       parentRoute: typeof AuthenticatedAdminCustomersRouteRoute
+    }
+    '/_authenticated/admin/chats/': {
+      id: '/_authenticated/admin/chats/'
+      path: '/'
+      fullPath: '/admin/chats/'
+      preLoaderRoute: typeof AuthenticatedAdminChatsIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminChatsRouteRoute
     }
     '/_authenticated/admin/apps/': {
       id: '/_authenticated/admin/apps/'
@@ -2483,6 +2521,20 @@ const AuthenticatedAdminAppsRouteRouteWithChildren =
     AuthenticatedAdminAppsRouteRouteChildren,
   )
 
+interface AuthenticatedAdminChatsRouteRouteChildren {
+  AuthenticatedAdminChatsIndexRoute: typeof AuthenticatedAdminChatsIndexRoute
+}
+
+const AuthenticatedAdminChatsRouteRouteChildren: AuthenticatedAdminChatsRouteRouteChildren =
+  {
+    AuthenticatedAdminChatsIndexRoute: AuthenticatedAdminChatsIndexRoute,
+  }
+
+const AuthenticatedAdminChatsRouteRouteWithChildren =
+  AuthenticatedAdminChatsRouteRoute._addFileChildren(
+    AuthenticatedAdminChatsRouteRouteChildren,
+  )
+
 interface AuthenticatedAdminCustomersCustomerIdRouteRouteChildren {
   AuthenticatedAdminCustomersCustomerIdDetailsRoute: typeof AuthenticatedAdminCustomersCustomerIdDetailsRoute
   AuthenticatedAdminCustomersCustomerIdSummaryRoute: typeof AuthenticatedAdminCustomersCustomerIdSummaryRoute
@@ -2945,6 +2997,7 @@ const AuthenticatedAdminTagsRouteRouteWithChildren =
 
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAppsRouteRoute: typeof AuthenticatedAdminAppsRouteRouteWithChildren
+  AuthenticatedAdminChatsRouteRoute: typeof AuthenticatedAdminChatsRouteRouteWithChildren
   AuthenticatedAdminCustomersRouteRoute: typeof AuthenticatedAdminCustomersRouteRouteWithChildren
   AuthenticatedAdminDepartmentsRouteRoute: typeof AuthenticatedAdminDepartmentsRouteRouteWithChildren
   AuthenticatedAdminFinanceRouteRoute: typeof AuthenticatedAdminFinanceRouteRouteWithChildren
@@ -2962,6 +3015,8 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminAppsRouteRoute:
       AuthenticatedAdminAppsRouteRouteWithChildren,
+    AuthenticatedAdminChatsRouteRoute:
+      AuthenticatedAdminChatsRouteRouteWithChildren,
     AuthenticatedAdminCustomersRouteRoute:
       AuthenticatedAdminCustomersRouteRouteWithChildren,
     AuthenticatedAdminDepartmentsRouteRoute:

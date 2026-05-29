@@ -3,6 +3,7 @@ export * from './admin-signin';
 export * from './app';
 export * from './auth';
 export * from './auth-profile';
+export * from './chat';
 export * from './currency';
 export * from './customer';
 export * from './department';

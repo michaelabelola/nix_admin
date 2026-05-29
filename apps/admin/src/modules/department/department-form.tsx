@@ -260,10 +260,11 @@ export function DepartmentAvatarField({
                 value={value}
                 defaultImageUrl={defaultImageUrl}
                 disabled={disabled}
+                cover={true}
                 accept="image/*"
                 aspectRatio="SQUARE"
                 className="items-start"
-                imageClassName="max-h-64 rounded-md border bg-muted object-contain"
+                imageClassName="max-h-64 rounded-md border bg-muted"
                 onChange={onChange}
             />
         </div>

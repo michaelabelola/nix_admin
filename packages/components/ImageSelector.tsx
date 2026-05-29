@@ -21,6 +21,7 @@ export function ImageSelector({
                                   disabled = false,
                                   className,
                                   imageClassName,
+                                  cover = false,
                                   aspectRatio="VIDEO"
                               }: {
     value: File | null
@@ -31,6 +32,7 @@ export function ImageSelector({
     disabled?: boolean
     className?: ClassValue
     imageClassName?: ClassValue
+    cover?: boolean
     aspectRatio?: "VIDEO" | "SQUARE"
 }) {
     const inputId = useId()
@@ -66,6 +68,7 @@ export function ImageSelector({
                         className={cn("aspect-video object-contain object-center w-full",
                             aspectRatio === "VIDEO"?"aspect-video":"",
                             aspectRatio === "SQUARE"?"aspect-square":"",
+                            cover && "object-cover",
                             imageClassName)}
                     />
                 ) : (

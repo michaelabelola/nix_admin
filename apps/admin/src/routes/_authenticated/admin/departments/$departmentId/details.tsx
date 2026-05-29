@@ -1,7 +1,7 @@
 import {createFileRoute} from "@tanstack/react-router"
 
-import {DepartmentDetailsTab} from "#/modules/department/DepartmentDetailsTab.tsx"
-import {DepartmentPage} from "#/modules/department/DepartmentPage.tsx"
+import {DepartmentDetailsTab} from "#/modules/department/detail/DepartmentDetailsTab.tsx"
+import {DepartmentPage} from "#/modules/department/detail/DepartmentPage.tsx"
 import {DepartmentRequest} from "@suiteonix/server"
 
 export const Route = createFileRoute("/_authenticated/admin/departments/$departmentId/details")({

@@ -126,7 +126,7 @@ export function DepartmentMembersPanel({
 
     return (
         <div className="grid gap-6">
-                    <form className="grid gap-3 rounded-md border p-4" onSubmit={(event) => void submitMember(event)}>
+                    <form className="grid gap-3 rounded-md p-4" onSubmit={(event) => void submitMember(event)}>
                         <div className="grid gap-3 md:grid-cols-[1fr_180px_auto] md:items-end">
                             <div className="grid gap-2">
                                 <Label htmlFor="department-member-user-id">User ID</Label>
